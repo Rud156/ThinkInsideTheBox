@@ -50,29 +50,58 @@ namespace Testing
             }
 
 
-            if (Input.GetKeyDown(KeyCode.Alpha0))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                HandleSideRotation(0);
+                HandleSideRotation(0, -1);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha1))
+            else if (Input.GetKeyDown(KeyCode.Q))
             {
-                HandleSideRotation(1);
+                HandleSideRotation(0, 1);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                HandleSideRotation(2);
+                HandleSideRotation(1, -1);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            else if (Input.GetKeyDown(KeyCode.W))
             {
-                HandleSideRotation(3);
+                HandleSideRotation(1, 1);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                HandleSideRotation(4);
+                HandleSideRotation(2, -1);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            else if (Input.GetKeyDown(KeyCode.E))
             {
-                HandleSideRotation(5);
+                HandleSideRotation(2, 1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                HandleSideRotation(3, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                HandleSideRotation(3, 1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                HandleSideRotation(4, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.T))
+            {
+                HandleSideRotation(4, 1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                HandleSideRotation(5, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                HandleSideRotation(5, 1);
             }
         }
 
@@ -103,7 +132,7 @@ namespace Testing
             }
         }
 
-        private void HandleSideRotation(int index)
+        private void HandleSideRotation(int index, int rotaionDirection)
         {
             CubeSide cubeSize = cubeSides[index];
             Vector3 centerPosition = cubeSize.centerRayCastPosition.position;
@@ -160,10 +189,10 @@ namespace Testing
                 );
                 if (raycastSuccess)
                 {
-                    _targetCubes.Add(hit.collider.transform);
+                    _targetCubes.Add(hit.collider.transform.parent);
                     if (hit.collider.CompareTag(CenterBlock))
                     {
-                        _startRotation = hit.collider.transform.eulerAngles;
+                        _startRotation = hit.collider.transform.parent.eulerAngles;
                         _fakeParent.transform.position = hit.collider.transform.position;
                         _fakeParent.transform.rotation = Quaternion.Euler(_startRotation);
                     }
@@ -180,17 +209,17 @@ namespace Testing
             if (xIsNotZero)
             {
                 _targetRotation = _startRotation;
-                _targetRotation.x += rotationIncrementAngle;
+                _targetRotation.x += rotationIncrementAngle * rotaionDirection;
             }
             else if (yIsNotZero)
             {
                 _targetRotation = _startRotation;
-                _targetRotation.y += rotationIncrementAngle;
+                _targetRotation.y += rotationIncrementAngle * rotaionDirection;
             }
             else if (zIsNotZero)
             {
                 _targetRotation = _startRotation;
-                _targetRotation.z += rotationIncrementAngle;
+                _targetRotation.z += rotationIncrementAngle * rotaionDirection;
             }
 
             _lerpRunning = true;
