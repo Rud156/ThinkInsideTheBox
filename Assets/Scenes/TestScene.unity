@@ -1170,7 +1170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838087662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.5471992, y: 0.16706884, z: 0.51383984}
+  m_LocalPosition: {x: 2.55, y: 0.16706884, z: 0.51383984}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 2033252618}
@@ -2159,7 +2159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525256686}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.54719913, y: 0.16706884, z: -2.48616}
+  m_LocalPosition: {x: 0.54719913, y: 0.16706884, z: -1.49}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 2033252618}
@@ -2517,7 +2517,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694460873}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.54719913, y: -2.83, z: 0.51383984}
+  m_LocalPosition: {x: 0.54719913, y: -1.83, z: 0.51383984}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 2033252618}
@@ -2708,34 +2708,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubeSides:
   - centerCube: {fileID: 742718866}
-    rayCastPosition: {fileID: 0}
+    rayCastPosition: {fileID: 2112478170}
     rayCastDirection: {x: 1, y: 0, z: 0}
     adjacentSideIndexes: 
   - centerCube: {fileID: 1513153759}
-    rayCastPosition: {fileID: 0}
+    rayCastPosition: {fileID: 1075853160}
     rayCastDirection: {x: 0, y: 0, z: -1}
     adjacentSideIndexes: 
   - centerCube: {fileID: 2082915453}
-    rayCastPosition: {fileID: 0}
+    rayCastPosition: {fileID: 838087663}
     rayCastDirection: {x: -1, y: 0, z: 0}
     adjacentSideIndexes: 
   - centerCube: {fileID: 1665597057}
-    rayCastPosition: {fileID: 0}
+    rayCastPosition: {fileID: 1525256687}
     rayCastDirection: {x: 0, y: 0, z: 1}
     adjacentSideIndexes: 
   - centerCube: {fileID: 1639276995}
-    rayCastPosition: {fileID: 0}
+    rayCastPosition: {fileID: 2007167469}
     rayCastDirection: {x: 0, y: -1, z: 0}
     adjacentSideIndexes: 
   - centerCube: {fileID: 1244482769}
-    rayCastPosition: {fileID: 0}
+    rayCastPosition: {fileID: 1694460874}
     rayCastDirection: {x: 0, y: 1, z: 0}
     adjacentSideIndexes: 
-  sideSize: 0
-  rayCastDistance: 0
+  sideSize: 1
+  rayCastDistance: 3
   cubeParent: {fileID: 1037596725}
   lerpSpeed: 1
-  minDifferenceBetweenAngles: 0
+  minDifferenceBetweenAngles: 3
   readTimeout: 7
   rotationMultiplier: 9
 --- !u!1 &1846420744
@@ -3125,7 +3125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007167468}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.54719913, y: 3.167069, z: 0.51383984}
+  m_LocalPosition: {x: 0.54719913, y: 2.17, z: 0.51383984}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 2033252618}
