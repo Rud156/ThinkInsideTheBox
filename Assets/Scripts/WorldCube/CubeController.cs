@@ -108,7 +108,8 @@ namespace WorldCube
 
                 int sideIndex = fakeParentData.sideIndex;
                 _sideCurrentRotations[sideIndex] =
-                    (int) Mathf.Lerp(_sideCurrentRotations[sideIndex], _sideTargetRotations[sideIndex], lerpSpeed * Time.deltaTime);
+                    (int) Mathf.Lerp(_sideCurrentRotations[sideIndex], _sideTargetRotations[sideIndex],
+                        lerpSpeed * Time.deltaTime);
 
                 Vector3 currentRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
                 fakeParentData.parent.transform.rotation = Quaternion.Euler(currentRotation);
@@ -116,7 +117,8 @@ namespace WorldCube
                 _fakeParents[i] = fakeParentData;
 
                 // UnParent the object when they reach the final rotation angle
-                if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <= minDifferenceBetweenAngles)
+                if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
+                    minDifferenceBetweenAngles)
                 {
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
                     Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
@@ -279,7 +281,11 @@ namespace WorldCube
 
                 sideIndex = sideIndex,
                 targetRotation = _sideTargetRotations[sideIndex],
-                targetRotationVector = targetRotation
+                targetRotationVector = targetRotation,
+
+                xIsNotZero = xIsNotZero,
+                yIsNotZero = yIsNotZero,
+                zIsNotZero = xIsNotZero
             };
             _fakeParents.Add(fakeParentData);
         }
@@ -323,12 +329,28 @@ namespace WorldCube
             public float targetRotation;
             public int sideIndex;
 
-            public bool targetReached;
+            public bool xIsNotZero;
+            public bool yIsNotZero;
+            public bool zIsNotZero;
 
             public Vector3 GetVectorRotation(int rotation)
             {
-                // TODO: Complete this function
-                return Vector3.zero;
+                Vector3 vectorRotation = Vector3.zero;
+
+                if (xIsNotZero)
+                {
+                    vectorRotation.x = rotation;
+                }
+                else if (yIsNotZero)
+                {
+                    vectorRotation.y = rotation;
+                }
+                else if (zIsNotZero)
+                {
+                    vectorRotation.z = rotation;
+                }
+
+                return vectorRotation;
             }
         }
 

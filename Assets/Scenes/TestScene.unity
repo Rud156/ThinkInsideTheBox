@@ -1372,6 +1372,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047376849}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1054426758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1054426759}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1054426759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054426758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1813484976}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1075853159
 GameObject:
   m_ObjectHideFlags: 0
@@ -2643,7 +2674,7 @@ GameObject:
   - component: {fileID: 1813484976}
   - component: {fileID: 1813484977}
   m_Layer: 0
-  m_Name: TestCubeRotator
+  m_Name: Cube Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2656,12 +2687,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813484975}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1054426759}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1813484977
 MonoBehaviour:
@@ -2675,35 +2706,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7541ce2966f533a488bc1399358d764c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeParent: {fileID: 1037596725}
-  sideDifference: 1
-  rotationIncrementAngle: 90
-  lerpSpeed: 1
   cubeSides:
   - centerCube: {fileID: 742718866}
-    centerRayCastPosition: {fileID: 2112478170}
-    raycastDistance: 3
+    rayCastPosition: {fileID: 0}
     rayCastDirection: {x: 1, y: 0, z: 0}
+    adjacentSideIndexes: 
   - centerCube: {fileID: 1513153759}
-    centerRayCastPosition: {fileID: 1075853160}
-    raycastDistance: 3
+    rayCastPosition: {fileID: 0}
     rayCastDirection: {x: 0, y: 0, z: -1}
+    adjacentSideIndexes: 
   - centerCube: {fileID: 2082915453}
-    centerRayCastPosition: {fileID: 838087663}
-    raycastDistance: 3
+    rayCastPosition: {fileID: 0}
     rayCastDirection: {x: -1, y: 0, z: 0}
+    adjacentSideIndexes: 
   - centerCube: {fileID: 1665597057}
-    centerRayCastPosition: {fileID: 1525256687}
-    raycastDistance: 3
+    rayCastPosition: {fileID: 0}
     rayCastDirection: {x: 0, y: 0, z: 1}
+    adjacentSideIndexes: 
   - centerCube: {fileID: 1639276995}
-    centerRayCastPosition: {fileID: 2007167469}
-    raycastDistance: 3
+    rayCastPosition: {fileID: 0}
     rayCastDirection: {x: 0, y: -1, z: 0}
+    adjacentSideIndexes: 
   - centerCube: {fileID: 1244482769}
-    centerRayCastPosition: {fileID: 1694460874}
-    raycastDistance: 3
+    rayCastPosition: {fileID: 0}
     rayCastDirection: {x: 0, y: 1, z: 0}
+    adjacentSideIndexes: 
+  sideSize: 0
+  rayCastDistance: 0
+  cubeParent: {fileID: 1037596725}
+  lerpSpeed: 1
+  minDifferenceBetweenAngles: 0
+  readTimeout: 7
+  rotationMultiplier: 9
 --- !u!1 &1846420744
 GameObject:
   m_ObjectHideFlags: 0
