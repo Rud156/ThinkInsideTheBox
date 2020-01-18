@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_TransparencyTest
+  m_Name: M_TransparencyTest 1
   m_Shader: {fileID: -6465566751694194690, guid: 40cf474983735d342bf298c641d61831,
     type: 3}
   m_ShaderKeywords: 
@@ -66,6 +66,7 @@ Material:
     - Vector1_4A77C987: 0
     - Vector1_7144CA61: 0.15
     - Vector1_AC0218B1: 30
+    - _Alpha: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -76,7 +77,9 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _IsCollided: 0
     - _Metallic: 0
+    - _MinTransparency: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -88,7 +91,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_C4D47023: {r: 1, g: 0, b: 0, a: 1}
+    - Color_C4D47023: {r: 0, g: 0, b: 1, a: 1}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
