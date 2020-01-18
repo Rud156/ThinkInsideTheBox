@@ -27,7 +27,6 @@ namespace WorldCube
         private List<float> _sideCurrentRotations;
 
         private SerialPort _serialPort;
-        private string _lastInputType;
 
         #region Unity Functions
 
@@ -85,8 +84,12 @@ namespace WorldCube
         {
             try
             {
-                string input = _serialPort.ReadLine().Trim();
-                Debug.Log($"Input: {input}");
+                string input = _serialPort.ReadLine();
+                Debug.Log(input);
+
+                string[] splitInput = input.Split(':');
+                string sideInput = splitInput[0];
+                string directionString = splitInput[1];
 
                 switch (input)
                 {
@@ -94,18 +97,18 @@ namespace WorldCube
                     case "Right":
                     case "Front":
                     case "Back":
-                        _lastInputType = input;
+                        sideInput = input;
                         break;
 
                     default:
                     {
-                        bool parseSuccess = int.TryParse(input, out int direction);
+                        bool parseSuccess = int.TryParse(directionString, out int direction);
                         if (!parseSuccess)
                         {
                             return;
                         }
 
-                        switch (_lastInputType)
+                        switch (sideInput)
                         {
                             case "Left":
                                 CheckAndUpdateRotation(1, direction);

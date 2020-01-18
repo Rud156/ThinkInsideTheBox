@@ -28,11 +28,9 @@ void loop() {
     stateCounter[0] += 1;
     if (stateCounter[0] % 4 == 0) {
       if (newLeft < positionLeft) {
-        Serial.println("Left");
-        Serial.println("1");
+        Serial.println("Left:1");
       } else {
-        Serial.println("Left");
-        Serial.println("-1");
+        Serial.println("Left:-1");
       }
     }
     positionLeft = newLeft;
@@ -40,11 +38,9 @@ void loop() {
     stateCounter[1] += 1;
     if (stateCounter[1] % 4 == 0) {
       if (newRight < positionRight) {
-        Serial.println("Right");
-        Serial.println("1");
+        Serial.println("Right:1");
       } else {
-        Serial.println("Right");
-        Serial.println("-1");
+        Serial.println("Right:-1");
       }
     }
     positionRight = newRight;
@@ -52,11 +48,9 @@ void loop() {
     stateCounter[2] += 1;
     if (stateCounter[2] % 4 == 0) {
       if (newFront < positionFront) {
-        Serial.println("Front");
-        Serial.println("1");
+        Serial.println("Front:1");
       } else {
-        Serial.println("Front");
-        Serial.println("-1");
+        Serial.println("Front:-1");
       }
     }
     positionFront = newFront;
@@ -64,11 +58,9 @@ void loop() {
     stateCounter[3] += 1;
     if (stateCounter[3] % 4 == 0) {
       if (newBack < positionBack) {
-        Serial.println("Back");
-        Serial.println("1");
+        Serial.println("Back:1");
       } else {
-        Serial.println("Back");
-        Serial.println("-1");
+        Serial.println("Back:-1");
       }
     }
     positionBack = newBack;
