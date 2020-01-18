@@ -23,8 +23,8 @@ namespace WorldCube
         public int rotationMultiplier = 9;
 
         private List<FakeParentData> _fakeParents;
-        [SerializeField] private List<float> _sideTargetRotations;
-        [SerializeField] private List<float> _sideCurrentRotations;
+        private List<float> _sideTargetRotations;
+        private List<float> _sideCurrentRotations;
 
         private SerialPort _serialPort;
         private string _lastInputType;
@@ -245,9 +245,9 @@ namespace WorldCube
 
             // Find all the positions from where the rayCasts will fire
             List<Vector3> positions = new List<Vector3>();
-            for (int i = -sideSize; i <= sideSize; i++)
+            for (int i = -sideSize; i <= sideSize; i += sideSize)
             {
-                for (int j = -sideSize; j <= sideSize; j++)
+                for (int j = -sideSize; j <= sideSize; j += sideSize)
                 {
                     float xValue = 0;
                     float yValue = 0;
@@ -289,10 +289,10 @@ namespace WorldCube
                 );
                 if (raycastSuccess)
                 {
-                    childCubes.Add(hit.collider.transform);
+                    childCubes.Add(hit.collider.transform.parent);
                     if (hit.collider.CompareTag(CenterBlock))
                     {
-                        startRotation = hit.collider.transform.eulerAngles;
+                        startRotation = hit.collider.transform.parent.eulerAngles;
                         fakeParent.transform.position = hit.collider.transform.position;
                         fakeParent.transform.rotation = Quaternion.Euler(startRotation);
                     }
