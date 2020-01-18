@@ -8,7 +8,6 @@ namespace WorldCube
     public class CubeController : MonoBehaviour
     {
         private const string CenterBlock = "CenterBlock";
-        private const string ParentCube = "SideCubeParent";
 
         private const int RotationLocker = 90;
 
@@ -24,8 +23,8 @@ namespace WorldCube
         public int rotationMultiplier = 9;
 
         private List<FakeParentData> _fakeParents;
-        private List<int> _sideTargetRotations;
-        private List<int> _sideCurrentRotations;
+        [SerializeField] private List<float> _sideTargetRotations;
+        [SerializeField] private List<float> _sideCurrentRotations;
 
         private SerialPort _serialPort;
         private string _lastInputType;
@@ -35,20 +34,38 @@ namespace WorldCube
         private void Start()
         {
             _fakeParents = new List<FakeParentData>();
-            _sideTargetRotations = new List<int>();
-            _sideCurrentRotations = new List<int>();
+            _sideTargetRotations = new List<float>();
+            _sideCurrentRotations = new List<float>();
 
-            _serialPort = new SerialPort("COM4", 9600);
+            string[] ports = SerialPort.GetPortNames();
+            string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
+            Debug.Log($"Target Port: {portName}");
+
+            _serialPort = new SerialPort(portName, 9600);
             _serialPort.ReadTimeout = readTimeout;
-            if (_serialPort.IsOpen)
+            if (!_serialPort.IsOpen)
             {
                 _serialPort.Open();
+                Debug.Log("Port is Closed. Opening");
             }
 
             for (int i = 0; i < cubeSides.Count; i++)
             {
                 _sideCurrentRotations.Add(0);
                 _sideTargetRotations.Add(0);
+
+                CubeSide cubeSide = cubeSides[i];
+                cubeSide.adjacentSideIndexes = new List<int>();
+                for (int j = 0; j < cubeSide.adjacentSideCenters.Count; j++)
+                {
+                    int sideIndex = GetAdjacentSideIndex(cubeSide.adjacentSideCenters[j]);
+                    if (sideIndex != -1)
+                    {
+                        cubeSide.adjacentSideIndexes.Add(sideIndex);
+                    }
+                }
+
+                cubeSides[i] = cubeSide;
             }
         }
 
@@ -58,39 +75,65 @@ namespace WorldCube
             UpdateParentRotations();
         }
 
+        private void OnApplicationQuit() => _serialPort.Close();
+
         #endregion
 
         #region Arduino
 
         private void ReadInput()
         {
-            string input = _serialPort.ReadLine();
-            switch (input)
+            try
             {
-                case "A":
-                case "B":
-                    _lastInputType = input;
-                    break;
+                string input = _serialPort.ReadLine().Trim();
+                Debug.Log($"Input: {input}");
 
-                default:
+                switch (input)
                 {
-                    int direction = int.Parse(input);
-                    switch (_lastInputType)
+                    case "Left":
+                    case "Right":
+                    case "Front":
+                    case "Back":
+                        _lastInputType = input;
+                        break;
+
+                    default:
                     {
-                        case "A":
-                            CheckAndUpdateRotation(0, direction);
-                            break;
+                        bool parseSuccess = int.TryParse(input, out int direction);
+                        if (!parseSuccess)
+                        {
+                            return;
+                        }
 
-                        case "B":
-                            CheckAndUpdateRotation(1, direction);
-                            break;
+                        switch (_lastInputType)
+                        {
+                            case "Left":
+                                CheckAndUpdateRotation(1, direction);
+                                break;
 
-                        default:
-                            Debug.Log("Invalid Input Sent");
-                            break;
+                            case "Right":
+                                CheckAndUpdateRotation(3, direction);
+                                break;
+
+                            case "Front":
+                                CheckAndUpdateRotation(0, direction);
+                                break;
+
+                            case "Back":
+                                CheckAndUpdateRotation(2, direction);
+                                break;
+
+                            default:
+                                Debug.Log("Invalid Input Sent");
+                                break;
+                        }
                     }
+                        break;
                 }
-                    break;
+            }
+            catch (TimeoutException e)
+            {
+                // Don't do anything. This is not required as there is no input
             }
         }
 
@@ -116,9 +159,11 @@ namespace WorldCube
 
                 _fakeParents[i] = fakeParentData;
 
+                int targetSideRotation = (int) _sideTargetRotations[sideIndex];
+
                 // UnParent the object when they reach the final rotation angle
                 if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
-                    minDifferenceBetweenAngles)
+                    minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
                 {
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
                     Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
@@ -149,7 +194,7 @@ namespace WorldCube
             for (int i = 0; i < cubeSide.adjacentSideIndexes.Count; i++)
             {
                 int index = cubeSide.adjacentSideIndexes[i];
-                int sideRotation = _sideCurrentRotations[index];
+                int sideRotation = (int) _sideCurrentRotations[index];
 
                 if (sideRotation % RotationLocker != 0)
                 {
@@ -160,19 +205,20 @@ namespace WorldCube
 
             if (isRotationPossible)
             {
-                ParentSetter(sideIndex, direction);
+                CheckAndCreateParent(sideIndex, direction);
             }
         }
 
-        private void ParentSetter(int sideIndex, int direction)
+        private void CheckAndCreateParent(int sideIndex, int direction)
         {
             _sideTargetRotations[sideIndex] += direction * rotationMultiplier;
 
-            int currentRotation = _sideCurrentRotations[sideIndex];
-            int targetRotation = _sideTargetRotations[sideIndex];
+            int currentRotation = (int) _sideCurrentRotations[sideIndex];
+            int targetRotation = (int) _sideTargetRotations[sideIndex];
 
             // This is the case when the object needs to parented
-            if (currentRotation % RotationLocker == 0 && targetRotation % RotationLocker != 0)
+            if (currentRotation % RotationLocker == 0 && targetRotation % RotationLocker != 0 &&
+                !SideHasParent(sideIndex))
             {
                 CreateAndSaveParent(sideIndex);
             }
@@ -201,7 +247,7 @@ namespace WorldCube
             List<Vector3> positions = new List<Vector3>();
             for (int i = -sideSize; i <= sideSize; i++)
             {
-                for (int j = -sideSize; i <= sideSize; j++)
+                for (int j = -sideSize; j <= sideSize; j++)
                 {
                     float xValue = 0;
                     float yValue = 0;
@@ -246,7 +292,7 @@ namespace WorldCube
                     childCubes.Add(hit.collider.transform);
                     if (hit.collider.CompareTag(CenterBlock))
                     {
-                        startRotation = hit.collider.transform.parent.eulerAngles;
+                        startRotation = hit.collider.transform.eulerAngles;
                         fakeParent.transform.position = hit.collider.transform.position;
                         fakeParent.transform.rotation = Quaternion.Euler(startRotation);
                     }
@@ -285,14 +331,14 @@ namespace WorldCube
 
                 xIsNotZero = xIsNotZero,
                 yIsNotZero = yIsNotZero,
-                zIsNotZero = xIsNotZero
+                zIsNotZero = zIsNotZero
             };
             _fakeParents.Add(fakeParentData);
         }
 
         private (FakeParentData, int) GetTargetParent(int sideIndex)
         {
-            for (var i = 0; i < _fakeParents.Count; i++)
+            for (int i = 0; i < _fakeParents.Count; i++)
             {
                 FakeParentData fakeParentData = _fakeParents[i];
                 if (fakeParentData.sideIndex == sideIndex)
@@ -302,6 +348,36 @@ namespace WorldCube
             }
 
             throw new Exception("Invalid Index Requested");
+        }
+
+        private bool SideHasParent(int sideIndex)
+        {
+            for (int i = 0; i < _fakeParents.Count; i++)
+            {
+                if (_fakeParents[i].sideIndex == sideIndex)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #region Index Utils
+
+        private int GetAdjacentSideIndex(Transform centerTransform)
+        {
+            for (int i = 0; i < cubeSides.Count; i++)
+            {
+                if (cubeSides[i].centerCube == centerTransform)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         #endregion
@@ -317,7 +393,9 @@ namespace WorldCube
             public Transform rayCastPosition; // Can Be Removed and Calculated
 
             [Header("Direction and Distance")] public Vector3 rayCastDirection;
-            public List<int> adjacentSideIndexes;
+            public List<Transform> adjacentSideCenters;
+
+            [Header("Internal Data")] public List<int> adjacentSideIndexes;
         }
 
         private struct FakeParentData
@@ -333,7 +411,7 @@ namespace WorldCube
             public bool yIsNotZero;
             public bool zIsNotZero;
 
-            public Vector3 GetVectorRotation(int rotation)
+            public Vector3 GetVectorRotation(float rotation)
             {
                 Vector3 vectorRotation = Vector3.zero;
 
