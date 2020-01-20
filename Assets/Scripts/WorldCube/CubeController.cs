@@ -21,6 +21,8 @@ namespace WorldCube
 
         [Header("Arduino")] public int readTimeout = 7;
         public int rotationMultiplier = 9;
+        public bool useForcedPort = false;
+        public string portString = "COM3";
 
         private List<FakeParentData> _fakeParents;
         private List<float> _sideTargetRotations;
@@ -38,6 +40,10 @@ namespace WorldCube
 
             string[] ports = SerialPort.GetPortNames();
             string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
+            if(useForcedPort)
+            {
+                portName = portString;
+            }
             Debug.Log($"Target Port: {portName}");
 
             _serialPort = new SerialPort(portName, 9600);
