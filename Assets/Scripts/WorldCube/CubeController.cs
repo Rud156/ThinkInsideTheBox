@@ -41,7 +41,8 @@ namespace WorldCube
             _sideCurrentRotations = new List<float>();
 
             string[] ports = SerialPort.GetPortNames();
-            string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
+            //string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
+            string portName = "COM4";
             if (useForcedPort)
             {
                 portName = portString;
@@ -53,7 +54,7 @@ namespace WorldCube
             _serialPort.ReadTimeout = readTimeout;
             if (!_serialPort.IsOpen)
             {
-                _serialPort.Open();
+                //_serialPort.Open();
                 Debug.Log("Port is Closed. Opening");
             }
 
@@ -278,6 +279,8 @@ namespace WorldCube
                 if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
                     minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
                 {
+
+                    FindObjectOfType<AudioController>().Play("GearClicking");
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
                     Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
                     fakeParentData.parent.transform.rotation = Quaternion.Euler(currentFinalRotation);
