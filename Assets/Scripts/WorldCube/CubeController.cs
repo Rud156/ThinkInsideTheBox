@@ -284,7 +284,7 @@ namespace WorldCube
                     minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
                 {
 
-                    FindObjectOfType<AudioController>().Play("GearClicking");
+                    //FindObjectOfType<AudioController>().Play("GearClicking");
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
                     Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
                     fakeParentData.parent.transform.rotation = Quaternion.Euler(currentFinalRotation);
