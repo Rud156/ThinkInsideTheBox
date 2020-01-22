@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Utils;
 
 namespace Player
 {
@@ -21,7 +22,7 @@ namespace Player
 
         // Components
         private Rigidbody _playerRb;
-        private BoxCollider _playerCollider;
+        private SphereCollider _playerCollider;
 
         // Player State
         private PlayerState _playerState;
@@ -31,7 +32,7 @@ namespace Player
         private void Start()
         {
             _playerRb = GetComponent<Rigidbody>();
-            _playerCollider = GetComponent<BoxCollider>();
+            _playerCollider = GetComponent<SphereCollider>();
 
             _lastPosition = transform.position;
             _positionReached = true;
@@ -60,6 +61,22 @@ namespace Player
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(TagManager.GridMarker))
+            {
+                transform.SetParent(other.transform.parent.parent);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag(TagManager.GridMarker))
+            {
+                transform.SetParent(null);
+            }
+        }
+
         #endregion
 
         #region External Functions
@@ -74,6 +91,7 @@ namespace Player
             _positionReached = false;
 
             _playerRb.isKinematic = true;
+            _playerRb.useGravity = false;
             _playerCollider.isTrigger = true;
         }
 
@@ -114,6 +132,7 @@ namespace Player
                 _positionReached = true;
 
                 _playerRb.isKinematic = false;
+                _playerRb.useGravity = true;
                 _playerCollider.isTrigger = false;
             }
         }

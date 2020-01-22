@@ -177,6 +177,7 @@ namespace WorldCube
                     case "Right":
                     case "Front":
                     case "Back":
+                    case "Top":
                         sideInput = input;
                         break;
 
@@ -204,6 +205,10 @@ namespace WorldCube
 
                             case "Back":
                                 CheckAndUpdateRotation(2, direction);
+                                break;
+
+                            case "Top":
+                                CheckAndUpdateRotation(4, direction);
                                 break;
 
                             default:

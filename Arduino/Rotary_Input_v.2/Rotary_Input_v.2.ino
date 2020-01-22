@@ -4,25 +4,28 @@ Encoder front(12, 13);
 Encoder back(10, 11);
 Encoder left(8, 9);
 Encoder right(6, 7);
+Encoder top(4, 5);
 
-long stateCounter[4];
+long stateCounter[5];
 
 long positionLeft = -1;
 long positionRight = -1;
 long positionFront = -1;
 long positionBack = -1;
+long positionTop = -1;
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  long newLeft, newRight, newFront, newBack;
+  long newLeft, newRight, newFront, newBack, newTop;
 
   newLeft = left.read();
   newRight = right.read();
   newFront = front.read();
   newBack = back.read();
+  newTop = top.read();
 
   if (newLeft != positionLeft) {
     stateCounter[0] += 1;
@@ -34,7 +37,8 @@ void loop() {
       }
     }
     positionLeft = newLeft;
-  } else if (newRight != positionRight) {
+  } 
+  else if (newRight != positionRight) {
     stateCounter[1] += 1;
     if (stateCounter[1] % 4 == 0) {
       if (newRight < positionRight) {
@@ -44,7 +48,8 @@ void loop() {
       }
     }
     positionRight = newRight;
-  } else if (newFront != positionFront) {
+  } 
+  else if (newFront != positionFront) {
     stateCounter[2] += 1;
     if (stateCounter[2] % 4 == 0) {
       if (newFront < positionFront) {
@@ -54,7 +59,8 @@ void loop() {
       }
     }
     positionFront = newFront;
-  } else if (newBack != positionBack) {
+  } 
+  else if (newBack != positionBack) {
     stateCounter[3] += 1;
     if (stateCounter[3] % 4 == 0) {
       if (newBack < positionBack) {
@@ -64,5 +70,16 @@ void loop() {
       }
     }
     positionBack = newBack;
+  }
+  else if (newTop != positionTop) {
+    stateCounter[4] += 1;
+    if (stateCounter[4] % 4 == 0) {
+      if (newTop < positionTop) {
+        Serial.println("Top:1");
+      } else {
+        Serial.println("Top:-1");
+      }
+    }
+    positionTop = newTop;
   }
 }
