@@ -25,7 +25,6 @@ namespace WorldCube
         public int rotationMultiplier = 9;
         public bool useForcedPort = false;
         public string portString = "COM3";
-        public bool disableSerialPort;
 
         private List<FakeParentData> _fakeParents;
         private List<float> _sideTargetRotations;
@@ -42,16 +41,7 @@ namespace WorldCube
             _sideCurrentRotations = new List<float>();
 
             string[] ports = SerialPort.GetPortNames();
-            string portName = string.Empty;
-            if (disableSerialPort)
-            {
-                portName = portString;
-            }
-            else
-            {
-                portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
-            }
-
+            string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
             if (useForcedPort)
             {
                 portName = portString;
@@ -63,11 +53,7 @@ namespace WorldCube
             _serialPort.ReadTimeout = readTimeout;
             if (!_serialPort.IsOpen)
             {
-                if (!disableSerialPort)
-                {
-                    _serialPort.Open();
-                }
-
+                _serialPort.Open();
                 Debug.Log("Port is Closed. Opening");
             }
 
@@ -297,7 +283,8 @@ namespace WorldCube
                 if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
                     minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
                 {
-                    FindObjectOfType<AudioController>().Play("GearClicking");
+
+                    //FindObjectOfType<AudioController>().Play("GearClicking");
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
                     Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
                     fakeParentData.parent.transform.rotation = Quaternion.Euler(currentFinalRotation);
