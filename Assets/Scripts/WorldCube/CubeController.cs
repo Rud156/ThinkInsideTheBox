@@ -406,7 +406,8 @@ namespace WorldCube
                     if (hit.collider.CompareTag(TagManager.CenterBlock))
                     {
                         startRotation = hit.collider.transform.parent.eulerAngles;
-                        fakeParent.transform.position = hit.collider.transform.position;
+                        Transform centerChild = GetCenterMarker(hit.collider.transform.parent);
+                        fakeParent.transform.position = centerChild.position;
                         fakeParent.transform.rotation = Quaternion.Euler(startRotation);
                     }
                 }
@@ -491,6 +492,20 @@ namespace WorldCube
             }
 
             return -1;
+        }
+
+        private Transform GetCenterMarker(Transform sideParent)
+        {
+            for (int i = 0; i < sideParent.childCount; i++)
+            {
+                Transform child = sideParent.GetChild(i);
+                if (child.CompareTag(TagManager.SideCenterMarker))
+                {
+                    return child;
+                }
+            }
+
+            throw new Exception("Invalid Parent Requested");
         }
 
         #endregion

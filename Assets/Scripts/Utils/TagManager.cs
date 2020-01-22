@@ -4,5 +4,6 @@
     {
         public const string CenterBlock = "CenterBlock";
         public const string GridMarker = "GridMarker";
+        public const string SideCenterMarker = "SideCenterMarker";
     }
 }

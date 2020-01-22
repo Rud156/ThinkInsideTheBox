@@ -21,6 +21,7 @@ namespace Player
 
         // Components
         private Rigidbody _playerRb;
+        private BoxCollider _playerCollider;
 
         // Player State
         private PlayerState _playerState;
@@ -30,6 +31,7 @@ namespace Player
         private void Start()
         {
             _playerRb = GetComponent<Rigidbody>();
+            _playerCollider = GetComponent<BoxCollider>();
 
             _lastPosition = transform.position;
             _positionReached = true;
@@ -72,6 +74,7 @@ namespace Player
             _positionReached = false;
 
             _playerRb.isKinematic = true;
+            _playerCollider.isTrigger = true;
         }
 
         public bool IsPlayerMoving() => !_positionReached;
@@ -109,7 +112,9 @@ namespace Player
             {
                 transform.position = _targetPosition;
                 _positionReached = true;
+
                 _playerRb.isKinematic = false;
+                _playerCollider.isTrigger = false;
             }
         }
 
