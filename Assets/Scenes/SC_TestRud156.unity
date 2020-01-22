@@ -434,6 +434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1813484976}
+  - {fileID: 2144791945}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1243,7 +1244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846420744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 10.93, y: 0, z: -58.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1839,7 +1840,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112478169}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &5656432859668703577
+--- !u!1 &2144791944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2144791945}
+  - component: {fileID: 2144791946}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2144791945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144791944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1054426759}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2144791946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144791944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 415ffc59b7fe85847b88d2897d7ef810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Background
+    clip: {fileID: 8300000, guid: a55a034be733dcc439313508a5770a89, type: 3}
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
+  - name: GearClicking
+    clip: {fileID: 8300000, guid: 000c16f4d11e0fc4db7b072b9a6073a1, type: 3}
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
+  - name: GearTurning-1
+    clip: {fileID: 8300000, guid: 00e9d3c78e2def245bbdd9c5bbf8039f, type: 3}
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
+  - name: GearTurning-2
+    clip: {fileID: 8300000, guid: 0edc649eea10ee345b69b2cf48773c85, type: 3}
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
+  - name: GearTurning-3
+    clip: {fileID: 8300000, guid: 4406bb3d0d270b54f9200d0ca4ec80cc, type: 3}
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
+  - name: GearTurning-4
+    clip: {fileID: 8300000, guid: d60d7c31a9bd8e44d9e3a4f768d57fe8, type: 3}
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
+--- !u!4 &1901693490864001688
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
