@@ -72,7 +72,7 @@ namespace Player
             _positionReached = false;
         }
 
-        public void MakePlayerStatic()
+        public void PreventPlayerMovement()
         {
             _playerState = PlayerState.PlayerStatic;
             _playerRb.isKinematic = true;

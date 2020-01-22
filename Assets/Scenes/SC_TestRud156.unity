@@ -344,7 +344,7 @@ MonoBehaviour:
   movementLerpSpeed: 1
   movementLerpTolerance: 0.97
   posiitionOffset: {x: 0, y: 0.3, z: 0}
-  rotationSpeed: 3
+  rotationSpeed: 7
 --- !u!23 &214810717
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   rightRaycast: {fileID: 976123742}
   forwardRaycast: {fileID: 1257925844}
   backRaycast: {fileID: 1638528195}
-  raycastDistance: 1.5
+  raycastDistance: 3
 --- !u!4 &1067980018
 Transform:
   m_ObjectHideFlags: 0
@@ -2658,6 +2658,7 @@ MonoBehaviour:
   cubeParent: {fileID: 644487507}
   lerpSpeed: 7
   minDifferenceBetweenAngles: 7
+  playerGridMovement: {fileID: 214810716}
   readTimeout: 7
   rotationMultiplier: 9
   useForcedPort: 0

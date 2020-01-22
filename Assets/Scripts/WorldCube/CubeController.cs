@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using Player;
 using UnityEngine;
 using Utils;
 
@@ -17,6 +18,8 @@ namespace WorldCube
         [Header("Parent")] public Transform cubeParent;
         public float lerpSpeed;
         public float minDifferenceBetweenAngles;
+
+        [Header("Player")] public PlayerGridMovement playerGridMovement;
 
         [Header("Arduino")] public int readTimeout = 7;
         public int rotationMultiplier = 9;
@@ -78,6 +81,7 @@ namespace WorldCube
         {
             ReadInput();
             UpdateParentRotations();
+            UpdatePlayerMovementState();
         }
 
         private void OnApplicationQuit() => _serialPort.Close();
@@ -153,6 +157,32 @@ namespace WorldCube
         #endregion
 
         #region Utility Functions
+
+        #region Player Controls
+
+        private void UpdatePlayerMovementState()
+        {
+            bool isMovementAllowed = true;
+            for (int i = 0; i < _sideCurrentRotations.Count; i++)
+            {
+                if (_sideCurrentRotations[i] % 90 != 0)
+                {
+                    isMovementAllowed = false;
+                    break;
+                }
+            }
+
+            if (isMovementAllowed)
+            {
+                playerGridMovement.AllowPlayerMovement();
+            }
+            else
+            {
+                playerGridMovement.PreventPlayerMovement();
+            }
+        }
+
+        #endregion
 
         #region Parent Updates
 
