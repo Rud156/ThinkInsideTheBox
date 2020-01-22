@@ -82,9 +82,67 @@ namespace WorldCube
             ReadInput();
             UpdateParentRotations();
             UpdatePlayerMovementState();
+
+            HandleKeyboardInput();
         }
 
         private void OnApplicationQuit() => _serialPort.Close();
+
+        #endregion
+
+        #region Testing
+
+        private void HandleKeyboardInput()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                CheckAndUpdateRotation(0, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                CheckAndUpdateRotation(0, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                CheckAndUpdateRotation(1, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.T))
+            {
+                CheckAndUpdateRotation(1, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                CheckAndUpdateRotation(2, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                CheckAndUpdateRotation(2, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                CheckAndUpdateRotation(3, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.U))
+            {
+                CheckAndUpdateRotation(3, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                CheckAndUpdateRotation(4, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                CheckAndUpdateRotation(4, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                CheckAndUpdateRotation(5, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                CheckAndUpdateRotation(5, -1);
+            }
+        }
 
         #endregion
 
