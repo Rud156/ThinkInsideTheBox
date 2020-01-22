@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.IO.Ports;
 using UnityEngine;
+using Utils;
 
 namespace WorldCube
 {
     public class CubeController : MonoBehaviour
     {
-        private const string CenterBlock = "CenterBlock";
-
         private const int RotationLocker = 90;
 
         [Header("Sides")] public List<CubeSide> cubeSides;
@@ -40,10 +39,11 @@ namespace WorldCube
 
             string[] ports = SerialPort.GetPortNames();
             string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
-            if(useForcedPort)
+            if (useForcedPort)
             {
                 portName = portString;
             }
+
             Debug.Log($"Target Port: {portName}");
 
             _serialPort = new SerialPort(portName, 9600);
@@ -140,9 +140,13 @@ namespace WorldCube
                         break;
                 }
             }
-            catch (TimeoutException e)
+            catch (TimeoutException te)
             {
                 // Don't do anything. This is not required as there is no input
+            }
+            catch (InvalidOperationException ioe)
+            {
+                // Don't do anything. This is not required as there is nothing connected
             }
         }
 
@@ -299,7 +303,7 @@ namespace WorldCube
                 if (raycastSuccess)
                 {
                     childCubes.Add(hit.collider.transform.parent);
-                    if (hit.collider.CompareTag(CenterBlock))
+                    if (hit.collider.CompareTag(TagManager.CenterBlock))
                     {
                         startRotation = hit.collider.transform.parent.eulerAngles;
                         fakeParent.transform.position = hit.collider.transform.position;

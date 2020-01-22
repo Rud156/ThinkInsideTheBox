@@ -44,8 +44,8 @@ namespace Player
             {
                 case PlayerState.PlayerInControl:
                 {
-                    MovePlayer();
                     OrientPlayerToPosition();
+                    MovePlayer();
                 }
                     break;
 
@@ -97,6 +97,7 @@ namespace Player
                 return;
             }
 
+            _lastPosition = transform.position;
             _lerpAmount += movementLerpSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(_startPosition, _targetPosition, _lerpAmount);
 
@@ -105,12 +106,15 @@ namespace Player
                 transform.position = _targetPosition;
                 _positionReached = true;
             }
-
-            _lastPosition = transform.position;
         }
 
         private void OrientPlayerToPosition()
         {
+            if (_positionReached)
+            {
+                return;
+            }
+
             Vector3 currentPosition = transform.position;
             Vector3 direction = _lastPosition - currentPosition;
 

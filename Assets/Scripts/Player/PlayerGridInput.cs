@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace Player
 {
     public class PlayerGridInput : MonoBehaviour
     {
-        public Transform playerTransform;
+        [Header("Player")] public Transform playerTransform;
+        public PlayerGridMovement playerGridMovement;
 
         [Header("Raycast")] public Transform leftRaycast;
         public Transform rightRaycast;
@@ -18,11 +20,11 @@ namespace Player
         {
             if (Input.GetKeyDown(ControlConstants.Left) || Input.GetKeyDown(ControlConstants.AltLeft))
             {
-                FindTargetRayCast(Vector3.left, leftRaycast.position);
+                FindTargetRayCast(Vector3.right, leftRaycast.position); // TODO: Check why this is opposite
             }
             else if (Input.GetKeyDown(ControlConstants.Right) || Input.GetKeyDown(ControlConstants.AltRight))
             {
-                FindTargetRayCast(Vector3.right, rightRaycast.position);
+                FindTargetRayCast(Vector3.left, rightRaycast.position); // TODO: Check why this is opposite
             }
             else if (Input.GetKeyDown(ControlConstants.Forward) || Input.GetKeyDown(ControlConstants.AltForward))
             {
@@ -44,8 +46,15 @@ namespace Player
 
         private void FindTargetRayCast(Vector3 rayCastDirection, Vector3 position)
         {
+            Debug.DrawRay(position, rayCastDirection, Color.red, 3);
+
             if (Physics.Raycast(position, rayCastDirection, out RaycastHit hit, raycastDistance))
             {
+                if (hit.collider.CompareTag(TagManager.GridMarker))
+                {
+                    Vector3 targetMovementPosition = hit.collider.transform.position;
+                    playerGridMovement.SetPlayerTargetLocation(targetMovementPosition);
+                }
             }
         }
 
