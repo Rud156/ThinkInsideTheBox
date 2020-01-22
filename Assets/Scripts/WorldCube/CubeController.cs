@@ -94,6 +94,12 @@ namespace WorldCube
 
         private void HandleKeyboardInput()
         {
+            if (playerGridMovement.IsPlayerMoving())
+            {
+                // Don't allow the cube to move when the player is moving and vice versa
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 CheckAndUpdateRotation(0, 1);
@@ -150,6 +156,12 @@ namespace WorldCube
 
         private void ReadInput()
         {
+            if (playerGridMovement.IsPlayerMoving())
+            {
+                // Don't allow the cube to move when the player is moving and vice versa
+                return;
+            }
+
             try
             {
                 string input = _serialPort.ReadLine();

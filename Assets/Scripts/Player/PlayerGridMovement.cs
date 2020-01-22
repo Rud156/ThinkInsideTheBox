@@ -70,7 +70,11 @@ namespace Player
             _startPosition = transform.position;
             _lerpAmount = 0;
             _positionReached = false;
+
+            _playerRb.isKinematic = true;
         }
+
+        public bool IsPlayerMoving() => !_positionReached;
 
         public void PreventPlayerMovement()
         {
@@ -105,6 +109,7 @@ namespace Player
             {
                 transform.position = _targetPosition;
                 _positionReached = true;
+                _playerRb.isKinematic = false;
             }
         }
 
