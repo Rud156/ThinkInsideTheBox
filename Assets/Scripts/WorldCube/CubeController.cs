@@ -200,11 +200,11 @@ namespace WorldCube
                                 break;
 
                             case "Front":
-                                CheckAndUpdateRotation(0, direction);
+                                CheckAndUpdateRotation(2, direction);
                                 break;
 
                             case "Back":
-                                CheckAndUpdateRotation(2, direction);
+                                CheckAndUpdateRotation(0, direction);
                                 break;
 
                             case "Top":

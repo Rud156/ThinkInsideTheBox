@@ -1,8 +1,8 @@
 #include "Encoder.h"
 
-Encoder front(12, 13);
+Encoder front(8, 9);
 Encoder back(10, 11);
-Encoder left(8, 9);
+Encoder left(12, 13);
 Encoder right(6, 7);
 Encoder top(4, 5);
 
@@ -42,9 +42,9 @@ void loop() {
     stateCounter[1] += 1;
     if (stateCounter[1] % 4 == 0) {
       if (newRight < positionRight) {
-        Serial.println("Right:1");
-      } else {
         Serial.println("Right:-1");
+      } else {
+        Serial.println("Right:1");
       }
     }
     positionRight = newRight;
@@ -64,9 +64,9 @@ void loop() {
     stateCounter[3] += 1;
     if (stateCounter[3] % 4 == 0) {
       if (newBack < positionBack) {
-        Serial.println("Back:1");
-      } else {
         Serial.println("Back:-1");
+      } else {
+        Serial.println("Back:1");
       }
     }
     positionBack = newBack;
