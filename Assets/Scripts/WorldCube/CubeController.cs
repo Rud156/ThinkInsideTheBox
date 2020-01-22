@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using Player;
 using UnityEngine;
+using Utils;
 
 namespace WorldCube
 {
     public class CubeController : MonoBehaviour
     {
-        private const string CenterBlock = "CenterBlock";
-
         private const int RotationLocker = 90;
 
         [Header("Sides")] public List<CubeSide> cubeSides;
@@ -18,6 +18,8 @@ namespace WorldCube
         [Header("Parent")] public Transform cubeParent;
         public float lerpSpeed;
         public float minDifferenceBetweenAngles;
+
+        [Header("Player")] public PlayerGridMovement playerGridMovement;
 
         [Header("Arduino")] public int readTimeout = 7;
         public int rotationMultiplier = 9;
@@ -40,10 +42,11 @@ namespace WorldCube
 
             string[] ports = SerialPort.GetPortNames();
             string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
-            if(useForcedPort)
+            if (useForcedPort)
             {
                 portName = portString;
             }
+
             Debug.Log($"Target Port: {portName}");
 
             _serialPort = new SerialPort(portName, 9600);
@@ -78,9 +81,74 @@ namespace WorldCube
         {
             ReadInput();
             UpdateParentRotations();
+            UpdatePlayerMovementState();
+
+            HandleKeyboardInput();
         }
 
         private void OnApplicationQuit() => _serialPort.Close();
+
+        #endregion
+
+        #region Testing
+
+        private void HandleKeyboardInput()
+        {
+            if (playerGridMovement.IsPlayerMoving())
+            {
+                // Don't allow the cube to move when the player is moving and vice versa
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                CheckAndUpdateRotation(0, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                CheckAndUpdateRotation(0, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                CheckAndUpdateRotation(1, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.T))
+            {
+                CheckAndUpdateRotation(1, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                CheckAndUpdateRotation(2, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                CheckAndUpdateRotation(2, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                CheckAndUpdateRotation(3, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.U))
+            {
+                CheckAndUpdateRotation(3, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                CheckAndUpdateRotation(4, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                CheckAndUpdateRotation(4, -1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                CheckAndUpdateRotation(5, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                CheckAndUpdateRotation(5, -1);
+            }
+        }
 
         #endregion
 
@@ -88,6 +156,12 @@ namespace WorldCube
 
         private void ReadInput()
         {
+            if (playerGridMovement.IsPlayerMoving())
+            {
+                // Don't allow the cube to move when the player is moving and vice versa
+                return;
+            }
+
             try
             {
                 string input = _serialPort.ReadLine();
@@ -103,6 +177,7 @@ namespace WorldCube
                     case "Right":
                     case "Front":
                     case "Back":
+                    case "Top":
                         sideInput = input;
                         break;
 
@@ -132,6 +207,10 @@ namespace WorldCube
                                 CheckAndUpdateRotation(2, direction);
                                 break;
 
+                            case "Top":
+                                CheckAndUpdateRotation(4, direction);
+                                break;
+
                             default:
                                 Debug.Log("Invalid Input Sent");
                                 break;
@@ -140,15 +219,45 @@ namespace WorldCube
                         break;
                 }
             }
-            catch (TimeoutException e)
+            catch (TimeoutException te)
             {
                 // Don't do anything. This is not required as there is no input
+            }
+            catch (InvalidOperationException ioe)
+            {
+                // Don't do anything. This is not required as there is nothing connected
             }
         }
 
         #endregion
 
         #region Utility Functions
+
+        #region Player Controls
+
+        private void UpdatePlayerMovementState()
+        {
+            bool isMovementAllowed = true;
+            for (int i = 0; i < _sideCurrentRotations.Count; i++)
+            {
+                if (_sideCurrentRotations[i] % 90 != 0)
+                {
+                    isMovementAllowed = false;
+                    break;
+                }
+            }
+
+            if (isMovementAllowed)
+            {
+                playerGridMovement.AllowPlayerMovement();
+            }
+            else
+            {
+                playerGridMovement.PreventPlayerMovement();
+            }
+        }
+
+        #endregion
 
         #region Parent Updates
 
@@ -299,10 +408,11 @@ namespace WorldCube
                 if (raycastSuccess)
                 {
                     childCubes.Add(hit.collider.transform.parent);
-                    if (hit.collider.CompareTag(CenterBlock))
+                    if (hit.collider.CompareTag(TagManager.CenterBlock))
                     {
                         startRotation = hit.collider.transform.parent.eulerAngles;
-                        fakeParent.transform.position = hit.collider.transform.position;
+                        Transform centerChild = GetCenterMarker(hit.collider.transform.parent);
+                        fakeParent.transform.position = centerChild.position;
                         fakeParent.transform.rotation = Quaternion.Euler(startRotation);
                     }
                 }
@@ -387,6 +497,20 @@ namespace WorldCube
             }
 
             return -1;
+        }
+
+        private Transform GetCenterMarker(Transform sideParent)
+        {
+            for (int i = 0; i < sideParent.childCount; i++)
+            {
+                Transform child = sideParent.GetChild(i);
+                if (child.CompareTag(TagManager.SideCenterMarker))
+                {
+                    return child;
+                }
+            }
+
+            throw new Exception("Invalid Parent Requested");
         }
 
         #endregion
