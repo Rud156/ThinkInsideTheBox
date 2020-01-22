@@ -41,8 +41,7 @@ namespace WorldCube
             _sideCurrentRotations = new List<float>();
 
             string[] ports = SerialPort.GetPortNames();
-            //string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
-            string portName = "COM4";
+            string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
             if (useForcedPort)
             {
                 portName = portString;
@@ -54,7 +53,7 @@ namespace WorldCube
             _serialPort.ReadTimeout = readTimeout;
             if (!_serialPort.IsOpen)
             {
-                //_serialPort.Open();
+                _serialPort.Open();
                 Debug.Log("Port is Closed. Opening");
             }
 
