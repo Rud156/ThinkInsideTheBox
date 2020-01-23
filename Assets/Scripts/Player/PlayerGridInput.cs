@@ -6,7 +6,7 @@ namespace Player
     public class PlayerGridInput : MonoBehaviour
     {
         [Header("Player")] public Transform playerTransform;
-        public PlayerGridMovement playerGridMovement;
+        public PlayerGridController playerGridController;
 
         [Header("Raycast")] public Transform leftRaycast;
         public Transform rightRaycast;
@@ -46,14 +46,19 @@ namespace Player
 
         private void FindTargetRayCast(Vector3 rayCastDirection, Vector3 position)
         {
-            Debug.DrawRay(position, rayCastDirection, Color.red, 3);
+            Debug.DrawRay(position, rayCastDirection * raycastDistance, Color.red, 3);
 
             if (Physics.Raycast(position, rayCastDirection, out RaycastHit hit, raycastDistance))
             {
                 if (hit.collider.CompareTag(TagManager.GridMarker))
                 {
                     Vector3 targetMovementPosition = hit.collider.transform.position;
-                    playerGridMovement.SetPlayerTargetLocation(targetMovementPosition);
+                    playerGridController.SetPlayerTargetLocation(targetMovementPosition);
+                }
+                else if (hit.collider.CompareTag(TagManager.WinMarker))
+                {
+                    Vector3 targetMovementPosition = hit.collider.transform.position;
+                    playerGridController.SetPlayerTargetLocation(targetMovementPosition);
                 }
             }
         }

@@ -1,11 +1,13 @@
 ﻿using System;
+using Scenes.Main;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerGridMovement : MonoBehaviour
+    public class PlayerGridController : MonoBehaviour
     {
         [Header("Player Movement")] public float movementLerpSpeed;
         public float movementLerpTolerance;
@@ -38,7 +40,7 @@ namespace Player
             _positionReached = true;
             _lerpAmount = 0;
 
-            _playerState = PlayerState.PlayerInControl;
+            SetPlayerState(PlayerState.PlayerInControl);
         }
 
         private void Update()
@@ -56,6 +58,9 @@ namespace Player
                     // Probably don't do anything here...
                     break;
 
+                case PlayerState.PlayerEndState:
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -66,6 +71,14 @@ namespace Player
             if (other.CompareTag(TagManager.GridMarker))
             {
                 transform.SetParent(other.transform.parent.parent);
+            }
+            else if (other.CompareTag(TagManager.WaterHole))
+            {
+                SetPlayerEndState(false);
+            }
+            else if (other.CompareTag(TagManager.WinMarker))
+            {
+                SetPlayerEndState(true);
             }
         }
 
@@ -99,13 +112,23 @@ namespace Player
 
         public void PreventPlayerMovement()
         {
-            _playerState = PlayerState.PlayerStatic;
+            if (_playerState == PlayerState.PlayerEndState)
+            {
+                return;
+            }
+
+            SetPlayerState(PlayerState.PlayerStatic);
             _playerRb.isKinematic = true;
         }
 
         public void AllowPlayerMovement()
         {
-            _playerState = PlayerState.PlayerInControl;
+            if (_playerState == PlayerState.PlayerEndState)
+            {
+                return;
+            }
+
+            SetPlayerState(PlayerState.PlayerInControl);
             _playerRb.isKinematic = false;
         }
 
@@ -153,6 +176,24 @@ namespace Player
 
         #endregion
 
+        private void SetPlayerEndState(bool didPlayerWin)
+        {
+            SetPlayerState(PlayerState.PlayerEndState);
+            _playerCollider.isTrigger = true;
+
+            if (didPlayerWin)
+            {
+                int buildIndex = SceneManager.GetActiveScene().buildIndex;
+                MainSceneController.Instance.LoadNextLevel(buildIndex + 1);
+            }
+            else
+            {
+                MainSceneController.Instance.ReloadCurrentLevel();
+            }
+        }
+
+        private void SetPlayerState(PlayerState playerState) => _playerState = playerState;
+
         #endregion
 
         #region Enums
@@ -160,7 +201,9 @@ namespace Player
         private enum PlayerState
         {
             PlayerInControl,
-            PlayerStatic
+            PlayerStatic,
+
+            PlayerEndState
         }
 
         #endregion
