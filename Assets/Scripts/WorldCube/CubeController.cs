@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using Audio;
 using Player;
 using UnityEngine;
 using Utils;
@@ -30,6 +31,7 @@ namespace WorldCube
         private List<FakeParentData> _fakeParents;
         private List<float> _sideTargetRotations;
         private List<float> _sideCurrentRotations;
+        private bool ifGearTurnRang;
 
         private SerialPort _serialPort;
 
@@ -281,10 +283,25 @@ namespace WorldCube
             {
                 FakeParentData fakeParentData = _fakeParents[i];
 
+                
                 int sideIndex = fakeParentData.sideIndex;
+
+                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed < (lerpSpeed - 1) && ifGearTurnRang)
+                {
+                    ifGearTurnRang = false;
+                }
+                
                 _sideCurrentRotations[sideIndex] =
                     (int) Mathf.Lerp(_sideCurrentRotations[sideIndex], _sideTargetRotations[sideIndex],
                         lerpSpeed * Time.deltaTime);
+
+                Debug.Log(Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed);
+                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed >= (lerpSpeed-1) && !ifGearTurnRang)
+                {
+                    audioControl.PlaySound(AudioController.AudioEnum.GearTurning);
+                    ifGearTurnRang = true;
+                }
+
 
                 Vector3 currentRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
                 fakeParentData.parent.transform.rotation = Quaternion.Euler(currentRotation);
@@ -297,7 +314,9 @@ namespace WorldCube
                 if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
                     minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
                 {
-                    //FindObjectOfType<AudioController>().Play("GearClicking");
+
+                    audioControl.PlaySound(AudioController.AudioEnum.GearClicking);
+
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
                     Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
                     fakeParentData.parent.transform.rotation = Quaternion.Euler(currentFinalRotation);
