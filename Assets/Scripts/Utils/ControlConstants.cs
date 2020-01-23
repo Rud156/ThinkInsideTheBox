@@ -15,5 +15,8 @@ namespace Utils
 
         public const KeyCode Back = KeyCode.DownArrow;
         public const KeyCode AltBack = KeyCode.S;
+
+        public const KeyCode Restart = KeyCode.R;
+        public const KeyCode Quit = KeyCode.F;
     }
 }

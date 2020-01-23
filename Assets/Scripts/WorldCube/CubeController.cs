@@ -102,7 +102,7 @@ namespace WorldCube
             UpdateParentRotations();
             UpdatePlayerMovementState();
 
-            HandleKeyboardInput();
+            // HandleKeyboardInput();
         }
 
         private void OnApplicationQuit()

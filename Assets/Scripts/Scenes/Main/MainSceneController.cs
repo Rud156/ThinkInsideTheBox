@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace Scenes.Main
 {
@@ -8,14 +9,30 @@ namespace Scenes.Main
     {
         public float waitBeforeLevelLoading = 1;
 
+        #region Unity Functions
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(ControlConstants.Restart))
+            {
+                ReloadCurrentLevel(true);
+            }
+            else if (Input.GetKeyDown(ControlConstants.Quit))
+            {
+                Application.Quit();
+            }
+        }
+
+        #endregion
+
         #region External Functions
 
         #region Level Loading
 
-        public void ReloadCurrentLevel()
+        public void ReloadCurrentLevel(bool instantReload = false)
         {
             int buildIndex = SceneManager.GetActiveScene().buildIndex;
-            StartCoroutine(LoadLevel(buildIndex));
+            StartCoroutine(LoadLevel(buildIndex, instantReload));
         }
 
         public void LoadNextLevel(int index) => StartCoroutine(LoadLevel(index));
@@ -26,9 +43,17 @@ namespace Scenes.Main
 
         #region Utility Functions
 
-        private IEnumerator LoadLevel(int index)
+        private IEnumerator LoadLevel(int index, bool instantLoad = false)
         {
-            yield return new WaitForSeconds(waitBeforeLevelLoading);
+            if (instantLoad)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            else
+            {
+                yield return new WaitForSeconds(waitBeforeLevelLoading);
+            }
+
             SceneManager.LoadScene(index);
         }
 
