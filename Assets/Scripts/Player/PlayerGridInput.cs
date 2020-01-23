@@ -7,6 +7,7 @@ namespace Player
     {
         [Header("Player")] public Transform playerTransform;
         public PlayerGridController playerGridController;
+        public Vector3 followOffset;
 
         [Header("Raycast")] public Transform leftRaycast;
         public Transform rightRaycast;
@@ -42,7 +43,7 @@ namespace Player
 
         #region Utility Functions
 
-        private void FollowPlayer() => transform.position = playerTransform.position;
+        private void FollowPlayer() => transform.position = playerTransform.position + followOffset;
 
         private void FindTargetRayCast(Vector3 rayCastDirection, Vector3 position)
         {

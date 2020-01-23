@@ -105,7 +105,13 @@ namespace WorldCube
             HandleKeyboardInput();
         }
 
-        private void OnApplicationQuit() => _serialPort.Close();
+        private void OnApplicationQuit()
+        {
+            if (_serialPort != null)
+            {
+                _serialPort.Close();
+            }
+        }
 
         #endregion
 
