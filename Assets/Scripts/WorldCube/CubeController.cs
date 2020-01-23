@@ -19,12 +19,13 @@ namespace WorldCube
         public float lerpSpeed;
         public float minDifferenceBetweenAngles;
 
-        [Header("Player")] public PlayerGridMovement playerGridMovement;
+        [Header("Player")] public PlayerGridController playerGridController;
 
         [Header("Arduino")] public int readTimeout = 7;
         public int rotationMultiplier = 9;
         public bool useForcedPort = false;
         public string portString = "COM3";
+        public bool disableSerialPort;
 
         private List<FakeParentData> _fakeParents;
         private List<float> _sideTargetRotations;
@@ -41,7 +42,16 @@ namespace WorldCube
             _sideCurrentRotations = new List<float>();
 
             string[] ports = SerialPort.GetPortNames();
-            string portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
+            string portName;
+            if (disableSerialPort)
+            {
+                portName = portString;
+            }
+            else
+            {
+                portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
+            }
+
             if (useForcedPort)
             {
                 portName = portString;
@@ -53,7 +63,11 @@ namespace WorldCube
             _serialPort.ReadTimeout = readTimeout;
             if (!_serialPort.IsOpen)
             {
-                _serialPort.Open();
+                if (!disableSerialPort)
+                {
+                    _serialPort.Open();
+                }
+
                 Debug.Log("Port is Closed. Opening");
             }
 
@@ -94,7 +108,7 @@ namespace WorldCube
 
         private void HandleKeyboardInput()
         {
-            if (playerGridMovement.IsPlayerMoving())
+            if (playerGridController.IsPlayerMoving())
             {
                 // Don't allow the cube to move when the player is moving and vice versa
                 return;
@@ -156,7 +170,7 @@ namespace WorldCube
 
         private void ReadInput()
         {
-            if (playerGridMovement.IsPlayerMoving())
+            if (playerGridController.IsPlayerMoving())
             {
                 // Don't allow the cube to move when the player is moving and vice versa
                 return;
@@ -249,11 +263,11 @@ namespace WorldCube
 
             if (isMovementAllowed)
             {
-                playerGridMovement.AllowPlayerMovement();
+                playerGridController.AllowPlayerMovement();
             }
             else
             {
-                playerGridMovement.PreventPlayerMovement();
+                playerGridController.PreventPlayerMovement();
             }
         }
 
@@ -283,7 +297,6 @@ namespace WorldCube
                 if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
                     minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
                 {
-
                     //FindObjectOfType<AudioController>().Play("GearClicking");
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
                     Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
