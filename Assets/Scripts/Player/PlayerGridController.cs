@@ -179,6 +179,7 @@ namespace Player
         private void SetPlayerEndState(bool didPlayerWin)
         {
             SetPlayerState(PlayerState.PlayerEndState);
+
             _playerCollider.isTrigger = true;
 
             if (didPlayerWin)

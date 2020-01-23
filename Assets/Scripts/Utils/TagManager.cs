@@ -7,5 +7,7 @@
         public const string SideCenterMarker = "SideCenterMarker";
         public const string WaterHole = "WaterHole";
         public const string WinMarker = "WinMarker";
+
+        public const string FaceOut = "FaceOut";
     }
 }
