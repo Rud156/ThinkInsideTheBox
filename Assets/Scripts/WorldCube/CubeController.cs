@@ -28,10 +28,13 @@ namespace WorldCube
         public string portString = "COM3";
         public bool disableSerialPort;
 
+        [Header("Audio")] public AudioController audioControl;
+
         private List<FakeParentData> _fakeParents;
         private List<float> _sideTargetRotations;
         private List<float> _sideCurrentRotations;
-        private bool ifGearTurnRang;
+
+        private bool _ifGearTurnRang;
 
         private SerialPort _serialPort;
 
@@ -283,23 +286,23 @@ namespace WorldCube
             {
                 FakeParentData fakeParentData = _fakeParents[i];
 
-                
+
                 int sideIndex = fakeParentData.sideIndex;
 
-                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed < (lerpSpeed - 1) && ifGearTurnRang)
+                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed < (lerpSpeed - 1) && _ifGearTurnRang)
                 {
-                    ifGearTurnRang = false;
+                    _ifGearTurnRang = false;
                 }
-                
+
                 _sideCurrentRotations[sideIndex] =
                     (int) Mathf.Lerp(_sideCurrentRotations[sideIndex], _sideTargetRotations[sideIndex],
                         lerpSpeed * Time.deltaTime);
 
                 Debug.Log(Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed);
-                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed >= (lerpSpeed-1) && !ifGearTurnRang)
+                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed >= (lerpSpeed - 1) && !_ifGearTurnRang)
                 {
                     audioControl.PlaySound(AudioController.AudioEnum.GearTurning);
-                    ifGearTurnRang = true;
+                    _ifGearTurnRang = true;
                 }
 
 
@@ -314,7 +317,6 @@ namespace WorldCube
                 if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
                     minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
                 {
-
                     audioControl.PlaySound(AudioController.AudioEnum.GearClicking);
 
                     _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];

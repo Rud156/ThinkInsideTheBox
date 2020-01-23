@@ -18,10 +18,7 @@ namespace Scenes.Main
             StartCoroutine(LoadLevel(buildIndex));
         }
 
-        public void LoadNextLevel(int index)
-        {
-            StartCoroutine(LoadLevel(index));
-        }
+        public void LoadNextLevel(int index) => StartCoroutine(LoadLevel(index));
 
         #endregion
 
@@ -32,8 +29,7 @@ namespace Scenes.Main
         private IEnumerator LoadLevel(int index)
         {
             yield return new WaitForSeconds(waitBeforeLevelLoading);
-            int currentIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentIndex);
+            SceneManager.LoadScene(index);
         }
 
         #endregion
