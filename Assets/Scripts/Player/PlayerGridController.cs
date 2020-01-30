@@ -1,9 +1,8 @@
-﻿using System;
-using Scenes.Main;
+﻿using Scenes.Main;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
-using WorldCube;
 
 namespace Player
 {
@@ -73,7 +72,7 @@ namespace Player
             {
                 transform.SetParent(other.transform.parent.parent);
             }
-            else if (other.CompareTag(TagManager.WaterHole) || other.CompareTag(TagManager.GridMarkerWater))
+            else if (other.CompareTag(TagManager.WaterHole))
             {
                 SetPlayerEndState(false);
             }
@@ -187,8 +186,6 @@ namespace Player
         {
             SetPlayerState(PlayerState.PlayerEndState);
 
-            _playerRb.isKinematic = false;
-            _playerRb.useGravity = true;
             _playerCollider.isTrigger = true;
 
             if (didPlayerWin)
