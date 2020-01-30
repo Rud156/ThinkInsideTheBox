@@ -12,15 +12,17 @@ namespace Player
         [Header("Player Movement")] public float movementLerpSpeed;
         public float movementLerpTolerance;
         public Vector3 posiitionOffset;
+        public float waitTimeAfterReachingPosition;
 
         [Header("Player Rotation")] public float rotationSpeed;
 
         // Movement
         private Vector3 _startPosition;
         private Vector3 _targetPosition;
+        private Vector3 _lastPosition;
         private float _lerpAmount;
         private bool _positionReached;
-        private Vector3 _lastPosition;
+        private float _playerWaitTimeLeft;
 
         // Components
         private Rigidbody _playerRb;
@@ -39,12 +41,18 @@ namespace Player
             _lastPosition = transform.position;
             _positionReached = true;
             _lerpAmount = 0;
+            _playerWaitTimeLeft = 0;
 
             SetPlayerState(PlayerState.PlayerInControl);
         }
 
         private void Update()
         {
+            if (_playerWaitTimeLeft > 0)
+            {
+                _playerWaitTimeLeft -= Time.deltaTime;
+            }
+
             switch (_playerState)
             {
                 case PlayerState.PlayerInControl:
@@ -97,10 +105,12 @@ namespace Player
         public void SetPlayerTargetLocation(Vector3 targetPosition)
         {
             // Don't detect inputs when the player is not in control
-            if (_playerState != PlayerState.PlayerInControl)
+            if (_playerState != PlayerState.PlayerInControl || _playerWaitTimeLeft > 0)
             {
                 return;
             }
+
+            _playerWaitTimeLeft = waitTimeAfterReachingPosition;
 
             targetPosition += posiitionOffset;
             _targetPosition = targetPosition;
@@ -209,7 +219,6 @@ namespace Player
         {
             PlayerInControl,
             PlayerStatic,
-
             PlayerEndState
         }
 
