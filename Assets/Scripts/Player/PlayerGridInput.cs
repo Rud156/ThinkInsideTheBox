@@ -58,6 +58,10 @@ namespace Player
                 {
                     Vector3 targetMovementPosition = hit.collider.transform.position;
                     playerGridController.SetPlayerTargetLocation(targetMovementPosition);
+                } 
+                else if(hit.collider.CompareTag(TagManager.InsideOut))
+                {
+
                 }
             }
         }
