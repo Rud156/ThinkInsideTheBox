@@ -6,6 +6,7 @@
 
         public const string GridMarker = "GridMarker";
         public const string GridMarkerWater = "GridMarkerWater";
+        public const string InsideOut = "InsideOut";
         public const string SideCenterMarker = "SideCenterMarker";
 
         public const string WaterHole = "WaterHole";
