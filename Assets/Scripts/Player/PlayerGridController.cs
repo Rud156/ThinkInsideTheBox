@@ -12,9 +12,10 @@ namespace Player
         [Header("Player Movement")] public float movementLerpSpeed;
         public float movementLerpTolerance;
         public Vector3 posiitionOffset;
-        public float waitTimeAfterReachingPosition;
 
         [Header("Player Rotation")] public float rotationSpeed;
+
+        [Header("Water Hole")] public float rayCastDistance = 3;
 
         // Movement
         private Vector3 _startPosition;
@@ -22,7 +23,6 @@ namespace Player
         private Vector3 _lastPosition;
         private float _lerpAmount;
         private bool _positionReached;
-        private float _playerWaitTimeLeft;
 
         // Components
         private Rigidbody _playerRb;
@@ -41,18 +41,12 @@ namespace Player
             _lastPosition = transform.position;
             _positionReached = true;
             _lerpAmount = 0;
-            _playerWaitTimeLeft = 0;
 
             SetPlayerState(PlayerState.PlayerInControl);
         }
 
         private void Update()
         {
-            if (_playerWaitTimeLeft > 0)
-            {
-                _playerWaitTimeLeft -= Time.deltaTime;
-            }
-
             switch (_playerState)
             {
                 case PlayerState.PlayerInControl:
@@ -105,12 +99,10 @@ namespace Player
         public void SetPlayerTargetLocation(Vector3 targetPosition)
         {
             // Don't detect inputs when the player is not in control
-            if (_playerState != PlayerState.PlayerInControl || _playerWaitTimeLeft > 0)
+            if (_playerState != PlayerState.PlayerInControl || !_positionReached)
             {
                 return;
             }
-
-            _playerWaitTimeLeft = waitTimeAfterReachingPosition;
 
             targetPosition += posiitionOffset;
             _targetPosition = targetPosition;
@@ -173,6 +165,15 @@ namespace Player
                 _playerRb.isKinematic = false;
                 _playerRb.useGravity = true;
                 _playerCollider.isTrigger = false;
+
+                // Probably do this somewhere else. Should be a better way to do it.
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance))
+                {
+                    if (hit.collider.CompareTag(TagManager.WaterHole))
+                    {
+                        SetPlayerEndState(false);
+                    }
+                }
             }
         }
 
@@ -196,6 +197,8 @@ namespace Player
         {
             SetPlayerState(PlayerState.PlayerEndState);
 
+            _playerRb.isKinematic = false;
+            _playerRb.useGravity = true;
             _playerCollider.isTrigger = true;
 
             if (didPlayerWin)
