@@ -51,7 +51,7 @@ namespace Player
 
             if (Physics.Raycast(position, rayCastDirection, out RaycastHit hit, raycastDistance))
             {
-                if (hit.collider.CompareTag(TagManager.GridMarker))
+                if (hit.collider.CompareTag(TagManager.GridMarker) || hit.collider.CompareTag(TagManager.GridMarkerWater))
                 {
                     Vector3 targetMovementPosition = hit.collider.transform.position;
                     playerGridController.SetPlayerTargetLocation(targetMovementPosition);

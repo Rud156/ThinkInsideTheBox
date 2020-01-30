@@ -106,7 +106,8 @@ namespace WorldCube
             bool isMovementAllowed = true;
             for (int i = 0; i < _sideRotations.Count; i++)
             {
-                if (_sideRotations[i].currentSideRotation % 90 != 0)
+                float currentRotation = _sideRotations[i].currentSideRotation;
+                if (currentRotation % RotationLocker != 0)
                 {
                     isMovementAllowed = false;
                     break;

@@ -3,6 +3,7 @@ using Scenes.Main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
+using WorldCube;
 
 namespace Player
 {
@@ -72,7 +73,7 @@ namespace Player
             {
                 transform.SetParent(other.transform.parent.parent);
             }
-            else if (other.CompareTag(TagManager.WaterHole))
+            else if (other.CompareTag(TagManager.WaterHole) || other.CompareTag(TagManager.GridMarkerWater))
             {
                 SetPlayerEndState(false);
             }
@@ -96,6 +97,12 @@ namespace Player
 
         public void SetPlayerTargetLocation(Vector3 targetPosition)
         {
+            // Don't detect inputs when the player is not in control
+            if (_playerState != PlayerState.PlayerInControl)
+            {
+                return;
+            }
+
             targetPosition += posiitionOffset;
             _targetPosition = targetPosition;
 
@@ -180,6 +187,8 @@ namespace Player
         {
             SetPlayerState(PlayerState.PlayerEndState);
 
+            _playerRb.isKinematic = false;
+            _playerRb.useGravity = true;
             _playerCollider.isTrigger = true;
 
             if (didPlayerWin)
