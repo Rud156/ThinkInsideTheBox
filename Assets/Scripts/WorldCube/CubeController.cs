@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Ports;
 using Audio;
 using Player;
 using UnityEngine;
@@ -18,68 +17,35 @@ namespace WorldCube
 
         [Header("Parent")] public Transform cubeParent;
         public float lerpSpeed;
-        public float minDifferenceBetweenAngles;
+        public float lerpEndingAmount;
 
         [Header("Player")] public PlayerGridController playerGridController;
 
-        [Header("Arduino")] public int readTimeout = 7;
-        public int rotationMultiplier = 9;
-        public bool useForcedPort = false;
-        public string portString = "COM3";
-        public bool disableSerialPort;
-
         [Header("Audio")] public AudioController audioControl;
 
+        [Header("Other Data")] public int rotationMultiplier = 9;
+
         private List<FakeParentData> _fakeParents;
-        private List<float> _sideTargetRotations;
-        private List<float> _sideCurrentRotations;
+        private List<SideRotationData> _sideRotations;
 
         private bool _ifGearTurnRang;
-
-        private SerialPort _serialPort;
 
         #region Unity Functions
 
         private void Start()
         {
             _fakeParents = new List<FakeParentData>();
-            _sideTargetRotations = new List<float>();
-            _sideCurrentRotations = new List<float>();
-
-            string[] ports = SerialPort.GetPortNames();
-            string portName;
-            if (disableSerialPort)
-            {
-                portName = portString;
-            }
-            else
-            {
-                portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port
-            }
-
-            if (useForcedPort)
-            {
-                portName = portString;
-            }
-
-            Debug.Log($"Target Port: {portName}");
-
-            _serialPort = new SerialPort(portName, 9600);
-            _serialPort.ReadTimeout = readTimeout;
-            if (!_serialPort.IsOpen)
-            {
-                if (!disableSerialPort)
-                {
-                    _serialPort.Open();
-                }
-
-                Debug.Log("Port is Closed. Opening");
-            }
+            _sideRotations = new List<SideRotationData>();
 
             for (int i = 0; i < cubeSides.Count; i++)
             {
-                _sideCurrentRotations.Add(0);
-                _sideTargetRotations.Add(0);
+                _sideRotations.Add(new SideRotationData()
+                {
+                    lerpAmount = 0,
+                    currentSideRotation = 0,
+                    targetSideRotation = 0,
+                    startSideRotation = 0
+                });
 
                 CubeSide cubeSide = cubeSides[i];
                 cubeSide.adjacentSideIndexes = new List<int>();
@@ -98,159 +64,34 @@ namespace WorldCube
 
         private void Update()
         {
-            ReadInput();
             UpdateParentRotations();
             UpdatePlayerMovementState();
-
-            // HandleKeyboardInput();
-        }
-
-        private void OnApplicationQuit()
-        {
-            if (_serialPort != null)
-            {
-                _serialPort.Close();
-            }
         }
 
         #endregion
 
-        #region Testing
+        #region External Functions
 
-        private void HandleKeyboardInput()
+        public void CheckAndUpdateRotation(int sideIndex, int direction)
         {
-            if (playerGridController.IsPlayerMoving())
-            {
-                // Don't allow the cube to move when the player is moving and vice versa
-                return;
-            }
+            CubeSide cubeSide = cubeSides[sideIndex];
+            bool isRotationPossible = true;
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            for (int i = 0; i < cubeSide.adjacentSideIndexes.Count; i++)
             {
-                CheckAndUpdateRotation(0, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                CheckAndUpdateRotation(0, -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                CheckAndUpdateRotation(1, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.T))
-            {
-                CheckAndUpdateRotation(1, -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                CheckAndUpdateRotation(2, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Y))
-            {
-                CheckAndUpdateRotation(2, -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                CheckAndUpdateRotation(3, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.U))
-            {
-                CheckAndUpdateRotation(3, -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha8))
-            {
-                CheckAndUpdateRotation(4, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.I))
-            {
-                CheckAndUpdateRotation(4, -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha9))
-            {
-                CheckAndUpdateRotation(5, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.O))
-            {
-                CheckAndUpdateRotation(5, -1);
-            }
-        }
+                int index = cubeSide.adjacentSideIndexes[i];
+                float sideRotation = _sideRotations[index].currentSideRotation;
 
-        #endregion
-
-        #region Arduino
-
-        private void ReadInput()
-        {
-            if (playerGridController.IsPlayerMoving())
-            {
-                // Don't allow the cube to move when the player is moving and vice versa
-                return;
-            }
-
-            try
-            {
-                string input = _serialPort.ReadLine();
-                Debug.Log(input);
-
-                string[] splitInput = input.Split(':');
-                string sideInput = splitInput[0];
-                string directionString = splitInput[1];
-
-                switch (input)
+                if (sideRotation % RotationLocker != 0)
                 {
-                    case "Left":
-                    case "Right":
-                    case "Front":
-                    case "Back":
-                    case "Top":
-                        sideInput = input;
-                        break;
-
-                    default:
-                    {
-                        bool parseSuccess = int.TryParse(directionString, out int direction);
-                        if (!parseSuccess)
-                        {
-                            return;
-                        }
-
-                        switch (sideInput)
-                        {
-                            case "Left":
-                                CheckAndUpdateRotation(1, direction);
-                                break;
-
-                            case "Right":
-                                CheckAndUpdateRotation(3, direction);
-                                break;
-
-                            case "Front":
-                                CheckAndUpdateRotation(2, direction);
-                                break;
-
-                            case "Back":
-                                CheckAndUpdateRotation(0, direction);
-                                break;
-
-                            case "Top":
-                                CheckAndUpdateRotation(4, direction);
-                                break;
-
-                            default:
-                                Debug.Log("Invalid Input Sent");
-                                break;
-                        }
-                    }
-                        break;
+                    isRotationPossible = false;
+                    break;
                 }
             }
-            catch (TimeoutException te)
+
+            if (isRotationPossible)
             {
-                // Don't do anything. This is not required as there is no input
-            }
-            catch (InvalidOperationException ioe)
-            {
-                // Don't do anything. This is not required as there is nothing connected
+                CheckAndCreateParent(sideIndex, direction);
             }
         }
 
@@ -263,9 +104,9 @@ namespace WorldCube
         private void UpdatePlayerMovementState()
         {
             bool isMovementAllowed = true;
-            for (int i = 0; i < _sideCurrentRotations.Count; i++)
+            for (int i = 0; i < _sideRotations.Count; i++)
             {
-                if (_sideCurrentRotations[i] % 90 != 0)
+                if (_sideRotations[i].currentSideRotation % 90 != 0)
                 {
                     isMovementAllowed = false;
                     break;
@@ -291,42 +132,48 @@ namespace WorldCube
             for (var i = 0; i < _fakeParents.Count; i++)
             {
                 FakeParentData fakeParentData = _fakeParents[i];
-
-
                 int sideIndex = fakeParentData.sideIndex;
+                SideRotationData sideRotation = _sideRotations[sideIndex];
 
-                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed < (lerpSpeed - 1) && _ifGearTurnRang)
+                if (Math.Abs(sideRotation.currentSideRotation - sideRotation.targetSideRotation) % lerpSpeed < (lerpSpeed - 1) &&
+                    _ifGearTurnRang)
                 {
                     _ifGearTurnRang = false;
                 }
 
-                _sideCurrentRotations[sideIndex] =
-                    (int) Mathf.Lerp(_sideCurrentRotations[sideIndex], _sideTargetRotations[sideIndex],
-                        lerpSpeed * Time.deltaTime);
+                // Slowly increase lerp amount to update rotations
+                float lerpAmount = sideRotation.lerpAmount + lerpSpeed * Time.deltaTime;
+                sideRotation.lerpAmount = lerpAmount;
+                sideRotation.currentSideRotation = Mathf.Lerp(
+                    sideRotation.startSideRotation,
+                    sideRotation.targetSideRotation,
+                    lerpAmount
+                );
 
-                Debug.Log(Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed);
-                if (Math.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) % lerpSpeed >= (lerpSpeed - 1) && !_ifGearTurnRang)
+                if (Math.Abs(sideRotation.currentSideRotation - sideRotation.targetSideRotation) % lerpSpeed >= (lerpSpeed - 1) &&
+                    !_ifGearTurnRang)
                 {
                     audioControl.PlaySound(AudioController.AudioEnum.GearTurning);
                     _ifGearTurnRang = true;
                 }
 
-
-                Vector3 currentRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
+                Vector3 currentRotation = fakeParentData.GetVectorRotation(sideRotation.currentSideRotation);
                 fakeParentData.parent.transform.rotation = Quaternion.Euler(currentRotation);
 
                 _fakeParents[i] = fakeParentData;
 
-                int targetSideRotation = (int) _sideTargetRotations[sideIndex];
+                int targetSideRotation = sideRotation.targetSideRotation;
 
                 // UnParent the object when they reach the final rotation angle
-                if (Mathf.Abs(_sideCurrentRotations[sideIndex] - _sideTargetRotations[sideIndex]) <=
-                    minDifferenceBetweenAngles && targetSideRotation % 90 == 0)
+                if (lerpAmount >= lerpEndingAmount && targetSideRotation % 90 == 0)
                 {
                     audioControl.PlaySound(AudioController.AudioEnum.GearClicking);
 
-                    _sideCurrentRotations[sideIndex] = _sideTargetRotations[sideIndex];
-                    Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(_sideCurrentRotations[sideIndex]);
+                    sideRotation.currentSideRotation = sideRotation.targetSideRotation;
+                    sideRotation.startSideRotation = sideRotation.targetSideRotation;
+                    sideRotation.lerpAmount = 0;
+
+                    Vector3 currentFinalRotation = fakeParentData.GetVectorRotation(sideRotation.currentSideRotation);
                     fakeParentData.parent.transform.rotation = Quaternion.Euler(currentFinalRotation);
 
                     _fakeParents.RemoveAt(i);
@@ -339,6 +186,8 @@ namespace WorldCube
 
                     Destroy(parent);
                 }
+
+                _sideRotations[sideIndex] = sideRotation;
             }
         }
 
@@ -346,35 +195,16 @@ namespace WorldCube
 
         #region Parent Control
 
-        private void CheckAndUpdateRotation(int sideIndex, int direction)
-        {
-            CubeSide cubeSide = cubeSides[sideIndex];
-            bool isRotationPossible = true;
-
-            for (int i = 0; i < cubeSide.adjacentSideIndexes.Count; i++)
-            {
-                int index = cubeSide.adjacentSideIndexes[i];
-                int sideRotation = (int) _sideCurrentRotations[index];
-
-                if (sideRotation % RotationLocker != 0)
-                {
-                    isRotationPossible = false;
-                    break;
-                }
-            }
-
-            if (isRotationPossible)
-            {
-                CheckAndCreateParent(sideIndex, direction);
-            }
-        }
-
         private void CheckAndCreateParent(int sideIndex, int direction)
         {
-            _sideTargetRotations[sideIndex] += direction * rotationMultiplier;
+            SideRotationData sideRotationData = _sideRotations[sideIndex];
+            sideRotationData.targetSideRotation += direction * rotationMultiplier;
+            sideRotationData.startSideRotation = sideRotationData.currentSideRotation; // Update StartRotation as then the lerp can continue from the beginning
+            sideRotationData.lerpAmount = 0; // Reset lerp amount to 0 to start from the starting
+            _sideRotations[sideIndex] = sideRotationData;
 
-            int currentRotation = (int) _sideCurrentRotations[sideIndex];
-            int targetRotation = (int) _sideTargetRotations[sideIndex];
+            int currentRotation = (int) _sideRotations[sideIndex].currentSideRotation;
+            int targetRotation = sideRotationData.targetSideRotation;
 
             // This is the case when the object needs to parented
             if (currentRotation % RotationLocker == 0 && targetRotation % RotationLocker != 0 &&
@@ -388,7 +218,6 @@ namespace WorldCube
             {
                 var targetData = GetTargetParent(sideIndex);
                 FakeParentData fakeParentData = targetData.Item1;
-                fakeParentData.targetRotation = _sideTargetRotations[sideIndex];
                 _fakeParents[targetData.Item2] = fakeParentData;
             }
         }
@@ -470,15 +299,15 @@ namespace WorldCube
             // Set the target rotation
             if (xIsNotZero)
             {
-                targetRotation.x = _sideTargetRotations[sideIndex];
+                targetRotation.x = _sideRotations[sideIndex].targetSideRotation;
             }
             else if (yIsNotZero)
             {
-                targetRotation.y = _sideTargetRotations[sideIndex];
+                targetRotation.y = _sideRotations[sideIndex].targetSideRotation;
             }
             else if (zIsNotZero)
             {
-                targetRotation.z = _sideTargetRotations[sideIndex];
+                targetRotation.z = _sideRotations[sideIndex].targetSideRotation;
             }
 
             FakeParentData fakeParentData = new FakeParentData()
@@ -487,7 +316,6 @@ namespace WorldCube
                 parent = fakeParent,
 
                 sideIndex = sideIndex,
-                targetRotation = _sideTargetRotations[sideIndex],
                 targetRotationVector = targetRotation,
 
                 xIsNotZero = xIsNotZero,
@@ -561,7 +389,7 @@ namespace WorldCube
 
         #region Structs
 
-        [System.Serializable]
+        [Serializable]
         public struct CubeSide
         {
             [Header("Positions")] public Transform centerCube;
@@ -573,13 +401,20 @@ namespace WorldCube
             [Header("Internal Data")] public List<int> adjacentSideIndexes;
         }
 
+        private struct SideRotationData
+        {
+            public float currentSideRotation;
+            public float startSideRotation;
+            public int targetSideRotation;
+            public float lerpAmount;
+        }
+
         private struct FakeParentData
         {
             public GameObject parent;
             public List<Transform> childCubes;
 
             public Vector3 targetRotationVector;
-            public float targetRotation;
             public int sideIndex;
 
             public bool xIsNotZero;

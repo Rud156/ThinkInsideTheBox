@@ -4091,6 +4091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1813484976}
   - component: {fileID: 1813484977}
+  - component: {fileID: 1813484978}
   m_Layer: 0
   m_Name: Cube Controller
   m_TagString: Untagged
@@ -4183,14 +4184,27 @@ MonoBehaviour:
   rayCastDistance: 5
   cubeParent: {fileID: 1934600958}
   lerpSpeed: 7
-  minDifferenceBetweenAngles: 9
+  lerpEndingAmount: 0
+  playerGridController: {fileID: 1129756579}
+  audioControl: {fileID: 852565043}
+  rotationMultiplier: 9
+--- !u!114 &1813484978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813484975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64b9ae1a7d412849a0921e6cf905271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerGridController: {fileID: 1129756579}
   readTimeout: 7
-  rotationMultiplier: 9
   useForcedPort: 1
-  portString: COM3
+  portString: COM4
   disableSerialPort: 0
-  audioControl: {fileID: 852565043}
 --- !u!1 &1846420744
 GameObject:
   m_ObjectHideFlags: 0
