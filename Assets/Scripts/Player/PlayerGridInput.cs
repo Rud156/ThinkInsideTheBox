@@ -47,8 +47,6 @@ namespace Player
 
         private void FindTargetRayCast(Vector3 rayCastDirection, Vector3 position)
         {
-            Debug.DrawRay(position, rayCastDirection * raycastDistance, Color.red, 3);
-
             if (Physics.Raycast(position, rayCastDirection, out RaycastHit hit, raycastDistance))
             {
                 if (hit.collider.CompareTag(TagManager.GridMarker))

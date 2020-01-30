@@ -197,9 +197,12 @@ namespace Player
         {
             SetPlayerState(PlayerState.PlayerEndState);
 
-            _playerRb.isKinematic = false;
-            _playerRb.useGravity = true;
             _playerCollider.isTrigger = true;
+            if (!didPlayerWin) // This means currently they have hit the water hole
+            {
+                _playerRb.isKinematic = false;
+                _playerRb.useGravity = true;
+            }
 
             if (didPlayerWin)
             {
