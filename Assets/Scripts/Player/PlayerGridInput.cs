@@ -61,7 +61,10 @@ namespace Player
                 } 
                 else if(hit.collider.CompareTag(TagManager.InsideOut))
                 {
-
+                    Vector3 targetRotation = new Vector3(hit.collider.transform.parent.rotation.x,
+                        hit.collider.transform.parent.rotation.y,
+                        hit.collider.transform.parent.rotation.z) * -1;
+                    hit.collider.transform.parent.Rotate(targetRotation);
                 }
             }
         }
