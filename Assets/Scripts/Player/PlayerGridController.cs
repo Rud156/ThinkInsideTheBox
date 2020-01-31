@@ -169,9 +169,18 @@ namespace Player
                 // Probably do this somewhere else. Should be a better way to do it.
                 if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance))
                 {
+                    Debug.Log(hit.collider.name);
                     if (hit.collider.CompareTag(TagManager.WaterHole))
                     {
+                        //Debug.Log( ",??? ");
                         SetPlayerEndState(false);
+                    }
+                    else if(hit.collider.CompareTag(TagManager.InsideOut))
+                    {
+                        //hit.collider.transform.parent.transform.rotation = Quaternion.Lerp()
+                        Transform parent = hit.collider.transform.parent;
+                        Transform currentParent = this.transform.parent;
+                        Debug.Log(parent + ", " + currentParent);
                     }
                 }
             }
@@ -189,6 +198,11 @@ namespace Player
 
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        }
+
+        private void FlipCubeFacet(Transform i_parent)
+        {
+
         }
 
         #endregion
