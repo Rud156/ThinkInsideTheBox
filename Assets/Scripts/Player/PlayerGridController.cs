@@ -31,6 +31,13 @@ namespace Player
         // Player State
         private PlayerState _playerState;
 
+        // Flipping related
+        private Transform _originalParent;
+        private Transform _flipParent;
+        private Quaternion _targetRotation;
+        private Quaternion _cubeRotation;
+        [SerializeField] private Transform _CubeWorld;
+
         #region Unity Functions
 
         private void Start()
@@ -42,6 +49,7 @@ namespace Player
             _positionReached = true;
             _lerpAmount = 0;
 
+            _CubeWorld = GameObject.Find("Rubik's Cube World").transform;
             SetPlayerState(PlayerState.PlayerInControl);
         }
 
@@ -53,6 +61,8 @@ namespace Player
                 {
                     OrientPlayerToPosition();
                     MovePlayer();
+                    FlipCubeFacet();
+                        
                 }
                     break;
 
@@ -169,18 +179,29 @@ namespace Player
                 // Probably do this somewhere else. Should be a better way to do it.
                 if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance))
                 {
-                    Debug.Log(hit.collider.name);
                     if (hit.collider.CompareTag(TagManager.WaterHole))
                     {
-                        //Debug.Log( ",??? ");
                         SetPlayerEndState(false);
                     }
                     else if(hit.collider.CompareTag(TagManager.InsideOut))
                     {
                         //hit.collider.transform.parent.transform.rotation = Quaternion.Lerp()
-                        Transform parent = hit.collider.transform.parent;
-                        Transform currentParent = this.transform.parent;
-                        Debug.Log(parent + ", " + currentParent);
+                        Transform parent = hit.collider.transform;
+                        //Debug.Log(hit.collider + ", " + hit.collider);
+                        Vector3 targetEuler = parent.transform.eulerAngles * -1;
+                        _targetRotation = Quaternion.Euler(targetEuler );
+
+                        Vector3 cubeTargetRotation = _CubeWorld.eulerAngles + new Vector3(-180, 0, 0);
+                        _cubeRotation = Quaternion.Euler(cubeTargetRotation);
+
+                        _originalParent = this.transform.parent;
+                        _flipParent = parent;
+                        this.transform.parent = (hit.collider.transform);
+                        Debug.Log(_originalParent +", " + _flipParent);
+                        _playerRb.isKinematic = true;
+                        _playerRb.useGravity = false;
+                        //SetPlayerEndState(false);
+                        Debug.Log("Current player parent: " + this.transform.parent);
                     }
                 }
             }
@@ -200,9 +221,26 @@ namespace Player
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
 
-        private void FlipCubeFacet(Transform i_parent)
+        private void FlipCubeFacet()
         {
-
+            if(_originalParent && _flipParent)
+            {
+                this.transform.parent = _flipParent;
+                //this.transform.SetParent(_flipParent);
+                _flipParent.rotation = Quaternion.Lerp(_flipParent.rotation, _targetRotation, rotationSpeed * Time.deltaTime);
+                _CubeWorld.rotation = Quaternion.Lerp(_CubeWorld.rotation, _cubeRotation, rotationSpeed * Time.deltaTime);
+                //Debug.Log(_flipParent.rotation.eulerAngles +", "+ _targetRotation.eulerAngles);
+                if(_flipParent.rotation.eulerAngles == _targetRotation.eulerAngles)
+                {
+                    Debug.Log("Flip finished");
+                    this.transform.position = _flipParent.position + new Vector3(0,10,0);
+                    //this.transform.parent = _originalParent;
+                    _originalParent = null;
+                    _flipParent = null;
+                    _playerRb.isKinematic = false;
+                    _playerRb.useGravity = true;
+                }
+            }
         }
 
         #endregion
