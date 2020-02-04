@@ -16,6 +16,8 @@ namespace Audio
 
         public void PlaySound(AudioEnum audioEnum)
         {
+            return; // TODO: Remove this later on...
+
             GameObject singleShotAudioInstance = Instantiate(singleShotAudio);
             AudioSource audioSource = singleShotAudioInstance.GetComponent<AudioSource>();
 

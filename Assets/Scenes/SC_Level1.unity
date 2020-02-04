@@ -4073,11 +4073,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5746587675340131453, guid: 424368db5fd36b549a461e32a73fd8fc,
-        type: 3}
-      propertyPath: m_TagString
-      value: InsideOut
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424368db5fd36b549a461e32a73fd8fc, type: 3}
 --- !u!4 &1807619816 stripped
@@ -4209,7 +4204,7 @@ MonoBehaviour:
   readTimeout: 7
   useForcedPort: 1
   portString: COM4
-  disableSerialPort: 1
+  disableSerialPort: 0
 --- !u!1 &1846420744
 GameObject:
   m_ObjectHideFlags: 0
