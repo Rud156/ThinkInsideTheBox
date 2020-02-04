@@ -29,6 +29,14 @@ namespace Player
         // Player State
         private PlayerState _playerState;
 
+        // Flipping related
+        private Transform _originalParent;
+        private Transform _flipParent;
+        private Quaternion _targetRotation;
+        private Quaternion _cubeRotation;
+        [SerializeField] private Transform _CubeWorld;
+        private bool bRotateCube;
+
         #region Unity Functions
 
         private void Start()
@@ -157,6 +165,39 @@ namespace Player
                 _playerRb.isKinematic = false;
                 _playerRb.useGravity = true;
                 _playerCollider.isTrigger = false;
+
+                int layerMask = 1 << 9;
+                // Probably do this somewhere else. Should be a better way to do it.
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance, layerMask))
+                {
+                    Debug.Log(hit.collider);
+                    
+                    if (hit.collider.CompareTag(TagManager.WaterHole))
+                    {
+                        SetPlayerEndState(false);
+                    }
+                    else if(hit.collider.CompareTag(TagManager.InsideOut))
+                    {
+                        //hit.collider.transform.parent.transform.rotation = Quaternion.Lerp()
+                        Transform parent = hit.collider.transform;
+                        //Debug.Log(hit.collider + ", " + hit.collider);
+                        Vector3 targetEuler = parent.transform.eulerAngles * -1;
+                        _targetRotation = Quaternion.Euler(targetEuler );
+
+                        Vector3 cubeTargetRotation = _CubeWorld.eulerAngles + new Vector3(-180, 0, 0);
+                        _cubeRotation = Quaternion.Euler(cubeTargetRotation);
+
+                        _originalParent = this.transform.parent;
+                        _flipParent = parent;
+                        this.transform.parent = (hit.collider.transform);
+                        Debug.Log(_originalParent +", " + _flipParent);
+                        _playerRb.isKinematic = true;
+                        _playerRb.useGravity = false;
+                        //SetPlayerEndState(false);
+                        Debug.Log("Current player parent: " + this.transform.parent);
+                        bRotateCube = false;
+                    }
+                }
             }
         }
 
@@ -172,6 +213,39 @@ namespace Player
 
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        }
+
+        private void FlipCubeFacet()
+        {
+            if(_originalParent && _flipParent && !bRotateCube)
+            {
+                this.transform.parent = _flipParent;
+                //this.transform.SetParent(_flipParent);
+                _flipParent.rotation = Quaternion.Lerp(_flipParent.rotation, _targetRotation, rotationSpeed * Time.deltaTime);
+
+                //Debug.Log(_flipParent.rotation.eulerAngles +", "+ _targetRotation.eulerAngles);
+                if(_flipParent.rotation.eulerAngles == _targetRotation.eulerAngles)
+                {
+                    //Debug.Log("Flip finished");
+                    
+                    //this.transform.parent = _originalParent;
+                    bRotateCube = true;
+                }
+            }
+            if(bRotateCube)
+            {
+                _CubeWorld.rotation = Quaternion.Lerp(_CubeWorld.rotation, _cubeRotation, rotationSpeed * Time.deltaTime);
+                if(_CubeWorld.rotation.eulerAngles == _cubeRotation.eulerAngles)
+                {
+                    //this.transform.position = _flipParent.position + new Vector3(0, 10, 0);
+                    this.transform.parent = _originalParent;
+                    _flipParent = null;
+                    _originalParent = null;
+                    bRotateCube = false;
+                    _playerRb.isKinematic = false;
+                    _playerRb.useGravity = true;
+                }
+            }
         }
 
         #endregion
