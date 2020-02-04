@@ -4018,6 +4018,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4076,7 +4081,12 @@ PrefabInstance:
     - target: {fileID: 5746587675340131453, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_TagString
-      value: InsideOut
+      value: GridMarker
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543096967350419302, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424368db5fd36b549a461e32a73fd8fc, type: 3}

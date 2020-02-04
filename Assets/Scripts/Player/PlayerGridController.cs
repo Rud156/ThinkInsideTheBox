@@ -37,6 +37,7 @@ namespace Player
         private Quaternion _targetRotation;
         private Quaternion _cubeRotation;
         [SerializeField] private Transform _CubeWorld;
+        private bool bRotateCube;
 
         #region Unity Functions
 
@@ -176,9 +177,12 @@ namespace Player
                 _playerRb.useGravity = true;
                 _playerCollider.isTrigger = false;
 
+                int layerMask = 1 << 9;
                 // Probably do this somewhere else. Should be a better way to do it.
-                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance))
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance, layerMask))
                 {
+                    Debug.Log(hit.collider);
+                    
                     if (hit.collider.CompareTag(TagManager.WaterHole))
                     {
                         SetPlayerEndState(false);
@@ -202,6 +206,7 @@ namespace Player
                         _playerRb.useGravity = false;
                         //SetPlayerEndState(false);
                         Debug.Log("Current player parent: " + this.transform.parent);
+                        bRotateCube = false;
                     }
                 }
             }
@@ -223,20 +228,31 @@ namespace Player
 
         private void FlipCubeFacet()
         {
-            if(_originalParent && _flipParent)
+            if(_originalParent && _flipParent && !bRotateCube)
             {
                 this.transform.parent = _flipParent;
                 //this.transform.SetParent(_flipParent);
                 _flipParent.rotation = Quaternion.Lerp(_flipParent.rotation, _targetRotation, rotationSpeed * Time.deltaTime);
-                _CubeWorld.rotation = Quaternion.Lerp(_CubeWorld.rotation, _cubeRotation, rotationSpeed * Time.deltaTime);
+
                 //Debug.Log(_flipParent.rotation.eulerAngles +", "+ _targetRotation.eulerAngles);
                 if(_flipParent.rotation.eulerAngles == _targetRotation.eulerAngles)
                 {
-                    Debug.Log("Flip finished");
-                    this.transform.position = _flipParent.position + new Vector3(0,10,0);
+                    //Debug.Log("Flip finished");
+                    
                     //this.transform.parent = _originalParent;
-                    _originalParent = null;
+                    bRotateCube = true;
+                }
+            }
+            if(bRotateCube)
+            {
+                _CubeWorld.rotation = Quaternion.Lerp(_CubeWorld.rotation, _cubeRotation, rotationSpeed * Time.deltaTime);
+                if(_CubeWorld.rotation.eulerAngles == _cubeRotation.eulerAngles)
+                {
+                    //this.transform.position = _flipParent.position + new Vector3(0, 10, 0);
+                    this.transform.parent = _originalParent;
                     _flipParent = null;
+                    _originalParent = null;
+                    bRotateCube = false;
                     _playerRb.isKinematic = false;
                     _playerRb.useGravity = true;
                 }
