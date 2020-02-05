@@ -8,7 +8,7 @@ namespace CubeData
     // Represents the whole rubik's cube
     public class Cube
     {
-        public static readonly Cubie[,,] DefaultCube = {
+        public static readonly Cubie[,,] DefaultCube = new Cubie[,,] {
         {
             {new Cubie(-57,-21,-47), new Cubie(  0,-22,-46), new Cubie( 65,-23,-45)},
             {new Cubie(-58,-28,  0), new Cubie(  0,-20,  0), new Cubie( 64,-24,  0)},
@@ -28,12 +28,48 @@ namespace CubeData
 
         public static readonly Cubie[,,] SingleCubie = { { { new Cubie(-57, -21, -47) } } };
 
-        public Cubie[,,] Cubies = DefaultCube;
+        public static Cubie[,,] DeepCopyCubies(Cubie[,,] i_cubies)
+        {
+            Cubie[,,] cubies = (Cubie[,,])DefaultCube.Clone();
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    for (int k = 0; k < 3; k++)
+                    {
+                        cubies[i, j, k] = new Cubie(i_cubies[i, j, k]);
+                    }
+                }
+            }
+            return cubies;
+        }
+
+        public bool HasFinished()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    for (int k = 0; k < 3; k++)
+                    {
+                        var a = Cubies[i, j, k];
+                        var b = DefaultCube[i, j, k];
+                        if (Cubies[i,j,k] != DefaultCube[i,j,k])
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        public Cubie[,,] Cubies = DeepCopyCubies(DefaultCube);
 
         #region Layer Rotation
         public void RotYp90d(int i_layer)
         {
-            Cubie[,,] oldCubies = Cubies.Clone() as Cubie[,,];
+            Cubie[,,] oldCubies = (Cubie[,,])Cubies.Clone();
             for (int i = 0; i < 3; i++)
             {
                 if (i != i_layer)
@@ -51,7 +87,7 @@ namespace CubeData
 
         public void RotYn90d(int i_layer)
         {
-            Cubie[,,] oldCubies = Cubies.Clone() as Cubie[,,];
+            Cubie[,,] oldCubies = (Cubie[,,])Cubies.Clone();
             for (int i = 0; i < 3; i++)
             {
                 if (i != i_layer)
@@ -68,7 +104,7 @@ namespace CubeData
         }
         public void RotZp90d(int i_layer)
         {
-            Cubie[,,] oldCubies = Cubies.Clone() as Cubie[,,];
+            Cubie[,,] oldCubies = (Cubie[,,])Cubies.Clone();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -85,7 +121,7 @@ namespace CubeData
         }
         public void RotZn90d(int i_layer)
         {
-            Cubie[,,] oldCubies = Cubies.Clone() as Cubie[,,];
+            Cubie[,,] oldCubies = (Cubie[,,])Cubies.Clone();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -102,7 +138,7 @@ namespace CubeData
         }
         public void RotXp90d(int i_layer)
         {
-            Cubie[,,] oldCubies = Cubies.Clone() as Cubie[,,];
+            Cubie[,,] oldCubies = (Cubie[,,])Cubies.Clone();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -119,7 +155,7 @@ namespace CubeData
         }
         public void RotXn90d(int i_layer)
         {
-            Cubie[,,] oldCubies = Cubies.Clone() as Cubie[,,];
+            Cubie[,,] oldCubies = (Cubie[,,])Cubies.Clone();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -165,6 +201,31 @@ namespace CubeData
             this.x = i_cubie.x;
             this.y = i_cubie.y;
             this.z = i_cubie.z;
+        }
+
+        public static bool operator ==(Cubie i_lhs, Cubie i_rhs)
+        {
+            if (i_lhs is null)
+                return i_rhs is null;
+            return i_lhs.Equals(i_rhs);
+        }
+
+        public static bool operator !=(Cubie i_lhs, Cubie i_rhs)
+        {
+            return !(i_lhs == i_rhs);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            var cubie = (Cubie)obj;
+            return this.x == cubie.x && this.y == cubie.y && this.z == cubie.z;
+        }
+
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
         }
 
         #region Cubie Rotation

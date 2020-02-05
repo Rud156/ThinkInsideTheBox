@@ -27,36 +27,42 @@ namespace CubeData
                 cube.RotYn90d(2);
                 InjectData(cube);
                 DrawCube(cube);
+                Debug.Log(cube.HasFinished());
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 cube.RotYp90d(2);
                 InjectData(cube);
                 DrawCube(cube);
+                Debug.Log(cube.HasFinished());
             }
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 cube.RotXp90d(1);
                 InjectData(cube);
                 DrawCube(cube);
+                Debug.Log(cube.HasFinished());
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 cube.RotXn90d(1);
                 InjectData(cube);
                 DrawCube(cube);
+                Debug.Log(cube.HasFinished());
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
                 cube.RotZp90d(0);
                 InjectData(cube);
                 DrawCube(cube);
+                Debug.Log(cube.HasFinished());
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
                 cube.RotZn90d(0);
                 InjectData(cube);
                 DrawCube(cube);
+                Debug.Log(cube.HasFinished());
             }
         }
 
