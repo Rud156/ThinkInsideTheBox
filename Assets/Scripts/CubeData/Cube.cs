@@ -9,20 +9,27 @@ namespace CubeData
     public class Cube
     {
         public static readonly Cubie[,,] DefaultCube = new Cubie[,,] {
+        // Layer down   y = -1
         {
-            {new Cubie(-57,-21,-47), new Cubie(  0,-22,-46), new Cubie( 65,-23,-45)},
-            {new Cubie(-58,-28,  0), new Cubie(  0,-20,  0), new Cubie( 64,-24,  0)},
-            {new Cubie(-51,-27, 31), new Cubie(  0,-26, 32), new Cubie( 63,-25, 33)}
+            // || Layer left,x = -1 ||   Layer mid, x = 0  ||  Layer right, x = 1 ||
+            {new Cubie(-57,-21,-47), new Cubie(  0,-22,-46), new Cubie( 65,-23,-45)},// Layer front,    z = -1
+            {new Cubie(-58,-28,  0), new Cubie(  0,-20,  0), new Cubie( 64,-24,  0)},// Layer mid,      z = 0
+            {new Cubie(-51,-27, 31), new Cubie(  0,-26, 32), new Cubie( 63,-25, 33)} // Layer back,     z = 1
         },
+        
+        // Layer mid,   y = 0
         {
-            {new Cubie(-56,  0,-48), new Cubie(  0,  0,-40), new Cubie( 66,  0,-44)},
-            {new Cubie(-50,  0,  0), new Cubie(  0,  0,  0), new Cubie( 60,  0,  0)},
-            {new Cubie(-52,  0, 38), new Cubie(  0,  0, 30), new Cubie( 62,  0, 34)}
+            // || Layer left,x = -1 ||   Layer mid, x = 0  ||  Layer right, x = 1 ||
+            {new Cubie(-56,  0,-48), new Cubie(  0,  0,-40), new Cubie( 66,  0,-44)},// Layer front,    z = -1
+            {new Cubie(-50,  0,  0), new Cubie(  0,  0,  0), new Cubie( 60,  0,  0)},// Layer mid,      z = 0
+            {new Cubie(-52,  0, 38), new Cubie(  0,  0, 30), new Cubie( 62,  0, 34)} // Layer back,     z = 1
         },
+        // Layer up,    y = 1
         {
-            {new Cubie(-55, 17,-41), new Cubie(  0, 16,-42), new Cubie( 67, 15,-43)},
-            {new Cubie(-54, 18,  0), new Cubie(  0, 10,  0), new Cubie( 68, 14,  0)},
-            {new Cubie(-53, 11, 37), new Cubie(  0, 12, 36), new Cubie( 61, 13, 35)}
+            // || Layer left,x = -1 ||   Layer mid, x = 0  ||  Layer right, x = 1 ||
+            {new Cubie(-55, 17,-41), new Cubie(  0, 16,-42), new Cubie( 67, 15,-43)},// Layer front,    z = -1
+            {new Cubie(-54, 18,  0), new Cubie(  0, 10,  0), new Cubie( 68, 14,  0)},// Layer mid,      z = 0
+            {new Cubie(-53, 11, 37), new Cubie(  0, 12, 36), new Cubie( 61, 13, 35)} // Layer back,     z = 1
         }
     };
 
@@ -52,8 +59,6 @@ namespace CubeData
                 {
                     for (int k = 0; k < 3; k++)
                     {
-                        var a = Cubies[i, j, k];
-                        var b = DefaultCube[i, j, k];
                         if (Cubies[i,j,k] != DefaultCube[i,j,k])
                         {
                             return false;
@@ -279,4 +284,21 @@ namespace CubeData
         #endregion
     }
 
+    public class CubeLayerMask
+    {
+        public int x = 0; // 0 means no rotation on this layer
+        public int y = 0; // 0 means no rotation on this layer
+        public int z = 0; // 0 means no rotation on this layer
+
+        private CubeLayerMask() { } // Prevent default constructor
+
+        public CubeLayerMask(int i_x, int i_y, int i_z)
+        {
+            if (i_x * i_y != 0 || i_x * i_z != 0 || i_y * i_z != 0)
+                throw new Exception("Only ONE layer rotation is acceptable");
+            this.x = i_x;
+            this.y = i_y;
+            this.z = i_z;
+        }
+    }
 }
