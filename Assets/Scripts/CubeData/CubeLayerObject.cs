@@ -40,15 +40,16 @@ namespace CubeData
             }
             GrabObjects();
             transform.Rotate(i_rotationMask.ToVector3() * (i_clockwise ? 1 : -1));
-            if (Quaternion.Angle(transform.rotation, m_lastFixedRotation) > 90f)
+            if (Quaternion.Angle(transform.rotation, m_lastFixedRotation) >= 90f)
             {
+                transform.rotation = m_lastFixedRotation;
+                transform.Rotate(i_rotationMask.ToVector3() * (i_clockwise ? 90f : -90f));
                 m_lastFixedRotation = transform.rotation;
                 ReleaseObjects();
                 Debug.Log(i_clockwise ? "Clock" : "CounterClock");
                 return true;
             }
             return false;
-
         }
 
         public bool IsRotating
