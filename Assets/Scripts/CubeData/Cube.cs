@@ -284,6 +284,7 @@ namespace CubeData
         #endregion
     }
 
+    [Serializable]
     public class CubeLayerMask
     {
         public int x = 0; // 0 means no rotation on this layer
