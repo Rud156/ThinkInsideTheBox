@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1489780413273034589}
   - component: {fileID: 1489780413273034584}
   - component: {fileID: 1489780413273034587}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 1489780414278686031}
   - component: {fileID: 1489780414278686030}
   - component: {fileID: 1489780414278686066}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,5 +157,6 @@ MonoBehaviour:
   movementLerpSpeed: 1
   movementLerpTolerance: 0.97
   posiitionOffset: {x: 0, y: 0, z: 0}
-  waitTimeAfterReachingPosition: 0.3
   rotationSpeed: 7
+  rayCastDistance: 3
+  _CubeWorld: {fileID: 0}

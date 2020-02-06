@@ -63,7 +63,6 @@ namespace Player
                     OrientPlayerToPosition();
                     MovePlayer();
                     FlipCubeFacet();
-                        
                 }
                     break;
 
@@ -182,18 +181,18 @@ namespace Player
                 if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance, layerMask))
                 {
                     Debug.Log(hit.collider);
-                    
+
                     if (hit.collider.CompareTag(TagManager.WaterHole))
                     {
                         SetPlayerEndState(false);
                     }
-                    else if(hit.collider.CompareTag(TagManager.InsideOut))
+                    else if (hit.collider.CompareTag(TagManager.InsideOut))
                     {
                         //hit.collider.transform.parent.transform.rotation = Quaternion.Lerp()
                         Transform parent = hit.collider.transform;
                         //Debug.Log(hit.collider + ", " + hit.collider);
                         Vector3 targetEuler = parent.transform.eulerAngles * -1;
-                        _targetRotation = Quaternion.Euler(targetEuler );
+                        _targetRotation = Quaternion.Euler(targetEuler);
 
                         Vector3 cubeTargetRotation = _CubeWorld.eulerAngles + new Vector3(-180, 0, 0);
                         _cubeRotation = Quaternion.Euler(cubeTargetRotation);
@@ -201,7 +200,7 @@ namespace Player
                         _originalParent = this.transform.parent;
                         _flipParent = parent;
                         this.transform.parent = (hit.collider.transform);
-                        Debug.Log(_originalParent +", " + _flipParent);
+                        Debug.Log(_originalParent + ", " + _flipParent);
                         _playerRb.isKinematic = true;
                         _playerRb.useGravity = false;
                         //SetPlayerEndState(false);
@@ -228,25 +227,26 @@ namespace Player
 
         private void FlipCubeFacet()
         {
-            if(_originalParent && _flipParent && !bRotateCube)
+            if (_originalParent && _flipParent && !bRotateCube)
             {
                 this.transform.parent = _flipParent;
                 //this.transform.SetParent(_flipParent);
                 _flipParent.rotation = Quaternion.Lerp(_flipParent.rotation, _targetRotation, rotationSpeed * Time.deltaTime);
 
                 //Debug.Log(_flipParent.rotation.eulerAngles +", "+ _targetRotation.eulerAngles);
-                if(_flipParent.rotation.eulerAngles == _targetRotation.eulerAngles)
+                if (_flipParent.rotation.eulerAngles == _targetRotation.eulerAngles)
                 {
                     //Debug.Log("Flip finished");
-                    
+
                     //this.transform.parent = _originalParent;
                     bRotateCube = true;
                 }
             }
-            if(bRotateCube)
+
+            if (bRotateCube)
             {
                 _CubeWorld.rotation = Quaternion.Lerp(_CubeWorld.rotation, _cubeRotation, rotationSpeed * Time.deltaTime);
-                if(_CubeWorld.rotation.eulerAngles == _cubeRotation.eulerAngles)
+                if (_CubeWorld.rotation.eulerAngles == _cubeRotation.eulerAngles)
                 {
                     //this.transform.position = _flipParent.position + new Vector3(0, 10, 0);
                     this.transform.parent = _originalParent;

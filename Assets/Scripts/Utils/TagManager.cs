@@ -8,6 +8,9 @@
         public const string InsideOut = "InsideOut";
         public const string SideCenterMarker = "SideCenterMarker";
 
+        public const string WalkableCube = "WalkableCube";
+        public const string WalkableCubeMarker = "WalkableCubeMarker";
+
         public const string WaterHole = "WaterHole";
         public const string WinMarker = "WinMarker";
 

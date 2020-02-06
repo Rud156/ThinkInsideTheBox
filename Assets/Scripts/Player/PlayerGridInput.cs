@@ -14,6 +14,10 @@ namespace Player
         public Transform forwardRaycast;
         public Transform backRaycast;
         public float raycastDistance;
+        public LayerMask defaultLayerMask;
+        public LayerMask walkableLayerMask;
+
+        [Header("Walkable Cube Distance")] public float walkableCubeDistance = 1;
 
         #region Unity Functions
 
@@ -47,10 +51,11 @@ namespace Player
 
         private void FindTargetRayCast(Vector3 rayCastDirection, Vector3 position)
         {
-            if (Physics.Raycast(position, rayCastDirection, out RaycastHit hit, raycastDistance))
+            if (Physics.Raycast(position, rayCastDirection, out RaycastHit hit, raycastDistance, defaultLayerMask))
             {
-                if (hit.collider.CompareTag(TagManager.GridMarker)
-                    || hit.collider.CompareTag(TagManager.InsideOut))
+                Debug.DrawRay(position, rayCastDirection * raycastDistance, Color.red, 3);
+
+                if (hit.collider.CompareTag(TagManager.GridMarker) || hit.collider.CompareTag(TagManager.InsideOut))
                 {
                     Vector3 targetMovementPosition = hit.collider.transform.position;
                     playerGridController.SetPlayerTargetLocation(targetMovementPosition);
@@ -58,6 +63,26 @@ namespace Player
                 else if (hit.collider.CompareTag(TagManager.WinMarker))
                 {
                     Vector3 targetMovementPosition = hit.collider.transform.position;
+                    playerGridController.SetPlayerTargetLocation(targetMovementPosition);
+                }
+                else if (hit.collider.CompareTag(TagManager.WalkableCubeMarker))
+                {
+                    bool isOnWalkableCube = Physics.Raycast(position, Vector3.down, out RaycastHit hitGround, raycastDistance, walkableLayerMask);
+                    if (isOnWalkableCube && hitGround.collider.CompareTag(TagManager.WalkableCube))
+                    {
+                        Vector3 targetMovementPosition = hit.collider.transform.position;
+                        playerGridController.SetPlayerTargetLocation(targetMovementPosition);
+                    }
+                }
+            }
+            else
+            {
+                bool isOnWalkableCube = Physics.Raycast(position, Vector3.down, out RaycastHit hitGround, raycastDistance, walkableLayerMask);
+                Debug.DrawRay(position, Vector3.down * raycastDistance, Color.red, 3);
+
+                if (isOnWalkableCube && hitGround.collider.CompareTag(TagManager.WalkableCube))
+                {
+                    Vector3 targetMovementPosition = playerTransform.position + rayCastDirection * walkableCubeDistance;
                     playerGridController.SetPlayerTargetLocation(targetMovementPosition);
                 }
             }

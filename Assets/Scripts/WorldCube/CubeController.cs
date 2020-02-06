@@ -14,6 +14,7 @@ namespace WorldCube
         [Header("Sides")] public List<CubeSide> cubeSides;
         public int sideSize;
         public float rayCastDistance;
+        public LayerMask layerMask;
 
         [Header("Parent")] public Transform cubeParent;
         public float lerpSpeed;
@@ -275,7 +276,8 @@ namespace WorldCube
             {
                 bool raycastSuccess = Physics.Raycast(
                     position, cubeSide.rayCastDirection,
-                    out RaycastHit hit, rayCastDistance
+                    out RaycastHit hit, rayCastDistance,
+                    layerMask
                 );
                 if (raycastSuccess)
                 {
