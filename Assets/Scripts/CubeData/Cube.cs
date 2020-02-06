@@ -301,5 +301,35 @@ namespace CubeData
             this.y = i_y;
             this.z = i_z;
         }
+
+        public Vector3 ToVector3()
+        {
+            return new Vector3(this.x, this.y, this.z);
+        }
+
+        public static bool operator ==(CubeLayerMask i_lhs, CubeLayerMask i_rhs)
+        {
+            if (i_lhs is null)
+                return i_rhs is null;
+            return i_lhs.Equals(i_rhs);
+        }
+
+        public static bool operator !=(CubeLayerMask i_lhs, CubeLayerMask i_rhs)
+        {
+            return !(i_lhs == i_rhs);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            var cubie = (CubeLayerMask)obj;
+            return this.x == cubie.x && this.y == cubie.y && this.z == cubie.z;
+        }
+
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
+        }
     }
 }

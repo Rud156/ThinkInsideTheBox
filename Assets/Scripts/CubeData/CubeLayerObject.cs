@@ -9,9 +9,11 @@ namespace CubeData
         private List<CubieObject> m_cubieObjects = new List<CubieObject>();
         private CubeObject m_cubeObject;
         private CubeLayerMask m_layerMask;
+        private Quaternion m_lastFixedRotation;
 
         public void SetupLayer(CubeObject i_cubeObject, CubeLayerMask i_layerMask)
         {
+            m_lastFixedRotation = transform.localRotation;
             m_cubeObject = i_cubeObject;
             m_layerMask = i_layerMask;
             foreach (var cubie in m_cubeObject.CubeData.Cubies)
@@ -23,11 +25,31 @@ namespace CubeData
             DrawCube();
         }
 
-        public void UpdateLayer(CubeObject i_cubeObject)
+        public void UpdateLayer()
         {
-            m_cubeObject = i_cubeObject;
-            InjectData(i_cubeObject.CubeData);
-            DrawCube();
+            InjectData(m_cubeObject.CubeData);
+            //DrawCube();
+        }
+
+        public bool RotateLayer(CubeLayerMask i_rotationMask, bool i_clockwise)
+        {
+            if (i_rotationMask != m_layerMask)
+            {
+                // Hide collision cubies
+                return false;
+            }
+            transform.Rotate(i_rotationMask.ToVector3() * (i_clockwise ? 1 : -1));
+            if (Quaternion.Angle(transform.rotation, m_lastFixedRotation) > 90f)
+            {
+                m_lastFixedRotation = transform.rotation;
+                Debug.Log(i_clockwise ? "Clock" : "CounterClock");
+                return true;
+            }
+            //transform.localEulerAngles += i_rotationMask.ToVector3() * (i_clockwise ? 1 : -1);
+            //transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles +
+            //    i_rotationMask.ToVector3() * (i_clockwise ? 1 : -1));
+            return false;
+
         }
 
         private void PlaceCube()

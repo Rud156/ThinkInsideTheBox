@@ -11,6 +11,7 @@ namespace CubeData
         public Cube CubeData { get { return m_cube; } }
         public List<CubeLayerMask> LayerMasks = new List<CubeLayerMask>();
         private List<CubeLayerObject> m_layerObjects = new List<CubeLayerObject>();
+        private Vector3 m_lastUp = Vector3.up;
 
         private void Awake()
         {
@@ -30,7 +31,7 @@ namespace CubeData
                 m_cube.RotYn90d(2);
                 foreach (var layerObject in m_layerObjects)
                 {
-                    layerObject.UpdateLayer(this);
+                    layerObject.UpdateLayer();
                 }
                 Debug.Log(m_cube.HasFinished());
             }
@@ -39,34 +40,41 @@ namespace CubeData
                 m_cube.RotYp90d(2);
                 foreach (var layerObject in m_layerObjects)
                 {
-                    layerObject.UpdateLayer(this);
+                    layerObject.UpdateLayer();
                 }
                 Debug.Log(m_cube.HasFinished());
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-                m_cube.RotXp90d(2);
                 foreach (var layerObject in m_layerObjects)
                 {
-                    layerObject.UpdateLayer(this);
+                    layerObject.RotateLayer(new CubeLayerMask(1, 0, 0), false);
                 }
-                Debug.Log(m_cube.HasFinished());
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
-                m_cube.RotXn90d(2);
+                bool dirty = false;
                 foreach (var layerObject in m_layerObjects)
                 {
-                    layerObject.UpdateLayer(this);
+                    dirty |= layerObject.RotateLayer(new CubeLayerMask(1, 0, 0), true);
                 }
-                Debug.Log(m_cube.HasFinished());
+                if (dirty)
+                {
+                    m_cube.RotYp90d(2);
+                    foreach (var layerObject in m_layerObjects)
+                    {
+                        layerObject.UpdateLayer();
+                    }
+                }
+                    
+                //Debug.Log(m_cube.HasFinished());
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
                 m_cube.RotZp90d(2);
                 foreach (var layerObject in m_layerObjects)
                 {
-                    layerObject.UpdateLayer(this);
+                    layerObject.UpdateLayer();
                 }
                 Debug.Log(m_cube.HasFinished());
             }
@@ -75,7 +83,7 @@ namespace CubeData
                 m_cube.RotZn90d(2);
                 foreach (var layerObject in m_layerObjects)
                 {
-                    layerObject.UpdateLayer(this);
+                    layerObject.UpdateLayer();
                 }
                 Debug.Log(m_cube.HasFinished());
             }
