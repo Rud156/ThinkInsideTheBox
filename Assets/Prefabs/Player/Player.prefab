@@ -88,9 +88,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1489780414278686065}
-  - component: {fileID: 1489780414278686031}
+  - component: {fileID: 4398606326919857959}
   - component: {fileID: 1489780414278686030}
   - component: {fileID: 1489780414278686066}
+  - component: {fileID: 1129756582}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -113,19 +114,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!135 &1489780414278686031
+--- !u!135 &4398606326919857959
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489780414278686069}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4fb580f5c6fdfe24cab7eef4147c0da3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!54 &1489780414278686030
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -154,9 +155,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461b6ad0fb11b84198e02c7f3ca7e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementLerpSpeed: 1
-  movementLerpTolerance: 0.97
-  posiitionOffset: {x: 0, y: 0, z: 0}
-  rotationSpeed: 7
-  rayCastDistance: 3
-  _CubeWorld: {fileID: 0}
+  playerMovementVelocity: 1
+  positionReachedTolerance: 0.3
+  rotationSpeed: 3
+  positionStoppedTolerance: 0.0065
+  maxStopFrameCount: 60
+--- !u!114 &1129756582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489780414278686069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65b574e764bbbf48a1fba9a3cadd60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceToCheck: 1.5
+  rayCastDownDistance: 7
+  collisionCheckDistance: 1
+  yRayCastOffset: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  playerTransform: {fileID: 1489780414278686065}
+  playerGridController: {fileID: 1489780414278686066}

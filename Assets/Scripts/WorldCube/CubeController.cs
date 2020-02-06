@@ -169,7 +169,9 @@ namespace WorldCube
                 // UnParent the object when they reach the final rotation angle
                 if (lerpAmount >= lerpEndingAmount && targetSideRotation % 90 == 0)
                 {
-                    audioControl.PlaySound(AudioController.AudioEnum.GearClicking);
+                    audioControl.PlaySound(AudioController.AudioEnum.GearClick);
+
+                    playerGridController.ResetPlayerGravityState();
 
                     sideRotation.currentSideRotation = sideRotation.targetSideRotation;
                     sideRotation.startSideRotation = sideRotation.targetSideRotation;
