@@ -7,6 +7,9 @@ namespace CubeData
 {
     public class CubieObject : MonoBehaviour
     {
+        private GameObject m_collision;
+        private GameObject m_oldParent;
+        private bool m_isRotating;
         public static readonly Color[] CubeColors = { Color.cyan, Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white };
 
         public const float LENGTH = 1;
@@ -22,9 +25,29 @@ namespace CubeData
 
         public void DrawCubie()
         {
-            Tint(CubieData);
-            SetText(CubieData);
-            Hide(CubieData);
+            //Tint(CubieData);
+            //SetText(CubieData);
+            //Hide(CubieData);
+        }
+        private void OnTriggerStay(Collider other)
+        {
+            // Add filter
+            if (!m_isRotating)
+                m_collision = other.gameObject;
+        }
+
+        public void Grab()
+        {
+            m_isRotating = true;
+            if (m_collision && m_collision.transform.parent != transform)
+                m_collision.transform.parent = transform;
+        }
+
+        public void Release()
+        {
+            m_isRotating = false;
+            if (m_collision && m_collision.transform.parent == transform)
+                m_collision.transform.parent = m_oldParent?.transform;
         }
 
         public void Tint(Cubie i_cubie)

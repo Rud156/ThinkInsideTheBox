@@ -291,12 +291,20 @@ namespace CubeData
         public int y = 0; // 0 means no rotation on this layer
         public int z = 0; // 0 means no rotation on this layer
 
+        public static CubeLayerMask Zero
+        {
+            get
+            {
+                return new CubeLayerMask(0, 0, 0); 
+            }
+        }
+
         private CubeLayerMask() { } // Prevent default constructor
 
         public CubeLayerMask(int i_x, int i_y, int i_z)
         {
-            if (i_x * i_y != 0 || i_x * i_z != 0 || i_y * i_z != 0)
-                throw new Exception("Only ONE layer rotation is acceptable");
+            if (!CubeLayerMask.IsValid(i_x, i_y, i_z))
+                throw new Exception("Invalid CubeLayerMask");
             this.x = i_x;
             this.y = i_y;
             this.z = i_z;
@@ -305,6 +313,22 @@ namespace CubeData
         public Vector3 ToVector3()
         {
             return new Vector3(this.x, this.y, this.z);
+        }
+
+        public static bool IsValid(int i_x, int i_y, int i_z)
+        {
+            if (i_x * i_y != 0 || i_x * i_z != 0 || i_y * i_z != 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsValid()
+        {
+            if (x * y != 0 || x * z != 0 || y * z != 0)
+                return false;
+            return true;
         }
 
         public static bool operator ==(CubeLayerMask i_lhs, CubeLayerMask i_rhs)
@@ -330,6 +354,15 @@ namespace CubeData
         public override int GetHashCode()
         {
             return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
+        }
+
+        public static bool operator ^(CubeLayerMask i_lhs, CubeLayerMask i_rhs)
+        {
+            if (!i_lhs.IsValid() || !i_rhs.IsValid())
+                return false;
+            if (i_lhs.x * i_rhs.x != 0 || i_lhs.y * i_rhs.y != 0 || i_lhs.z * i_rhs.z != 0)
+                return true;
+            return false;
         }
     }
 }

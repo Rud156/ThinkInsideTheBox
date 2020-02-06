@@ -22,7 +22,7 @@ namespace CubeData
             }
             HideCubeLayer(i_layerMask);
             PlaceCube();
-            DrawCube();
+            //DrawCube();
         }
 
         public void UpdateLayer()
@@ -38,18 +38,24 @@ namespace CubeData
                 // Hide collision cubies
                 return false;
             }
+            GrabObjects();
             transform.Rotate(i_rotationMask.ToVector3() * (i_clockwise ? 1 : -1));
             if (Quaternion.Angle(transform.rotation, m_lastFixedRotation) > 90f)
             {
                 m_lastFixedRotation = transform.rotation;
+                ReleaseObjects();
                 Debug.Log(i_clockwise ? "Clock" : "CounterClock");
                 return true;
             }
-            //transform.localEulerAngles += i_rotationMask.ToVector3() * (i_clockwise ? 1 : -1);
-            //transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles +
-            //    i_rotationMask.ToVector3() * (i_clockwise ? 1 : -1));
             return false;
 
+        }
+
+        public bool IsRotating
+        { get
+            {
+                return Quaternion.Angle(transform.rotation, m_lastFixedRotation) > 5f;
+            }
         }
 
         private void PlaceCube()
@@ -101,6 +107,28 @@ namespace CubeData
                 if (cubieObject.isActiveAndEnabled)
                 {
                     cubieObject.DrawCubie();
+                }
+            }
+        }
+
+        private void GrabObjects()
+        {
+            foreach (var cubieObject in m_cubieObjects)
+            {
+                if (cubieObject.isActiveAndEnabled)
+                {
+                    cubieObject.Grab();
+                }
+            }
+        }
+
+        private void ReleaseObjects()
+        {
+            foreach (var cubieObject in m_cubieObjects)
+            {
+                if (cubieObject.isActiveAndEnabled)
+                {
+                    cubieObject.Release();
                 }
             }
         }
