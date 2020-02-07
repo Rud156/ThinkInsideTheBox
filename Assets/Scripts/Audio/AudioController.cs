@@ -30,7 +30,7 @@ namespace Audio
                 }
                     break;
 
-                case AudioEnum.GearClicking:
+                case AudioEnum.GearClick:
                 {
                     audioSource.clip = gearClick.clip;
                     audioSource.volume = gearClick.volume;
@@ -60,7 +60,7 @@ namespace Audio
         public enum AudioEnum
         {
             Background,
-            GearClicking,
+            GearClick,
             GearTurning
         }
 

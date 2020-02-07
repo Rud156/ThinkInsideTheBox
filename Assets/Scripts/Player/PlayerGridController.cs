@@ -1,74 +1,56 @@
-﻿using Scenes.Main;
-using System;
+﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Collider))]
     public class PlayerGridController : MonoBehaviour
     {
-        [Header("Player Movement")] public float movementLerpSpeed;
-        public float movementLerpTolerance;
-        public Vector3 posiitionOffset;
+        [Header("Movement")] public float playerMovementVelocity;
+        public float positionReachedTolerance;
+        public float rotationSpeed;
 
-        [Header("Player Rotation")] public float rotationSpeed;
+        [Header("Stop Same Position")] public float positionStoppedTolerance;
+        public int maxStopFrameCount;
 
-        [Header("Water Hole")] public float rayCastDistance = 3;
-
-        // Movement
-        private Vector3 _startPosition;
-        private Vector3 _targetPosition;
-        private Vector3 _lastPosition;
-        private float _lerpAmount;
-        private bool _positionReached;
-
-        // Components
         private Rigidbody _playerRb;
-        private SphereCollider _playerCollider;
+        private Collider _playerCollider;
 
-        // Player State
         private PlayerState _playerState;
 
-        // Flipping related
-        private Transform _originalParent;
-        private Transform _flipParent;
-        private Quaternion _targetRotation;
-        private Quaternion _cubeRotation;
-        [SerializeField] private Transform _CubeWorld;
-        private bool bRotateCube;
+        // Target Movement
+        private Vector3 _targetPosition; // Try reaching as close as possible
+        private Vector3 _lastPosition;
+        private bool _positionReached;
+
+        // Stop Position
+        private int _currentStopFrameCount;
 
         #region Unity Functions
 
         private void Start()
         {
             _playerRb = GetComponent<Rigidbody>();
-            _playerCollider = GetComponent<SphereCollider>();
+            _playerCollider = GetComponent<Collider>();
 
             _lastPosition = transform.position;
             _positionReached = true;
-            _lerpAmount = 0;
 
-            _CubeWorld = GameObject.Find("Rubik's Cube World").transform;
             SetPlayerState(PlayerState.PlayerInControl);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             switch (_playerState)
             {
                 case PlayerState.PlayerInControl:
-                {
-                    OrientPlayerToPosition();
+                    OrientPlayerToMovement();
                     MovePlayer();
-                    FlipCubeFacet();
-                        
-                }
                     break;
 
                 case PlayerState.PlayerStatic:
-                    // Probably don't do anything here...
                     break;
 
                 case PlayerState.PlayerEndState:
@@ -79,27 +61,20 @@ namespace Player
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        // Use multiple colliders instead
+        private void OnCollisionEnter(Collision other)
         {
-            if (other.CompareTag(TagManager.GridMarker))
-            {
-                transform.SetParent(other.transform.parent.parent);
-            }
-            else if (other.CompareTag(TagManager.WaterHole))
-            {
-                SetPlayerEndState(false);
-            }
-            else if (other.CompareTag(TagManager.WinMarker))
+            if (other.gameObject.CompareTag(TagManager.WinMarker))
             {
                 SetPlayerEndState(true);
             }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag(TagManager.GridMarker))
+            else if (other.gameObject.CompareTag(TagManager.WaterHole))
             {
-                transform.SetParent(null);
+                SetPlayerEndState(false);
+            }
+            else if (other.gameObject.CompareTag(TagManager.FaceOut))
+            {
+                transform.SetParent(other.transform.parent);
             }
         }
 
@@ -109,22 +84,24 @@ namespace Player
 
         public void SetPlayerTargetLocation(Vector3 targetPosition)
         {
-            // Don't detect inputs when the player is not in control
-            if (_playerState != PlayerState.PlayerInControl || !_positionReached)
+            if (_playerState != PlayerState.PlayerInControl || IsPlayerMoving())
             {
                 return;
             }
 
-            targetPosition += posiitionOffset;
             _targetPosition = targetPosition;
-
-            _startPosition = transform.position;
-            _lerpAmount = 0;
             _positionReached = false;
+            _currentStopFrameCount = 0;
+            _playerRb.useGravity = true;
+        }
 
-            _playerRb.isKinematic = true;
-            _playerRb.useGravity = false;
-            _playerCollider.isTrigger = true;
+        public void ResetPlayerGravityState()
+        {
+            bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f);
+            if (!isGroundBelow)
+            {
+                _playerRb.useGravity = true;
+            }
         }
 
         public bool IsPlayerMoving() => !_positionReached;
@@ -159,60 +136,41 @@ namespace Player
 
         private void MovePlayer()
         {
-            if (_positionReached)
+            if (_positionReached || _playerState != PlayerState.PlayerInControl)
             {
                 return;
             }
 
-            _lastPosition = transform.position;
-            _lerpAmount += movementLerpSpeed * Time.deltaTime;
-            transform.position = Vector3.Lerp(_startPosition, _targetPosition, _lerpAmount);
+            Vector3 movementDirection = _targetPosition - transform.position;
+            movementDirection = movementDirection.normalized;
 
-            if (_lerpAmount >= movementLerpTolerance)
+            Vector3 directionVelocity = movementDirection * playerMovementVelocity;
+            _playerRb.velocity = new Vector3(
+                directionVelocity.x,
+                _playerRb.velocity.y,
+                directionVelocity.z
+            );
+
+            float distance = (transform.position - _targetPosition).magnitude;
+            float stopMagDiff = (transform.position - _lastPosition).magnitude;
+            if (Mathf.Abs(stopMagDiff) <= positionStoppedTolerance)
             {
-                transform.position = _targetPosition;
-                _positionReached = true;
-
-                _playerRb.isKinematic = false;
-                _playerRb.useGravity = true;
-                _playerCollider.isTrigger = false;
-
-                int layerMask = 1 << 9;
-                // Probably do this somewhere else. Should be a better way to do it.
-                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance, layerMask))
-                {
-                    Debug.Log(hit.collider);
-                    
-                    if (hit.collider.CompareTag(TagManager.WaterHole))
-                    {
-                        SetPlayerEndState(false);
-                    }
-                    else if(hit.collider.CompareTag(TagManager.InsideOut))
-                    {
-                        //hit.collider.transform.parent.transform.rotation = Quaternion.Lerp()
-                        Transform parent = hit.collider.transform;
-                        //Debug.Log(hit.collider + ", " + hit.collider);
-                        Vector3 targetEuler = parent.transform.eulerAngles * -1;
-                        _targetRotation = Quaternion.Euler(targetEuler );
-
-                        Vector3 cubeTargetRotation = _CubeWorld.eulerAngles + new Vector3(-180, 0, 0);
-                        _cubeRotation = Quaternion.Euler(cubeTargetRotation);
-
-                        _originalParent = this.transform.parent;
-                        _flipParent = parent;
-                        this.transform.parent = (hit.collider.transform);
-                        Debug.Log(_originalParent +", " + _flipParent);
-                        _playerRb.isKinematic = true;
-                        _playerRb.useGravity = false;
-                        //SetPlayerEndState(false);
-                        Debug.Log("Current player parent: " + this.transform.parent);
-                        bRotateCube = false;
-                    }
-                }
+                _currentStopFrameCount += 1;
             }
+
+            if (Mathf.Abs(distance) <= positionReachedTolerance || _currentStopFrameCount > maxStopFrameCount)
+            {
+                _positionReached = true;
+                _playerRb.velocity = Vector3.zero;
+                _playerRb.useGravity = false;
+
+                Debug.Log("Player Reached Position");
+            }
+
+            _lastPosition = transform.position;
         }
 
-        private void OrientPlayerToPosition()
+        private void OrientPlayerToMovement()
         {
             if (_positionReached)
             {
@@ -226,61 +184,16 @@ namespace Player
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
 
-        private void FlipCubeFacet()
-        {
-            if(_originalParent && _flipParent && !bRotateCube)
-            {
-                this.transform.parent = _flipParent;
-                //this.transform.SetParent(_flipParent);
-                _flipParent.rotation = Quaternion.Lerp(_flipParent.rotation, _targetRotation, rotationSpeed * Time.deltaTime);
-
-                //Debug.Log(_flipParent.rotation.eulerAngles +", "+ _targetRotation.eulerAngles);
-                if(_flipParent.rotation.eulerAngles == _targetRotation.eulerAngles)
-                {
-                    //Debug.Log("Flip finished");
-                    
-                    //this.transform.parent = _originalParent;
-                    bRotateCube = true;
-                }
-            }
-            if(bRotateCube)
-            {
-                _CubeWorld.rotation = Quaternion.Lerp(_CubeWorld.rotation, _cubeRotation, rotationSpeed * Time.deltaTime);
-                if(_CubeWorld.rotation.eulerAngles == _cubeRotation.eulerAngles)
-                {
-                    //this.transform.position = _flipParent.position + new Vector3(0, 10, 0);
-                    this.transform.parent = _originalParent;
-                    _flipParent = null;
-                    _originalParent = null;
-                    bRotateCube = false;
-                    _playerRb.isKinematic = false;
-                    _playerRb.useGravity = true;
-                }
-            }
-        }
-
         #endregion
 
         private void SetPlayerEndState(bool didPlayerWin)
         {
+            // TODO: Complete this function
+
+            Debug.Log($"Player Won: {didPlayerWin}");
+
             SetPlayerState(PlayerState.PlayerEndState);
-
-            _playerCollider.isTrigger = true;
-            if (!didPlayerWin) // This means currently they have hit the water hole
-            {
-                _playerRb.isKinematic = false;
-                _playerRb.useGravity = true;
-            }
-
-            if (didPlayerWin)
-            {
-                int buildIndex = SceneManager.GetActiveScene().buildIndex;
-                MainSceneController.Instance.LoadNextLevel(buildIndex + 1);
-            }
-            else
-            {
-                MainSceneController.Instance.ReloadCurrentLevel();
-            }
+            _playerRb.velocity = Vector3.zero;
         }
 
         private void SetPlayerState(PlayerState playerState) => _playerState = playerState;

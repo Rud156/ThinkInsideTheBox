@@ -14,6 +14,7 @@ namespace WorldCube
         [Header("Sides")] public List<CubeSide> cubeSides;
         public int sideSize;
         public float rayCastDistance;
+        public LayerMask layerMask;
 
         [Header("Parent")] public Transform cubeParent;
         public float lerpSpeed;
@@ -168,7 +169,9 @@ namespace WorldCube
                 // UnParent the object when they reach the final rotation angle
                 if (lerpAmount >= lerpEndingAmount && targetSideRotation % 90 == 0)
                 {
-                    audioControl.PlaySound(AudioController.AudioEnum.GearClicking);
+                    audioControl.PlaySound(AudioController.AudioEnum.GearClick);
+
+                    playerGridController.ResetPlayerGravityState();
 
                     sideRotation.currentSideRotation = sideRotation.targetSideRotation;
                     sideRotation.startSideRotation = sideRotation.targetSideRotation;
@@ -275,7 +278,8 @@ namespace WorldCube
             {
                 bool raycastSuccess = Physics.Raycast(
                     position, cubeSide.rayCastDirection,
-                    out RaycastHit hit, rayCastDistance
+                    out RaycastHit hit, rayCastDistance,
+                    layerMask
                 );
                 if (raycastSuccess)
                 {

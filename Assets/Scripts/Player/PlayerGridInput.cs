@@ -5,15 +5,14 @@ namespace Player
 {
     public class PlayerGridInput : MonoBehaviour
     {
-        [Header("Player")] public Transform playerTransform;
-        public PlayerGridController playerGridController;
-        public Vector3 followOffset;
+        [Header("Movement")] public float distanceToCheck;
+        public float rayCastDownDistance;
+        public float collisionCheckDistance;
+        public float yRayCastOffset;
+        public LayerMask layerMask;
 
-        [Header("Raycast")] public Transform leftRaycast;
-        public Transform rightRaycast;
-        public Transform forwardRaycast;
-        public Transform backRaycast;
-        public float raycastDistance;
+        [Header("Player Movement")] public Transform playerTransform;
+        public PlayerGridController playerGridController;
 
         #region Unity Functions
 
@@ -21,48 +20,62 @@ namespace Player
         {
             if (Input.GetKeyDown(ControlConstants.Left) || Input.GetKeyDown(ControlConstants.AltLeft))
             {
-                FindTargetRayCast(Vector3.right, leftRaycast.position); // TODO: Check why this is opposite
+                FindAndSaveFinalMovementPosition(Vector3.right);
             }
             else if (Input.GetKeyDown(ControlConstants.Right) || Input.GetKeyDown(ControlConstants.AltRight))
             {
-                FindTargetRayCast(Vector3.left, rightRaycast.position); // TODO: Check why this is opposite
+                FindAndSaveFinalMovementPosition(Vector3.left);
             }
             else if (Input.GetKeyDown(ControlConstants.Forward) || Input.GetKeyDown(ControlConstants.AltForward))
             {
-                FindTargetRayCast(Vector3.forward, forwardRaycast.position);
+                FindAndSaveFinalMovementPosition(Vector3.forward);
             }
             else if (Input.GetKeyDown(ControlConstants.Back) || Input.GetKeyDown(ControlConstants.AltBack))
             {
-                FindTargetRayCast(Vector3.back, backRaycast.position);
+                FindAndSaveFinalMovementPosition(Vector3.back);
             }
-
-            FollowPlayer();
         }
 
         #endregion
 
-        #region Utility Functions
+        #region Utility Function
 
-        private void FollowPlayer() => transform.position = playerTransform.position + followOffset;
-
-        private void FindTargetRayCast(Vector3 rayCastDirection, Vector3 position)
+        private void FindAndSaveFinalMovementPosition(Vector3 moveDirection)
         {
-            if (Physics.Raycast(position, rayCastDirection, out RaycastHit hit, raycastDistance))
+            Vector3 targetMovePosition = GetTargetMovePosition(moveDirection);
+            if (targetMovePosition != Vector3.one)
             {
-                if (hit.collider.CompareTag(TagManager.GridMarker)
-                    || hit.collider.CompareTag(TagManager.InsideOut))
-                {
-                    Vector3 targetMovementPosition = hit.collider.transform.position;
-                    playerGridController.SetPlayerTargetLocation(targetMovementPosition);
-                }
-                else if (hit.collider.CompareTag(TagManager.WinMarker))
-                {
-                    Vector3 targetMovementPosition = hit.collider.transform.position;
-                    playerGridController.SetPlayerTargetLocation(targetMovementPosition);
-                }
+                Debug.Log($"Sending Player Position: {targetMovePosition}");
+                playerGridController.SetPlayerTargetLocation(targetMovePosition);
             }
         }
 
-        #endregion
+        private Vector3 GetTargetMovePosition(Vector3 direction)
+        {
+            // This might probably not be required
+            Vector3 position = playerTransform.position + Vector3.up * yRayCastOffset;
+            Debug.DrawRay(position, direction * collisionCheckDistance, Color.red, 3);
+            // This is the case that there is an obstacle in the way
+            if (Physics.Raycast(position, direction, out RaycastHit collisionHit, collisionCheckDistance))
+            {
+                Debug.Log("Invalid Position Collision");
+                return Vector3.one;
+            }
+
+            Vector3 upperTargetPosition = playerTransform.position + direction * distanceToCheck + Vector3.up * yRayCastOffset;
+            Debug.DrawRay(upperTargetPosition, Vector3.down * rayCastDownDistance, Color.blue, 3);
+            if (Physics.Raycast(upperTargetPosition, Vector3.down, out RaycastHit hit, rayCastDownDistance, layerMask))
+            {
+                Debug.Log("Valid Position Found");
+
+                Vector3 collisionPosition = hit.collider.transform.position; // Get the center of the object hit
+                return collisionPosition;
+            }
+
+            Debug.Log("Nothing Found");
+            return Vector3.one; // This must be ignored
+        }
     }
+
+    #endregion
 }
