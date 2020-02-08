@@ -13,7 +13,7 @@ namespace CubeData
         public List<CubeLayerMask> LayerMasks = new List<CubeLayerMask>();
         private List<CubeLayerObject> m_layerObjects = new List<CubeLayerObject>();
         private Vector3 m_lastUp = Vector3.up;
-        private CubeLayerMask m_rotatingLayer = CubeLayerMask.Zero;
+        public CubeLayerMask m_rotatingLayer = CubeLayerMask.Zero;
         private bool m_pauseInput = false;
 
         private void Awake()
