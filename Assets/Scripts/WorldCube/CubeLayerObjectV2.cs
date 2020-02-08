@@ -67,7 +67,8 @@ namespace WorldCube
             int updatedTargetRotation = m_targetRotation + i_rotationDelta;
 
             // Only in this case create and add children
-            if (m_currentSideRotation % RotationLocker == 0 && updatedTargetRotation % RotationLocker != 0 && !HasChildren())
+            if (m_currentSideRotation % RotationLocker == 0 && updatedTargetRotation % RotationLocker != 0 &&
+                !HasChildren())
             {
                 bool areChildrenValid = GrabAndValidateChildren();
                 // This means that some other layer has control over these children
@@ -87,7 +88,8 @@ namespace WorldCube
 
         public void SetTileDistance(int distance) => m_tileDistance = distance;
 
-        public bool IsRotating => m_currentSideRotation != m_targetRotation;
+        public bool IsRotating => m_currentSideRotation != m_targetRotation ||
+                                  m_targetRotation % RotationLocker != 0;
 
         #endregion
 
@@ -104,19 +106,19 @@ namespace WorldCube
                     float xValue = 0;
                     float yValue = 0;
                     float zValue = 0;
-                    if (cubeLayerMask.X == 1)
+                    if (Mathf.Abs(cubeLayerMask.X) == 1)
                     {
                         xValue = 0;
                         yValue = i;
                         zValue = j;
                     }
-                    else if (cubeLayerMask.Y == 1)
+                    else if (Mathf.Abs(cubeLayerMask.Y) == 1)
                     {
                         xValue = i;
                         yValue = 0;
                         zValue = j;
                     }
-                    else if (cubeLayerMask.Z == 1)
+                    else if (Mathf.Abs(cubeLayerMask.Z) == 1)
                     {
                         xValue = i;
                         yValue = j;
@@ -127,7 +129,7 @@ namespace WorldCube
                     Collider[] other = Physics.OverlapSphere(finalPosition, collisionRadius, layerMask);
 
                     CubeieDataV2 data = GetColliderCube(other);
-                    if (data.HasParent)
+                    if (!data || data.HasParent)
                     {
                         return false;
                     }
@@ -146,6 +148,8 @@ namespace WorldCube
             {
                 m_childCubies[i].ReleaseParent(cubeLayerMask);
             }
+
+            m_childCubies.Clear();
         }
 
         private bool HasChildren() => m_childCubies.Count != 0;
@@ -154,7 +158,7 @@ namespace WorldCube
         {
             for (int i = 0; i < other.Length; i++)
             {
-                CubeieDataV2 data = other[i].GetComponent<CubeieDataV2>();
+                CubeieDataV2 data = other[i].transform.parent.GetComponent<CubeieDataV2>();
                 if (data)
                 {
                     return data;

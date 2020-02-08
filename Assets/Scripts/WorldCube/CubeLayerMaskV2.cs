@@ -56,7 +56,7 @@ namespace WorldCube
 
         public static bool operator ==(CubeLayerMaskV2 i_lhs, CubeLayerMaskV2 i_rhs)
         {
-            if (i_lhs == null || i_rhs == null)
+            if (i_lhs is null || i_rhs is null)
             {
                 return false;
             }
