@@ -131,12 +131,18 @@ namespace WorldCube
                     CubeieDataV2 data = GetColliderCube(other);
                     if (!data || data.HasParent)
                     {
-                        return false;
+                        continue;
                     }
 
                     data.SetParent(cubeLayerMask, transform);
                     m_childCubies.Add(data);
                 }
+            }
+
+            if (m_childCubies.Count == 0)
+            {
+                Debug.LogError("No Cubies Found");
+                return false;
             }
 
             return true;
@@ -158,10 +164,18 @@ namespace WorldCube
         {
             for (int i = 0; i < other.Length; i++)
             {
-                CubeieDataV2 data = other[i].transform.parent.GetComponent<CubeieDataV2>();
+                CubeieDataV2 data = other[i].GetComponent<CubeieDataV2>();
                 if (data)
                 {
                     return data;
+                }
+                else
+                {
+                    data = other[i].transform.parent.GetComponentInParent<CubeieDataV2>();
+                    if (data)
+                    {
+                        return data;
+                    }
                 }
             }
 
