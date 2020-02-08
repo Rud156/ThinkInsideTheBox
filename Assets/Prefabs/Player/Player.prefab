@@ -160,6 +160,10 @@ MonoBehaviour:
   rotationSpeed: 3
   positionStoppedTolerance: 0.0065
   maxStopFrameCount: 60
+  rayCastDistance: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1129756582
 MonoBehaviour:
   m_ObjectHideFlags: 0

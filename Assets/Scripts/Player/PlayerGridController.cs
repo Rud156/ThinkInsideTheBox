@@ -15,6 +15,9 @@ namespace Player
         [Header("Stop Same Position")] public float positionStoppedTolerance;
         public int maxStopFrameCount;
 
+        [Header("RayCast Data")] public float rayCastDistance;
+        public LayerMask layerMask;
+
         private Rigidbody _playerRb;
         private Collider _playerCollider;
 
@@ -27,6 +30,10 @@ namespace Player
 
         // Stop Position
         private int _currentStopFrameCount;
+
+        public delegate void WorldFlip(Transform parentTransform);
+
+        public WorldFlip OnWorldFlip;
 
         #region Unity Functions
 
@@ -72,7 +79,8 @@ namespace Player
             {
                 SetPlayerEndState(false);
             }
-            else if (other.gameObject.CompareTag(TagManager.FaceOut))
+            else if (other.gameObject.CompareTag(TagManager.FaceOut) ||
+                     other.gameObject.CompareTag(TagManager.InsideOut))
             {
                 transform.SetParent(other.transform.parent);
             }
@@ -164,6 +172,8 @@ namespace Player
                 _playerRb.velocity = Vector3.zero;
                 _playerRb.useGravity = false;
 
+                CheckAndNotifyEndPosition();
+
                 Debug.Log("Player Reached Position");
             }
 
@@ -184,6 +194,17 @@ namespace Player
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
 
+        private void CheckAndNotifyEndPosition()
+        {
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayCastDistance, layerMask))
+            {
+                if (hit.collider.CompareTag(TagManager.InsideOut))
+                {
+                    OnWorldFlip?.Invoke(hit.collider.transform);
+                }
+            }
+        }
+
         #endregion
 
         private void SetPlayerEndState(bool didPlayerWin)
@@ -193,7 +214,11 @@ namespace Player
             Debug.Log($"Player Won: {didPlayerWin}");
 
             SetPlayerState(PlayerState.PlayerEndState);
+
             _playerRb.velocity = Vector3.zero;
+            _playerRb.useGravity = true;
+            _playerRb.isKinematic = false;
+            _positionReached = true;
         }
 
         private void SetPlayerState(PlayerState playerState) => _playerState = playerState;
