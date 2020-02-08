@@ -826,6 +826,42 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 304598510}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &348372995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 348372996}
+  m_Layer: 0
+  m_Name: Cube Layers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &348372996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348372995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 759338307}
+  - {fileID: 1448618776}
+  - {fileID: 1037983364}
+  - {fileID: 1428985383}
+  - {fileID: 1980387310}
+  - {fileID: 2132927994}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &397155297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6342918469269809086, guid: f84bb4909affab54ab6592eaf4caab36,
@@ -1790,6 +1826,59 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &759338306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 759338307}
+  - component: {fileID: 759338308}
+  m_Layer: 0
+  m_Name: Layer 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &759338307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759338306}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 348372996}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &759338308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759338306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d1cd0ee0e0ed941849f89a0fcd5c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeLayerMask:
+    x: 0
+    y: 0
+    z: -1
+  collisionRadius: 0.5
+  lerpChangeRate: 3
+  lerpEndingAmount: 0.97
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &760670795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1870,12 +1959,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5496090024280349955, guid: 009c8eecf5f54d84f8a08a2359b67bbd,
     type: 3}
   m_PrefabInstance: {fileID: 5496090023502158779}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &838087663 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5778520100519987103, guid: ae660a844428eb94d84603c8329e222f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4755733287825258103}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &852565041
 GameObject:
@@ -2183,6 +2266,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1007775738}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1037983363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037983364}
+  - component: {fileID: 1037983365}
+  m_Layer: 0
+  m_Name: Layer 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1037983364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037983363}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 348372996}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1037983365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037983363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d1cd0ee0e0ed941849f89a0fcd5c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeLayerMask:
+    x: -1
+    y: 0
+    z: 0
+  collisionRadius: 0.5
+  lerpChangeRate: 3
+  lerpEndingAmount: 0.97
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &1054015279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2290,14 +2426,8 @@ Transform:
   - {fileID: 852565042}
   - {fileID: 2001244090}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1075853160 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5778520100175897371, guid: ae660a844428eb94d84603c8329e222f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4755733287825258103}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1090175393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2493,7 +2623,7 @@ PrefabInstance:
     - target: {fileID: 1489780414278686065, guid: 99216492c75cd6640a77dab36fe8a7d1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1489780414278686065, guid: 99216492c75cd6640a77dab36fe8a7d1,
         type: 3}
@@ -2934,6 +3064,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1246674403}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1428985382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1428985383}
+  - component: {fileID: 1428985384}
+  m_Layer: 0
+  m_Name: Layer 4
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1428985383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428985382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 348372996}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1428985384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428985382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d1cd0ee0e0ed941849f89a0fcd5c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeLayerMask:
+    x: 0
+    y: 0
+    z: 1
+  collisionRadius: 0.5
+  lerpChangeRate: 3
+  lerpEndingAmount: 0.97
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &1444157168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3014,6 +3197,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1444157168}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1448618775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448618776}
+  - component: {fileID: 1448618777}
+  m_Layer: 0
+  m_Name: Layer 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1448618776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448618775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 348372996}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1448618777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448618775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d1cd0ee0e0ed941849f89a0fcd5c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeLayerMask:
+    x: 1
+    y: 0
+    z: 0
+  collisionRadius: 0.5
+  lerpChangeRate: 3
+  lerpEndingAmount: 0.97
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &1456024177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3244,12 +3480,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1493765306}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1525256687 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5778520099211541711, guid: ae660a844428eb94d84603c8329e222f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4755733287825258103}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1549581669
 GameObject:
   m_ObjectHideFlags: 0
@@ -3280,7 +3510,7 @@ Transform:
   - {fileID: 755147594}
   - {fileID: 111261018}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1574859225 stripped
 Transform:
@@ -3453,12 +3683,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 974452947}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1694460874 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5778520099491574717, guid: ae660a844428eb94d84603c8329e222f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4755733287825258103}
-  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1714683274
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5778520100421817366, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_Name
+      value: Shader Collider
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ae660a844428eb94d84603c8329e222f, type: 3}
 --- !u!1001 &1738381607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3860,75 +4153,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1813484975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7541ce2966f533a488bc1399358d764c, type: 3}
+  m_Script: {fileID: 11500000, guid: ef048c38892ab464c9016f1de87bf16e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeSides:
-  - centerCube: {fileID: 5656432860162521559}
-    rayCastPosition: {fileID: 2112478170}
-    rayCastDirection: {x: 0, y: 0, z: 1}
-    adjacentSideCenters:
-    - {fileID: 5656432861266229484}
-    - {fileID: 5656432861698756765}
-    - {fileID: 5656432860299012393}
-    - {fileID: 5656432860988775109}
-    adjacentSideIndexes: 
-  - centerCube: {fileID: 5656432861698756765}
-    rayCastPosition: {fileID: 1075853160}
-    rayCastDirection: {x: -1, y: 0, z: 0}
-    adjacentSideCenters:
-    - {fileID: 5656432859761227783}
-    - {fileID: 5656432860162521559}
-    - {fileID: 5656432860299012393}
-    - {fileID: 5656432860988775109}
-    adjacentSideIndexes: 
-  - centerCube: {fileID: 5656432859761227783}
-    rayCastPosition: {fileID: 838087663}
-    rayCastDirection: {x: 0, y: 0, z: -1}
-    adjacentSideCenters:
-    - {fileID: 5656432861698756765}
-    - {fileID: 5656432861266229484}
-    - {fileID: 5656432860299012393}
-    - {fileID: 5656432860988775109}
-    adjacentSideIndexes: 
-  - centerCube: {fileID: 5656432861266229484}
-    rayCastPosition: {fileID: 1525256687}
-    rayCastDirection: {x: 1, y: 0, z: 0}
-    adjacentSideCenters:
-    - {fileID: 5656432859761227783}
-    - {fileID: 5656432860162521559}
-    - {fileID: 5656432860299012393}
-    - {fileID: 5656432860988775109}
-    adjacentSideIndexes: 
-  - centerCube: {fileID: 5656432860299012393}
-    rayCastPosition: {fileID: 2007167469}
-    rayCastDirection: {x: 0, y: -1, z: 0}
-    adjacentSideCenters:
-    - {fileID: 5656432860162521559}
-    - {fileID: 5656432861266229484}
-    - {fileID: 5656432861698756765}
-    - {fileID: 5656432859761227783}
-    adjacentSideIndexes: 
-  - centerCube: {fileID: 5656432860988775109}
-    rayCastPosition: {fileID: 1694460874}
-    rayCastDirection: {x: 0, y: 1, z: 0}
-    adjacentSideCenters:
-    - {fileID: 5656432861266229484}
-    - {fileID: 5656432860162521559}
-    - {fileID: 5656432861698756765}
-    - {fileID: 5656432859761227783}
-    adjacentSideIndexes: 
-  sideSize: 2
-  rayCastDistance: 5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 823
-  cubeParent: {fileID: 1934600958}
-  lerpSpeed: 7
-  lerpEndingAmount: 0
+  tileDistance: 2
+  rotationDelta: 9
   playerGridController: {fileID: 1129756579}
-  audioControl: {fileID: 852565043}
-  rotationMultiplier: 9
+  cubeLayers:
+  - {fileID: 759338308}
+  - {fileID: 1448618777}
+  - {fileID: 1037983365}
+  - {fileID: 1428985384}
+  - {fileID: 1980387311}
+  - {fileID: 2132927995}
 --- !u!114 &1813484978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3945,7 +4182,7 @@ MonoBehaviour:
   readTimeout: 7
   useForcedPort: 1
   portString: COM4
-  disableSerialPort: 0
+  disableSerialPort: 1
 --- !u!1 &1846420744
 GameObject:
   m_ObjectHideFlags: 0
@@ -4524,6 +4761,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1970241107}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1980387309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1980387310}
+  - component: {fileID: 1980387311}
+  m_Layer: 0
+  m_Name: Layer 5
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1980387310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980387309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 348372996}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980387311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980387309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d1cd0ee0e0ed941849f89a0fcd5c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeLayerMask:
+    x: 0
+    y: 1
+    z: 0
+  collisionRadius: 0.5
+  lerpChangeRate: 3
+  lerpEndingAmount: 0.97
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &2001244089
 GameObject:
   m_ObjectHideFlags: 0
@@ -4651,12 +4941,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &2007167469 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5778520099568815086, guid: ae660a844428eb94d84603c8329e222f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4755733287825258103}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2018478409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4731,12 +5015,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
     type: 3}
   m_PrefabInstance: {fileID: 2018478409}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2112478170 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5778520100724123408, guid: ae660a844428eb94d84603c8329e222f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4755733287825258103}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2116266798
 PrefabInstance:
@@ -4903,75 +5181,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2119582962}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4755733287825258103
-PrefabInstance:
+--- !u!1 &2132927993
+GameObject:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5778520100421817366, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_Name
-      value: RayCast Positions
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778520100421817367, guid: ae660a844428eb94d84603c8329e222f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ae660a844428eb94d84603c8329e222f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2132927994}
+  - component: {fileID: 2132927995}
+  m_Layer: 0
+  m_Name: Layer 6
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2132927994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132927993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 348372996}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2132927995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132927993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d1cd0ee0e0ed941849f89a0fcd5c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeLayerMask:
+    x: 0
+    y: -1
+    z: 0
+  collisionRadius: 0.5
+  lerpChangeRate: 3
+  lerpEndingAmount: 0.97
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &5496090023502158779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5068,6 +5330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432859668703577}
+  - component: {fileID: 5656432859668703583}
   m_Layer: 0
   m_Name: Fake Cube Ground (5)
   m_TagString: Untagged
@@ -5075,6 +5338,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432859668703583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859668703582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &5656432859673698160
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5133,13 +5408,27 @@ GameObject:
   - component: {fileID: 5656432859673698167}
   - component: {fileID: 5656432859673698160}
   - component: {fileID: 5656432859673698161}
-  m_Layer: 0
+  - component: {fileID: 5656432859673698165}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432859673698165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859673698164}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432859673698167
 Transform:
   m_ObjectHideFlags: 0
@@ -5302,13 +5591,27 @@ GameObject:
   - component: {fileID: 5656432859716763847}
   - component: {fileID: 5656432859716763840}
   - component: {fileID: 5656432859716763841}
-  m_Layer: 0
+  - component: {fileID: 5656432859716763845}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432859716763845
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859716763844}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432859716763847
 Transform:
   m_ObjectHideFlags: 0
@@ -5502,6 +5805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432859788006428}
+  - component: {fileID: 5656432859788006429}
   m_Layer: 0
   m_Name: Fake Cube Ground (14)
   m_TagString: Untagged
@@ -5525,6 +5829,18 @@ Transform:
   m_Father: {fileID: 1934600958}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5656432859788006429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859788006427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5656432859800872739
 GameObject:
   m_ObjectHideFlags: 0
@@ -5534,6 +5850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432859800872740}
+  - component: {fileID: 5656432859800872741}
   m_Layer: 0
   m_Name: Fake Cube Ground (19)
   m_TagString: Untagged
@@ -5559,6 +5876,18 @@ Transform:
   m_Father: {fileID: 1934600958}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5656432859800872741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859800872739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5656432859822177665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5707,13 +6036,27 @@ GameObject:
   - component: {fileID: 5656432859846057559}
   - component: {fileID: 5656432859846057552}
   - component: {fileID: 5656432859846057553}
-  m_Layer: 0
+  - component: {fileID: 5656432859846057557}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432859846057557
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859846057556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432859846057559
 Transform:
   m_ObjectHideFlags: 0
@@ -5737,6 +6080,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432859868394399}
+  - component: {fileID: 5656432859868394393}
   m_Layer: 0
   m_Name: Fake Cube Ground (25)
   m_TagString: Untagged
@@ -5744,6 +6088,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432859868394393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859868394392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432859868394399
 Transform:
   m_ObjectHideFlags: 0
@@ -5788,13 +6144,27 @@ GameObject:
   - component: {fileID: 5656432859873585417}
   - component: {fileID: 5656432859873585422}
   - component: {fileID: 5656432859873585423}
-  m_Layer: 0
+  - component: {fileID: 5656432859873585419}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432859873585419
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859873585418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &5656432859873585422
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5868,6 +6238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432859880458291}
+  - component: {fileID: 5656432859880458293}
   m_Layer: 0
   m_Name: Fake Cube Ground (4)
   m_TagString: Untagged
@@ -5875,6 +6246,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432859880458293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859880458292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &5656432859950236616
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5933,13 +6316,27 @@ GameObject:
   - component: {fileID: 5656432859950236623}
   - component: {fileID: 5656432859950236616}
   - component: {fileID: 5656432859950236617}
-  m_Layer: 0
+  - component: {fileID: 5656432859950236621}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432859950236621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432859950236620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432859950236623
 Transform:
   m_ObjectHideFlags: 0
@@ -6064,13 +6461,27 @@ GameObject:
   - component: {fileID: 5656432860046362161}
   - component: {fileID: 5656432860046362166}
   - component: {fileID: 5656432860046362167}
-  m_Layer: 0
+  - component: {fileID: 5656432860046362163}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860046362163
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860046362162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &5656432860046362166
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6280,13 +6691,27 @@ GameObject:
   - component: {fileID: 5656432860105511092}
   - component: {fileID: 5656432860105511091}
   - component: {fileID: 5656432860105511090}
-  m_Layer: 0
+  - component: {fileID: 5656432860105511096}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860105511096
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860105511095}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5656432860125498587
 GameObject:
   m_ObjectHideFlags: 0
@@ -6296,6 +6721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860125498588}
+  - component: {fileID: 5656432860125498589}
   m_Layer: 0
   m_Name: Fake Cube Ground (20)
   m_TagString: Untagged
@@ -6320,6 +6746,18 @@ Transform:
   m_Father: {fileID: 1934600958}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5656432860125498589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860125498587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432860138303648
 Transform:
   m_ObjectHideFlags: 0
@@ -6345,13 +6783,27 @@ GameObject:
   - component: {fileID: 5656432860138303648}
   - component: {fileID: 5656432860138303655}
   - component: {fileID: 5656432860138303654}
-  m_Layer: 0
+  - component: {fileID: 5656432860138303652}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860138303652
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860138303651}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432860138303654
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6495,7 +6947,8 @@ GameObject:
   - component: {fileID: 5656432860216812546}
   - component: {fileID: 5656432860216812549}
   - component: {fileID: 5656432860216812548}
-  m_Layer: 0
+  - component: {fileID: 5656432860216812547}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
@@ -6516,6 +6969,19 @@ Transform:
   m_Father: {fileID: 5656432859788006428}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5656432860216812547
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860216812545}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432860216812548
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6759,6 +7225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860296442073}
+  - component: {fileID: 5656432860296442079}
   m_Layer: 0
   m_Name: Fake Cube Ground (13)
   m_TagString: Untagged
@@ -6766,6 +7233,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860296442079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860296442078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5656432860299012392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6977,6 +7456,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860301733737}
+  - component: {fileID: 5656432860301733743}
   m_Layer: 0
   m_Name: Fake Cube Ground (1)
   m_TagString: Untagged
@@ -6984,6 +7464,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860301733743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860301733742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &5656432860315605312
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7042,13 +7534,27 @@ GameObject:
   - component: {fileID: 5656432860315605319}
   - component: {fileID: 5656432860315605312}
   - component: {fileID: 5656432860315605313}
-  m_Layer: 0
+  - component: {fileID: 5656432860315605317}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860315605317
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860315605316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432860315605319
 Transform:
   m_ObjectHideFlags: 0
@@ -7072,6 +7578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860367657239}
+  - component: {fileID: 5656432860367657233}
   m_Layer: 0
   m_Name: Fake Cube Ground (21)
   m_TagString: Untagged
@@ -7079,6 +7586,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860367657233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860367657232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432860367657239
 Transform:
   m_ObjectHideFlags: 0
@@ -7125,13 +7644,27 @@ GameObject:
   - component: {fileID: 5656432860381201281}
   - component: {fileID: 5656432860381201286}
   - component: {fileID: 5656432860381201287}
-  m_Layer: 0
+  - component: {fileID: 5656432860381201283}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860381201283
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860381201282}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &5656432860381201286
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7251,13 +7784,27 @@ GameObject:
   - component: {fileID: 5656432860393289773}
   - component: {fileID: 5656432860393289770}
   - component: {fileID: 5656432860393289771}
-  m_Layer: 0
+  - component: {fileID: 5656432860393289775}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860393289775
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860393289774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432860407246409
 Transform:
   m_ObjectHideFlags: 0
@@ -7286,6 +7833,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860407246409}
+  - component: {fileID: 5656432860407246415}
   m_Layer: 0
   m_Name: Fake Cube Ground (22)
   m_TagString: Untagged
@@ -7293,6 +7841,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860407246415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860407246414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5656432860421627830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7389,7 +7949,8 @@ GameObject:
   - component: {fileID: 5656432860447643450}
   - component: {fileID: 5656432860447643453}
   - component: {fileID: 5656432860447643452}
-  m_Layer: 0
+  - component: {fileID: 5656432860447643451}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
@@ -7410,6 +7971,19 @@ Transform:
   m_Father: {fileID: 5656432859800872740}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5656432860447643451
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860447643449}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432860447643452
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7466,6 +8040,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860475307567}
+  - component: {fileID: 5656432860475307561}
   m_Layer: 0
   m_Name: Fake Cube Ground (3)
   m_TagString: Untagged
@@ -7473,6 +8048,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860475307561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860475307560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432860475307567
 Transform:
   m_ObjectHideFlags: 0
@@ -7518,6 +8105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860597154769}
+  - component: {fileID: 5656432860597154775}
   m_Layer: 0
   m_Name: Fake Cube Ground (26)
   m_TagString: Untagged
@@ -7525,6 +8113,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860597154775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860597154774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5656432860636146931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7624,6 +8224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860650848446}
+  - component: {fileID: 5656432860650848442}
   m_Layer: 0
   m_Name: Fake Cube Ground (2)
   m_TagString: Untagged
@@ -7631,6 +8232,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860650848442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860650848441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432860650848446
 Transform:
   m_ObjectHideFlags: 0
@@ -7675,6 +8288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860685181098}
+  - component: {fileID: 5656432860685181102}
   m_Layer: 0
   m_Name: Fake Cube Ground (6)
   m_TagString: Untagged
@@ -7682,6 +8296,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432860685181102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860685181101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5656432860688792769
 GameObject:
   m_ObjectHideFlags: 0
@@ -7693,7 +8319,8 @@ GameObject:
   - component: {fileID: 5656432860688792770}
   - component: {fileID: 5656432860688792773}
   - component: {fileID: 5656432860688792772}
-  m_Layer: 0
+  - component: {fileID: 5656432860688792771}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
@@ -7714,6 +8341,19 @@ Transform:
   m_Father: {fileID: 5656432860125498588}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5656432860688792771
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860688792769}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432860688792772
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7772,13 +8412,27 @@ GameObject:
   - component: {fileID: 5656432860752216923}
   - component: {fileID: 5656432860752216924}
   - component: {fileID: 5656432860752216925}
-  m_Layer: 0
+  - component: {fileID: 5656432860752216921}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860752216921
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860752216920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432860752216923
 Transform:
   m_ObjectHideFlags: 0
@@ -7865,13 +8519,27 @@ GameObject:
   - component: {fileID: 5656432860756361536}
   - component: {fileID: 5656432860756361543}
   - component: {fileID: 5656432860756361542}
-  m_Layer: 0
+  - component: {fileID: 5656432860756361540}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860756361540
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860756361539}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432860756361542
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7928,6 +8596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860781492764}
+  - component: {fileID: 5656432860781492765}
   m_Layer: 0
   m_Name: Fake Cube Ground (8)
   m_TagString: Untagged
@@ -7956,6 +8625,18 @@ Transform:
   m_Father: {fileID: 1934600958}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5656432860781492765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860781492763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5656432860797209512
 GameObject:
   m_ObjectHideFlags: 0
@@ -7967,13 +8648,27 @@ GameObject:
   - component: {fileID: 5656432860797209515}
   - component: {fileID: 5656432860797209516}
   - component: {fileID: 5656432860797209517}
-  m_Layer: 0
+  - component: {fileID: 5656432860797209513}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860797209513
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860797209512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432860797209515
 Transform:
   m_ObjectHideFlags: 0
@@ -8044,6 +8739,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432860835505780}
+  - component: {fileID: 5656432860835505781}
   m_Layer: 0
   m_Name: Fake Cube Ground (7)
   m_TagString: Untagged
@@ -8069,6 +8765,18 @@ Transform:
   m_Father: {fileID: 1934600958}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5656432860835505781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860835505779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432860927662864
 Transform:
   m_ObjectHideFlags: 0
@@ -8094,13 +8802,27 @@ GameObject:
   - component: {fileID: 5656432860927662864}
   - component: {fileID: 5656432860927662871}
   - component: {fileID: 5656432860927662870}
-  m_Layer: 0
+  - component: {fileID: 5656432860927662868}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860927662868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860927662867}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432860927662870
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8220,13 +8942,27 @@ GameObject:
   - component: {fileID: 5656432860931029909}
   - component: {fileID: 5656432860931029906}
   - component: {fileID: 5656432860931029907}
-  m_Layer: 0
+  - component: {fileID: 5656432860931029911}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432860931029911
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432860931029910}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5656432860988775108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8501,6 +9237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861092150279}
+  - component: {fileID: 5656432861092150273}
   m_Layer: 0
   m_Name: Fake Cube Ground (24)
   m_TagString: Untagged
@@ -8508,6 +9245,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861092150273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861092150272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432861092150279
 Transform:
   m_ObjectHideFlags: 0
@@ -8669,7 +9418,8 @@ GameObject:
   - component: {fileID: 5656432861139156278}
   - component: {fileID: 5656432861139156273}
   - component: {fileID: 5656432861139156272}
-  m_Layer: 0
+  - component: {fileID: 5656432861139156279}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
@@ -8690,6 +9440,19 @@ Transform:
   m_Father: {fileID: 5656432861785918760}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5656432861139156279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861139156277}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432861156008001
 Transform:
   m_ObjectHideFlags: 0
@@ -8715,13 +9478,27 @@ GameObject:
   - component: {fileID: 5656432861156008001}
   - component: {fileID: 5656432861156008006}
   - component: {fileID: 5656432861156008007}
-  m_Layer: 0
+  - component: {fileID: 5656432861156008003}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432861156008003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861156008002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &5656432861156008006
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8795,6 +9572,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861231932579}
+  - component: {fileID: 5656432861231932581}
   m_Layer: 0
   m_Name: Fake Cube Ground (23)
   m_TagString: Untagged
@@ -8802,6 +9580,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861231932581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861231932580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432861250495960
 Transform:
   m_ObjectHideFlags: 0
@@ -8827,6 +9617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861250495960}
+  - component: {fileID: 5656432861250495968}
   m_Layer: 0
   m_Name: Fake Cube Ground (12)
   m_TagString: Untagged
@@ -8834,6 +9625,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861250495968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861250495967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5656432861266229483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9105,7 +9908,8 @@ GameObject:
   - component: {fileID: 5656432861329315434}
   - component: {fileID: 5656432861329315437}
   - component: {fileID: 5656432861329315436}
-  m_Layer: 0
+  - component: {fileID: 5656432861329315435}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
@@ -9126,6 +9930,19 @@ Transform:
   m_Father: {fileID: 5656432860835505780}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5656432861329315435
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861329315433}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432861329315436
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9184,7 +10001,8 @@ GameObject:
   - component: {fileID: 5656432861342403074}
   - component: {fileID: 5656432861342403077}
   - component: {fileID: 5656432861342403076}
-  m_Layer: 0
+  - component: {fileID: 5656432861342403075}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
@@ -9205,6 +10023,19 @@ Transform:
   m_Father: {fileID: 5656432860781492764}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5656432861342403075
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861342403073}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5656432861342403076
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9261,6 +10092,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861360241589}
+  - component: {fileID: 5656432861360241587}
   m_Layer: 0
   m_Name: Fake Cube Ground (9)
   m_TagString: Untagged
@@ -9268,6 +10100,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861360241587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861360241586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432861360241589
 Transform:
   m_ObjectHideFlags: 0
@@ -9294,6 +10138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861380129605}
+  - component: {fileID: 5656432861380129603}
   m_Layer: 0
   m_Name: Fake Cube Ground (16)
   m_TagString: Untagged
@@ -9301,6 +10146,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861380129603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861380129602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432861380129605
 Transform:
   m_ObjectHideFlags: 0
@@ -9326,6 +10183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861401182558}
+  - component: {fileID: 5656432861401182554}
   m_Layer: 0
   m_Name: Fake Cube Ground (17)
   m_TagString: Untagged
@@ -9333,6 +10191,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861401182554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861401182553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432861401182558
 Transform:
   m_ObjectHideFlags: 0
@@ -9375,6 +10245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861493906315}
+  - component: {fileID: 5656432861493906317}
   m_Layer: 0
   m_Name: Fake Cube Ground (11)
   m_TagString: CenterBlock
@@ -9382,6 +10253,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861493906317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861493906316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5656432861505628937
 GameObject:
   m_ObjectHideFlags: 0
@@ -9391,6 +10274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861505628942}
+  - component: {fileID: 5656432861505628938}
   m_Layer: 0
   m_Name: Fake Cube Ground (18)
   m_TagString: Untagged
@@ -9398,6 +10282,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861505628938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861505628937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432861505628942
 Transform:
   m_ObjectHideFlags: 0
@@ -9441,13 +10337,27 @@ GameObject:
   - component: {fileID: 5656432861602728985}
   - component: {fileID: 5656432861602728990}
   - component: {fileID: 5656432861602728991}
-  m_Layer: 0
+  - component: {fileID: 5656432861602728987}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432861602728987
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861602728986}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &5656432861602728990
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9553,7 +10463,8 @@ GameObject:
   - component: {fileID: 5656432861679293894}
   - component: {fileID: 5656432861679293889}
   - component: {fileID: 5656432861679293888}
-  m_Layer: 0
+  - component: {fileID: 5656432861679293895}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
@@ -9574,6 +10485,19 @@ Transform:
   m_Father: {fileID: 5656432861250495960}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5656432861679293895
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861679293893}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5656432861698756764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9741,13 +10665,27 @@ GameObject:
   - component: {fileID: 5656432861725611197}
   - component: {fileID: 5656432861725611194}
   - component: {fileID: 5656432861725611195}
-  m_Layer: 0
+  - component: {fileID: 5656432861725611199}
+  m_Layer: 12
   m_Name: Center Marker
   m_TagString: SideCenterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5656432861725611199
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861725611198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5656432861785918760
 Transform:
   m_ObjectHideFlags: 0
@@ -9773,6 +10711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861785918760}
+  - component: {fileID: 5656432861785918768}
   m_Layer: 0
   m_Name: Fake Cube Ground
   m_TagString: Untagged
@@ -9780,6 +10719,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861785918768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861785918767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5656432861803171928
 GameObject:
   m_ObjectHideFlags: 0
@@ -9789,6 +10740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5656432861803171935}
+  - component: {fileID: 5656432861803171929}
   m_Layer: 0
   m_Name: Fake Cube Ground (15)
   m_TagString: Untagged
@@ -9796,6 +10748,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5656432861803171929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656432861803171928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df26f60810f5a44bd6cd686945ed45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5656432861803171935
 Transform:
   m_ObjectHideFlags: 0

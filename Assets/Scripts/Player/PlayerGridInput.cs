@@ -10,6 +10,7 @@ namespace Player
         public float collisionCheckDistance;
         public float yRayCastOffset;
         public LayerMask layerMask;
+        public LayerMask collisionLayerMask;
 
         [Header("Player Movement")] public Transform playerTransform;
         public PlayerGridController playerGridController;
@@ -56,13 +57,15 @@ namespace Player
             Vector3 position = playerTransform.position + Vector3.up * yRayCastOffset;
             Debug.DrawRay(position, direction * collisionCheckDistance, Color.red, 3);
             // This is the case that there is an obstacle in the way
-            if (Physics.Raycast(position, direction, out RaycastHit collisionHit, collisionCheckDistance))
+            if (Physics.Raycast(position, direction, out RaycastHit collisionHit,
+                collisionCheckDistance, collisionLayerMask))
             {
                 Debug.Log("Invalid Position Collision");
                 return Vector3.one;
             }
 
-            Vector3 upperTargetPosition = playerTransform.position + direction * distanceToCheck + Vector3.up * yRayCastOffset;
+            Vector3 upperTargetPosition =
+                playerTransform.position + direction * distanceToCheck + Vector3.up * yRayCastOffset;
             Debug.DrawRay(upperTargetPosition, Vector3.down * rayCastDownDistance, Color.blue, 3);
             if (Physics.Raycast(upperTargetPosition, Vector3.down, out RaycastHit hit, rayCastDownDistance, layerMask))
             {

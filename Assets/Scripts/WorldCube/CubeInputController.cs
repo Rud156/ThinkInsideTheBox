@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace WorldCube
 {
-    [RequireComponent(typeof(CubeController))]
+    [RequireComponent(typeof(CubeControllerV2))]
     public class CubeInputController : MonoBehaviour
     {
         [Header("Player")] public PlayerGridController playerGridController;
@@ -15,14 +15,14 @@ namespace WorldCube
         public string portString = "COM3";
         public bool disableSerialPort;
 
-        private CubeController _cubeController;
+        private CubeControllerV2 _cubeController;
         private SerialPort _serialPort;
 
         #region Unity Functions
 
         private void Start()
         {
-            _cubeController = GetComponent<CubeController>();
+            _cubeController = GetComponent<CubeControllerV2>();
 
             string[] ports = SerialPort.GetPortNames();
             string portName;
@@ -114,23 +114,23 @@ namespace WorldCube
                         switch (sideInput)
                         {
                             case "Left":
-                                _cubeController.CheckAndUpdateRotation(1, direction);
+                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), direction);
                                 break;
 
                             case "Right":
-                                _cubeController.CheckAndUpdateRotation(3, direction);
+                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), direction);
                                 break;
 
                             case "Front":
-                                _cubeController.CheckAndUpdateRotation(2, direction);
+                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
                                 break;
 
                             case "Back":
-                                _cubeController.CheckAndUpdateRotation(0, direction);
+                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), direction);
                                 break;
 
                             case "Top":
-                                _cubeController.CheckAndUpdateRotation(4, direction);
+                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
                                 break;
 
                             default:
@@ -165,51 +165,51 @@ namespace WorldCube
 
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                _cubeController.CheckAndUpdateRotation(0, 1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.R))
             {
-                _cubeController.CheckAndUpdateRotation(0, -1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                _cubeController.CheckAndUpdateRotation(1, 1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.T))
             {
-                _cubeController.CheckAndUpdateRotation(1, -1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                _cubeController.CheckAndUpdateRotation(2, 1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), 1);
             }
             else if (Input.GetKeyDown(KeyCode.Y))
             {
-                _cubeController.CheckAndUpdateRotation(2, -1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                _cubeController.CheckAndUpdateRotation(3, 1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), 1);
             }
             else if (Input.GetKeyDown(KeyCode.U))
             {
-                _cubeController.CheckAndUpdateRotation(3, -1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha8))
             {
-                _cubeController.CheckAndUpdateRotation(4, 1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.I))
             {
-                _cubeController.CheckAndUpdateRotation(4, -1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
-                _cubeController.CheckAndUpdateRotation(5, 1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.O))
             {
-                _cubeController.CheckAndUpdateRotation(5, -1);
+                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), -1);
             }
         }
 
