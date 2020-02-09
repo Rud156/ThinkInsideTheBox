@@ -18,6 +18,11 @@ namespace WorldCube
         public float lerpSpeed;
         public float lerpEndingAmount = 0.97f;
 
+        [Header("Markers")] public List<GameObject> centerMarkers;
+        public CubeLayerPlayerFollower layerPlayerFollower;
+        public Transform layerTransform;
+        public Transform layerCenterTransform;
+
         private CubeLayerMaskV2 m_lastLayerMask;
 
         // World Flip
@@ -26,6 +31,7 @@ namespace WorldCube
         private Vector3 m_startRotation;
         private Vector3 m_targetRotation;
         private float m_lerpAmount;
+        private bool m_isPlayerOutside;
 
         private WorldState m_worldState;
 
@@ -179,8 +185,25 @@ namespace WorldCube
         {
             Debug.Log("Ending World Flip");
 
+            m_isPlayerOutside = !m_isPlayerOutside;
+
             playerGridController.AllowPlayerMovement();
             playerGridController.transform.SetParent(m_playerPreviousParent);
+
+            foreach (GameObject centerMarker in centerMarkers)
+            {
+                centerMarker.SetActive(false);
+            }
+
+            if (m_isPlayerOutside)
+            {
+                layerPlayerFollower.SetFollowActive();
+            }
+            else
+            {
+                layerPlayerFollower.DeactivateFollow();
+                layerTransform.position = layerCenterTransform.position;
+            }
 
             SetWorldState(WorldState.ControllerControlled);
         }
