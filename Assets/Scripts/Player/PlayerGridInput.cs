@@ -41,9 +41,9 @@ namespace Player
 
         #region Utility Function
 
-        private void FindAndSaveFinalMovementPosition(Vector3 moveDirection)
+        private void FindAndSaveFinalMovementPosition(Vector3 i_moveDirection)
         {
-            Vector3 targetMovePosition = GetTargetMovePosition(moveDirection);
+            Vector3 targetMovePosition = GetTargetMovePosition(i_moveDirection);
             if (targetMovePosition != Vector3.one)
             {
                 Debug.Log($"Sending Player Position: {targetMovePosition}");
@@ -51,13 +51,13 @@ namespace Player
             }
         }
 
-        private Vector3 GetTargetMovePosition(Vector3 direction)
+        private Vector3 GetTargetMovePosition(Vector3 i_direction)
         {
             // This might probably not be required
             Vector3 position = playerTransform.position + Vector3.up * yRayCastOffset;
-            Debug.DrawRay(position, direction * collisionCheckDistance, Color.red, 3);
+            Debug.DrawRay(position, i_direction * collisionCheckDistance, Color.red, 3);
             // This is the case that there is an obstacle in the way
-            if (Physics.Raycast(position, direction, out RaycastHit collisionHit,
+            if (Physics.Raycast(position, i_direction, out RaycastHit collisionHit,
                 collisionCheckDistance, collisionLayerMask))
             {
                 Debug.Log("Invalid Position Collision");
@@ -65,7 +65,7 @@ namespace Player
             }
 
             Vector3 upperTargetPosition =
-                playerTransform.position + direction * distanceToCheck + Vector3.up * yRayCastOffset;
+                playerTransform.position + i_direction * distanceToCheck + Vector3.up * yRayCastOffset;
             Debug.DrawRay(upperTargetPosition, Vector3.down * rayCastDownDistance, Color.blue, 3);
             if (Physics.Raycast(upperTargetPosition, Vector3.down, out RaycastHit hit, rayCastDownDistance, layerMask))
             {

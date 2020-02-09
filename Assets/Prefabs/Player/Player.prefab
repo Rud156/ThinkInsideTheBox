@@ -155,9 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461b6ad0fb11b84198e02c7f3ca7e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovementVelocity: 1
   positionReachedTolerance: 0.3
   rotationSpeed: 3
+  minMovementSpeed: 1
+  maxMovementSpeed: 2.5
   positionStoppedTolerance: 0.0065
   maxStopFrameCount: 60
   rayCastDistance: 3
@@ -179,7 +180,7 @@ MonoBehaviour:
   distanceToCheck: 1.5
   rayCastDownDistance: 7
   collisionCheckDistance: 1
-  yRayCastOffset: 1
+  yRayCastOffset: 1.5
   layerMask:
     serializedVersion: 2
     m_Bits: 3895

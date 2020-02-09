@@ -1,4 +1,5 @@
 ﻿using System;
+using Extensions;
 using UnityEngine;
 using Utils;
 
@@ -8,9 +9,10 @@ namespace Player
     [RequireComponent(typeof(Collider))]
     public class PlayerGridController : MonoBehaviour
     {
-        [Header("Movement")] public float playerMovementVelocity;
-        public float positionReachedTolerance;
+        [Header("Movement")] public float positionReachedTolerance;
         public float rotationSpeed;
+        public float minMovementSpeed;
+        public float maxMovementSpeed;
 
         [Header("Stop Same Position")] public float positionStoppedTolerance;
         public int maxStopFrameCount;
@@ -18,18 +20,22 @@ namespace Player
         [Header("RayCast Data")] public float rayCastDistance;
         public LayerMask layerMask;
 
-        private Rigidbody _playerRb;
-        private Collider _playerCollider;
+        private Rigidbody m_playerRb;
+        private Collider m_playerCollider;
 
-        private PlayerState _playerState;
+        private PlayerState m_playerState;
 
         // Target Movement
-        private Vector3 _targetPosition; // Try reaching as close as possible
-        private Vector3 _lastPosition;
-        private bool _positionReached;
+        private Vector3 m_targetPosition; // Try reaching as close as possible
+        private Vector3 m_lastPosition;
+        private float m_maxDistanceToTarget;
+        private bool m_positionReached;
 
         // Stop Position
-        private int _currentStopFrameCount;
+        private int m_currentStopFrameCount;
+
+        // Boolean to trigger if player is outside
+        private bool m_isPlayerOutside;
 
         public delegate void WorldFlip(Transform parentTransform);
 
@@ -39,18 +45,18 @@ namespace Player
 
         private void Start()
         {
-            _playerRb = GetComponent<Rigidbody>();
-            _playerCollider = GetComponent<Collider>();
+            m_playerRb = GetComponent<Rigidbody>();
+            m_playerCollider = GetComponent<Collider>();
 
-            _lastPosition = transform.position;
-            _positionReached = true;
+            m_lastPosition = transform.position;
+            m_positionReached = true;
 
             SetPlayerState(PlayerState.PlayerInControl);
         }
 
         private void FixedUpdate()
         {
-            switch (_playerState)
+            switch (m_playerState)
             {
                 case PlayerState.PlayerInControl:
                     OrientPlayerToMovement();
@@ -69,20 +75,20 @@ namespace Player
         }
 
         // Use multiple colliders instead
-        private void OnCollisionEnter(Collision other)
+        private void OnCollisionEnter(Collision i_other)
         {
-            if (other.gameObject.CompareTag(TagManager.WinMarker))
+            if (i_other.gameObject.CompareTag(TagManager.WinMarker))
             {
                 SetPlayerEndState(true);
             }
-            else if (other.gameObject.CompareTag(TagManager.WaterHole))
+            else if (i_other.gameObject.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
             {
                 SetPlayerEndState(false);
             }
-            else if (other.gameObject.CompareTag(TagManager.FaceOut) ||
-                     other.gameObject.CompareTag(TagManager.InsideOut))
+            else if (i_other.gameObject.CompareTag(TagManager.FaceOut) ||
+                     i_other.gameObject.CompareTag(TagManager.InsideOut))
             {
-                transform.SetParent(other.transform.parent);
+                transform.SetParent(i_other.transform.parent);
             }
         }
 
@@ -90,17 +96,18 @@ namespace Player
 
         #region External Functions
 
-        public void SetPlayerTargetLocation(Vector3 targetPosition)
+        public void SetPlayerTargetLocation(Vector3 i_targetPosition)
         {
-            if (_playerState != PlayerState.PlayerInControl || IsPlayerMoving())
+            if (m_playerState != PlayerState.PlayerInControl || IsPlayerMoving())
             {
                 return;
             }
 
-            _targetPosition = targetPosition;
-            _positionReached = false;
-            _currentStopFrameCount = 0;
-            _playerRb.useGravity = true;
+            m_targetPosition = i_targetPosition;
+            m_maxDistanceToTarget = Vector3.Distance(i_targetPosition, transform.position);
+            m_positionReached = false;
+            m_currentStopFrameCount = 0;
+            m_playerRb.useGravity = true;
         }
 
         public void ResetPlayerGravityState()
@@ -108,32 +115,32 @@ namespace Player
             bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f);
             if (!isGroundBelow)
             {
-                _playerRb.useGravity = true;
+                m_playerRb.useGravity = true;
             }
         }
 
-        public bool IsPlayerMoving() => !_positionReached;
+        public bool IsPlayerMoving() => !m_positionReached;
 
         public void PreventPlayerMovement()
         {
-            if (_playerState == PlayerState.PlayerEndState)
+            if (m_playerState == PlayerState.PlayerEndState)
             {
                 return;
             }
 
             SetPlayerState(PlayerState.PlayerStatic);
-            _playerRb.isKinematic = true;
+            m_playerRb.isKinematic = true;
         }
 
         public void AllowPlayerMovement()
         {
-            if (_playerState == PlayerState.PlayerEndState)
+            if (m_playerState == PlayerState.PlayerEndState)
             {
                 return;
             }
 
             SetPlayerState(PlayerState.PlayerInControl);
-            _playerRb.isKinematic = false;
+            m_playerRb.isKinematic = false;
         }
 
         #endregion
@@ -144,51 +151,56 @@ namespace Player
 
         private void MovePlayer()
         {
-            if (_positionReached || _playerState != PlayerState.PlayerInControl)
+            if (m_positionReached || m_playerState != PlayerState.PlayerInControl)
             {
                 return;
             }
 
-            Vector3 movementDirection = _targetPosition - transform.position;
-            movementDirection = movementDirection.normalized;
 
-            Vector3 directionVelocity = movementDirection * playerMovementVelocity;
-            _playerRb.velocity = new Vector3(
+            float currentDistance = Vector3.Distance(m_targetPosition, transform.position);
+            float mappedSpeed = ExtensionFunctions.Map(
+                currentDistance, positionReachedTolerance, m_maxDistanceToTarget,
+                maxMovementSpeed, minMovementSpeed
+            );
+
+            Vector3 movementDirection = (m_targetPosition - transform.position).normalized;
+            Vector3 directionVelocity = movementDirection * mappedSpeed;
+            m_playerRb.velocity = new Vector3(
                 directionVelocity.x,
-                _playerRb.velocity.y,
+                m_playerRb.velocity.y,
                 directionVelocity.z
             );
 
-            float distance = (transform.position - _targetPosition).magnitude;
-            float stopMagDiff = (transform.position - _lastPosition).magnitude;
+            float distance = (transform.position - m_targetPosition).magnitude;
+            float stopMagDiff = (transform.position - m_lastPosition).magnitude;
             if (Mathf.Abs(stopMagDiff) <= positionStoppedTolerance)
             {
-                _currentStopFrameCount += 1;
+                m_currentStopFrameCount += 1;
             }
 
-            if (Mathf.Abs(distance) <= positionReachedTolerance || _currentStopFrameCount > maxStopFrameCount)
+            if (Mathf.Abs(distance) <= positionReachedTolerance || m_currentStopFrameCount > maxStopFrameCount)
             {
-                _positionReached = true;
-                _playerRb.velocity = Vector3.zero;
-                _playerRb.useGravity = false;
+                m_positionReached = true;
+                m_playerRb.velocity = Vector3.zero;
+                m_playerRb.useGravity = false;
 
                 CheckAndNotifyEndPosition();
 
                 Debug.Log("Player Reached Position");
             }
 
-            _lastPosition = transform.position;
+            m_lastPosition = transform.position;
         }
 
         private void OrientPlayerToMovement()
         {
-            if (_positionReached)
+            if (m_positionReached)
             {
                 return;
             }
 
             Vector3 currentPosition = transform.position;
-            Vector3 direction = _lastPosition - currentPosition;
+            Vector3 direction = m_lastPosition - currentPosition;
 
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
@@ -200,6 +212,7 @@ namespace Player
             {
                 if (hit.collider.CompareTag(TagManager.InsideOut))
                 {
+                    m_isPlayerOutside = !m_isPlayerOutside;
                     OnWorldFlip?.Invoke(hit.collider.transform);
                 }
             }
@@ -207,21 +220,21 @@ namespace Player
 
         #endregion
 
-        private void SetPlayerEndState(bool didPlayerWin)
+        private void SetPlayerEndState(bool i_didPlayerWin)
         {
             // TODO: Complete this function
 
-            Debug.Log($"Player Won: {didPlayerWin}");
+            Debug.Log($"Player Won: {i_didPlayerWin}");
 
             SetPlayerState(PlayerState.PlayerEndState);
 
-            _playerRb.velocity = Vector3.zero;
-            _playerRb.useGravity = true;
-            _playerRb.isKinematic = false;
-            _positionReached = true;
+            m_playerRb.velocity = Vector3.zero;
+            m_playerRb.useGravity = true;
+            m_playerRb.isKinematic = false;
+            m_positionReached = true;
         }
 
-        private void SetPlayerState(PlayerState playerState) => _playerState = playerState;
+        private void SetPlayerState(PlayerState i_playerState) => m_playerState = i_playerState;
 
         #endregion
 
