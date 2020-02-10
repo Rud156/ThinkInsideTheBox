@@ -19,6 +19,7 @@ namespace WorldCube
         public float lerpEndingAmount = 0.97f;
 
         [Header("Markers")] public List<GameObject> centerMarkers;
+        public List<GameObject> centerBlocks;
         public CubeLayerPlayerFollower layerPlayerFollower;
         public Transform layerTransform;
         public Transform layerCenterTransform;
@@ -42,6 +43,11 @@ namespace WorldCube
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
             {
                 cubeLayerObjectV2.SetTileDistance(tileDistance);
+            }
+
+            foreach (GameObject centerBlock in centerBlocks)
+            {
+                centerBlock.SetActive(false);
             }
 
             SetWorldState(WorldState.ControllerControlled);
@@ -198,11 +204,20 @@ namespace WorldCube
             if (m_isPlayerOutside)
             {
                 layerPlayerFollower.SetFollowActive();
+                foreach (GameObject centerBlock in centerBlocks)
+                {
+                    centerBlock.SetActive(true);
+                }
             }
             else
             {
                 layerPlayerFollower.DeactivateFollow();
                 layerTransform.position = layerCenterTransform.position;
+
+                foreach (GameObject centerBlock in centerBlocks)
+                {
+                    centerBlock.SetActive(false);
+                }
             }
 
             SetWorldState(WorldState.ControllerControlled);
