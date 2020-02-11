@@ -18,11 +18,12 @@ namespace WorldCube
         public float lerpSpeed;
         public float lerpEndingAmount = 0.97f;
 
-        [Header("Markers")] public List<GameObject> centerMarkers;
-        public List<GameObject> centerBlocks;
+        [Header("Markers")] public List<GameObject> centerBlocks;
         public CubeLayerPlayerFollower layerPlayerFollower;
         public Transform layerTransform;
         public Transform layerCenterTransform;
+
+        [Header("World Data")] public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
 
         private CubeLayerMaskV2 m_lastLayerMask;
 
@@ -40,18 +41,15 @@ namespace WorldCube
 
         private void Start()
         {
+            playerGridController.OnWorldFlip += InitiateWorldFlip;
+
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
             {
                 cubeLayerObjectV2.SetTileDistance(tileDistance);
             }
 
-            foreach (GameObject centerBlock in centerBlocks)
-            {
-                centerBlock.SetActive(false);
-            }
-
+            SetupInitialWorldState();
             SetWorldState(WorldState.ControllerControlled);
-            playerGridController.OnWorldFlip += InitiateWorldFlip;
         }
 
         private void OnDestroy()
@@ -196,11 +194,6 @@ namespace WorldCube
             playerGridController.AllowPlayerMovement();
             playerGridController.transform.SetParent(m_playerPreviousParent);
 
-            foreach (GameObject centerMarker in centerMarkers)
-            {
-                centerMarker.SetActive(false);
-            }
-
             if (m_isPlayerOutside)
             {
                 layerPlayerFollower.SetFollowActive();
@@ -208,6 +201,8 @@ namespace WorldCube
                 {
                     centerBlock.SetActive(true);
                 }
+
+                outsideWorld.SetActive(true);
             }
             else
             {
@@ -218,12 +213,24 @@ namespace WorldCube
                 {
                     centerBlock.SetActive(false);
                 }
+
+                outsideWorld.SetActive(false);
             }
 
             SetWorldState(WorldState.ControllerControlled);
         }
 
         private void SetWorldState(WorldState i_worldState) => m_worldState = i_worldState;
+
+        private void SetupInitialWorldState()
+        {
+            foreach (GameObject centerBlock in centerBlocks)
+            {
+                centerBlock.SetActive(false);
+            }
+
+            outsideWorld.SetActive(false);
+        }
 
         #endregion
 
