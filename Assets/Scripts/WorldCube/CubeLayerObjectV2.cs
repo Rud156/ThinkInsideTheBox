@@ -12,6 +12,7 @@ namespace WorldCube
         public float lerpChangeRate = 1;
         public float lerpEndingAmount = 0.97f;
         public LayerMask layerMask;
+        public LayerMask displayShaderLayerMask;
 
         private List<CubeieDataV2> m_childCubies = new List<CubeieDataV2>();
 
@@ -128,14 +129,30 @@ namespace WorldCube
                     Vector3 finalPosition = transform.position + new Vector3(xValue, yValue, zValue);
                     Collider[] other = Physics.OverlapSphere(finalPosition, collisionRadius, layerMask);
 
-                    CubeieDataV2 data = GetColliderCube(other);
-                    if (!data || data.HasParent)
+                    // This basically checks and gets all cubes that lie in the position
+                    List<CubeieDataV2> data = GetColliderCube(other);
+                    bool isInvalidData = false;
+                    foreach (CubeieDataV2 cubeieDataV2 in data)
+                    {
+                        if (cubeieDataV2.HasParent)
+                        {
+                            isInvalidData = true;
+                            break;
+                        }
+                    }
+
+                    if (isInvalidData || data.Count <= 0)
                     {
                         continue;
                     }
 
-                    data.SetParent(cubeLayerMask, transform);
-                    m_childCubies.Add(data);
+                    // Ideally this count should never be more than 2
+                    // Add a check probably
+                    foreach (CubeieDataV2 cubeieDataV2 in data)
+                    {
+                        cubeieDataV2.SetParent(cubeLayerMask, transform);
+                        m_childCubies.Add(cubeieDataV2);
+                    }
                 }
             }
 
@@ -160,18 +177,19 @@ namespace WorldCube
 
         private bool HasChildren() => m_childCubies.Count != 0;
 
-        private CubeieDataV2 GetColliderCube(Collider[] other)
+        private List<CubeieDataV2> GetColliderCube(Collider[] other)
         {
+            List<CubeieDataV2> cubeData = new List<CubeieDataV2>();
             for (int i = 0; i < other.Length; i++)
             {
                 CubeieDataV2 data = other[i].transform.parent.GetComponentInParent<CubeieDataV2>();
                 if (data)
                 {
-                    return data;
+                    cubeData.Add(data);
                 }
             }
 
-            return null;
+            return cubeData;
         }
 
         private Vector3 GetVectorRotation(float rotation)
