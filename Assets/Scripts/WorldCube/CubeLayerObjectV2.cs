@@ -25,12 +25,13 @@ namespace WorldCube
 
         #region External Functions
 
-        public void UpdateRotations()
+        // Returns whether objects clicked into place or not
+        public bool UpdateRotations()
         {
             // This means that all children have been released and thus no rotation is possible
             if (m_childCubies.Count == 0)
             {
-                return;
+                return false;
             }
 
             float lerpAmount = m_lerpAmount + lerpChangeRate * Time.deltaTime;
@@ -55,7 +56,10 @@ namespace WorldCube
                 transform.rotation = Quaternion.Euler(finalRotation);
 
                 ReleaseChildren();
+                return true;
             }
+
+            return false;
         }
 
         public bool CheckAndCreateParent(CubeLayerMaskV2 i_cubeLayerMask, int i_rotationDelta)
@@ -141,7 +145,7 @@ namespace WorldCube
                         }
                     }
 
-                    if (isInvalidData || data.Count <= 0)
+                    if (isInvalidData || data.Count < 2)
                     {
                         continue;
                     }
