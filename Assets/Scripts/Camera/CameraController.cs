@@ -1,13 +1,13 @@
-﻿using Player;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace WorldCube
+namespace Camera
 {
-    public class CubeLayerPlayerFollower : MonoBehaviour
+    // TODO: Add Camera Shake
+    public class CameraController : MonoBehaviour
     {
-        [Header("Positions")] public Transform layerDefultTransform;
-
-        [Header("Player")] public PlayerGridPositionMarker playerGridPositionMarker;
+        [Header("Positions")] public Transform cameraDefaultTransform;
+        public Vector3 playerFollowOffset;
+        public Transform playerTransform;
 
         [Header("Lerping")] public float lerpSpeed;
         public AnimationCurve lerpCurve;
@@ -23,8 +23,8 @@ namespace WorldCube
         private void Start()
         {
             m_followPlayer = false;
-            m_startPosition = layerDefultTransform.position;
-            m_targetPosition = layerDefultTransform.position;
+            m_startPosition = cameraDefaultTransform.position;
+            m_targetPosition = cameraDefaultTransform.position;
             m_lerpAmount = 1;
         }
 
@@ -32,11 +32,11 @@ namespace WorldCube
         {
             if (m_followPlayer)
             {
-                Vector3 followPosition = playerGridPositionMarker.GridPosition;
-                if (m_targetPosition != followPosition)
+                Vector3 playerPosition = playerTransform.position + playerFollowOffset;
+                if (m_targetPosition != playerPosition)
                 {
+                    m_targetPosition = playerPosition;
                     m_startPosition = transform.position;
-                    m_targetPosition = followPosition;
                     m_lerpAmount = 0;
                 }
             }
@@ -51,11 +51,11 @@ namespace WorldCube
 
         #endregion
 
-        #region External Function
+        #region External Functions
 
-        public void SetLayerDefaultPosition()
+        public void SetCameraDefaultPosition()
         {
-            m_targetPosition = layerDefultTransform.position;
+            m_targetPosition = cameraDefaultTransform.position;
             m_startPosition = transform.position;
             m_lerpAmount = 0;
         }
@@ -63,6 +63,10 @@ namespace WorldCube
         public void SetFollowActive() => m_followPlayer = true;
 
         public void DeactivateFollow() => m_followPlayer = false;
+
+        #endregion
+
+        #region Utility Functions
 
         #endregion
     }
