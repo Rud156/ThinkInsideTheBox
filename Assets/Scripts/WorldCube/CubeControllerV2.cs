@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Audio;
 using Player;
 using UnityEngine;
 
@@ -23,7 +24,10 @@ namespace WorldCube
         public Transform layerTransform;
         public Transform layerCenterTransform;
 
-        [Header("World Data")] public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
+        [Header("World Data")]
+        public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
+
+        [Header("Audio")] public AudioController audioController;
 
         private CubeLayerMaskV2 m_lastLayerMask;
 
@@ -65,7 +69,11 @@ namespace WorldCube
                 {
                     foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
                     {
-                        cubeLayerObjectV2.UpdateRotations();
+                        bool clickedInPlace = cubeLayerObjectV2.UpdateRotations();
+                        if (clickedInPlace)
+                        {
+                            audioController.PlaySound(AudioController.AudioEnum.GearClick);
+                        }
                     }
 
                     UpdatePlayerMovementState();
@@ -126,7 +134,11 @@ namespace WorldCube
             int finalRotationDelta = rotationDelta * i_direction;
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
             {
-                cubeLayerObjectV2.CheckAndCreateParent(i_cubeLayerMask, finalRotationDelta);
+                bool wasParentCreated = cubeLayerObjectV2.CheckAndCreateParent(i_cubeLayerMask, finalRotationDelta);
+                if (wasParentCreated)
+                {
+                    audioController.PlaySound(AudioController.AudioEnum.GearTurning);
+                }
             }
         }
 

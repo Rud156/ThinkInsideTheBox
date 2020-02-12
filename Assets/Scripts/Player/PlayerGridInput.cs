@@ -8,8 +8,11 @@ namespace Player
         [Header("Movement")] public float distanceToCheck;
         public float rayCastDownDistance;
         public float collisionCheckDistance;
-        public float yRayCastOffset;
-        public LayerMask layerMask;
+
+        [Header("RayCasts")] public float yRayCastOffset;
+        public float yRayCastCenterPointOffset;
+
+        [Header("Masks")] public LayerMask layerMask;
         public LayerMask collisionLayerMask;
 
         [Header("Player Movement")] public Transform playerTransform;
@@ -55,10 +58,10 @@ namespace Player
         {
             // This might probably not be required
             Vector3 position = playerTransform.position + Vector3.up * yRayCastOffset;
+
             Debug.DrawRay(position, i_direction * collisionCheckDistance, Color.red, 3);
-            // This is the case that there is an obstacle in the way
             if (Physics.Raycast(position, i_direction, out RaycastHit collisionHit,
-                collisionCheckDistance, collisionLayerMask))
+                collisionCheckDistance, collisionLayerMask)) // This is the case that there is an obstacle in the way
             {
                 Debug.Log("Invalid Position Collision");
                 return Vector3.one;
@@ -66,17 +69,31 @@ namespace Player
 
             Vector3 upperTargetPosition =
                 playerTransform.position + i_direction * distanceToCheck + Vector3.up * yRayCastOffset;
+
             Debug.DrawRay(upperTargetPosition, Vector3.down * rayCastDownDistance, Color.blue, 3);
             if (Physics.Raycast(upperTargetPosition, Vector3.down, out RaycastHit hit, rayCastDownDistance, layerMask))
             {
                 Debug.Log("Valid Position Found");
 
-                Vector3 collisionPosition = hit.collider.transform.position; // Get the center of the object hit
-                return collisionPosition;
+                Vector3 objectCenter = hit.collider.transform.position; // Get the center of the object hit
+                return FindPositionOnFace(objectCenter);
             }
 
             Debug.Log("Nothing Found");
             return Vector3.one; // This must be ignored
+        }
+
+        private Vector3 FindPositionOnFace(Vector3 objectCenter)
+        {
+            Vector3 targetPosition = objectCenter + Vector3.up * yRayCastCenterPointOffset;
+
+            Debug.DrawRay(targetPosition, Vector3.down * rayCastDownDistance, Color.green, 3);
+            if (Physics.Raycast(targetPosition, Vector3.down, out RaycastHit hit, rayCastDownDistance, layerMask))
+            {
+                return hit.point;
+            }
+
+            return Vector3.one;
         }
     }
 
