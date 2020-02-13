@@ -99,11 +99,10 @@ namespace WorldCube
                     if (m_lerpAmount >= lerpEndingAmount)
                     {
                         m_flipTarget.rotation = Quaternion.Euler(m_targetRotation);
-
                         if (m_worldState == WorldState.FlipTile)
                         {
                             Debug.Log("Flip finished");
-                            //StartWorldFlip();
+                            StartWorldFlip();
                         }
                         else
                         {
@@ -186,27 +185,27 @@ namespace WorldCube
             playerGridController.transform.SetParent(parentTransform);
 
             m_startRotation = parentTransform.rotation.eulerAngles;
-            m_targetRotation = parentTransform.rotation.eulerAngles * -1;
+            m_targetRotation = parentTransform.rotation.eulerAngles * 1;
             m_lerpAmount = 0;
             m_flipTarget = parentTransform;
 
-            Vector3 targetCubeCenter = playerGridController.GetComponentInParent<CubeTransition>().targetObject.transform.position;
-            playerGridController.transform.position = targetCubeCenter;
+            
             //playerGridController.GetComponent<PlayerGridInput>().FindPositionOnFace(targetCubeCenter);
             //FadeInScreen();
-            EndWorldFlip();
-            //SetWorldState(WorldState.FlipTile);
+            //EndWorldFlip();
+            SetWorldState(WorldState.FlipTile);
         }
 
         private void StartWorldFlip()
         {
-            Debug.Log("Starting World Flip");
+            //Debug.Log("Starting World Flip");
 
-            m_startRotation = worldRoot.rotation.eulerAngles;
-            m_targetRotation = worldRoot.rotation.eulerAngles + new Vector3(180, 0, 0);
-            m_lerpAmount = 0;
-            m_flipTarget = worldRoot;
-
+            //m_startRotation = worldRoot.rotation.eulerAngles;
+            //m_targetRotation = worldRoot.rotation.eulerAngles + new Vector3(180, 0, 0);
+            //m_lerpAmount = 0;
+            //m_flipTarget = worldRoot;
+            Vector3 targetCubeCenter = playerGridController.GetComponentInParent<CubeTransition>().targetObject.transform.position;
+            playerGridController.transform.position = targetCubeCenter;
             SetWorldState(WorldState.FlipWorld);
         }
 
