@@ -114,23 +114,23 @@ namespace WorldCube
                         switch (sideInput)
                         {
                             case "Left":
-                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), direction);
-                                break;
-
-                            case "Right":
                                 _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), direction);
                                 break;
 
+                            case "Right":
+                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -direction);
+                                break;
+
                             case "Front":
-                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
+                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
                                 break;
 
                             case "Back":
-                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), direction);
+                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -direction);
                                 break;
 
                             case "Top":
-                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
+                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
                                 break;
 
                             default:
