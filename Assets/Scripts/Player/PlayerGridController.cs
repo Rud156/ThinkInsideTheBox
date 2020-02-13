@@ -14,6 +14,8 @@ namespace Player
         public float minMovementSpeed;
         public float maxMovementSpeed;
 
+        [Header("Inventory")]public InventorySystem myInventory;
+
         [Header("Stop Same Position")] public float positionStoppedTolerance;
         public int maxStopFrameCount;
 
