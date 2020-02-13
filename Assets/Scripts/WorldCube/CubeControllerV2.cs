@@ -221,6 +221,7 @@ namespace WorldCube
 
             if (m_isPlayerOutside)
             {
+                //Debug.Log("Player gets inside cube");
                 layerPlayerFollower.SetFollowActive();
                 cameraController.SetFollowActive();
 
@@ -233,6 +234,7 @@ namespace WorldCube
             }
             else
             {
+                //Debug.Log("Player gets outside cube");
                 layerPlayerFollower.DeactivateFollow();
                 layerPlayerFollower.SetLayerDefaultPosition();
 
@@ -244,7 +246,7 @@ namespace WorldCube
                     centerBlock.SetActive(false);
                 }
 
-                outsideWorld.SetActive(false);
+                //outsideWorld.SetActive(false);
             }
 
             SetWorldState(WorldState.ControllerControlled);
