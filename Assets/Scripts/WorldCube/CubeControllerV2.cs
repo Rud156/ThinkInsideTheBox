@@ -96,7 +96,8 @@ namespace WorldCube
 
                         if (m_worldState == WorldState.FlipTile)
                         {
-                            StartWorldFlip();
+                            Debug.Log("Flip finished");
+                            //StartWorldFlip();
                         }
                         else
                         {
@@ -182,7 +183,11 @@ namespace WorldCube
             m_lerpAmount = 0;
             m_flipTarget = parentTransform;
 
-            SetWorldState(WorldState.FlipTile);
+            Vector3 targetCubeCenter = playerGridController.GetComponentInParent<CubeTransition>().targetObject.transform.position;
+            playerGridController.transform.position = targetCubeCenter;
+                //playerGridController.GetComponent<PlayerGridInput>().FindPositionOnFace(targetCubeCenter);
+            EndWorldFlip();
+            //SetWorldState(WorldState.FlipTile);
         }
 
         private void StartWorldFlip()
