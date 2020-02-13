@@ -111,6 +111,7 @@ Transform:
   m_LocalScale: {x: 0.30696, y: 0.30696, z: 0.30696}
   m_Children:
   - {fileID: 1489780413273034589}
+  - {fileID: 9116975273312651247}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -164,7 +165,8 @@ MonoBehaviour:
   rayCastDistance: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7991
+  collisionNotifier: {fileID: 4470057249930661777}
 --- !u!114 &1129756582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +192,69 @@ MonoBehaviour:
     m_Bits: 3895
   playerTransform: {fileID: 1489780414278686065}
   playerGridController: {fileID: 1489780414278686066}
+--- !u!1 &5364383583085166363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9116975273312651247}
+  - component: {fileID: 6163468463285008100}
+  - component: {fileID: 4332977087147366048}
+  - component: {fileID: 4470057249930661777}
+  m_Layer: 10
+  m_Name: Player Collision Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9116975273312651247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5364383583085166363}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 2.7389, y: 2.7389, z: 2.7389}
+  m_Children: []
+  m_Father: {fileID: 1489780414278686065}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6163468463285008100
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5364383583085166363}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!135 &4332977087147366048
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5364383583085166363}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4470057249930661777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5364383583085166363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e092abaf8b3893c42b4310bc58c5d32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
