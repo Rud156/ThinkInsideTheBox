@@ -14,6 +14,8 @@ namespace Player
         public float minMovementSpeed;
         public float maxMovementSpeed;
 
+        [Header("Inventory")]public InventorySystem myInventory;
+
         [Header("Stop Same Position")] public float positionStoppedTolerance;
         public int maxStopFrameCount;
 
@@ -77,7 +79,7 @@ namespace Player
         // Use multiple colliders instead
         private void OnCollisionEnter(Collision i_other)
         {
-            if (i_other.gameObject.CompareTag(TagManager.WinMarker))
+            if (i_other.gameObject.CompareTag(TagManager.WinMarker) && myInventory.Winnable)
             {
                 SetPlayerEndState(true);
             }
@@ -89,6 +91,10 @@ namespace Player
                      i_other.gameObject.CompareTag(TagManager.InsideOut))
             {
                 transform.SetParent(i_other.transform.parent);
+            }
+            else if(!myInventory.Winnable)
+            {
+                Debug.Log("Door Locked");
             }
         }
 
