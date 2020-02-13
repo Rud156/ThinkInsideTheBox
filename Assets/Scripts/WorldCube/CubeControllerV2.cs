@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using Audio;
 using Camera;
 using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WorldCube
 {
@@ -29,6 +31,8 @@ namespace WorldCube
 
         [Header("Audio")] public AudioController audioController;
 
+        [Header("CanvasFade")] public Image fadeImg;
+
         private CubeLayerMaskV2 m_lastLayerMask;
 
         // World Flip
@@ -45,6 +49,8 @@ namespace WorldCube
 
         private void Start()
         {
+            FadeInScreen();
+
             playerGridController.OnWorldFlip += InitiateWorldFlip;
 
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
@@ -172,7 +178,8 @@ namespace WorldCube
         private void InitiateWorldFlip(Transform parentTransform)
         {
             Debug.Log("Starting Tile Flip");
-
+            //FadeOutScreen();
+            StartCoroutine("FadeIO");
             playerGridController.PreventPlayerMovement();
 
             m_playerPreviousParent = playerGridController.transform.parent;
@@ -185,7 +192,8 @@ namespace WorldCube
 
             Vector3 targetCubeCenter = playerGridController.GetComponentInParent<CubeTransition>().targetObject.transform.position;
             playerGridController.transform.position = targetCubeCenter;
-                //playerGridController.GetComponent<PlayerGridInput>().FindPositionOnFace(targetCubeCenter);
+            //playerGridController.GetComponent<PlayerGridInput>().FindPositionOnFace(targetCubeCenter);
+            //FadeInScreen();
             EndWorldFlip();
             //SetWorldState(WorldState.FlipTile);
         }
@@ -254,6 +262,22 @@ namespace WorldCube
             outsideWorld.SetActive(false);
         }
 
+        IEnumerator FadeIO()
+        {
+            FadeOutScreen();
+            yield return new WaitForSeconds(1f);
+            FadeInScreen();
+        }
+
+        private void FadeOutScreen()
+        {
+            //Debug.Log("Screen fading");
+            fadeImg.CrossFadeAlpha(1, 0.5f, false);
+        }
+        private void FadeInScreen()
+        {
+            fadeImg.CrossFadeAlpha(0, 2f, false);
+        }
         #endregion
 
         #region Enums
