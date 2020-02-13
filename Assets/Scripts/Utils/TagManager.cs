@@ -9,5 +9,7 @@
 
         public const string WaterHole = "WaterHole";
         public const string WinMarker = "WinMarker";
+
+        public const string WorldCubeMarker = "WorldCubeMarker";
     }
 }
