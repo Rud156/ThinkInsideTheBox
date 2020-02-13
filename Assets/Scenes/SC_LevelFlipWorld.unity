@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 5ce75119787234e4aae0598fcc619b45, type: 2}
@@ -368,17 +368,17 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.9716981, g: 0.9458741, b: 0.875445, a: 1}
-  m_Intensity: 45
-  m_Range: 10
-  m_SpotAngle: 179
-  m_InnerSpotAngle: 100.42172
+  m_Color: {r: 0.9716981, g: 0.9399373, b: 0.88461196, a: 1}
+  m_Intensity: 9
+  m_Range: 19.8
+  m_SpotAngle: 176.68442
+  m_InnerSpotAngle: 98.10607
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.335
+    m_Strength: 0.05
     m_Bias: 0.02
     m_NormalBias: 0.1
     m_NearPlane: 0.1
@@ -3570,6 +3570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 755147594}
   - component: {fileID: 755147595}
+  - component: {fileID: 755147596}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3584,13 +3585,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755147593}
-  m_LocalRotation: {x: 0.48961022, y: 0.1661141, z: -0.02855911, w: 0.85549533}
-  m_LocalPosition: {x: 0, y: 3, z: -0.75}
+  m_LocalRotation: {x: 0.41431424, y: 0.1377794, z: 0.3467345, w: 0.830142}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1549581670}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 57.909004, y: 28.839, z: 12.369}
+  m_LocalEulerAnglesHint: {x: 36.323, y: 39.831, z: 58.894}
 --- !u!108 &755147595
 Light:
   m_ObjectHideFlags: 0
@@ -3602,8 +3603,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 3.02
+  m_Color: {r: 0.8387771, g: 0.8988997, b: 0.9716981, a: 1}
+  m_Intensity: 0.21
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3612,10 +3613,10 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.573
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_Strength: 0.154
+    m_Bias: 0
+    m_NormalBias: 1
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -3652,6 +3653,19 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &755147596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755147593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UsePipelineSettings: 1
 --- !u!1 &759338306
 GameObject:
   m_ObjectHideFlags: 0
@@ -6870,6 +6884,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5616748543962948780, guid: d3568f08a3690b049a295397851da412,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 298b61d0a3a2bbc469ab71db54778309, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3568f08a3690b049a295397851da412, type: 3}
 --- !u!4 &1440596913 stripped
@@ -14924,6 +14943,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14988,6 +15012,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: GridMarker
+      objectReference: {fileID: 0}
+    - target: {fileID: 5746587675340131453, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424368db5fd36b549a461e32a73fd8fc, type: 3}
