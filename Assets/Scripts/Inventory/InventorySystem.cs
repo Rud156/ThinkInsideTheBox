@@ -26,6 +26,23 @@ public class InventorySystem : MonoBehaviour
     }
 
     #region Unity Functions
+    #region Singleton
+    public static InventorySystem Instance = null;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this);
+    }
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
