@@ -1,6 +1,7 @@
 ﻿using System;
 using Extensions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Player
@@ -14,7 +15,7 @@ namespace Player
         public float minMovementSpeed;
         public float maxMovementSpeed;
 
-        [Header("Inventory")]public InventorySystem myInventory;
+        [Header("Inventory")] public InventorySystem myInventory;
 
         [Header("Stop Same Position")] public float positionStoppedTolerance;
         public int maxStopFrameCount;
@@ -42,6 +43,7 @@ namespace Player
         private bool m_isPlayerOutside;
 
         public delegate void WorldFlip(Transform parentTransform);
+
         public WorldFlip OnWorldFlip;
 
         #region Unity Functions
@@ -243,7 +245,18 @@ namespace Player
         {
             // TODO: Complete this function
 
-            Debug.Log($"Player Won: {i_didPlayerWin}");
+            if (!i_didPlayerWin)
+            {
+                Debug.Log("Player Died. Reloading the scene");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+                Debug.Log("Player Won");
+
+                int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(currentBuildIndex + 1);
+            }
 
             SetPlayerState(PlayerState.PlayerEndState);
 
