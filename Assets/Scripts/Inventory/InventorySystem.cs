@@ -1,32 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Utils;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class InventorySystem : MonoBehaviour
 {
     public Canvas GUI;
 
-    [Header("Box Collectible")]
-    public int boxCount;
+    [Header("Box Collectible")] public int boxCount;
     public int maxBoxCount;
 
-    [Header("Circle Collectible")]
-    public int circleCount;
+    [Header("Circle Collectible")] public int circleCount;
     public int maxCircleCount;
 
     private bool _winnable;
+
     public bool Winnable
     {
-        get
-        {
-            return this._winnable;
-        }
+        // get
+        // {
+        //     return this._winnable;
+        // }
+
+        // TODO: Put the actual value after levels are made
+        get => true;
     }
 
     #region Unity Functions
+
     #region Singleton
+
     public static InventorySystem Instance = null;
 
     private void Awake()
@@ -39,8 +41,10 @@ public class InventorySystem : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         DontDestroyOnLoad(this);
     }
+
     #endregion
 
     // Start is called before the first frame update
@@ -61,10 +65,11 @@ public class InventorySystem : MonoBehaviour
     #endregion
 
     #region External Functions
+
     public void ShowCollected()
     {
         Debug.Log("hitting");
-        foreach(Transform child in GUI.transform)
+        foreach (Transform child in GUI.transform)
         {
             if (child.gameObject.CompareTag(TagManager.Collected))
             {
@@ -72,6 +77,7 @@ public class InventorySystem : MonoBehaviour
             }
         }
     }
+
     public void MarkCollected(GameObject ToCollect)
     {
         if (ToCollect.gameObject.CompareTag(TagManager.BoxCollectible))
@@ -101,5 +107,6 @@ public class InventorySystem : MonoBehaviour
             }
         }
     }
+
     #endregion
 }
