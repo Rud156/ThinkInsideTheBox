@@ -22,6 +22,7 @@ namespace Player
 
         [Header("RayCast Data")] public float rayCastDistance;
         public LayerMask layerMask;
+        public LayerMask gravityCheckLayerMask;
 
         [Header("Collisions")] public CollisionNotifier collisionNotifier;
 
@@ -108,7 +109,7 @@ namespace Player
 
         public void ResetPlayerGravityState()
         {
-            bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f);
+            bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f, gravityCheckLayerMask);
             if (!isGroundBelow)
             {
                 m_playerRb.useGravity = true;
@@ -153,7 +154,16 @@ namespace Player
             }
             else if (i_other.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
             {
-                SetPlayerEndState(false);
+                // TODO: Find a better solution
+
+                Vector3 targetTilePosition = i_other.transform.position + Vector3.up * 0.1f;
+                if (Physics.Raycast(targetTilePosition, Vector3.down, out RaycastHit hit, 0.2f, layerMask))
+                {
+                    if (hit.collider.CompareTag(i_other.tag))
+                    {
+                        SetPlayerEndState(false);
+                    }
+                }
             }
             else if (i_other.CompareTag(TagManager.FaceOut) ||
                      i_other.CompareTag(TagManager.InsideOut))
@@ -245,6 +255,7 @@ namespace Player
         {
             // TODO: Complete this function
 
+            Debug.Log($"Did Player Win: {i_didPlayerWin}");
             if (!i_didPlayerWin)
             {
                 Debug.Log("Player Died. Reloading the scene");

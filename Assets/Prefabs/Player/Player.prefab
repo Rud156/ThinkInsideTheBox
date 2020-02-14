@@ -160,12 +160,16 @@ MonoBehaviour:
   rotationSpeed: 3
   minMovementSpeed: 1
   maxMovementSpeed: 3
+  myInventory: {fileID: 0}
   positionStoppedTolerance: 0.0065
   maxStopFrameCount: 60
   rayCastDistance: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 7991
+    m_Bits: 3895
+  gravityCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 3895
   collisionNotifier: {fileID: 4470057249930661777}
 --- !u!114 &1129756582
 MonoBehaviour:
