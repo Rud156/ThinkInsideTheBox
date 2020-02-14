@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 namespace CubeData
 {
@@ -80,16 +79,6 @@ namespace CubeData
             pos.y = i_cubie.y == 0 ? 0 : pos.y;
             pos.z = i_cubie.z == 0 ? 0 : pos.z;
             transform.localPosition = pos;
-        }
-
-        public void SetText(Cubie i_cubie)
-        {
-            PlaneU.GetComponentInChildren<TMP_Text>().text = (Mathf.Abs(i_cubie.y) % 10).ToString();
-            PlaneD.GetComponentInChildren<TMP_Text>().text = (Mathf.Abs(i_cubie.y) % 10).ToString();
-            PlaneF.GetComponentInChildren<TMP_Text>().text = (Mathf.Abs(i_cubie.z) % 10).ToString();
-            PlaneB.GetComponentInChildren<TMP_Text>().text = (Mathf.Abs(i_cubie.z) % 10).ToString();
-            PlaneL.GetComponentInChildren<TMP_Text>().text = (Mathf.Abs(i_cubie.x) % 10).ToString();
-            PlaneR.GetComponentInChildren<TMP_Text>().text = (Mathf.Abs(i_cubie.x) % 10).ToString();
         }
     }
 

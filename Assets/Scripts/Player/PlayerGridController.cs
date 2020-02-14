@@ -22,6 +22,8 @@ namespace Player
         [Header("RayCast Data")] public float rayCastDistance;
         public LayerMask layerMask;
 
+        [Header("Collisions")] public CollisionNotifier collisionNotifier;
+
         private Rigidbody m_playerRb;
         private Collider m_playerCollider;
 
@@ -40,13 +42,15 @@ namespace Player
         private bool m_isPlayerOutside;
 
         public delegate void WorldFlip(Transform parentTransform);
-
         public WorldFlip OnWorldFlip;
 
         #region Unity Functions
 
         private void Start()
         {
+            collisionNotifier.OnTriggerEnterNotifier += HandleTriggerEnter;
+            collisionNotifier.OnTriggerExitNotifier += HandleTriggerExit;
+
             m_playerRb = GetComponent<Rigidbody>();
             m_playerCollider = GetComponent<Collider>();
 
@@ -54,6 +58,12 @@ namespace Player
             m_positionReached = true;
 
             SetPlayerState(PlayerState.PlayerInControl);
+        }
+
+        private void OnDestroy()
+        {
+            collisionNotifier.OnTriggerEnterNotifier -= HandleTriggerEnter;
+            collisionNotifier.OnTriggerExitNotifier -= HandleTriggerExit;
         }
 
         private void FixedUpdate()
@@ -75,29 +85,6 @@ namespace Player
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        // Use multiple colliders instead
-        private void OnCollisionEnter(Collision i_other)
-        {
-            if (i_other.gameObject.CompareTag(TagManager.WinMarker) && myInventory.Winnable)
-            {
-                SetPlayerEndState(true);
-            }
-            else if (i_other.gameObject.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
-            {
-                SetPlayerEndState(false);
-            }
-            else if (i_other.gameObject.CompareTag(TagManager.FaceOut) ||
-                     i_other.gameObject.CompareTag(TagManager.InsideOut))
-            {
-                transform.SetParent(i_other.transform.parent);
-            }
-            else if(!myInventory.Winnable)
-            {
-                Debug.Log("Door Locked");
-            }
-        }
-
         #endregion
 
         #region External Functions
@@ -152,6 +139,35 @@ namespace Player
         #endregion
 
         #region Utility Functions
+
+        #region Collisions
+
+        private void HandleTriggerEnter(Collider i_other)
+        {
+            if (i_other.CompareTag(TagManager.WinMarker) && myInventory.Winnable)
+            {
+                SetPlayerEndState(true);
+            }
+            else if (i_other.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
+            {
+                SetPlayerEndState(false);
+            }
+            else if (i_other.CompareTag(TagManager.FaceOut) ||
+                     i_other.CompareTag(TagManager.InsideOut))
+            {
+                transform.SetParent(i_other.transform.parent);
+            }
+            else if (i_other.CompareTag(TagManager.WinMarker) && !myInventory.Winnable)
+            {
+                Debug.Log("Door Locked");
+            }
+        }
+
+        private void HandleTriggerExit(Collider i_other)
+        {
+        }
+
+        #endregion
 
         #region Player  Movement
 
