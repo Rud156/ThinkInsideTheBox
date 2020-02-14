@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -961,6 +961,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1016,6 +1021,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98099517939d4b74d8205f8aeb5e90a4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &304598511 stripped
@@ -1315,6 +1325,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1370,6 +1385,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98099517939d4b74d8205f8aeb5e90a4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &416098202 stripped
@@ -2008,6 +2028,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2063,6 +2088,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 007f36ddc097d21498658a4a8e565f2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &538469915 stripped
@@ -2082,6 +2112,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Water Ground Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
@@ -2138,6 +2173,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 007f36ddc097d21498658a4a8e565f2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &543389447 stripped
@@ -2572,6 +2612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2627,6 +2672,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98099517939d4b74d8205f8aeb5e90a4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &645914691 stripped
@@ -2753,6 +2803,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2808,6 +2863,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 007f36ddc097d21498658a4a8e565f2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &692446424 stripped
@@ -3176,6 +3236,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3231,6 +3296,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 89.99999
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98099517939d4b74d8205f8aeb5e90a4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424368db5fd36b549a461e32a73fd8fc, type: 3}
 --- !u!4 &760670796 stripped
@@ -3830,6 +3900,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3885,6 +3960,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 007f36ddc097d21498658a4a8e565f2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &1054015280 stripped
@@ -4652,7 +4732,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 5656432861092150279}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1175611363
 GameObject:
@@ -4862,6 +4942,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4917,6 +5002,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 007f36ddc097d21498658a4a8e565f2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &1208682977 stripped
@@ -5854,6 +5944,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass Ground Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_TagString
+      value: WaterHole
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5913,7 +6008,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 007f36ddc097d21498658a4a8e565f2c, type: 2}
+      objectReference: {fileID: 2100000, guid: 73ddf7b94bdc6a24a8923d174706878d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424368db5fd36b549a461e32a73fd8fc, type: 3}
 --- !u!4 &1456024178 stripped
@@ -5927,7 +6022,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 5656432861092150279}
+    m_TransformParent: {fileID: 5656432860597154769}
     m_Modifications:
     - target: {fileID: 4715904399931515547, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
@@ -5942,57 +6037,72 @@ PrefabInstance:
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.038
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: -0.5120001
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: -0.01999998
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071067
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000021073422
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000021073426
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071069
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f986ffeaeec554049b48e3be11200040, type: 3}
@@ -8411,6 +8521,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant (2)
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8466,6 +8581,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eb446c0ad5e44545813380f8657c082, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &1933263514 stripped
@@ -8542,6 +8662,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_TagString
+      value: FaceOut
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: ae6cee01c15957d448b30cb419f64902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8597,6 +8722,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: ae6cee01c15957d448b30cb419f64902,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98099517939d4b74d8205f8aeb5e90a4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6cee01c15957d448b30cb419f64902, type: 3}
 --- !u!4 &1970014612 stripped
@@ -12728,6 +12858,7 @@ Transform:
   - {fileID: 5656432860299971790}
   - {fileID: 1208682977}
   - {fileID: 1551580123}
+  - {fileID: 1483325253}
   m_Father: {fileID: 1934600958}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13924,7 +14055,6 @@ Transform:
   - {fileID: 5656432861602728985}
   - {fileID: 1114810223}
   - {fileID: 760670796}
-  - {fileID: 1483325253}
   - {fileID: 1174109557}
   m_Father: {fileID: 1934600958}
   m_RootOrder: 23
