@@ -24,8 +24,7 @@ namespace WorldCube
         public CubeLayerPlayerFollower layerPlayerFollower;
         public CameraController cameraController;
 
-        [Header("World Data")]
-        public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
+        [Header("World Data")] public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
 
         [Header("Audio")] public AudioController audioController;
 
@@ -72,6 +71,7 @@ namespace WorldCube
                         bool clickedInPlace = cubeLayerObjectV2.UpdateRotations();
                         if (clickedInPlace)
                         {
+                            playerGridController.ResetPlayerGravityState();
                             audioController.PlaySound(AudioController.AudioEnum.GearClick);
                         }
                     }
