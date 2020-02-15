@@ -13,7 +13,7 @@ namespace Testing
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag(TagManager.FaceOut) || other.CompareTag(TagManager.CenterBlock) || other.CompareTag(TagManager.WaterHole))
+            if (other.CompareTag(TagManager.FaceOut) || other.CompareTag(TagManager.WaterHole))
             {
                 _mat = other.gameObject.GetComponent<Renderer>().materials;
                 if (_mat.Length < 2)

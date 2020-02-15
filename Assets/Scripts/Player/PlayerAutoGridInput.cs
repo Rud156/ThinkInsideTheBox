@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using Utils;
+using WorldCube;
+using WorldCube.Tile;
 
 namespace Player
 {
@@ -17,7 +19,8 @@ namespace Player
         [Header("Masks")] public LayerMask layerMask;
         public LayerMask collisionLayerMask;
 
-        [Header("Collisions")] public CollisionNotifier collisionNotifier;
+        [Header("Events")] public CollisionNotifier collisionNotifier;
+        public CubeControllerV2 cubeControllerV2;
 
         [Header("Auto Controls")] public float stopTimeBetweenPositions;
         public Direction startDirection;
@@ -32,19 +35,27 @@ namespace Player
 
         private void Start()
         {
-            m_playerGridController.OnPlayerReachedPosition += HandlePlayerPositionReached;
-            collisionNotifier.OnTriggerEnterNotifier += HandleOnTriggerEnter;
-
             m_playerGridController = GetComponent<PlayerGridController>();
-            m_currentDirection = startDirection;
 
+            m_playerGridController.OnPlayerReachedPosition += HandlePlayerPositionReached;
+            m_playerGridController.OnPlayerMovementLocked += StopPlayerMovement;
+            m_playerGridController.OnPlayerMovementUnLocked += StartPlayerMovement;
+
+            collisionNotifier.OnTriggerEnterNotifier += HandleOnTriggerEnter;
+            cubeControllerV2.OnWorldClicked += FindNextMovementSpot;
+
+            SetDirection(startDirection);
             SetPlayerAutoMovementState(AutoMovementState.Waiting);
         }
 
         private void OnDestroy()
         {
             m_playerGridController.OnPlayerReachedPosition -= HandlePlayerPositionReached;
+            m_playerGridController.OnPlayerMovementLocked -= StopPlayerMovement;
+            m_playerGridController.OnPlayerMovementUnLocked -= StartPlayerMovement;
+
             collisionNotifier.OnTriggerEnterNotifier -= HandleOnTriggerEnter;
+            cubeControllerV2.OnWorldClicked -= FindNextMovementSpot;
         }
 
         private void Update()
@@ -74,15 +85,19 @@ namespace Player
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            if (Input.GetKeyDown(ControlConstants.PlayerStopStart))
+            {
+                if (m_autoMovementState == AutoMovementState.Stopped)
+                {
+                    StartPlayerMovement();
+                }
+                else
+                {
+                    StopPlayerMovement();
+                }
+            }
         }
-
-        #endregion
-
-        #region External Functions
-
-        public void StartPlayerMovement() => SetPlayerAutoMovementState(AutoMovementState.Waiting);
-
-        public void StopPlayerMovement() => SetPlayerAutoMovementState(AutoMovementState.Stopped);
 
         #endregion
 
@@ -94,8 +109,15 @@ namespace Player
         {
             if (i_other.CompareTag(TagManager.TurnTile))
             {
-                // Get Turn Tile Direction From Orientation
-                m_currentDirection = Direction.Forward;
+                MovementRotatingTile tile = i_other.GetComponent<MovementRotatingTile>();
+
+                Vector3 tileForward = tile.GetTileForwardDirection();
+                Direction direction = GetDirectionFromTileVector(tileForward);
+
+                if (direction != Direction.None)
+                {
+                    SetDirection(direction);
+                }
             }
         }
 
@@ -103,7 +125,12 @@ namespace Player
 
         #region Movement
 
-        private void FindNextMovementSpot() => FindAndSaveFinalMovementPosition(GetVectorBasedOnDirection(m_currentDirection));
+        private void StartPlayerMovement() => SetPlayerAutoMovementState(AutoMovementState.Waiting);
+
+        private void StopPlayerMovement() => SetPlayerAutoMovementState(AutoMovementState.Stopped);
+
+        private void FindNextMovementSpot() =>
+            FindAndSaveFinalMovementPosition(GetVectorBasedOnDirection(m_currentDirection));
 
         private void FindAndSaveFinalMovementPosition(Vector3 i_moveDirection)
         {
@@ -127,6 +154,13 @@ namespace Player
 
                     m_playerGridController.SetPlayerTargetLocation(newTargetMovementPosition);
                     SetPlayerAutoMovementState(AutoMovementState.Moving);
+                }
+                else
+                {
+                    Debug.Log("Did not find a position. Waiting and then restarting");
+
+                    m_currentTimer = stopTimeBetweenPositions;
+                    SetPlayerAutoMovementState(AutoMovementState.Waiting);
                 }
             }
         }
@@ -229,11 +263,37 @@ namespace Player
             }
         }
 
+        // TODO: Don't know as of now where to put it...
+        private Direction GetDirectionFromTileVector(Vector3 tileForward)
+        {
+            if (tileForward == Vector3.forward)
+            {
+                return Direction.Forward;
+            }
+            else if (tileForward == Vector3.back)
+            {
+                return Direction.Backward;
+            }
+            else if (tileForward == Vector3.left)
+            {
+                return Direction.Right;
+            }
+            else if (tileForward == Vector3.left)
+            {
+                return Direction.Right;
+            }
+            else
+            {
+                return Direction.None;
+            }
+        }
+
         #endregion
 
         private void SetDirection(Direction i_direction) => m_currentDirection = i_direction;
 
-        private void SetPlayerAutoMovementState(AutoMovementState i_autoMovementState) => m_autoMovementState = i_autoMovementState;
+        private void SetPlayerAutoMovementState(AutoMovementState i_autoMovementState) =>
+            m_autoMovementState = i_autoMovementState;
 
         #endregion
 
@@ -241,6 +301,8 @@ namespace Player
 
         public enum Direction
         {
+            None,
+
             Forward,
             Backward,
             Left,

@@ -54,6 +54,8 @@ namespace Player
                 Debug.Log($"Sending Player Position: {targetMovePosition}");
                 m_playerGridController.SetPlayerTargetLocation(targetMovePosition);
             }
+
+            Debug.Log($"Player Forward: {transform.forward}");
         }
 
         private Vector3 GetTargetMovePosition(Vector3 i_direction)
@@ -68,7 +70,8 @@ namespace Player
                 return Vector3.one;
             }
 
-            Vector3 upperTargetPosition = transform.position + i_direction * distanceToCheck + Vector3.up * yRayCastOffset;
+            Vector3 upperTargetPosition =
+                transform.position + i_direction * distanceToCheck + Vector3.up * yRayCastOffset;
 
             Debug.DrawRay(upperTargetPosition, Vector3.down * rayCastDownDistance, Color.blue, 3);
             if (Physics.Raycast(upperTargetPosition, Vector3.down, out RaycastHit hit, rayCastDownDistance, layerMask))

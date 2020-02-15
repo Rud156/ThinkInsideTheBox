@@ -4,7 +4,6 @@
     {
         public const string Player = "Player";
 
-        public const string CenterBlock = "CenterBlock";
         public const string WorldCubeMarker = "WorldCubeMarker";
 
         public const string FaceOut = "FaceOut";

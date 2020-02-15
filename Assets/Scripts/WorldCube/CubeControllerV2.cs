@@ -28,6 +28,9 @@ namespace WorldCube
 
         [Header("Audio")] public AudioController audioController;
 
+        public delegate void WorldClicked();
+        public WorldClicked OnWorldClicked;
+
         private CubeLayerMaskV2 m_lastLayerMask;
 
         // World Flip
@@ -71,6 +74,8 @@ namespace WorldCube
                         bool clickedInPlace = cubeLayerObjectV2.UpdateRotations();
                         if (clickedInPlace)
                         {
+                            OnWorldClicked?.Invoke();
+
                             playerGridController.ResetPlayerGravityState();
                             audioController.PlaySound(AudioController.AudioEnum.GearClick);
                         }

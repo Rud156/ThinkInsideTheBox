@@ -26,12 +26,6 @@ namespace Player
 
         [Header("Collisions")] public CollisionNotifier collisionNotifier;
 
-        public delegate void PlayerReachedPosition();
-        public delegate void PlayerStartedMovement();
-
-        public PlayerReachedPosition OnPlayerReachedPosition;
-        public PlayerStartedMovement OnPlayerStartedMovement;
-
         private Rigidbody m_playerRb;
         private Collider m_playerCollider;
 
@@ -49,9 +43,20 @@ namespace Player
         // Boolean to trigger if player is outside
         private bool m_isPlayerOutside;
 
+        // Player Movement Stop and Start
+        private bool m_lastPlayerMovementStatus;
+
         public delegate void WorldFlip(Transform parentTransform);
+        public delegate void PlayerMovementLocked();
+        public delegate void PlayerMovementUnLocked();
+        public delegate void PlayerReachedPosition();
+        public delegate void PlayerStartedMovement();
 
         public WorldFlip OnWorldFlip;
+        public PlayerReachedPosition OnPlayerReachedPosition;
+        public PlayerStartedMovement OnPlayerStartedMovement;
+        public PlayerMovementLocked OnPlayerMovementLocked;
+        public PlayerMovementUnLocked OnPlayerMovementUnLocked;
 
         #region Unity Functions
 
@@ -117,7 +122,8 @@ namespace Player
 
         public void ResetPlayerGravityState()
         {
-            bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f, gravityCheckLayerMask);
+            bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f,
+                gravityCheckLayerMask);
             if (!isGroundBelow)
             {
                 m_playerRb.useGravity = true;
@@ -133,6 +139,12 @@ namespace Player
                 return;
             }
 
+            if (m_lastPlayerMovementStatus)
+            {
+                OnPlayerMovementLocked?.Invoke();
+                m_lastPlayerMovementStatus = false;
+            }
+
             SetPlayerState(PlayerState.PlayerStatic);
             m_playerRb.isKinematic = true;
         }
@@ -142,6 +154,12 @@ namespace Player
             if (m_playerState == PlayerState.PlayerEndState)
             {
                 return;
+            }
+
+            if (!m_lastPlayerMovementStatus)
+            {
+                OnPlayerMovementUnLocked?.Invoke();
+                m_lastPlayerMovementStatus = true;
             }
 
             SetPlayerState(PlayerState.PlayerInControl);
@@ -162,16 +180,7 @@ namespace Player
             }
             else if (i_other.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
             {
-                // TODO: Find a better solution
-
-                Vector3 targetTilePosition = i_other.transform.position + Vector3.up * 0.1f;
-                if (Physics.Raycast(targetTilePosition, Vector3.down, out RaycastHit hit, 0.2f, layerMask))
-                {
-                    if (hit.collider.CompareTag(i_other.tag))
-                    {
-                        SetPlayerEndState(false);
-                    }
-                }
+                CheckAndUpdatePlayerEndingCollision(i_other);
             }
             else if (i_other.CompareTag(TagManager.FaceOut) ||
                      i_other.CompareTag(TagManager.InsideOut))
@@ -182,6 +191,18 @@ namespace Player
 
         private void HandleTriggerExit(Collider i_other)
         {
+        }
+
+        private void CheckAndUpdatePlayerEndingCollision(Collider i_other)
+        {
+            Vector3 targetTilePosition = i_other.transform.position + Vector3.up * 0.1f;
+            if (Physics.Raycast(targetTilePosition, Vector3.down, out RaycastHit hit, 0.2f, layerMask))
+            {
+                if (hit.collider.CompareTag(i_other.tag))
+                {
+                    SetPlayerEndState(false);
+                }
+            }
         }
 
         #endregion
