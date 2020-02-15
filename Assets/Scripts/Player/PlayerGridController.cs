@@ -26,6 +26,12 @@ namespace Player
 
         [Header("Collisions")] public CollisionNotifier collisionNotifier;
 
+        public delegate void PlayerReachedPosition();
+        public delegate void PlayerStartedMovement();
+
+        public PlayerReachedPosition OnPlayerReachedPosition;
+        public PlayerStartedMovement OnPlayerStartedMovement;
+
         private Rigidbody m_playerRb;
         private Collider m_playerCollider;
 
@@ -105,6 +111,8 @@ namespace Player
             m_positionReached = false;
             m_currentStopFrameCount = 0;
             m_playerRb.useGravity = true;
+
+            OnPlayerStartedMovement?.Invoke();
         }
 
         public void ResetPlayerGravityState()
@@ -216,6 +224,7 @@ namespace Player
                 m_playerRb.useGravity = false;
 
                 CheckAndNotifyEndPosition();
+                OnPlayerReachedPosition?.Invoke();
 
                 Debug.Log("Player Reached Position");
             }

@@ -3,6 +3,7 @@ using Utils;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerGridController))]
     public class PlayerGridInput : MonoBehaviour
     {
         [Header("Movement")] public float distanceToCheck;
@@ -15,10 +16,11 @@ namespace Player
         [Header("Masks")] public LayerMask layerMask;
         public LayerMask collisionLayerMask;
 
-        [Header("Player Movement")] public Transform playerTransform;
-        public PlayerGridController playerGridController;
+        private PlayerGridController m_playerGridController;
 
         #region Unity Functions
+
+        private void Start() => m_playerGridController = GetComponent<PlayerGridController>();
 
         private void Update()
         {
@@ -50,14 +52,13 @@ namespace Player
             if (targetMovePosition != Vector3.one)
             {
                 Debug.Log($"Sending Player Position: {targetMovePosition}");
-                playerGridController.SetPlayerTargetLocation(targetMovePosition);
+                m_playerGridController.SetPlayerTargetLocation(targetMovePosition);
             }
         }
 
         private Vector3 GetTargetMovePosition(Vector3 i_direction)
         {
-            // This might probably not be required
-            Vector3 position = playerTransform.position + Vector3.up * yRayCastOffset;
+            Vector3 position = transform.position + Vector3.up * yRayCastOffset;
 
             Debug.DrawRay(position, i_direction * collisionCheckDistance, Color.red, 3);
             if (Physics.Raycast(position, i_direction, out RaycastHit collisionHit,
@@ -67,8 +68,7 @@ namespace Player
                 return Vector3.one;
             }
 
-            Vector3 upperTargetPosition =
-                playerTransform.position + i_direction * distanceToCheck + Vector3.up * yRayCastOffset;
+            Vector3 upperTargetPosition = transform.position + i_direction * distanceToCheck + Vector3.up * yRayCastOffset;
 
             Debug.DrawRay(upperTargetPosition, Vector3.down * rayCastDownDistance, Color.blue, 3);
             if (Physics.Raycast(upperTargetPosition, Vector3.down, out RaycastHit hit, rayCastDownDistance, layerMask))

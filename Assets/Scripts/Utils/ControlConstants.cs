@@ -16,6 +16,8 @@ namespace Utils
         public const KeyCode Back = KeyCode.DownArrow;
         public const KeyCode AltBack = KeyCode.S;
 
+        public const KeyCode PlayerStopStart = KeyCode.Space;
+
         public const KeyCode Restart = KeyCode.X;
         public const KeyCode Quit = KeyCode.C;
     }
