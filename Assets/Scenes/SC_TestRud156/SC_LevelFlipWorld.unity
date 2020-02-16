@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3828,6 +3828,24 @@ PrefabInstance:
       objectReference: {fileID: 1813484977}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2bd5b1cd086ca4db968f157ad2023c, type: 3}
+--- !u!114 &925460217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1489780414278686066, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+    type: 3}
+  m_PrefabInstance: {fileID: 925460216}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7461b6ad0fb11b84198e02c7f3ca7e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &925460218 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+    type: 3}
+  m_PrefabInstance: {fileID: 925460216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &957991324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7457,7 +7475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileDistance: 2
   rotationDelta: 9
-  playerGridController: {fileID: 0}
+  playerGridController: {fileID: 925460217}
   cubeLayers:
   - {fileID: 759338308}
   - {fileID: 1448618777}
@@ -7511,7 +7529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64b9ae1a7d412849a0921e6cf905271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGridController: {fileID: 0}
+  playerGridController: {fileID: 925460217}
   readTimeout: 7
   useForcedPort: 1
   portString: COM4
@@ -7560,7 +7578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridStartTransform: {x: 0, y: 0, z: 0}
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 925460218}
   sideSize: 2
 --- !u!1 &1829967603
 GameObject:
@@ -7816,7 +7834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraDefaultTransform: {fileID: 1341144733}
   playerFollowOffset: {x: -7, y: 5, z: -5}
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 925460218}
   lerpSpeed: 1
   lerpCurve:
     serializedVersion: 2
