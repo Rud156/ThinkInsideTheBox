@@ -27,6 +27,8 @@ namespace Player
 
         private float m_currentTimer;
 
+        private Vector3 m_lastForwardTransform;
+
         private AutoMovementState m_autoMovementState;
         private Direction m_currentDirection;
         private PlayerGridController m_playerGridController;
@@ -42,7 +44,9 @@ namespace Player
             m_playerGridController.OnPlayerMovementUnLocked += StartPlayerMovement;
 
             collisionNotifier.OnTriggerEnterNotifier += HandleOnTriggerEnter;
-            cubeControllerV2.OnWorldClicked += FindNextMovementSpot;
+            cubeControllerV2.OnWorldClicked += HandleWorldClicked;
+
+            m_currentTimer = stopTimeBetweenPositions;
 
             SetDirection(startDirection);
             SetPlayerAutoMovementState(AutoMovementState.Waiting);
@@ -55,7 +59,7 @@ namespace Player
             m_playerGridController.OnPlayerMovementUnLocked -= StartPlayerMovement;
 
             collisionNotifier.OnTriggerEnterNotifier -= HandleOnTriggerEnter;
-            cubeControllerV2.OnWorldClicked -= FindNextMovementSpot;
+            cubeControllerV2.OnWorldClicked -= HandleWorldClicked;
         }
 
         private void Update()
@@ -64,11 +68,14 @@ namespace Player
             {
                 case AutoMovementState.Waiting:
                 {
-                    m_currentTimer -= Time.deltaTime;
-
-                    if (m_currentTimer <= 0)
+                    if (m_currentTimer > 0)
                     {
-                        FindNextMovementSpot();
+                        m_currentTimer -= Time.deltaTime;
+
+                        if (m_currentTimer <= 0)
+                        {
+                            FindNextMovementSpot();
+                        }
                     }
                 }
                     break;
@@ -165,13 +172,20 @@ namespace Player
             }
         }
 
-        private void HandlePlayerPositionReached()
+        private void HandlePlayerPositionReached(bool success)
         {
             if (m_autoMovementState == AutoMovementState.Stopped)
             {
                 return;
             }
 
+            // TODO: This is only a temporary solution. Need to find something better
+            if (!success)
+            {
+                SetDirection(GetOppositeMovementDirection(m_currentDirection));
+            }
+
+            m_lastForwardTransform = transform.forward;
             m_currentTimer = stopTimeBetweenPositions;
             SetPlayerAutoMovementState(AutoMovementState.Waiting);
         }
@@ -220,6 +234,10 @@ namespace Player
 
             return Vector3.one;
         }
+
+        #endregion
+
+        #region Positioning Direction Utilities
 
         private Direction GetOppositeMovementDirection(Direction i_direction)
         {
@@ -289,6 +307,15 @@ namespace Player
         }
 
         #endregion
+
+        private void HandleWorldClicked()
+        {
+            Vector3 currentForwardTransform = transform.forward;
+            Vector3 forwardDiff = m_lastForwardTransform - currentForwardTransform;
+
+
+            FindNextMovementSpot();
+        }
 
         private void SetDirection(Direction i_direction) => m_currentDirection = i_direction;
 

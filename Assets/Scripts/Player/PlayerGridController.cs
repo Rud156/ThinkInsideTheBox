@@ -49,7 +49,7 @@ namespace Player
         public delegate void WorldFlip(Transform parentTransform);
         public delegate void PlayerMovementLocked();
         public delegate void PlayerMovementUnLocked();
-        public delegate void PlayerReachedPosition();
+        public delegate void PlayerReachedPosition(bool success);
         public delegate void PlayerStartedMovement();
 
         public WorldFlip OnWorldFlip;
@@ -182,8 +182,7 @@ namespace Player
             {
                 CheckAndUpdatePlayerEndingCollision(i_other);
             }
-            else if (i_other.CompareTag(TagManager.FaceOut) ||
-                     i_other.CompareTag(TagManager.InsideOut))
+            else if (i_other.transform.parent.CompareTag(TagManager.SideParent))
             {
                 transform.SetParent(i_other.transform.parent);
             }
@@ -245,7 +244,14 @@ namespace Player
                 m_playerRb.useGravity = false;
 
                 CheckAndNotifyEndPosition();
-                OnPlayerReachedPosition?.Invoke();
+                if (Mathf.Abs(distance) <= positionReachedTolerance)
+                {
+                    OnPlayerReachedPosition?.Invoke(true);
+                }
+                else
+                {
+                    OnPlayerReachedPosition?.Invoke(false);
+                }
 
                 Debug.Log("Player Reached Position");
             }

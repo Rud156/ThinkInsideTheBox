@@ -91,9 +91,9 @@ GameObject:
   - component: {fileID: 4398606326919857959}
   - component: {fileID: 1489780414278686030}
   - component: {fileID: 1489780414278686066}
-  - component: {fileID: 1129756582}
+  - component: {fileID: 3946584165931577285}
   m_Layer: 10
-  m_Name: Player
+  m_Name: Auto Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3895
   collisionNotifier: {fileID: 4470057249930661777}
---- !u!114 &1129756582
+--- !u!114 &3946584165931577285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,13 +180,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1489780414278686069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65b574e764bbbf48a1fba9a3cadd60b, type: 3}
+  m_Script: {fileID: 11500000, guid: 027377de379635e41ab6b89d3778de60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distanceToCheck: 1.5
   rayCastDownDistance: 7
   collisionCheckDistance: 1
-  yRayCastOffset: 1.5
+  yRayCastOffset: 1
   yRayCastCenterPointOffset: 1.5
   layerMask:
     serializedVersion: 2
@@ -194,6 +194,10 @@ MonoBehaviour:
   collisionLayerMask:
     serializedVersion: 2
     m_Bits: 3895
+  collisionNotifier: {fileID: 4470057249930661777}
+  cubeControllerV2: {fileID: 0}
+  stopTimeBetweenPositions: 3
+  startDirection: 3
 --- !u!1 &5364383583085166363
 GameObject:
   m_ObjectHideFlags: 0
