@@ -31,7 +31,9 @@ namespace WorldCube
 
         [Header("Audio")] public AudioController audioController;
 
-        [Header("CanvasFade")] public Image fadeImg;
+        [Header("CanvasFade")]
+        public Image fadeImg;
+        public Canvas fadeCanvas;
 
         private CubeLayerMaskV2 m_lastLayerMask;
 
@@ -266,18 +268,20 @@ namespace WorldCube
         IEnumerator FadeIO()
         {
             FadeOutScreen();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
             FadeInScreen();
         }
 
         private void FadeOutScreen()
         {
             //Debug.Log("Screen fading");
-            fadeImg.CrossFadeAlpha(1, 0.5f, false);
+            fadeCanvas.GetComponent<Animator>().SetBool("Fading", true);
+            //fadeImg.CrossFadeAlpha(1, 0.5f, false);
         }
         private void FadeInScreen()
         {
-            fadeImg.CrossFadeAlpha(0, 2f, false);
+            fadeCanvas.GetComponent<Animator>().SetBool("Fading", false);
+            //fadeImg.CrossFadeAlpha(0, 2f, false);
         }
         #endregion
 
