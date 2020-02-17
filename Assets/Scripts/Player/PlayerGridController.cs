@@ -269,6 +269,7 @@ namespace Player
             Vector3 currentPosition = transform.position;
             Vector3 direction = m_lastPosition - currentPosition;
 
+
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
