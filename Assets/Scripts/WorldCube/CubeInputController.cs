@@ -141,11 +141,11 @@ namespace WorldCube
                         break;
                 }
             }
-            catch (TimeoutException te)
+            catch (TimeoutException)
             {
                 // Don't do anything. This is not required as there is no input
             }
-            catch (InvalidOperationException ioe)
+            catch (InvalidOperationException)
             {
                 // Don't do anything. This is not required as there is nothing connected
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Extensions;
 using UnityEngine;
 using Utils;
 using WorldCube;
@@ -27,7 +28,7 @@ namespace Player
 
         private float m_currentTimer;
 
-        private Vector3 m_lastForwardTransform;
+        private Vector3 m_lastRotationAngle;
 
         private AutoMovementState m_autoMovementState;
         private Direction m_currentDirection;
@@ -134,7 +135,11 @@ namespace Player
 
         private void StartPlayerMovement() => SetPlayerAutoMovementState(AutoMovementState.Waiting);
 
-        private void StopPlayerMovement() => SetPlayerAutoMovementState(AutoMovementState.Stopped);
+        private void StopPlayerMovement()
+        {
+            m_lastRotationAngle = transform.eulerAngles;
+            SetPlayerAutoMovementState(AutoMovementState.Stopped);
+        }
 
         private void FindNextMovementSpot() =>
             FindAndSaveFinalMovementPosition(GetVectorBasedOnDirection(m_currentDirection));
@@ -185,9 +190,21 @@ namespace Player
                 SetDirection(GetOppositeMovementDirection(m_currentDirection));
             }
 
-            m_lastForwardTransform = transform.forward;
             m_currentTimer = stopTimeBetweenPositions;
             SetPlayerAutoMovementState(AutoMovementState.Waiting);
+        }
+
+        private void HandleWorldClicked()
+        {
+            Vector3 currentRotationAngle = transform.eulerAngles;
+            Vector3 rotationAngleDiff = m_lastRotationAngle - currentRotationAngle;
+
+            m_lastRotationAngle = currentRotationAngle;
+            m_currentDirection = GetDirectionFromRotation(rotationAngleDiff.y, m_currentDirection);
+
+            Debug.Log($"Forward Difference: {rotationAngleDiff}");
+
+            FindNextMovementSpot();
         }
 
         #endregion
@@ -237,7 +254,7 @@ namespace Player
 
         #endregion
 
-        #region Positioning Direction Utilities
+        #region Positioning/Direction Utilities
 
         private Direction GetOppositeMovementDirection(Direction i_direction)
         {
@@ -306,16 +323,80 @@ namespace Player
             }
         }
 
-        #endregion
-
-        private void HandleWorldClicked()
+        private Direction GetDirectionFromRotation(float i_yRotation, Direction i_currentDirection)
         {
-            Vector3 currentForwardTransform = transform.forward;
-            Vector3 forwardDiff = m_lastForwardTransform - currentForwardTransform;
+            int normalizedRotation = ExtensionFunctions.GetClosestMultiple(i_yRotation, 90);
+            int totalTurns = Mathf.Abs(normalizedRotation) / 90;
+            int turnDirection = Math.Sign(normalizedRotation);
 
+            for (int i = 0; i < totalTurns; i++)
+            {
+                switch (i_currentDirection)
+                {
+                    case Direction.None:
+                        break;
 
-            FindNextMovementSpot();
+                    case Direction.Forward:
+                    {
+                        if (turnDirection == 1)
+                        {
+                            i_currentDirection = Direction.Right;
+                        }
+                        else if (turnDirection == -1)
+                        {
+                            i_currentDirection = Direction.Left;
+                        }
+                    }
+                        break;
+
+                    case Direction.Backward:
+                    {
+                        if (turnDirection == 1)
+                        {
+                            i_currentDirection = Direction.Left;
+                        }
+                        else if (turnDirection == -1)
+                        {
+                            i_currentDirection = Direction.Right;
+                        }
+                    }
+                        break;
+
+                    case Direction.Left:
+                    {
+                        if (turnDirection == 1)
+                        {
+                            i_currentDirection = Direction.Forward;
+                        }
+                        else if (turnDirection == -1)
+                        {
+                            i_currentDirection = Direction.Backward;
+                        }
+                    }
+                        break;
+
+                    case Direction.Right:
+                    {
+                        if (turnDirection == 1)
+                        {
+                            i_currentDirection = Direction.Backward;
+                        }
+                        else if (turnDirection == -1)
+                        {
+                            i_currentDirection = Direction.Forward;
+                        }
+                    }
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(i_currentDirection), i_currentDirection, null);
+                }
+            }
+
+            return i_currentDirection;
         }
+
+        #endregion
 
         private void SetDirection(Direction i_direction) => m_currentDirection = i_direction;
 
