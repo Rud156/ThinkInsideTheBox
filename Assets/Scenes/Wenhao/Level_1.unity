@@ -7481,7 +7481,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileDistance: 2
   rotationDelta: 9
-  playerGridController: {fileID: 1827589043}
   cubeLayers:
   - {fileID: 759338308}
   - {fileID: 1448618777}
@@ -7535,7 +7534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64b9ae1a7d412849a0921e6cf905271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGridController: {fileID: 1827589043}
   readTimeout: 7
   useForcedPort: 1
   portString: COM3
@@ -7584,20 +7582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridStartTransform: {x: 0, y: 0, z: 0}
-  playerTransform: {fileID: 852565042}
   sideSize: 2
---- !u!114 &1827589043 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1489780414278686066, guid: fc2bd5b1cd086ca4db968f157ad2023c,
-    type: 3}
-  m_PrefabInstance: {fileID: 787104831}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7461b6ad0fb11b84198e02c7f3ca7e4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1829967603
 GameObject:
   m_ObjectHideFlags: 0
@@ -9460,6 +9445,25 @@ Transform:
   m_Father: {fileID: 5656432861803171935}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2056680644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5656432861054600448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2056680645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056680644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8fa30fce3ddc048b6a4e1aa6d114ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileRotationAxis: 1
 --- !u!1 &2056978193
 GameObject:
   m_ObjectHideFlags: 0
@@ -13940,7 +13944,7 @@ PrefabInstance:
     - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_TagString
-      value: FaceOut
+      value: TurnTile
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
