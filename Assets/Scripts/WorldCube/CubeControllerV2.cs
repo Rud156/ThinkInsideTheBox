@@ -4,6 +4,7 @@ using Audio;
 using Camera;
 using Player;
 using UnityEngine;
+using Utils;
 
 namespace WorldCube
 {
@@ -11,8 +12,6 @@ namespace WorldCube
     {
         [Header("Position Data")] public int tileDistance;
         public int rotationDelta;
-
-        [Header("Player")] public PlayerGridController playerGridController;
 
         [Header("Layers")] public List<CubeLayerObjectV2> cubeLayers;
 
@@ -24,13 +23,15 @@ namespace WorldCube
         public CubeLayerPlayerFollower layerPlayerFollower;
         public CameraController cameraController;
 
-        [Header("World Data")] public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
+        [Header("World Data")]
+        public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
 
         [Header("Audio")] public AudioController audioController;
 
         public delegate void WorldClicked();
         public WorldClicked OnWorldClicked;
 
+        private PlayerGridController m_playerGridController;
         private CubeLayerMaskV2 m_lastLayerMask;
 
         // World Flip
@@ -47,7 +48,9 @@ namespace WorldCube
 
         private void Start()
         {
-            playerGridController.OnWorldFlip += InitiateWorldFlip;
+            m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
+                .GetComponent<PlayerGridController>();
+            m_playerGridController.OnWorldFlip += InitiateWorldFlip;
 
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
             {
@@ -60,7 +63,7 @@ namespace WorldCube
 
         private void OnDestroy()
         {
-            playerGridController.OnWorldFlip -= InitiateWorldFlip;
+            m_playerGridController.OnWorldFlip -= InitiateWorldFlip;
         }
 
         private void Update()
@@ -76,7 +79,7 @@ namespace WorldCube
                         {
                             OnWorldClicked?.Invoke();
 
-                            playerGridController.ResetPlayerGravityState();
+                            m_playerGridController.ResetPlayerGravityState();
                             audioController.PlaySound(AudioController.AudioEnum.GearClick);
                         }
                     }
@@ -165,11 +168,11 @@ namespace WorldCube
 
             if (isMovementAllowed)
             {
-                playerGridController.AllowPlayerMovement();
+                m_playerGridController.AllowPlayerMovement();
             }
             else
             {
-                playerGridController.PreventPlayerMovement();
+                m_playerGridController.PreventPlayerMovement();
             }
         }
 
@@ -177,10 +180,10 @@ namespace WorldCube
         {
             Debug.Log("Starting Tile Flip");
 
-            playerGridController.PreventPlayerMovement();
+            m_playerGridController.PreventPlayerMovement();
 
-            m_playerPreviousParent = playerGridController.transform.parent;
-            playerGridController.transform.SetParent(parentTransform);
+            m_playerPreviousParent = m_playerGridController.transform.parent;
+            m_playerGridController.transform.SetParent(parentTransform);
 
             m_startRotation = parentTransform.rotation.eulerAngles;
             m_targetRotation = parentTransform.rotation.eulerAngles * -1;
@@ -208,8 +211,8 @@ namespace WorldCube
 
             m_isPlayerOutside = !m_isPlayerOutside;
 
-            playerGridController.AllowPlayerMovement();
-            playerGridController.transform.SetParent(m_playerPreviousParent);
+            m_playerGridController.AllowPlayerMovement();
+            m_playerGridController.transform.SetParent(m_playerPreviousParent);
 
             if (m_isPlayerOutside)
             {

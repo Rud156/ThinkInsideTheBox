@@ -204,7 +204,7 @@ namespace Player
 
             Debug.Log($"Forward Difference: {rotationAngleDiff}");
 
-            FindNextMovementSpot();
+            m_currentTimer = stopTimeBetweenPositions;
         }
 
         #endregion

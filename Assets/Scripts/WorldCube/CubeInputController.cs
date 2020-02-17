@@ -2,27 +2,29 @@
 using System.IO.Ports;
 using Player;
 using UnityEngine;
+using Utils;
 
 namespace WorldCube
 {
     [RequireComponent(typeof(CubeControllerV2))]
     public class CubeInputController : MonoBehaviour
     {
-        [Header("Player")] public PlayerGridController playerGridController;
-
         [Header("Arduino")] public int readTimeout = 7;
         public bool useForcedPort = false;
         public string portString = "COM3";
         public bool disableSerialPort;
 
-        private CubeControllerV2 _cubeController;
-        private SerialPort _serialPort;
+        private PlayerGridController m_playerGridController;
+        private CubeControllerV2 m_cubeController;
+        private SerialPort m_serialPort;
 
         #region Unity Functions
 
         private void Start()
         {
-            _cubeController = GetComponent<CubeControllerV2>();
+            m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
+                .GetComponent<PlayerGridController>();
+            m_cubeController = GetComponent<CubeControllerV2>();
 
             string[] ports = SerialPort.GetPortNames();
             string portName;
@@ -43,13 +45,13 @@ namespace WorldCube
 
             Debug.Log($"Target Port: {portName}");
 
-            _serialPort = new SerialPort(portName, 9600);
-            _serialPort.ReadTimeout = readTimeout;
-            if (!_serialPort.IsOpen)
+            m_serialPort = new SerialPort(portName, 9600);
+            m_serialPort.ReadTimeout = readTimeout;
+            if (!m_serialPort.IsOpen)
             {
                 if (!disableSerialPort)
                 {
-                    _serialPort.Open();
+                    m_serialPort.Open();
                 }
 
                 Debug.Log("Port is Closed. Opening");
@@ -58,9 +60,9 @@ namespace WorldCube
 
         private void OnApplicationQuit()
         {
-            if (_serialPort != null)
+            if (m_serialPort != null)
             {
-                _serialPort.Close();
+                m_serialPort.Close();
             }
         }
 
@@ -78,7 +80,7 @@ namespace WorldCube
 
         private void ReadArduinoInput()
         {
-            if (playerGridController.IsPlayerMoving())
+            if (m_playerGridController.IsPlayerMoving())
             {
                 // Don't allow the cube to move when the player is moving and vice versa
                 return;
@@ -86,7 +88,7 @@ namespace WorldCube
 
             try
             {
-                string input = _serialPort.ReadLine();
+                string input = m_serialPort.ReadLine();
                 Debug.Log(input);
 
                 string[] splitInput = input.Split(':');
@@ -114,23 +116,23 @@ namespace WorldCube
                         switch (sideInput)
                         {
                             case "Left":
-                                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), direction);
+                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), direction);
                                 break;
 
                             case "Right":
-                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -direction);
+                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -direction);
                                 break;
 
                             case "Front":
-                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
+                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
                                 break;
 
                             case "Back":
-                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -direction);
+                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -direction);
                                 break;
 
                             case "Top":
-                                    _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
+                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
                                 break;
 
                             default:
@@ -157,7 +159,7 @@ namespace WorldCube
 
         private void HandleKeyboardInput()
         {
-            if (playerGridController.IsPlayerMoving())
+            if (m_playerGridController.IsPlayerMoving())
             {
                 // Don't allow the cube to move when the player is moving and vice versa
                 return;
@@ -165,51 +167,51 @@ namespace WorldCube
 
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), 1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.R))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), 1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.T))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), 1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), 1);
             }
             else if (Input.GetKeyDown(KeyCode.Y))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), -1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), 1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), 1);
             }
             else if (Input.GetKeyDown(KeyCode.U))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha8))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), 1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.I))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), 1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), 1);
             }
             else if (Input.GetKeyDown(KeyCode.O))
             {
-                _cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), -1);
+                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), -1);
             }
         }
 
