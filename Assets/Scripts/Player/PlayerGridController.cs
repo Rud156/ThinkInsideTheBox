@@ -79,16 +79,25 @@ namespace Player
         {
             if (i_other.gameObject.CompareTag(TagManager.WinMarker))
             {
+                //Debug.Log("Here!");
                 SetPlayerEndState(true);
+                //SetPlayerEndState(false);
             }
             else if (i_other.gameObject.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
             {
                 SetPlayerEndState(false);
             }
-            else if (i_other.gameObject.CompareTag(TagManager.FaceOut) ||
-                     i_other.gameObject.CompareTag(TagManager.InsideOut))
+            else if (i_other.gameObject.CompareTag(TagManager.FaceOut)) //i_other.gameObject.CompareTag(TagManager.InsideOut)
             {
                 transform.SetParent(i_other.transform.parent);
+            }
+        }
+
+        private void OnTriggerEnter(Collider i_other)
+        {
+            if (i_other.gameObject.CompareTag(TagManager.InsideOut))
+            {
+                //SetPlayerEndState(true);
             }
         }
 
@@ -225,13 +234,19 @@ namespace Player
             // TODO: Complete this function
 
             Debug.Log($"Player Won: {i_didPlayerWin}");
-
+            //m_isPlayerOutside = !m_isPlayerOutside;
+            //OnWorldFlip?.Invoke(hit.collider.transform);
             SetPlayerState(PlayerState.PlayerEndState);
 
-            m_playerRb.velocity = Vector3.zero;
-            m_playerRb.useGravity = true;
-            m_playerRb.isKinematic = false;
-            m_positionReached = true;
+            //m_playerRb.velocity = Vector3.zero;
+            //m_playerRb.useGravity = true;
+            //m_playerRb.isKinematic = false;
+            //m_positionReached = true;
+        }
+
+        public void SetPlayerInControl()
+        {
+            SetPlayerState(PlayerState.PlayerInControl);
         }
 
         private void SetPlayerState(PlayerState i_playerState) => m_playerState = i_playerState;
