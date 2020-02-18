@@ -145,7 +145,7 @@ namespace WorldCube
                         }
                     }
 
-                    if (isInvalidData || data.Count < 2)
+                    if (isInvalidData || data.Count < 1)
                     {
                         continue;
                     }

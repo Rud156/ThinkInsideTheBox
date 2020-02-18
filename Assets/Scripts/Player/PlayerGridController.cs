@@ -1,6 +1,7 @@
 ﻿using System;
 using Extensions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Player
@@ -14,11 +15,16 @@ namespace Player
         public float minMovementSpeed;
         public float maxMovementSpeed;
 
+        [Header("Inventory")] public InventorySystem myInventory;
+
         [Header("Stop Same Position")] public float positionStoppedTolerance;
         public int maxStopFrameCount;
 
         [Header("RayCast Data")] public float rayCastDistance;
         public LayerMask layerMask;
+        public LayerMask gravityCheckLayerMask;
+
+        [Header("Collisions")] public CollisionNotifier collisionNotifier;
 
         private Rigidbody m_playerRb;
         private Collider m_playerCollider;
@@ -45,6 +51,9 @@ namespace Player
 
         private void Start()
         {
+            collisionNotifier.OnTriggerEnterNotifier += HandleTriggerEnter;
+            collisionNotifier.OnTriggerExitNotifier += HandleTriggerExit;
+
             m_playerRb = GetComponent<Rigidbody>();
             m_playerCollider = GetComponent<Collider>();
 
@@ -52,6 +61,12 @@ namespace Player
             m_positionReached = true;
 
             SetPlayerState(PlayerState.PlayerInControl);
+        }
+
+        private void OnDestroy()
+        {
+            collisionNotifier.OnTriggerEnterNotifier -= HandleTriggerEnter;
+            collisionNotifier.OnTriggerExitNotifier -= HandleTriggerExit;
         }
 
         private void FixedUpdate()
@@ -71,33 +86,6 @@ namespace Player
 
                 default:
                     throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        // Use multiple colliders instead
-        private void OnCollisionEnter(Collision i_other)
-        {
-            if (i_other.gameObject.CompareTag(TagManager.WinMarker))
-            {
-                //Debug.Log("Here!");
-                SetPlayerEndState(true);
-                //SetPlayerEndState(false);
-            }
-            else if (i_other.gameObject.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
-            {
-                SetPlayerEndState(false);
-            }
-            else if (i_other.gameObject.CompareTag(TagManager.FaceOut)) //i_other.gameObject.CompareTag(TagManager.InsideOut)
-            {
-                transform.SetParent(i_other.transform.parent);
-            }
-        }
-
-        private void OnTriggerEnter(Collider i_other)
-        {
-            if (i_other.gameObject.CompareTag(TagManager.InsideOut))
-            {
-                //SetPlayerEndState(true);
             }
         }
 
@@ -121,7 +109,7 @@ namespace Player
 
         public void ResetPlayerGravityState()
         {
-            bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f);
+            bool isGroundBelow = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f, gravityCheckLayerMask);
             if (!isGroundBelow)
             {
                 m_playerRb.useGravity = true;
@@ -155,6 +143,44 @@ namespace Player
         #endregion
 
         #region Utility Functions
+
+        #region Collisions
+
+        private void HandleTriggerEnter(Collider i_other)
+        {
+            if (i_other.CompareTag(TagManager.WinMarker) && myInventory.Winnable)
+            {
+                SetPlayerEndState(true);
+            }
+            else if (i_other.CompareTag(TagManager.WaterHole) && !m_isPlayerOutside)
+            {
+                // TODO: Find a better solution
+
+                Vector3 targetTilePosition = i_other.transform.position + Vector3.up * 0.1f;
+                if (Physics.Raycast(targetTilePosition, Vector3.down, out RaycastHit hit, 0.2f, layerMask))
+                {
+                    if (hit.collider.CompareTag(i_other.tag))
+                    {
+                        SetPlayerEndState(false);
+                    }
+                }
+            }
+            else if (i_other.CompareTag(TagManager.FaceOut) ||
+                     i_other.CompareTag(TagManager.InsideOut))
+            {
+                transform.SetParent(i_other.transform.parent);
+            }
+            else if (i_other.CompareTag(TagManager.WinMarker) && !myInventory.Winnable)
+            {
+                Debug.Log("Door Locked");
+            }
+        }
+
+        private void HandleTriggerExit(Collider i_other)
+        {
+        }
+
+        #endregion
 
         #region Player  Movement
 
@@ -233,9 +259,20 @@ namespace Player
         {
             // TODO: Complete this function
 
-            Debug.Log($"Player Won: {i_didPlayerWin}");
-            //m_isPlayerOutside = !m_isPlayerOutside;
-            //OnWorldFlip?.Invoke(hit.collider.transform);
+            Debug.Log($"Did Player Win: {i_didPlayerWin}");
+            if (!i_didPlayerWin)
+            {
+                Debug.Log("Player Died. Reloading the scene");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+                Debug.Log("Player Won");
+
+                int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(currentBuildIndex + 1);
+            }
+
             SetPlayerState(PlayerState.PlayerEndState);
 
             //m_playerRb.velocity = Vector3.zero;

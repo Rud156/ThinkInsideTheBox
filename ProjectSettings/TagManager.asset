@@ -6,11 +6,15 @@ TagManager:
   tags:
   - CenterBlock
   - FaceOut
-  - GridMarker
-  - SideCenterMarker
   - WaterHole
   - WinMarker
   - InsideOut
+  - GridMarker
+  - SideCenterMarker
+  - WorldCubeMarker
+  - Collected
+  - BoxCollectible
+  - CircleCollectible
   - FadeCanvas
   layers:
   - Default
@@ -27,7 +31,7 @@ TagManager:
   - BlockWalkable
   - SideCollider
   - TransparencyShader
-  - 
+  - WorldCubeMarker
   - 
   - 
   - 
