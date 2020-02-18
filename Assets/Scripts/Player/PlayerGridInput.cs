@@ -83,7 +83,7 @@ namespace Player
             return Vector3.one; // This must be ignored
         }
 
-        private Vector3 FindPositionOnFace(Vector3 objectCenter)
+        public Vector3 FindPositionOnFace(Vector3 objectCenter)
         {
             Vector3 targetPosition = objectCenter + Vector3.up * yRayCastCenterPointOffset;
 

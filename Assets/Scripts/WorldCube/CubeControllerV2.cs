@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using Audio;
 using Camera;
 using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WorldCube
 {
@@ -28,6 +30,10 @@ namespace WorldCube
 
         [Header("Audio")] public AudioController audioController;
 
+        [Header("CanvasFade")]
+        public Image fadeImg;
+        public Canvas fadeCanvas;
+
         private CubeLayerMaskV2 m_lastLayerMask;
 
         // World Flip
@@ -44,6 +50,8 @@ namespace WorldCube
 
         private void Start()
         {
+            //FadeInScreen();
+            
             playerGridController.OnWorldFlip += InitiateWorldFlip;
 
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
@@ -89,17 +97,18 @@ namespace WorldCube
                         m_targetRotation,
                         m_lerpAmount
                     );
-                    m_flipTarget.rotation = Quaternion.Euler(currentRotation);
+                    //m_flipTarget.rotation = Quaternion.Euler(currentRotation);
                     if (m_lerpAmount >= lerpEndingAmount)
                     {
-                        m_flipTarget.rotation = Quaternion.Euler(m_targetRotation);
-
+                        //m_flipTarget.rotation = Quaternion.Euler(m_targetRotation);
                         if (m_worldState == WorldState.FlipTile)
                         {
+                            Debug.Log("Flip finished");
                             StartWorldFlip();
                         }
                         else
                         {
+                                Debug.Log("??????");
                             EndWorldFlip();
                         }
                     }
@@ -171,33 +180,38 @@ namespace WorldCube
         private void InitiateWorldFlip(Transform parentTransform)
         {
             Debug.Log("Starting Tile Flip");
-
+            //FadeOutScreen();
             playerGridController.PreventPlayerMovement();
 
             m_playerPreviousParent = playerGridController.transform.parent;
-            playerGridController.transform.SetParent(parentTransform);
+            //playerGridController.transform.SetParent(parentTransform);
 
-            m_startRotation = parentTransform.rotation.eulerAngles;
-            m_targetRotation = parentTransform.rotation.eulerAngles * -1;
-            m_lerpAmount = 0;
-            m_flipTarget = parentTransform;
+            //m_startRotation = parentTransform.rotation.eulerAngles;
+            //m_targetRotation = parentTransform.rotation.eulerAngles * 1;
+            //m_lerpAmount = 0;
+            //m_flipTarget = parentTransform;
 
+            
+            //playerGridController.GetComponent<PlayerGridInput>().FindPositionOnFace(targetCubeCenter);
+            //FadeInScreen();
+            //EndWorldFlip();
             SetWorldState(WorldState.FlipTile);
         }
 
         private void StartWorldFlip()
         {
-            Debug.Log("Starting World Flip");
+            //Debug.Log("Starting World Flip");
 
-            m_startRotation = worldRoot.rotation.eulerAngles;
-            m_targetRotation = worldRoot.rotation.eulerAngles + new Vector3(180, 0, 0);
-            m_lerpAmount = 0;
-            m_flipTarget = worldRoot;
-
+            //m_startRotation = worldRoot.rotation.eulerAngles;
+            //m_targetRotation = worldRoot.rotation.eulerAngles + new Vector3(180, 0, 0);
+            //m_lerpAmount = 0;
+            //m_flipTarget = worldRoot;
+            //Vector3 targetCubeCenter = playerGridController.GetComponentInParent<CubeTransition>().targetObject.transform.position;
+            //playerGridController.transform.position = targetCubeCenter;
             SetWorldState(WorldState.FlipWorld);
         }
 
-        private void EndWorldFlip()
+        public void EndWorldFlip()
         {
             Debug.Log("Ending World Flip");
 
@@ -208,6 +222,7 @@ namespace WorldCube
 
             if (m_isPlayerOutside)
             {
+                Debug.Log("Player gets outside cube");
                 layerPlayerFollower.SetFollowActive();
                 cameraController.SetFollowActive();
 
@@ -220,6 +235,7 @@ namespace WorldCube
             }
             else
             {
+                Debug.Log("Player gets inside cube");
                 layerPlayerFollower.DeactivateFollow();
                 layerPlayerFollower.SetLayerDefaultPosition();
 
@@ -231,7 +247,7 @@ namespace WorldCube
                     centerBlock.SetActive(false);
                 }
 
-                outsideWorld.SetActive(false);
+                //outsideWorld.SetActive(false);
             }
 
             SetWorldState(WorldState.ControllerControlled);
@@ -248,7 +264,6 @@ namespace WorldCube
 
             outsideWorld.SetActive(false);
         }
-
         #endregion
 
         #region Enums
