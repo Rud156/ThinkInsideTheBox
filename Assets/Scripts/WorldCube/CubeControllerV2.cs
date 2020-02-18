@@ -31,7 +31,7 @@ namespace WorldCube
         [Header("Audio")] public AudioController audioController;
 
         [Header("CanvasFade")]
-        public Image fadeImg;
+        //public Image fadeImg;
         public Canvas fadeCanvas;
 
         private CubeLayerMaskV2 m_lastLayerMask;
@@ -61,6 +61,7 @@ namespace WorldCube
 
             SetupInitialWorldState();
             SetWorldState(WorldState.ControllerControlled);
+            fadeCanvas = GameObject.FindGameObjectWithTag("FadeCanvas").GetComponent<Canvas>();
         }
 
         private void OnDestroy()

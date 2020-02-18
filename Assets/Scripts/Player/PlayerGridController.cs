@@ -48,6 +48,7 @@ namespace Player
 
         public WorldFlip OnWorldFlip;
 
+        public GameObject fadeCanvasPrefab;
         private Teleport fadeTransition;
 
         #region Unity Functions
@@ -65,7 +66,8 @@ namespace Player
 
             SetPlayerState(PlayerState.PlayerInControl);
 
-            fadeTransition = GameObject.FindGameObjectWithTag("FadeCanvas").GetComponent<Teleport>();
+            InitFadeCanvas();
+            
         }
 
         private void OnDestroy()
@@ -321,6 +323,17 @@ namespace Player
 
         private void SetPlayerState(PlayerState i_playerState) => m_playerState = i_playerState;
 
+        private void InitFadeCanvas()
+        {
+            GameObject fadeCanvas_instance = null;
+            if (GameObject.FindGameObjectWithTag("FadeCanvas") == null)
+                fadeCanvas_instance = Instantiate(fadeCanvasPrefab) as GameObject;
+
+            if(fadeCanvas_instance)
+                DontDestroyOnLoad(fadeCanvas_instance);
+
+            fadeTransition = GameObject.FindGameObjectWithTag("FadeCanvas").GetComponent<Teleport>();
+        }
         #endregion
 
         #region Enums
