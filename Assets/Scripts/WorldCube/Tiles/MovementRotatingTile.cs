@@ -23,6 +23,15 @@ namespace WorldCube.Tile
                     TileRotationAxis.zAxis:
                     return transform.forward;
 
+                case TileRotationAxis.negXAxis:
+                    return -transform.right;
+
+                case TileRotationAxis.negYAxis:
+                    return -transform.up;
+
+                case TileRotationAxis.negZAxis:
+                    return -transform.forward;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -35,8 +44,11 @@ namespace WorldCube.Tile
         public enum TileRotationAxis
         {
             xAxis,
+            negXAxis,
             yAxis,
-            zAxis
+            negYAxis,
+            zAxis,
+            negZAxis
         }
 
         #endregion

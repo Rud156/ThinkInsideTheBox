@@ -115,17 +115,18 @@ namespace Player
 
         private void HandleOnTriggerEnter(Collider i_other)
         {
-            if (i_other.CompareTag(TagManager.TurnTile))
+            MovementRotatingTile tile = i_other.GetComponent<MovementRotatingTile>();
+            if (!tile)
             {
-                MovementRotatingTile tile = i_other.GetComponent<MovementRotatingTile>();
+                return;
+            }
 
-                Vector3 tileForward = tile.GetTileForwardDirection();
-                Direction direction = GetDirectionFromTileVector(tileForward);
+            Vector3 tileForward = tile.GetTileForwardDirection();
+            Direction direction = GetDirectionFromTileVector(tileForward);
 
-                if (direction != Direction.None)
-                {
-                    SetDirection(direction);
-                }
+            if (direction != Direction.None)
+            {
+                SetDirection(direction);
             }
         }
 
@@ -309,9 +310,9 @@ namespace Player
             {
                 return Direction.Backward;
             }
-            else if (tileForward == Vector3.left)
+            else if (tileForward == Vector3.right)
             {
-                return Direction.Right;
+                return Direction.Left;
             }
             else if (tileForward == Vector3.left)
             {
