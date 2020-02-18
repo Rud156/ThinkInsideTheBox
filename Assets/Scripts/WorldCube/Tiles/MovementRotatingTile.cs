@@ -19,8 +19,7 @@ namespace WorldCube.Tile
                 case TileRotationAxis.yAxis:
                     return transform.up;
 
-                case
-                    TileRotationAxis.zAxis:
+                case TileRotationAxis.zAxis:
                     return transform.forward;
 
                 case TileRotationAxis.negXAxis:
