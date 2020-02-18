@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -6097,7 +6097,7 @@ PrefabInstance:
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.734
+      value: 0.016
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
@@ -7586,6 +7586,7 @@ MonoBehaviour:
   cameraController: {fileID: 1846420750}
   outsideWorld: {fileID: 1907720433}
   audioController: {fileID: 852565043}
+  fadeCanvas: {fileID: 0}
 --- !u!114 &1813484978
 MonoBehaviour:
   m_ObjectHideFlags: 0
