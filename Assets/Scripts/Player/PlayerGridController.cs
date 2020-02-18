@@ -3,6 +3,7 @@ using Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
+using System.Collections;
 
 namespace Player
 {
@@ -47,6 +48,8 @@ namespace Player
 
         public WorldFlip OnWorldFlip;
 
+        private Teleport fadeTransition;
+
         #region Unity Functions
 
         private void Start()
@@ -61,6 +64,8 @@ namespace Player
             m_positionReached = true;
 
             SetPlayerState(PlayerState.PlayerInControl);
+
+            fadeTransition = GameObject.FindGameObjectWithTag("FadeCanvas").GetComponent<Teleport>();
         }
 
         private void OnDestroy()
@@ -259,19 +264,23 @@ namespace Player
         {
             // TODO: Complete this function
 
-            Debug.Log($"Did Player Win: {i_didPlayerWin}");
-            if (!i_didPlayerWin)
-            {
-                Debug.Log("Player Died. Reloading the scene");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-            else
-            {
-                Debug.Log("Player Won");
+            IEnumerator transition_fade = LevelTransition(i_didPlayerWin);
+            StartCoroutine(transition_fade);
 
-                int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
-                SceneManager.LoadScene(currentBuildIndex + 1);
-            }
+            //Debug.Log($"Did Player Win: {i_didPlayerWin}");
+            //if (!i_didPlayerWin)
+            //{
+            //    Debug.Log("Player Died. Reloading the scene");
+            //    fadeTransition.StartFading();
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //}
+            //else
+            //{
+            //    Debug.Log("Player Won");
+            //    fadeTransition.StartFading();
+            //    int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+            //    SceneManager.LoadScene(currentBuildIndex + 1);
+            //}
 
             SetPlayerState(PlayerState.PlayerEndState);
 
@@ -279,6 +288,30 @@ namespace Player
             //m_playerRb.useGravity = true;
             //m_playerRb.isKinematic = false;
             //m_positionReached = true;
+        }
+
+        IEnumerator LevelTransition(bool i_didPlayerWin)
+        {
+            fadeTransition.FadeOutScreen();
+            //yield return null; //new WaitForSeconds(0.5f);
+            if (!i_didPlayerWin)
+            {
+                Debug.Log("Player Died. Reloading the scene");
+                //yield return new WaitForSeconds(0.5f);
+                fadeTransition.StartFading();
+                yield return new WaitForSeconds(0.5f);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            }
+            else
+            {
+                Debug.Log("Player Won");
+                fadeTransition.StartFading();
+                int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+                yield return new WaitForSeconds(0.5f);
+                SceneManager.LoadScene(currentBuildIndex + 1);
+            }
+            //yield return null;
         }
 
         public void SetPlayerInControl()

@@ -16,6 +16,7 @@ public class Teleport : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         fadeCanvas = GameObject.FindGameObjectWithTag("FadeCanvas").GetComponent<Canvas>();
     }
 
@@ -43,8 +44,12 @@ public class Teleport : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            playerGridController.AllowPlayerMovement();
+        
+    }
+
+    public void StartFading()
+    {
+        StartCoroutine("FadeIO");
     }
 
     IEnumerator FadeIO()
@@ -53,21 +58,20 @@ public class Teleport : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         
-        Debug.Log("???");
-        cubeController.EndWorldFlip();
+        //cubeController.EndWorldFlip();
         FadeInScreen();
         
     }
 
-    private void FadeOutScreen()
+    public void FadeOutScreen()
     {
         //Debug.Log("Screen fading");
-        fadeCanvas.GetComponent<Animator>().SetBool("Fading", true);
+        GetComponent<Animator>().SetBool("Fading", true);
         //fadeImg.CrossFadeAlpha(1, 0.5f, false);
     }
-    private void FadeInScreen()
+    public void FadeInScreen()
     {
-        fadeCanvas.GetComponent<Animator>().SetBool("Fading", false);
+        GetComponent<Animator>().SetBool("Fading", false);
         //fadeImg.CrossFadeAlpha(0, 2f, false);
     }
 
