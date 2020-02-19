@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3334,7 +3334,7 @@ PrefabInstance:
     - target: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.0864527
+      value: -2.09
       objectReference: {fileID: 0}
     - target: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
@@ -3344,7 +3344,7 @@ PrefabInstance:
     - target: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.38251466
+      value: 2.38
       objectReference: {fileID: 0}
     - target: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
@@ -3393,14 +3393,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
-      propertyPath: startDirection
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
-        type: 3}
-      propertyPath: stopTimeBetweenPositions
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: rotator
+      value: 
+      objectReference: {fileID: 2132927994}
     - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
       propertyPath: cubeControllerV2
@@ -7592,7 +7587,7 @@ MonoBehaviour:
   readTimeout: 7
   useForcedPort: 1
   portString: COM3
-  disableSerialPort: 0
+  disableSerialPort: 1
 --- !u!1 &1819914723
 GameObject:
   m_ObjectHideFlags: 0

@@ -186,6 +186,7 @@ MonoBehaviour:
   distanceToCheck: 1.5
   rayCastDownDistance: 7
   collisionCheckDistance: 1
+  rotator: {fileID: 0}
   yRayCastOffset: 1
   yRayCastCenterPointOffset: 1.5
   layerMask:
@@ -196,8 +197,8 @@ MonoBehaviour:
     m_Bits: 3895
   collisionNotifier: {fileID: 4470057249930661777}
   cubeControllerV2: {fileID: 0}
-  stopTimeBetweenPositions: 1
-  startDirection: 3
+  stopTimeBetweenPositions: 2
+  startDirection: 4
 --- !u!1 &5364383583085166363
 GameObject:
   m_ObjectHideFlags: 0

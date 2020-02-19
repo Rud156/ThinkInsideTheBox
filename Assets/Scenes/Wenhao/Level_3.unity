@@ -6510,11 +6510,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1489780414278686066, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+        type: 3}
+      propertyPath: myInventory
+      value: 
+      objectReference: {fileID: 1630840114}
     - target: {fileID: 1489780414278686069, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
       propertyPath: m_Name
       value: Auto Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+        type: 3}
+      propertyPath: rotator
+      value: 
+      objectReference: {fileID: 2132927994}
     - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
       propertyPath: cubeControllerV2
@@ -8050,7 +8060,7 @@ MonoBehaviour:
   readTimeout: 7
   useForcedPort: 1
   portString: COM3
-  disableSerialPort: 0
+  disableSerialPort: 1
 --- !u!1 &1819914723
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,8 @@ namespace Player
         public float rayCastDownDistance;
         public float collisionCheckDistance;
 
+        [Header("Rotation Tracking")] public Transform rotator;
+
         [Header("RayCasts")] public float yRayCastOffset;
         public float yRayCastCenterPointOffset;
 
@@ -29,9 +31,9 @@ namespace Player
         private float m_currentTimer;
 
         private Vector3 m_lastRotationAngle;
-
         private AutoMovementState m_autoMovementState;
         private Direction m_currentDirection;
+
         private PlayerGridController m_playerGridController;
 
         #region Unity Functions
@@ -115,13 +117,13 @@ namespace Player
 
         private void HandleOnTriggerEnter(Collider i_other)
         {
-            MovementRotatingTile tile = i_other.GetComponent<MovementRotatingTile>();
-            if (!tile)
+            MovementRotatingTile rotatingTile = i_other.GetComponent<MovementRotatingTile>();
+            if (!rotatingTile)
             {
                 return;
             }
 
-            Vector3 tileForward = tile.GetTileForwardDirection();
+            Vector3 tileForward = rotatingTile.GetTileForwardDirection();
             Direction direction = GetDirectionFromTileVector(tileForward);
 
             if (direction != Direction.None)
@@ -138,7 +140,7 @@ namespace Player
 
         private void StopPlayerMovement()
         {
-            m_lastRotationAngle = transform.eulerAngles;
+            m_lastRotationAngle = rotator.eulerAngles;
             SetPlayerAutoMovementState(AutoMovementState.Stopped);
         }
 
@@ -197,12 +199,11 @@ namespace Player
 
         private void HandleWorldClicked()
         {
-            transform.localRotation = Quaternion.identity;
-            Vector3 currentRotationAngle = transform.eulerAngles;
+            Vector3 currentRotationAngle = rotator.eulerAngles;
             Vector3 rotationAngleDiff = m_lastRotationAngle - currentRotationAngle;
 
             m_lastRotationAngle = currentRotationAngle;
-            m_currentDirection = GetDirectionFromRotation(rotationAngleDiff.y, m_currentDirection);
+            SetDirection(GetDirectionFromRotation(rotationAngleDiff.y, m_currentDirection));
 
             Debug.Log($"Forward Difference: {rotationAngleDiff}");
 
@@ -262,6 +263,9 @@ namespace Player
         {
             switch (i_direction)
             {
+                case Direction.None:
+                    throw new ArgumentOutOfRangeException(nameof(i_direction), i_direction, null);
+
                 case Direction.Forward:
                     return Direction.Backward;
 
@@ -283,6 +287,9 @@ namespace Player
         {
             switch (i_direction)
             {
+                case Direction.None:
+                    throw new ArgumentOutOfRangeException(nameof(i_direction), i_direction, null);
+
                 case Direction.Forward:
                     return Vector3.forward;
 
@@ -300,7 +307,6 @@ namespace Player
             }
         }
 
-        // TODO: Don't know as of now where to put it...
         private Direction GetDirectionFromTileVector(Vector3 tileForward)
         {
             if (tileForward == Vector3.forward)
@@ -400,7 +406,10 @@ namespace Player
 
         #endregion
 
-        private void SetDirection(Direction i_direction) => m_currentDirection = i_direction;
+        private void SetDirection(Direction i_direction)
+        {
+            m_currentDirection = i_direction;
+        }
 
         private void SetPlayerAutoMovementState(AutoMovementState i_autoMovementState) =>
             m_autoMovementState = i_autoMovementState;
