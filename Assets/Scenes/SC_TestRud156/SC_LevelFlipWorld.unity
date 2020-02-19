@@ -1590,7 +1590,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 5656432860407246409}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &430546434
 PrefabInstance:
@@ -3831,20 +3831,13 @@ PrefabInstance:
       propertyPath: cubeControllerV2
       value: 
       objectReference: {fileID: 1813484977}
+    - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+        type: 3}
+      propertyPath: rotator
+      value: 
+      objectReference: {fileID: 2132927994}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2bd5b1cd086ca4db968f157ad2023c, type: 3}
---- !u!114 &925460217 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1489780414278686066, guid: fc2bd5b1cd086ca4db968f157ad2023c,
-    type: 3}
-  m_PrefabInstance: {fileID: 925460216}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7461b6ad0fb11b84198e02c7f3ca7e4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &925460218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
@@ -7480,7 +7473,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileDistance: 2
   rotationDelta: 9
-  playerGridController: {fileID: 925460217}
   cubeLayers:
   - {fileID: 759338308}
   - {fileID: 1448618777}
@@ -7534,7 +7526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64b9ae1a7d412849a0921e6cf905271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGridController: {fileID: 925460217}
   readTimeout: 7
   useForcedPort: 1
   portString: COM4
@@ -7583,7 +7574,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridStartTransform: {x: 0, y: 0, z: 0}
-  playerTransform: {fileID: 925460218}
   sideSize: 2
 --- !u!1 &1829967603
 GameObject:
@@ -12378,8 +12368,8 @@ Transform:
   - {fileID: 5656432859846057559}
   - {fileID: 645914691}
   - {fileID: 1933263514}
-  - {fileID: 1152745119}
   - {fileID: 420583225}
+  - {fileID: 1152745119}
   - {fileID: 81449186}
   m_Father: {fileID: 1934600958}
   m_RootOrder: 21

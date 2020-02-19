@@ -10,6 +10,8 @@ namespace Player
     [RequireComponent(typeof(PlayerGridController))]
     public class PlayerAutoGridInput : MonoBehaviour
     {
+        private const int RotationLocker = 90;
+
         [Header("Movement")] public float distanceToCheck;
         public float rayCastDownDistance;
         public float collisionCheckDistance;
@@ -333,8 +335,8 @@ namespace Player
 
         private Direction GetDirectionFromRotation(float i_yRotation, Direction i_currentDirection)
         {
-            int normalizedRotation = ExtensionFunctions.GetClosestMultiple(i_yRotation, 90);
-            int totalTurns = Mathf.Abs(normalizedRotation) / 90;
+            int normalizedRotation = ExtensionFunctions.GetClosestMultiple(i_yRotation, RotationLocker);
+            int totalTurns = Mathf.Abs(normalizedRotation) / RotationLocker;
             int turnDirection = Math.Sign(normalizedRotation);
 
             for (int i = 0; i < totalTurns; i++)
@@ -406,10 +408,7 @@ namespace Player
 
         #endregion
 
-        private void SetDirection(Direction i_direction)
-        {
-            m_currentDirection = i_direction;
-        }
+        private void SetDirection(Direction i_direction) => m_currentDirection = i_direction;
 
         private void SetPlayerAutoMovementState(AutoMovementState i_autoMovementState) =>
             m_autoMovementState = i_autoMovementState;

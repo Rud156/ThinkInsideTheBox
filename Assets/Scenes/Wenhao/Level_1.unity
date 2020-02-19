@@ -3344,7 +3344,7 @@ PrefabInstance:
     - target: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.38
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 1489780414278686065, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
@@ -3401,6 +3401,11 @@ PrefabInstance:
       propertyPath: cubeControllerV2
       value: 
       objectReference: {fileID: 1813484977}
+    - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+        type: 3}
+      propertyPath: stopTimeBetweenPositions
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2bd5b1cd086ca4db968f157ad2023c, type: 3}
 --- !u!1 &813726119
@@ -6055,6 +6060,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DOOR
+      objectReference: {fileID: 0}
+    - target: {fileID: 5402075860805021140, guid: f986ffeaeec554049b48e3be11200040,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8981126017219829703, guid: f986ffeaeec554049b48e3be11200040,
         type: 3}
