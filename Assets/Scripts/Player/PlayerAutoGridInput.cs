@@ -197,6 +197,7 @@ namespace Player
 
         private void HandleWorldClicked()
         {
+            transform.localRotation = Quaternion.identity;
             Vector3 currentRotationAngle = transform.eulerAngles;
             Vector3 rotationAngleDiff = m_lastRotationAngle - currentRotationAngle;
 
