@@ -94,26 +94,39 @@ namespace Player
                     // Player needs to stop. Do nothing
                     break;
 
+                case AutoMovementState.ForceStopped:
+                    // Player needs to stop. Do nothing
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (Input.GetKeyDown(ControlConstants.PlayerStopStart))
-            {
-                if (m_autoMovementState == AutoMovementState.Stopped)
-                {
-                    StartPlayerMovement();
-                }
-                else
-                {
-                    StopPlayerMovement();
-                }
-            }
+            HandlePlayerForceStopInput();
         }
 
         #endregion
 
         #region Utility Functions
+
+        #region Input
+
+        private void HandlePlayerForceStopInput()
+        {
+            if (Input.GetKeyDown(ControlConstants.PlayerStopStart))
+            {
+                if (m_autoMovementState != AutoMovementState.ForceStopped)
+                {
+                    SetPlayerAutoMovementState(AutoMovementState.ForceStopped);
+                }
+                else
+                {
+                    SetPlayerAutoMovementState(AutoMovementState.Waiting);
+                }
+            }
+        }
+
+        #endregion
 
         #region Collisions
 
@@ -138,11 +151,25 @@ namespace Player
 
         #region Movement
 
-        private void StartPlayerMovement() => SetPlayerAutoMovementState(AutoMovementState.Waiting);
+        private void StartPlayerMovement()
+        {
+            if (m_autoMovementState == AutoMovementState.ForceStopped)
+            {
+                return;
+            }
+
+            SetPlayerAutoMovementState(AutoMovementState.Waiting);
+        }
 
         private void StopPlayerMovement()
         {
             m_lastRotationAngle = rotator.eulerAngles;
+
+            if (m_autoMovementState == AutoMovementState.ForceStopped)
+            {
+                return;
+            }
+
             SetPlayerAutoMovementState(AutoMovementState.Stopped);
         }
 
@@ -410,8 +437,7 @@ namespace Player
 
         private void SetDirection(Direction i_direction) => m_currentDirection = i_direction;
 
-        private void SetPlayerAutoMovementState(AutoMovementState i_autoMovementState) =>
-            m_autoMovementState = i_autoMovementState;
+        private void SetPlayerAutoMovementState(AutoMovementState i_autoMovementState) => m_autoMovementState = i_autoMovementState;
 
         #endregion
 
@@ -431,7 +457,8 @@ namespace Player
         {
             Waiting,
             Moving,
-            Stopped
+            Stopped,
+            ForceStopped
         }
 
         #endregion
