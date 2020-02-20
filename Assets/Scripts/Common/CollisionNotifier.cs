@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils
+namespace Common
 {
     public class CollisionNotifier : MonoBehaviour
     {

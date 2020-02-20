@@ -1,23 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Utils
+namespace Common
 {
     public class DestroyAfterTime : MonoBehaviour
     {
         public float destroyAfterTime = 3;
 
-        private float _currentTime;
+        private float m_currentTime;
 
         #region Unity Functions
 
-        private void Start() => _currentTime = destroyAfterTime;
+        private void Start() => m_currentTime = destroyAfterTime;
 
         private void Update()
         {
-            _currentTime -= Time.deltaTime;
-            if (_currentTime <= 0)
+            m_currentTime -= Time.deltaTime;
+            if (m_currentTime <= 0)
             {
                 Destroy(gameObject);
             }

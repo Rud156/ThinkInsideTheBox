@@ -34,7 +34,7 @@ namespace WorldCube
             }
             else
             {
-                portName = ports[0]; // TODO: Use ManagementObject to find the data regarding the port.
+                portName = ports[0]; // Will be switching to Arduino
                 // May not be required as PI4 might be used
             }
 

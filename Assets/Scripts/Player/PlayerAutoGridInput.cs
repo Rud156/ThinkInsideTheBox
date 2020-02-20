@@ -1,5 +1,5 @@
 ﻿using System;
-using Extensions;
+using Common;
 using UnityEngine;
 using Utils;
 using WorldCube;
@@ -45,8 +45,9 @@ namespace Player
             m_playerGridController = GetComponent<PlayerGridController>();
 
             m_playerGridController.OnPlayerReachedPosition += HandlePlayerPositionReached;
-            m_playerGridController.OnPlayerMovementLocked += StopPlayerMovement;
-            m_playerGridController.OnPlayerMovementUnLocked += StartPlayerMovement;
+            m_playerGridController.OnPlayerMovementLocked += LockPlayerMovement;
+            m_playerGridController.OnPlayerMovementUnLocked += UnLockPlayerMovement;
+            m_playerGridController.OnPlayerStartedMovement += HandlePlayerStartMovement;
 
             collisionNotifier.OnTriggerEnterNotifier += HandleOnTriggerEnter;
             cubeControllerV2.OnWorldClicked += HandleWorldClicked;
@@ -60,8 +61,9 @@ namespace Player
         private void OnDestroy()
         {
             m_playerGridController.OnPlayerReachedPosition -= HandlePlayerPositionReached;
-            m_playerGridController.OnPlayerMovementLocked -= StopPlayerMovement;
-            m_playerGridController.OnPlayerMovementUnLocked -= StartPlayerMovement;
+            m_playerGridController.OnPlayerMovementLocked -= LockPlayerMovement;
+            m_playerGridController.OnPlayerMovementUnLocked -= UnLockPlayerMovement;
+            m_playerGridController.OnPlayerStartedMovement -= HandlePlayerStartMovement;
 
             collisionNotifier.OnTriggerEnterNotifier -= HandleOnTriggerEnter;
             cubeControllerV2.OnWorldClicked -= HandleWorldClicked;
@@ -151,17 +153,7 @@ namespace Player
 
         #region Movement
 
-        private void StartPlayerMovement()
-        {
-            if (m_autoMovementState == AutoMovementState.ForceStopped)
-            {
-                return;
-            }
-
-            SetPlayerAutoMovementState(AutoMovementState.Waiting);
-        }
-
-        private void StopPlayerMovement()
+        private void LockPlayerMovement()
         {
             m_lastRotationAngle = rotator.eulerAngles;
 
@@ -171,6 +163,20 @@ namespace Player
             }
 
             SetPlayerAutoMovementState(AutoMovementState.Stopped);
+        }
+
+        private void UnLockPlayerMovement()
+        {
+            if (m_autoMovementState == AutoMovementState.ForceStopped)
+            {
+                return;
+            }
+
+            SetPlayerAutoMovementState(AutoMovementState.Waiting);
+        }
+
+        private void HandlePlayerStartMovement()
+        {
         }
 
         private void FindNextMovementSpot() =>

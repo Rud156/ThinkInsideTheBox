@@ -1,5 +1,4 @@
-﻿using Extensions;
-using UnityEngine;
+﻿using UnityEngine;
 using Utils;
 
 namespace Player

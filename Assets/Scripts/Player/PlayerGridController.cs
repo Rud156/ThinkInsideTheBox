@@ -1,5 +1,5 @@
 ﻿using System;
-using Extensions;
+using Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -290,7 +290,7 @@ namespace Player
 
         private void SetPlayerEndState(bool i_didPlayerWin)
         {
-            // TODO: Complete this function
+            // TODO: Complete this function. This will change based on more updates to props and other world objects
 
             Debug.Log($"Did Player Win: {i_didPlayerWin}");
             if (!i_didPlayerWin)
