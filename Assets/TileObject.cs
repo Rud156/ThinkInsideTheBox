@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using CubeData;
 using UnityEngine;
 
 public class TileObject : MonoBehaviour
@@ -14,5 +16,15 @@ public class TileObject : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool TryEnterTile(CubeLayerMask i_direction)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool TryExitTile(CubeLayerMask i_direction)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -291,6 +291,13 @@ namespace CubeData
         public int y = 0; // 0 means no rotation on this layer
         public int z = 0; // 0 means no rotation on this layer
 
+        public static CubeLayerMask right => new CubeLayerMask(1, 0, 0);
+        public static CubeLayerMask left => new CubeLayerMask(-1, 0, 0);
+        public static CubeLayerMask up => new CubeLayerMask(0, 1, 0);
+        public static CubeLayerMask down => new CubeLayerMask(0, -1, 0);
+        public static CubeLayerMask front => new CubeLayerMask(0, 0, 1);
+        public static CubeLayerMask back => new CubeLayerMask(0, 0, -1);
+
         public static CubeLayerMask Zero
         {
             get
@@ -342,6 +349,8 @@ namespace CubeData
         {
             return !(i_lhs == i_rhs);
         }
+
+        public static CubeLayerMask operator -(CubeLayerMask i_rhs) => new CubeLayerMask(-i_rhs.x, -i_rhs.y, -i_rhs.z);
 
         public override bool Equals(object obj)
         {

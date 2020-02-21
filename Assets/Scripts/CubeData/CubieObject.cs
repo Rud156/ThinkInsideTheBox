@@ -6,79 +6,28 @@ namespace CubeData
 {
     public class CubieObject : MonoBehaviour
     {
-        private GameObject m_collision;
-        private GameObject m_oldParent;
-        private bool m_isRotating;
-        public static readonly Color[] CubeColors = { Color.cyan, Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white };
+        public CubeLayerMask Down = CubeLayerMask.down;
+        public LayerMask PlaneLayerMask;
+        public TileObject VolumetricTile;
 
-        public const float LENGTH = 1;
-
-        public Renderer PlaneU;
-        public Renderer PlaneD;
-        public Renderer PlaneL;
-        public Renderer PlaneR;
-        public Renderer PlaneF;
-        public Renderer PlaneB;
-
-        public Cubie CubieData;
-
-        public void DrawCubie()
+        public bool TryEnterCubie(CubeLayerMask i_direction)
         {
-            //Tint(CubieData);
-            //SetText(CubieData);
-            //Hide(CubieData);
-        }
-        private void OnTriggerStay(Collider other)
-        {
-            // Add filter
-            if (!m_isRotating)
-                m_collision = other.gameObject;
+            TileObject tile = GetPlanimetricTile(-i_direction);
+            return tile.TryEnterTile(i_direction) && VolumetricTile.TryEnterTile(i_direction);
         }
 
-        public void Grab()
+        public bool TryExitCubie(CubeLayerMask i_direction)
         {
-            m_isRotating = true;
-            if (m_collision && m_collision.transform.parent != transform)
-                m_collision.transform.parent = transform;
+            TileObject tile = GetPlanimetricTile(i_direction);
+            return tile.TryExitTile(i_direction) && VolumetricTile.TryExitTile(i_direction);
         }
 
-        public void Release()
+        public TileObject GetPlanimetricTile(CubeLayerMask i_direction)
         {
-            m_isRotating = false;
-            if (m_collision && m_collision.transform.parent == transform)
-                m_collision.transform.parent = m_oldParent?.transform;
-        }
-
-        public void Tint(Cubie i_cubie)
-        {
-            PlaneR.material.color = CubeColors[Mathf.Abs(i_cubie.x) / 10];
-            PlaneL.material.color = CubeColors[Mathf.Abs(i_cubie.x) / 10];
-            PlaneU.material.color = CubeColors[Mathf.Abs(i_cubie.y) / 10];
-            PlaneD.material.color = CubeColors[Mathf.Abs(i_cubie.y) / 10];
-            PlaneF.material.color = CubeColors[Mathf.Abs(i_cubie.z) / 10];
-            PlaneB.material.color = CubeColors[Mathf.Abs(i_cubie.z) / 10];
-        }
-
-        public void Hide(Cubie i_cubie)
-        {
-            PlaneR.gameObject.SetActive(i_cubie.x > 0);
-            PlaneL.gameObject.SetActive(i_cubie.x < 0);
-            PlaneU.gameObject.SetActive(i_cubie.y > 0);
-            PlaneD.gameObject.SetActive(i_cubie.y < 0);
-            PlaneF.gameObject.SetActive(i_cubie.z > 0);
-            PlaneB.gameObject.SetActive(i_cubie.z < 0);
-        }
-
-        public void Place(Cubie i_cubie)
-        {
-            Vector3 pos = new Vector3(
-                i_cubie.x > 0 ? LENGTH : -LENGTH,
-                i_cubie.y > 0 ? LENGTH : -LENGTH,
-                i_cubie.z > 0 ? LENGTH : -LENGTH);
-            pos.x = i_cubie.x == 0 ? 0 : pos.x;
-            pos.y = i_cubie.y == 0 ? 0 : pos.y;
-            pos.z = i_cubie.z == 0 ? 0 : pos.z;
-            transform.localPosition = pos;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, i_direction.ToVector3(), out hit, Mathf.Infinity, PlaneLayerMask))
+                Debug.DrawRay(transform.position, i_direction.ToVector3() * hit.distance, Color.blue);
+            return hit.transform.GetComponentInChildren<TileObject>();
         }
     }
 
