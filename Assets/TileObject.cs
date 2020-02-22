@@ -40,6 +40,15 @@ public class TileObject : MonoBehaviour
             up_in = true;
             down_in = false;
         }
+        else if(tileType == TileFunction.Default)
+        {
+            forward_in = true;
+            back_in = true;
+            right_in = true;
+            left_in = true;
+            up_in = false;
+            down_in = false;
+        }
     }
 
     // Update is called once per frame
@@ -61,13 +70,22 @@ public class TileObject : MonoBehaviour
         {
             if (tileType == TileFunction.Ramp)
             {
+                Debug.Log("Go up ramp - change direction Up");
                 return CubeLayerMask.up;
             }
             else
+            {
+                Debug.Log("Don't change dir");
                 return i_direction;
+            }
+                
         }
         else
+        {
+            Debug.Log("Blocked");
             return CubeLayerMask.Zero;
+        }
+            
 
         throw new NotImplementedException();
     }
