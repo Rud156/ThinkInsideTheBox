@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TileFunction
-{
-    Water, Turn, Ramp, Exit, Default
-}
+
 
 public class TileData
 {
