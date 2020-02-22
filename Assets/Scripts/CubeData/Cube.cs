@@ -295,7 +295,7 @@ namespace CubeData
         public static CubeLayerMask left => new CubeLayerMask(-1, 0, 0);
         public static CubeLayerMask up => new CubeLayerMask(0, 1, 0);
         public static CubeLayerMask down => new CubeLayerMask(0, -1, 0);
-        public static CubeLayerMask front => new CubeLayerMask(0, 0, 1);
+        public static CubeLayerMask forward => new CubeLayerMask(0, 0, 1);
         public static CubeLayerMask back => new CubeLayerMask(0, 0, -1);
 
         public static CubeLayerMask Zero

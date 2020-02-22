@@ -18,13 +18,11 @@ public class TileObject : MonoBehaviour
         
     }
 
-    public bool TryEnterTile(CubeLayerMask i_direction)
+    public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
     {
-        throw new NotImplementedException();
-    }
-
-    public bool TryExitTile(CubeLayerMask i_direction)
-    {
+        // Return CubeLayerMask.Zero if the path is blocked
+        // Return i_direction if the path is accessible and the direction keeps
+        // Return another CubeLayerMask if the path is accessible but the direction changes
         throw new NotImplementedException();
     }
 }
