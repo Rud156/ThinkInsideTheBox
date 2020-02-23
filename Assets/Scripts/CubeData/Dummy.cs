@@ -8,13 +8,15 @@ namespace CubeData{
         public CubeLayerMask startDirection = CubeLayerMask.down;
         private Stack directions = new Stack();
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
+        private Vector3 m_destination;
+        private float tolerance = 0.1f;
 
         private void Start()
         {
-            Move(startDirection);
+            StartCoroutine(Move(startDirection));
         }
 
-        public void Move(CubeLayerMask i_direction)
+        public IEnumerator Move(CubeLayerMask i_direction)
         {
             directions.Push(i_direction);
             while (directions.Count > 0)
@@ -24,12 +26,17 @@ namespace CubeData{
                 {
                     Debug.Log("Reach destination");
                     directions.Clear();
-                    return;
                 }
                 else if (pendingDirection == (CubeLayerMask)directions.Peek())
                 {
                     // Move action
-                    transform.position = GetNextPosition((CubeLayerMask)directions.Pop());
+                    m_destination = GetNextPosition((CubeLayerMask)directions.Pop());
+                    while (Vector3.Distance(m_destination, transform.position) > tolerance)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
+                        yield return null;
+                    }
+                    transform.position = m_destination;
                     if (directions.Count == 0)
                         directions.Push(gravityDirection);
                 }

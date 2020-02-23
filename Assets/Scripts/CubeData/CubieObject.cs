@@ -30,9 +30,9 @@ namespace CubeData
             bool result = true;
             if (VolumetricTile)
                 result &= VolumetricTile.GetMoveDirection(i_direction) == i_direction;
-            TileObject groundTile = GetPlanimetricTile(CubeLayerMask.down);
-            if (groundTile)
-                result &= groundTile.GetMoveDirection(i_direction) == i_direction;
+            TileObject overlappingTile = GetPlanimetricTile(-i_direction);
+            if (overlappingTile)
+                result &= overlappingTile.GetMoveDirection(i_direction) == i_direction;
             return result;
         }
 
@@ -40,9 +40,9 @@ namespace CubeData
         {
             if (VolumetricTile)
                 return VolumetricTile.GetMoveDirection(i_direction);
-            TileObject groundTile = GetPlanimetricTile(CubeLayerMask.down);
-            if (groundTile)
-                return groundTile.GetMoveDirection(i_direction);
+            TileObject overlappingTile = GetPlanimetricTile(i_direction);
+            if (overlappingTile)
+                return overlappingTile.GetMoveDirection(i_direction);
             return i_direction;
         }
 
