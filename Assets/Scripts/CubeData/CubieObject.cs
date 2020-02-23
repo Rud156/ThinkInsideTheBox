@@ -9,7 +9,6 @@ namespace CubeData
     public class CubieObject : MonoBehaviour
     {
         public LayerMask PlaneLayerMask;
-        public TileObject VolumetricTile;
         public bool keepDirection;
         public CubeLayerMask exitDirection = CubeLayerMask.Zero;
 
@@ -24,6 +23,8 @@ namespace CubeData
                 if (!nextCubie.CanEnter(pendingDirection))
                     return CubeLayerMask.Zero;
             }
+            else
+                return CubeLayerMask.Zero;
             return pendingDirection;
             //return keepDirection ? i_direction : exitDirection;
         }
@@ -31,34 +32,20 @@ namespace CubeData
         // Entering a cubie doesn't change the moving direction
         public bool CanEnter(CubeLayerMask i_direction)
         {
-            // Volume check
-            bool result = true;
-            if (VolumetricTile)
-                result &= VolumetricTile.GetMoveDirection(i_direction) != CubeLayerMask.Zero;
-
             // Plane check
             TileObject overlappingTile = GetPlanimetricTile(-i_direction);
             if (overlappingTile)
-                result &= overlappingTile.GetMoveDirection(i_direction) != CubeLayerMask.Zero;
-
-            return result;
+                return overlappingTile.GetMoveDirection(i_direction) != CubeLayerMask.Zero;
+            return true;
         }
 
         public CubeLayerMask GetExitDirection(CubeLayerMask i_direction)
         {
-            // Volume check
-            CubeLayerMask pendingDirection = i_direction;
-            if (VolumetricTile)
-                pendingDirection = VolumetricTile.GetMoveDirection(i_direction);
-            if (pendingDirection == CubeLayerMask.Zero)
-                return pendingDirection;
-
             // Plane check
-            TileObject overlappingTile = GetPlanimetricTile(pendingDirection);
+            TileObject overlappingTile = GetPlanimetricTile(i_direction);
             if (overlappingTile)
-                pendingDirection = overlappingTile.GetMoveDirection(pendingDirection);
-
-            return pendingDirection;
+                return overlappingTile.GetMoveDirection(i_direction);
+            return i_direction;
         }
 
         public TileObject GetPlanimetricTile(CubeLayerMask i_direction)
