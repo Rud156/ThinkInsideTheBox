@@ -22,7 +22,7 @@ public class TileObject : MonoBehaviour
     [Header("Tile Function")]
     public TileFunction tileType;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (tileType == TileFunction.Ramp)
         {

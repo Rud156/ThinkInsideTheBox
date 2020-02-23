@@ -16,7 +16,7 @@ namespace CubeData
         public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
         {
             CubeLayerMask pendingDirection = GetExitDirection(i_direction);
-            
+
             CubieObject nextCubie;
             if (CubeWorld.TryGetNextCubie(transform.position, pendingDirection, out nextCubie))
             {
@@ -25,6 +25,7 @@ namespace CubeData
                     return CubeLayerMask.Zero;
             }
             return pendingDirection;
+            //return keepDirection ? i_direction : exitDirection;
         }
 
         // Entering a cubie doesn't change the moving direction
@@ -33,12 +34,12 @@ namespace CubeData
             // Volume check
             bool result = true;
             if (VolumetricTile)
-                result &= VolumetricTile.GetMoveDirection(i_direction) == i_direction;
+                result &= VolumetricTile.GetMoveDirection(i_direction) != CubeLayerMask.Zero;
 
             // Plane check
             TileObject overlappingTile = GetPlanimetricTile(-i_direction);
             if (overlappingTile)
-                result &= overlappingTile.GetMoveDirection(i_direction) == i_direction;
+                result &= overlappingTile.GetMoveDirection(i_direction) != CubeLayerMask.Zero;
 
             return result;
         }

@@ -15,10 +15,29 @@ namespace CubeData{
             StartCoroutine(Move(startDirection));
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                StartCoroutine(Move(CubeLayerMask.up));
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                StartCoroutine(Move(CubeLayerMask.down));
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                StartCoroutine(Move(CubeLayerMask.back));
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                StartCoroutine(Move(CubeLayerMask.forward));
+            }
+        }
+
         public IEnumerator Move(CubeLayerMask i_direction)
         {
             yield return StartCoroutine(MoveToCubie(i_direction));
-            StartCoroutine(MoveToCubie(gravityDirection));
         }
 
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
@@ -32,16 +51,28 @@ namespace CubeData{
             {
                 // Move action
                 m_destination = GetNextPosition(pendingDirection);
-                Debug.Log("Moving from" + transform.position + " to" + m_destination);
-                while (Vector3.Distance(m_destination, transform.position) > tolerance)
+                //Debug.Log("Moving from" + transform.position + " to" + m_destination);
+                //while (Vector3.Distance(m_destination, transform.position) > tolerance)
+                //{
+                //    transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
+                //    yield return null;
+                //}
+                //Debug.Log("Reach cubie");
+                if (pendingDirection == i_direction)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
-                    yield return null;
+                    while (Vector3.Distance(m_destination, transform.position) > tolerance)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
+                        yield return null;
+                    }
+                    transform.position = m_destination;
+                    StartCoroutine(MoveToCubie(gravityDirection));
                 }
-                Debug.Log("Reach cubie");
-                transform.position = m_destination;
-                if (pendingDirection != i_direction)
+                else
+                {
+                    transform.position = m_destination;
                     StartCoroutine(MoveToCubie(i_direction));
+                }
             }
         }
 
@@ -65,7 +96,6 @@ namespace CubeData{
             {
                 return hit.transform.GetComponent<CubieObject>();
             }
-            return null;
             throw new Exception("Player is not inside any TileObject");
         }
     }
