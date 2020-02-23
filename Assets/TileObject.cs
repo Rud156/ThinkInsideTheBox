@@ -82,7 +82,7 @@ public class TileObject : MonoBehaviour
         }
         else
         {
-            Debug.Log("Blocked");
+            Debug.Log(gameObject.transform.parent.name + "Blocked");
             return CubeLayerMask.Zero;
         }
             
