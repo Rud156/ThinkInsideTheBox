@@ -6,7 +6,6 @@ namespace CubeData{
     public class Dummy : MonoBehaviour
     {
         public CubeLayerMask startDirection = CubeLayerMask.down;
-        private Stack directions = new Stack();
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
         private Vector3 m_destination;
         private float tolerance = 0.1f;
@@ -18,32 +17,31 @@ namespace CubeData{
 
         public IEnumerator Move(CubeLayerMask i_direction)
         {
-            directions.Push(i_direction);
-            while (directions.Count > 0)
+            yield return StartCoroutine(MoveToCubie(i_direction));
+            StartCoroutine(MoveToCubie(gravityDirection));
+        }
+
+        public IEnumerator MoveToCubie(CubeLayerMask i_direction)
+        {
+            CubeLayerMask pendingDirection = GetMoveDirection(i_direction);
+            if (pendingDirection == CubeLayerMask.Zero)
             {
-                CubeLayerMask pendingDirection = GetMoveDirection((CubeLayerMask)directions.Peek());
-                if (pendingDirection == CubeLayerMask.Zero)
+                Debug.Log("Reach destination");
+            }
+            else
+            {
+                // Move action
+                m_destination = GetNextPosition(pendingDirection);
+                Debug.Log("Moving from" + transform.position + " to" + m_destination);
+                while (Vector3.Distance(m_destination, transform.position) > tolerance)
                 {
-                    Debug.Log("Reach destination");
-                    directions.Clear();
+                    transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
+                    yield return null;
                 }
-                else if (pendingDirection == (CubeLayerMask)directions.Peek())
-                {
-                    // Move action
-                    m_destination = GetNextPosition((CubeLayerMask)directions.Pop());
-                    while (Vector3.Distance(m_destination, transform.position) > tolerance)
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
-                        yield return null;
-                    }
-                    transform.position = m_destination;
-                    if (directions.Count == 0)
-                        directions.Push(gravityDirection);
-                }
-                else
-                {
-                    directions.Push(pendingDirection);
-                }
+                Debug.Log("Reach cubie");
+                transform.position = m_destination;
+                if (pendingDirection != i_direction)
+                    StartCoroutine(MoveToCubie(i_direction));
             }
         }
 

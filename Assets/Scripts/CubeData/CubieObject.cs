@@ -19,9 +19,11 @@ namespace CubeData
             
             CubieObject nextCubie;
             if (CubeWorld.TryGetNextCubie(transform.position, pendingDirection, out nextCubie))
+            {
+                Debug.Log(nextCubie.transform.name);
                 if (!nextCubie.CanEnter(pendingDirection))
                     return CubeLayerMask.Zero;
-
+            }
             return pendingDirection;
         }
 

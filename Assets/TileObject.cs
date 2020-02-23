@@ -31,24 +31,24 @@ public class TileObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (tileType == TileFunction.Ramp)
-        {
-            forward_in = false;
-            back_in = true;
-            right_in = false;
-            left_in = false;
-            up_in = true;
-            down_in = false;
-        }
-        else if(tileType == TileFunction.Default)
-        {
-            forward_in = true;
-            back_in = true;
-            right_in = true;
-            left_in = true;
-            up_in = false;
-            down_in = false;
-        }
+        //if (tileType == TileFunction.Ramp)
+        //{
+        //    forward_in = false;
+        //    back_in = true;
+        //    right_in = false;
+        //    left_in = false;
+        //    up_in = true;
+        //    down_in = false;
+        //}
+        //else if(tileType == TileFunction.Default)
+        //{
+        //    forward_in = true;
+        //    back_in = true;
+        //    right_in = true;
+        //    left_in = true;
+        //    up_in = false;
+        //    down_in = false;
+        //}
     }
 
     // Update is called once per frame
@@ -59,9 +59,11 @@ public class TileObject : MonoBehaviour
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
     {
+        //Debug.Log(this.transform.GetInstanceID());
         // Return CubeLayerMask.Zero if the path is blocked
         // Return i_direction if the path is accessible and the direction keeps
         // Return another CubeLayerMask if the path is accessible but the direction changes.
+        Debug.Log("i_direction: " + i_direction.ToVector3());
 
         Vector3 moveDir = i_direction.ToVector3();
         Vector3 playerDir = moveDir * -1; //mark the direction of the player relative to this tile
@@ -70,24 +72,25 @@ public class TileObject : MonoBehaviour
         {
             if (tileType == TileFunction.Ramp)
             {
-                Debug.Log("Go up ramp - change direction Up");
+                //Debug.Log("Go up ramp - change direction Up");
                 return CubeLayerMask.up;
             }
             else
             {
-                Debug.Log("Don't change dir");
+                //Debug.Log("Don't change dir");
                 return i_direction;
             }
                 
         }
         else
         {
-            Debug.Log(gameObject.transform.parent.name + "Blocked");
+            Debug.Log(this.transform.name);
+            //Debug.Log(gameObject.transform.parent.name + "Blocked");
             return CubeLayerMask.Zero;
         }
             
 
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private bool AccessAvailable(Vector3 i_dir)
@@ -104,19 +107,40 @@ public class TileObject : MonoBehaviour
         {
             case 0:
                 if (i_dir.x > 0)
+                {
+                    //Debug.Log("Player on Right");
                     return right_in;
+                }
                 else
+                {
+                    //Debug.Log("Player on Left");
                     return left_in;
+                }
+                    
             case 1:
                 if (i_dir.y > 0)
+                {
+                    //Debug.Log("Player on Up");
                     return up_in;
+                }
                 else
+                {
+                    //Debug.Log("Player on Down");
                     return down_in;
+                }
+                    
             case 2:
                 if (i_dir.z > 0)
+                {
+                    //Debug.Log("Player on Forward");
                     return forward_in;
+                }
                 else
+                {
+                    //Debug.Log("Player on Back");
                     return back_in;
+                }
+                    
         }
 
         Debug.LogError("Out of conditions error!");
