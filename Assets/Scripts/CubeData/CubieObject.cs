@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace CubeData
 {
@@ -27,34 +28,46 @@ namespace CubeData
         // Entering a cubie doesn't change the moving direction
         public bool CanEnter(CubeLayerMask i_direction)
         {
+            // Volume check
             bool result = true;
             if (VolumetricTile)
                 result &= VolumetricTile.GetMoveDirection(i_direction) == i_direction;
+
+            // Plane check
             TileObject overlappingTile = GetPlanimetricTile(-i_direction);
             if (overlappingTile)
                 result &= overlappingTile.GetMoveDirection(i_direction) == i_direction;
+
             return result;
         }
 
         public CubeLayerMask GetExitDirection(CubeLayerMask i_direction)
         {
+            // Volume check
+            CubeLayerMask pendingDirection = i_direction;
             if (VolumetricTile)
-                return VolumetricTile.GetMoveDirection(i_direction);
-            TileObject overlappingTile = GetPlanimetricTile(i_direction);
+                pendingDirection = VolumetricTile.GetMoveDirection(i_direction);
+            if (pendingDirection == CubeLayerMask.Zero)
+                return pendingDirection;
+
+            // Plane check
+            TileObject overlappingTile = GetPlanimetricTile(pendingDirection);
             if (overlappingTile)
-                return overlappingTile.GetMoveDirection(i_direction);
-            return i_direction;
+                pendingDirection = overlappingTile.GetMoveDirection(pendingDirection);
+
+            return pendingDirection;
         }
 
         public TileObject GetPlanimetricTile(CubeLayerMask i_direction)
         {
+            Assert.AreNotEqual(i_direction, CubeLayerMask.Zero);
             RaycastHit hit;
             if (Physics.Raycast(transform.position, i_direction.ToVector3(), out hit, Mathf.Infinity, PlaneLayerMask))
             {
                 Debug.DrawRay(transform.position, i_direction.ToVector3() * hit.distance, Color.blue, 3f);
                 return hit.transform.GetComponentInChildren<TileObject>();
             }
-            throw new System.Exception("No plane found");
+            throw new Exception(gameObject.name + i_direction.ToString() + "No plane found");
         }
     }
 
