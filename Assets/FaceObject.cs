@@ -49,6 +49,15 @@ public class FaceObject : MonoBehaviour
             up = false;
             down = false;
         }
+        else if (tileType == TileFunction.Turn)
+        {
+            forward = false;
+            back = false;
+            right = true;
+            left = true;
+            up = true;
+            down = true;
+        }
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
