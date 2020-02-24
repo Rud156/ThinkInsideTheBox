@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class TileData
+public class FaceData
 {
     public TileFunction type;
     public AccessDir access_In;

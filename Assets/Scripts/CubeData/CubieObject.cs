@@ -46,7 +46,7 @@ namespace CubeData
         public bool CanEnter(CubeLayerMask i_direction)
         {
             // Plane check
-            TileObject overlappingTile = GetPlanimetricTile(-i_direction);
+            FaceObject overlappingTile = GetPlanimetricTile(-i_direction);
             if (overlappingTile)
                 return overlappingTile.GetMoveDirection(i_direction) != CubeLayerMask.Zero;
             return true;
@@ -61,14 +61,14 @@ namespace CubeData
             return (i_direction, false);
         }
 
-        public TileObject GetPlanimetricTile(CubeLayerMask i_direction)
+        public FaceObject GetPlanimetricTile(CubeLayerMask i_direction)
         {
             Assert.AreNotEqual(i_direction, CubeLayerMask.Zero);
             RaycastHit hit;
             if (Physics.Raycast(transform.position, i_direction.ToVector3(), out hit, Mathf.Infinity, PlaneLayerMask))
             {
                 Debug.DrawRay(transform.position, i_direction.ToVector3() * hit.distance, Color.blue, 3f);
-                return hit.transform.GetComponentInChildren<TileObject>();
+                return hit.transform.GetComponentInChildren<FaceObject>();
             }
             throw new Exception(gameObject.name + i_direction.ToString() + "No plane found");
         }
