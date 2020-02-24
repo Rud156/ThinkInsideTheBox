@@ -5,7 +5,7 @@ using CubeData;
 using UnityEngine;
 public enum TileFunction
 {
-    Water, Turn, Ramp, Exit, Wall, Default
+    Water, Turn, Ramp, Exit, Wall, Default, Custom
 }
 
 public enum TurnDirection

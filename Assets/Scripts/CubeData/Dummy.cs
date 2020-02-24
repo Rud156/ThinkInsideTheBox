@@ -6,6 +6,7 @@ namespace CubeData{
     public class Dummy : MonoBehaviour
     {
         public CubeLayerMask tendingDirection = CubeLayerMask.Zero;
+        private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
         private Vector3 m_destination;
         private float tolerance = 0.1f;
@@ -36,35 +37,38 @@ namespace CubeData{
             CubeLayerMask pendingDirection;
             bool changed;
             (pendingDirection, changed) = GetCurrentCubie().GetMoveDirection(i_direction);
+
             if (pendingDirection == CubeLayerMask.Zero)
             {
-                Debug.Log("Reach destination");
-                if (changed)
-                    StartCoroutine(MoveToCubie(tendingDirection));
-                else
+                if (i_direction == tendingDirection)
                 {
                     Debug.Log("Stop");
+                    yield break;
+                }
+                if (!GetCurrentCubie().CanExit(tendingDirection))
+                {
+                    Debug.Log("Stop");
+                    yield break;
                 }
             }
-            else
+
+            // Move action
+            m_destination = GetNextPosition(pendingDirection);
+            //if (pendingDirection == CubeLayerMask.up && !changed)
+            //{
+            //    transform.position = m_destination;
+            //}
+            //else
             {
-                // Move action
-                m_destination = GetNextPosition(pendingDirection);
-                if (pendingDirection == CubeLayerMask.up && !changed)
+                while (Vector3.Distance(m_destination, transform.position) > tolerance)
                 {
-                    transform.position = m_destination;
+                    transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
+                    yield return null;
                 }
-                else
-                {
-                    while (Vector3.Distance(m_destination, transform.position) > tolerance)
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
-                        yield return null;
-                    }
-                    transform.position = m_destination;
-                }
-                StartCoroutine(MoveToCubie(tendingDirection));
+                transform.position = m_destination;
+                Debug.Log("Reach destination");
             }
+            StartCoroutine(MoveToCubie(tendingDirection));
         }
 
         public Vector3 GetNextPosition(CubeLayerMask i_direction)

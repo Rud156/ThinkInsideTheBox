@@ -14,22 +14,41 @@ namespace CubeData
 
         public (CubeLayerMask, bool) GetMoveDirection(CubeLayerMask i_direction)
         {
+            // 1. Ground tile change direction
             CubeLayerMask pendingDirection;
-            bool changed;
-            (pendingDirection, changed) = GetGroundDirection(i_direction);
+            bool force;
+            (pendingDirection, force) = GetGroundDirection(i_direction);
+            if (pendingDirection == CubeLayerMask.Zero)
+                return (CubeLayerMask.Zero, false);
             Assert.AreNotEqual(pendingDirection, CubeLayerMask.Zero);
-            if (pendingDirection != CubeLayerMask.up && changed)
+            if (pendingDirection != CubeLayerMask.up &&
+                pendingDirection != CubeLayerMask.down &&
+                force)
                 Dummy.Instance.tendingDirection = pendingDirection;
 
+            // 2. Can exit current tile in that direction?
+            if (!CanExit(pendingDirection))
+            {
+                if (!force)
+                {
+                    Dummy.Instance.tendingDirection = -pendingDirection;
+                    return (CubeLayerMask.Zero, true);
+                }
+                return (CubeLayerMask.Zero, false);
+            }
+
+            // 3. Can enter next tile in that direction?
             CubieObject nextCubie;
             if (CubeWorld.TryGetNextCubie(transform.position, pendingDirection, out nextCubie))
             {
                 if (!nextCubie.CanEnter(pendingDirection))
                 {
-                    if (!changed)
-                        // Direction can be changed
+                    if (!force)
+                    {
                         Dummy.Instance.tendingDirection = -pendingDirection;
-                    return (CubeLayerMask.Zero, !changed);
+                        return (CubeLayerMask.Zero, true);
+                    }
+                    return (CubeLayerMask.Zero, !force);
                 }
             }
             else
@@ -38,7 +57,7 @@ namespace CubeData
                 //Dummy.Instance.tendingDirection = -pendingDirection;
                 //return CubeLayerMask.Zero;
             }
-            return (pendingDirection, changed);
+            return (pendingDirection, force);
             //return keepDirection ? i_direction : exitDirection;
         }
 
@@ -52,13 +71,26 @@ namespace CubeData
             return true;
         }
 
+        public bool CanExit(CubeLayerMask i_direction)
+        {
+            // Plane check
+            FaceObject overlappingTile = GetPlanimetricTile(i_direction);
+            if (overlappingTile)
+                return overlappingTile.GetMoveDirection(i_direction) != CubeLayerMask.Zero;
+            return true;
+        }
+
         public (CubeLayerMask, bool) GetGroundDirection(CubeLayerMask i_direction)
         {
             // Plane check
             FaceObject overlappingTile = GetPlanimetricTile(CubeLayerMask.down);
             if (overlappingTile)
                 return overlappingTile.TryChangeDirection(i_direction);
-            return (i_direction, false);
+            CubieObject belowCubie;
+            if (CubeWorld.TryGetNextCubie(transform.position, CubeLayerMask.down, out belowCubie))
+                if (belowCubie.GetGroundDirection(i_direction).Item1 == CubeLayerMask.up)
+                    return (i_direction, false);
+            return (CubeLayerMask.down, true);
         }
 
         public FaceObject GetPlanimetricTile(CubeLayerMask i_direction)
@@ -72,6 +104,14 @@ namespace CubeData
             }
             throw new Exception(gameObject.name + i_direction.ToString() + "No plane found");
         }
+
+        public CubieObject GetNextCubie(CubeLayerMask i_direction)
+        {
+            CubieObject next;
+            CubeWorld.TryGetNextCubie(transform.position, i_direction, out next);
+            return next;
+        }
+
     }
 
 }
