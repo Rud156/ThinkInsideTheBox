@@ -5,12 +5,12 @@ using CubeData;
 using UnityEngine;
 public enum TileFunction
 {
-    Water, Turn, Ramp, Exit, Default
+    Water, Turn, Ramp, Exit, Wall, Default
 }
 
 public enum TurnDirection
 {
-    Left, Right
+    Left, Right, Forward, Back
 }
 
 public class FaceObject : MonoBehaviour
@@ -25,7 +25,7 @@ public class FaceObject : MonoBehaviour
     public bool down;
 
     [Header("Facet Function")]
-    public TileFunction tileType;
+    public TileFunction tileType = TileFunction.Default;
 
     public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
     // Start is called before the first frame update
@@ -33,17 +33,17 @@ public class FaceObject : MonoBehaviour
     {
         if (tileType == TileFunction.Ramp)  //ramp has to be placed with forward pointing downwards
         {
-            forward = false;
-            back = false;
-            right = false;
-            left = false;
-            up = true;  //up is the ramping up side
-            down = true;
+            forward = true; //forward is the ramping up side
+            back = true;
+            right = true;
+            left = true;
+            up = false;  
+            down = false;
         }
         else if (tileType == TileFunction.Default)
         {
-            forward = false;
-            back = false;
+            forward = true;
+            back = true;
             right = true;
             left = true;
             up = false;
@@ -51,12 +51,21 @@ public class FaceObject : MonoBehaviour
         }
         else if (tileType == TileFunction.Turn)
         {
-            forward = false;
-            back = false;
+            forward = true;
+            back = true;
             right = true;
             left = true;
-            up = true;
-            down = true;
+            up = false;
+            down = false;
+        }
+        else if (tileType==TileFunction.Wall)
+        {
+            forward = false;
+            back = false;
+            right = false;
+            left = false;
+            up = false;
+            down = false;
         }
     }
 
@@ -109,7 +118,7 @@ public class FaceObject : MonoBehaviour
             {
                 //The condition where the player climbs up a ramp
                 //Debug.Log("Go up ramp - change direction Up");
-                if (i_direction.ToVector3() == this.transform.up)   //see if the player is climbing the ramp
+                if (i_direction.ToVector3() == this.transform.forward)   //see if the player is climbing the ramp
                     return (CubeLayerMask.up, false);
                 else
                     return (i_direction, false);
@@ -117,7 +126,15 @@ public class FaceObject : MonoBehaviour
             else if (tileType == TileFunction.Turn)
             {
                 //The condition where the player meets a turning face
-                if(turnTo == TurnDirection.Left)
+                if (turnTo == TurnDirection.Forward)
+                {
+                    return (new CubeLayerMask(this.transform.forward), true);
+                }
+                else if (turnTo == TurnDirection.Back)
+                {
+                    return (new CubeLayerMask(-this.transform.forward), true);
+                }
+                else if(turnTo == TurnDirection.Left)
                 {
                     return (new CubeLayerMask(-this.transform.right), true);
                 }
