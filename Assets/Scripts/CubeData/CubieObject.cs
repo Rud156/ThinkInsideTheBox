@@ -55,7 +55,7 @@ namespace CubeData
         public (CubeLayerMask, bool) GetGroundDirection(CubeLayerMask i_direction)
         {
             // Plane check
-            TileObject overlappingTile = GetPlanimetricTile(CubeLayerMask.down);
+            FaceObject overlappingTile = GetPlanimetricTile(CubeLayerMask.down);
             if (overlappingTile)
                 return overlappingTile.TryChangeDirection(i_direction);
             return (i_direction, false);
