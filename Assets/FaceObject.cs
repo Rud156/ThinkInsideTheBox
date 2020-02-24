@@ -8,7 +8,12 @@ public enum TileFunction
     Water, Turn, Ramp, Exit, Default
 }
 
-public class TileObject : MonoBehaviour
+public enum TurnDirection
+{
+    Left, Right
+}
+
+public class FaceObject : MonoBehaviour
 {
     //  Mark the accessable directions starting from this tile object.
     [Header("Access")]
@@ -19,8 +24,10 @@ public class TileObject : MonoBehaviour
     public bool up;
     public bool down;
 
-    [Header("Tile Function")]
+    [Header("Facet Function")]
     public TileFunction tileType;
+
+    public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
     // Start is called before the first frame update
     private void Awake()
     {
@@ -66,7 +73,10 @@ public class TileObject : MonoBehaviour
             if (tileType == TileFunction.Ramp)
             {
                 //Debug.Log("Go up ramp - change direction Up");
-                return CubeLayerMask.up;
+                if (playerDir == CubeLayerMask.forward.ToVector3())
+                    return CubeLayerMask.up;
+                else
+                    return i_direction;
             }
             else
             {
