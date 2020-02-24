@@ -15,16 +15,23 @@ namespace CubeData
         public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
         {
             CubeLayerMask pendingDirection = GetExitDirection(i_direction);
+            if (pendingDirection == CubeLayerMask.Zero)
+                return pendingDirection;
 
             CubieObject nextCubie;
             if (CubeWorld.TryGetNextCubie(transform.position, pendingDirection, out nextCubie))
             {
-                Debug.Log(nextCubie.transform.name);
                 if (!nextCubie.CanEnter(pendingDirection))
+                {
+                    Dummy.Instance.tendingDirection = -pendingDirection;
                     return CubeLayerMask.Zero;
+                }
             }
             else
+            {
+                Dummy.Instance.tendingDirection = -pendingDirection;
                 return CubeLayerMask.Zero;
+            }
             return pendingDirection;
             //return keepDirection ? i_direction : exitDirection;
         }
@@ -42,7 +49,7 @@ namespace CubeData
         public CubeLayerMask GetExitDirection(CubeLayerMask i_direction)
         {
             // Plane check
-            TileObject overlappingTile = GetPlanimetricTile(i_direction);
+            TileObject overlappingTile = GetPlanimetricTile(CubeLayerMask.down);
             if (overlappingTile)
                 return overlappingTile.GetMoveDirection(i_direction);
             return i_direction;

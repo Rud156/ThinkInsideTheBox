@@ -56,7 +56,7 @@ public class TileObject : MonoBehaviour
         // Return CubeLayerMask.Zero if the path is blocked
         // Return i_direction if the path is accessible and the direction keeps
         // Return another CubeLayerMask if the path is accessible but the direction changes.
-        Debug.Log("i_direction: " + i_direction.ToVector3());
+        //Debug.Log("i_direction: " + i_direction.ToVector3());
 
         Vector3 moveDir = i_direction.ToVector3();
         Vector3 playerDir = GetPlayerRelativeDir(moveDir); //mark the direction of the player relative to this tile
@@ -77,7 +77,7 @@ public class TileObject : MonoBehaviour
         }
         else
         {
-            Debug.Log(this.transform.name);
+            //Debug.Log(this.transform.name);
             //Debug.Log(gameObject.transform.parent.name + "Blocked");
             return CubeLayerMask.Zero;
         }
