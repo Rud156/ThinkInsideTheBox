@@ -317,6 +317,15 @@ namespace CubeData
             this.z = i_z;
         }
 
+        public CubeLayerMask(Vector3 i_dir)
+        {
+            if (!CubeLayerMask.IsValid((int)i_dir.x, (int)i_dir.y, (int)i_dir.z))
+                throw new Exception("Invalid CubeLayerMask");
+            this.x = (int)i_dir.x;
+            this.y = (int)i_dir.y;
+            this.z = (int)i_dir.z;
+        }
+
         public Vector3 ToVector3()
         {
             return new Vector3(this.x, this.y, this.z);

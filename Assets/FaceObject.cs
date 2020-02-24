@@ -31,30 +31,24 @@ public class FaceObject : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        if (tileType == TileFunction.Ramp)
+        if (tileType == TileFunction.Ramp)  //ramp has to be placed with forward pointing downwards
         {
             forward = false;
-            back = true;
+            back = false;
             right = false;
             left = false;
-            up = true;
-            down = false;
+            up = true;  //up is the ramping up side
+            down = true;
         }
         else if (tileType == TileFunction.Default)
         {
-            forward = true;
-            back = true;
+            forward = false;
+            back = false;
             right = true;
             left = true;
             up = false;
             down = false;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
@@ -98,7 +92,47 @@ public class FaceObject : MonoBehaviour
 
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
     {
-        throw new NotImplementedException();
+        Vector3 moveDir = i_direction.ToVector3();
+        Vector3 playerDir = GetPlayerRelativeDir(moveDir); //mark the direction of the player relative to this tile
+        if (AccessAvailable(playerDir))
+        {
+            if (tileType == TileFunction.Ramp)
+            {
+                //The condition where the player climbs up a ramp
+                //Debug.Log("Go up ramp - change direction Up");
+                if (i_direction.ToVector3() == this.transform.up)   //see if the player is climbing the ramp
+                    return (CubeLayerMask.up, false);
+                else
+                    return (i_direction, false);
+            }
+            else if (tileType == TileFunction.Turn)
+            {
+                //The condition where the player meets a turning face
+                if(turnTo == TurnDirection.Left)
+                {
+                    return (new CubeLayerMask(-this.transform.right), true);
+                }
+                else
+                {
+                    return (new CubeLayerMask(this.transform.right), true);
+                }
+            }
+            else
+            {
+                //The condition where the player can get through the face
+                //Debug.Log("Don't change dir");
+                return (i_direction, false);
+            }
+
+        }
+        else
+        {
+            //The condition where the player gets blocked
+            //Debug.Log(this.transform.name);
+            //Debug.Log(gameObject.transform.parent.name + "Blocked");
+            return (CubeLayerMask.Zero, true);
+        }
+
     }
 
     private bool AccessAvailable(Vector3 i_dir)
