@@ -12,27 +12,33 @@ namespace CubeData
         public bool keepDirection;
         public CubeLayerMask exitDirection = CubeLayerMask.Zero;
 
-        public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
+        public (CubeLayerMask, bool) GetMoveDirection(CubeLayerMask i_direction)
         {
-            CubeLayerMask pendingDirection = GetExitDirection(i_direction);
-            if (pendingDirection == CubeLayerMask.Zero)
-                return pendingDirection;
+            CubeLayerMask pendingDirection;
+            bool changed;
+            (pendingDirection, changed) = GetGroundDirection(i_direction);
+            Assert.AreNotEqual(pendingDirection, CubeLayerMask.Zero);
+            if (pendingDirection != CubeLayerMask.up && changed)
+                Dummy.Instance.tendingDirection = pendingDirection;
 
             CubieObject nextCubie;
             if (CubeWorld.TryGetNextCubie(transform.position, pendingDirection, out nextCubie))
             {
                 if (!nextCubie.CanEnter(pendingDirection))
                 {
-                    Dummy.Instance.tendingDirection = -pendingDirection;
-                    return CubeLayerMask.Zero;
+                    if (!changed)
+                        // Direction can be changed
+                        Dummy.Instance.tendingDirection = -pendingDirection;
+                    return (CubeLayerMask.Zero, !changed);
                 }
             }
             else
             {
-                Dummy.Instance.tendingDirection = -pendingDirection;
-                return CubeLayerMask.Zero;
+                throw new Exception("Not found next cubie");
+                //Dummy.Instance.tendingDirection = -pendingDirection;
+                //return CubeLayerMask.Zero;
             }
-            return pendingDirection;
+            return (pendingDirection, changed);
             //return keepDirection ? i_direction : exitDirection;
         }
 
@@ -46,13 +52,13 @@ namespace CubeData
             return true;
         }
 
-        public CubeLayerMask GetExitDirection(CubeLayerMask i_direction)
+        public (CubeLayerMask, bool) GetGroundDirection(CubeLayerMask i_direction)
         {
             // Plane check
             TileObject overlappingTile = GetPlanimetricTile(CubeLayerMask.down);
             if (overlappingTile)
-                return overlappingTile.GetMoveDirection(i_direction);
-            return i_direction;
+                return overlappingTile.TryChangeDirection(i_direction);
+            return (i_direction, false);
         }
 
         public TileObject GetPlanimetricTile(CubeLayerMask i_direction)

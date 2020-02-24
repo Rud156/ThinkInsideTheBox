@@ -33,25 +33,28 @@ namespace CubeData{
 
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
         {
-            CubeLayerMask pendingDirection = GetMoveDirection(i_direction);
+            CubeLayerMask pendingDirection;
+            bool changed;
+            (pendingDirection, changed) = GetCurrentCubie().GetMoveDirection(i_direction);
             if (pendingDirection == CubeLayerMask.Zero)
             {
-                if (tendingDirection != i_direction)
+                Debug.Log("Reach destination");
+                if (changed)
                     StartCoroutine(MoveToCubie(tendingDirection));
                 else
                 {
-                    Debug.Log("Reach destination");
+                    Debug.Log("Stop");
                 }
             }
             else
             {
                 // Move action
                 m_destination = GetNextPosition(pendingDirection);
-                //if (pendingDirection == CubeLayerMask.up)
-                //{
-                //    transform.position = m_destination;
-                //}
-                //else
+                if (pendingDirection == CubeLayerMask.up && !changed)
+                {
+                    transform.position = m_destination;
+                }
+                else
                 {
                     while (Vector3.Distance(m_destination, transform.position) > tolerance)
                     {
@@ -62,11 +65,6 @@ namespace CubeData{
                 }
                 StartCoroutine(MoveToCubie(tendingDirection));
             }
-        }
-
-        public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
-        {
-            return GetCurrentCubie() ? GetCurrentCubie().GetMoveDirection(i_direction) : i_direction;
         }
 
         public Vector3 GetNextPosition(CubeLayerMask i_direction)

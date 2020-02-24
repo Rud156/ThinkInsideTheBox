@@ -86,6 +86,11 @@ public class TileObject : MonoBehaviour
         //throw new NotImplementedException();
     }
 
+    public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
+    {
+        throw new NotImplementedException();
+    }
+
     private bool AccessAvailable(Vector3 i_dir)
     {
         if (i_dir.magnitude > 1)
