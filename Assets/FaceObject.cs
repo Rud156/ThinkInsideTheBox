@@ -25,6 +25,7 @@ public class FaceObject : MonoBehaviour
 
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
+    public GameObject turnArrow;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -41,16 +42,7 @@ public class FaceObject : MonoBehaviour
     private void Awake()
     {
         #region LoadFaceData
-        if (faceType == TileFunction.Ramp)  //ramp has to be placed with forward pointing downwards
-        {
-            forward = true; //forward is the ramping up side
-            back = true;
-            right = true;
-            left = true;
-            up = false;  
-            down = false;
-        }
-        else if (faceType == TileFunction.Default)
+        if (faceType == TileFunction.Default)
         {
             forward = true;
             back = true;
@@ -67,6 +59,8 @@ public class FaceObject : MonoBehaviour
             left = true;
             up = false;
             down = false;
+            if (turnArrow)
+                Instantiate(turnArrow, this.transform);
         }
         else if (faceType == TileFunction.Wall)
         {
