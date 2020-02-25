@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-
-
-public class FaceData
+[CreateAssetMenu(fileName = "FaceData", menuName = "ScriptableObjects/FaceDataScriptableObject", order = 1)]
+public class FaceDataScriptableObject : ScriptableObject
 {
-    public TileFunction type;
-    public AccessDir access_In;
-    public AccessDir access_Out;
-}
+    public string prefabName;
+    public TileFunction faceType;
 
-public struct AccessDir
-{
-    bool forward;
-    bool back;
-    bool right;
-    bool left;
-    bool up;
-    bool down;
+    [Header("Access")]
+    public bool forward;
+    public bool back;
+    public bool right;
+    public bool left;
+    public bool up;
+    public bool down;
+    
+    [Header("Face-specific")]
+    public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
 }

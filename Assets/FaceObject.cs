@@ -5,7 +5,7 @@ using CubeData;
 using UnityEngine;
 public enum TileFunction
 {
-    Water, Turn, Ramp, Exit, Wall, Default, Custom
+    Water, Turn, Ramp, Exit, Wall, Default, Custom, None
 }
 
 public enum TurnDirection
@@ -13,10 +13,21 @@ public enum TurnDirection
     Left, Right, Forward, Back
 }
 
+public enum ReachEvent
+{
+    None, Water, Exit
+}
+
 public class FaceObject : MonoBehaviour
 {
+    [Header("Facet Function")]
+    public TileFunction faceType = TileFunction.None;
+
+    [Header("Face-specific")]
+    public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
+
     //  Mark the accessable directions starting from this tile object.
-    [Header("Access")]
+    [Header("Custom Access")]
     public bool forward;
     public bool back;
     public bool right;
@@ -24,14 +35,13 @@ public class FaceObject : MonoBehaviour
     public bool up;
     public bool down;
 
-    [Header("Facet Function")]
-    public TileFunction tileType = TileFunction.Default;
-
-    public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
+    [Header("EventAfterReaching")]
+    public ReachEvent faceEvent;
     // Start is called before the first frame update
     private void Awake()
     {
-        if (tileType == TileFunction.Ramp)  //ramp has to be placed with forward pointing downwards
+        #region LoadFaceData
+        if (faceType == TileFunction.Ramp)  //ramp has to be placed with forward pointing downwards
         {
             forward = true; //forward is the ramping up side
             back = true;
@@ -40,7 +50,7 @@ public class FaceObject : MonoBehaviour
             up = false;  
             down = false;
         }
-        else if (tileType == TileFunction.Default)
+        else if (faceType == TileFunction.Default)
         {
             forward = true;
             back = true;
@@ -49,7 +59,7 @@ public class FaceObject : MonoBehaviour
             up = false;
             down = false;
         }
-        else if (tileType == TileFunction.Turn)
+        else if (faceType == TileFunction.Turn)
         {
             forward = true;
             back = true;
@@ -58,15 +68,25 @@ public class FaceObject : MonoBehaviour
             up = false;
             down = false;
         }
-        else if (tileType==TileFunction.Wall)
+        else if (faceType == TileFunction.Wall)
         {
-            forward = false;
-            back = false;
-            right = false;
-            left = false;
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
             up = false;
             down = false;
         }
+        else if (faceType == TileFunction.None)
+        {
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = true;
+            down = true;
+        }
+        #endregion
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
@@ -82,7 +102,7 @@ public class FaceObject : MonoBehaviour
 
         if (AccessAvailable(playerDir))
         {
-            if (tileType == TileFunction.Ramp)
+            if (faceType == TileFunction.Ramp)
             {
                 //Debug.Log("Go up ramp - change direction Up");
                 if (playerDir == CubeLayerMask.forward.ToVector3())
@@ -114,7 +134,7 @@ public class FaceObject : MonoBehaviour
         Vector3 playerDir = GetPlayerRelativeDir(moveDir); //mark the direction of the player relative to this tile
         if (AccessAvailable(playerDir))
         {
-            if (tileType == TileFunction.Ramp)
+            if (faceType == TileFunction.Ramp)
             {
                 //The condition where the player climbs up a ramp
                 //Debug.Log("Go up ramp - change direction Up");
@@ -123,7 +143,7 @@ public class FaceObject : MonoBehaviour
                 else
                     return (i_direction, false);
             }
-            else if (tileType == TileFunction.Turn)
+            else if (faceType == TileFunction.Turn)
             {
                 //The condition where the player meets a turning face
                 if (turnTo == TurnDirection.Forward)
