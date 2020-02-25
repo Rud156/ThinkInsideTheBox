@@ -59,8 +59,9 @@ public class FaceObject : MonoBehaviour
             left = true;
             up = false;
             down = false;
+
             if (turnArrow)
-                Instantiate(turnArrow, this.transform);
+                Instantiate(turnArrow, this.transform.position, this.transform.rotation, this.transform.parent);
         }
         else if (faceType == TileFunction.Wall)
         {
