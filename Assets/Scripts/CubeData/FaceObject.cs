@@ -117,6 +117,11 @@ public class FaceObject : MonoBehaviour
         //throw new NotImplementedException();
     }
 
+    public void OnPlayerEnter(Dummy dummy)
+    {
+        throw new NotImplementedException();
+    }
+
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
     {
         Vector3 moveDir = i_direction.ToVector3();
