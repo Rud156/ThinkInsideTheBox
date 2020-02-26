@@ -190,6 +190,10 @@ namespace Player
 
         private void HandleTriggerExit(Collider i_other)
         {
+            if (i_other.transform.parent.CompareTag(TagManager.SideParent))
+            {
+                transform.SetParent(null);
+            }
         }
 
         private void CheckAndUpdatePlayerEndingCollision(Collider i_other)
