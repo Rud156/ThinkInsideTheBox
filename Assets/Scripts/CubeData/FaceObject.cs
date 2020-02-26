@@ -161,6 +161,10 @@ public class FaceObject : MonoBehaviour
                     return (new CubeLayerMask(this.transform.right), true);
                 }
             }
+            else if (faceType == TileFunction.None && i_direction.ToVector3() != Vector3.up)
+            {
+                return (CubeLayerMask.down, false);
+            }
             else
             {
                 //The condition where the player can get through the face

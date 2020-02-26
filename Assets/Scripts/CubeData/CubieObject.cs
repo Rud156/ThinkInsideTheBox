@@ -89,13 +89,20 @@ namespace CubeData
         {
             // Plane check
             FaceObject overlappingTile = GetPlanimetricTile(CubeLayerMask.down);
+            CubeLayerMask pendingDirection = CubeLayerMask.down;
+            bool dirctionChanged = false;
+
             if (overlappingTile)
-                return overlappingTile.TryChangeDirection(i_direction);
+            {
+                (pendingDirection, dirctionChanged) = overlappingTile.TryChangeDirection(i_direction);
+            }
+
             CubieObject belowCubie;
             if (CubeWorld.TryGetNextCubie(transform.position, CubeLayerMask.down, out belowCubie))
-                if (belowCubie.GetGroundDirection(i_direction).Item1 == CubeLayerMask.up)
+                if (belowCubie.GetGroundDirection(i_direction).Item1 == CubeLayerMask.up && pendingDirection == CubeLayerMask.down)
                     return (i_direction, false);
-            return (CubeLayerMask.down, true);
+
+            return (pendingDirection, dirctionChanged); //(CubeLayerMask.down, true);
         }
 
         public FaceObject GetPlanimetricTile(CubeLayerMask i_direction)
