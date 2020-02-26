@@ -5,6 +5,8 @@ using UnityEngine;
 namespace CubeData{
     public class Dummy : MonoBehaviour
     {
+        public GameObject Projection;
+        public LayerMask WalkableLayer;
         public CubeLayerMask tendingDirection = CubeLayerMask.Zero;
         private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
@@ -30,6 +32,11 @@ namespace CubeData{
         private void Start()
         {
             StartCoroutine(MoveToCubie(tendingDirection));
+        }
+
+        private void Update()
+        {
+            
         }
 
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
@@ -63,6 +70,18 @@ namespace CubeData{
                 while (Vector3.Distance(m_destination, transform.position) > tolerance)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
+                    RaycastHit hit;
+                    if (Physics.Linecast(transform.position, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2,
+                        out hit, WalkableLayer))
+                    {
+                        Projection.transform.position = hit.point;
+                        Projection.transform.rotation = Quaternion.LookRotation(hit.normal);
+                    }
+                    else
+                    {
+                        Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2;
+                        Projection.transform.rotation = Quaternion.identity;
+                    }
                     yield return null;
                 }
                 transform.position = m_destination;
