@@ -1818,22 +1818,22 @@ PrefabInstance:
     - target: {fileID: 1728505468225728887, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7311156
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1728505468225728887, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1728505468225728887, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1728505468225728887, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.68225366
+      value: -0.00000020861623
       objectReference: {fileID: 0}
     - target: {fileID: 1728505468225728887, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
@@ -1843,7 +1843,7 @@ PrefabInstance:
     - target: {fileID: 1728505468225728887, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -93.96
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1728505468225728887, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
@@ -1863,12 +1863,22 @@ PrefabInstance:
     - target: {fileID: 2642367910069216514, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
       propertyPath: turnTo
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3341984431997224153, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}
       propertyPath: faceType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307870998973968867, guid: 4af4b94f5700944b989739dc94fbb939,
+        type: 3}
+      propertyPath: faceType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307870998973968867, guid: 4af4b94f5700944b989739dc94fbb939,
+        type: 3}
+      propertyPath: turnTo
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6625103594315868345, guid: 4af4b94f5700944b989739dc94fbb939,
         type: 3}

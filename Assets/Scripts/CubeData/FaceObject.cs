@@ -60,9 +60,11 @@ public class FaceObject : MonoBehaviour
                 //arrow_instance.transform.rotation = this.transform.rotation;
 
                 float rotation_y = 90f * (int)turnTo;
-                float rotation_z = 180f;
-                arrow_instance.transform.eulerAngles = this.transform.eulerAngles;
-                arrow_instance.transform.eulerAngles += new Vector3(0f, 90f, 180f);
+                arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                //float rotation_z = 180f;
+                //arrow_instance.transform.eulerAngles = this.transform.eulerAngles;
+                //arrow_instance.transform.rotation = this.transform.rotation;
+                //arrow_instance.transform.eulerAngles += new Vector3(0f, 90f, 180f);
 
                 //Vector3 turnArrowAngle = arrow_instance.transform.eulerAngles;
                 //arrow_instance.transform.eulerAngles = turnArrowAngle;  // = arrowQuarternion;
