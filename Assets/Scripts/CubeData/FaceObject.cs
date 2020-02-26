@@ -5,18 +5,31 @@ using CubeData;
 using UnityEngine;
 public enum TileFunction
 {
-    Water, Turn, Ramp, Exit, Wall, Default
+    Turn, Ramp, Wall, Custom, None
 }
 
 public enum TurnDirection
 {
-    Left, Right, Forward, Back
+    Forward, Right, Back, Left
+}
+
+public enum ReachEvent
+{
+    None, Water, Exit
 }
 
 public class FaceObject : MonoBehaviour
 {
+    [Header("Facet Function")]
+    public TileFunction faceType = TileFunction.None;
+
+    [Header("Face-specific")]
+    public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
+    public GameObject turnArrow;
+    public GameObject wallTile;
+
     //  Mark the accessable directions starting from this tile object.
-    [Header("Access")]
+    [Header("Custom Access")]
     public bool forward;
     public bool back;
     public bool right;
@@ -24,23 +37,13 @@ public class FaceObject : MonoBehaviour
     public bool up;
     public bool down;
 
-    [Header("Facet Function")]
-    public TileFunction tileType = TileFunction.Default;
-
-    public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
+    [Header("EventAfterReaching")]
+    public ReachEvent faceEvent;
     // Start is called before the first frame update
     private void Awake()
     {
-        if (tileType == TileFunction.Ramp)  //ramp has to be placed with forward pointing downwards
-        {
-            forward = true; //forward is the ramping up side
-            back = true;
-            right = true;
-            left = true;
-            up = false;  
-            down = false;
-        }
-        else if (tileType == TileFunction.Default)
+        #region LoadFaceData
+        if (faceType == TileFunction.Turn)
         {
             forward = true;
             back = true;
@@ -48,8 +51,21 @@ public class FaceObject : MonoBehaviour
             left = true;
             up = false;
             down = false;
+            //Turn the face into the right angle (opposite of the tile/face)
+            GameObject arrow_instance;
+            if (turnArrow)
+            {
+                arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
+
+                float rotation_y = 90f * (int)turnTo;
+                arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+            }
+                
+            GetComponent<MeshRenderer>().enabled = false;
+            
+            
         }
-        else if (tileType == TileFunction.Turn)
+        else if (faceType == TileFunction.Wall)
         {
             forward = true;
             back = true;
@@ -57,16 +73,22 @@ public class FaceObject : MonoBehaviour
             left = true;
             up = false;
             down = false;
+            
+
+            //if (wallTile)
+                //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
         }
-        else if (tileType==TileFunction.Wall)
+        else if (faceType == TileFunction.None)
         {
-            forward = false;
-            back = false;
-            right = false;
-            left = false;
-            up = false;
-            down = false;
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = true;
+            down = true;
+            GetComponent<MeshRenderer>().enabled = false;
         }
+        #endregion
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
@@ -82,7 +104,7 @@ public class FaceObject : MonoBehaviour
 
         if (AccessAvailable(playerDir))
         {
-            if (tileType == TileFunction.Ramp)
+            if (faceType == TileFunction.Ramp)
             {
                 //Debug.Log("Go up ramp - change direction Up");
                 if (playerDir == CubeLayerMask.forward.ToVector3())
@@ -108,22 +130,31 @@ public class FaceObject : MonoBehaviour
         //throw new NotImplementedException();
     }
 
+    public void OnPlayerEnter(Dummy dummy)
+    {
+        //throw new NotImplementedException();
+    }
+
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
     {
         Vector3 moveDir = i_direction.ToVector3();
         Vector3 playerDir = GetPlayerRelativeDir(moveDir); //mark the direction of the player relative to this tile
         if (AccessAvailable(playerDir))
         {
-            if (tileType == TileFunction.Ramp)
+            if (faceType == TileFunction.Ramp)
             {
                 //The condition where the player climbs up a ramp
                 //Debug.Log("Go up ramp - change direction Up");
                 if (i_direction.ToVector3() == this.transform.forward)   //see if the player is climbing the ramp
-                    return (CubeLayerMask.up, false);
+                    return (new CubeLayerMask(-this.transform.up), false);
+                else if (i_direction.ToVector3() == -this.transform.up)
+                {
+                    return (new CubeLayerMask(-this.transform.forward), false);
+                }
                 else
                     return (i_direction, false);
             }
-            else if (tileType == TileFunction.Turn)
+            else if (faceType == TileFunction.Turn)
             {
                 //The condition where the player meets a turning face
                 if (turnTo == TurnDirection.Forward)
@@ -142,6 +173,11 @@ public class FaceObject : MonoBehaviour
                 {
                     return (new CubeLayerMask(this.transform.right), true);
                 }
+            }
+            else if ((faceType == TileFunction.None || faceType == TileFunction.Custom) 
+                && i_direction.ToVector3() != Vector3.up)
+            {
+                return (CubeLayerMask.down, false);
             }
             else
             {
@@ -189,12 +225,12 @@ public class FaceObject : MonoBehaviour
                 if (i_dir.y > 0)
                 {
                     //Debug.Log("Player on Up");
-                    return up;
+                    return down;
                 }
                 else
                 {
                     //Debug.Log("Player on Down");
-                    return down;
+                    return up;
                 }
                     
             case 2:
@@ -245,5 +281,10 @@ public class FaceObject : MonoBehaviour
 
         Debug.LogError("Not valid direction input");
         return Vector3.zero;
+    }
+
+    public void SetFaceFunction(TileFunction i_function)
+    {
+        faceType = i_function;
     }
 }
