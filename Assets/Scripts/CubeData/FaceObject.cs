@@ -119,7 +119,7 @@ public class FaceObject : MonoBehaviour
 
     public void OnPlayerEnter(Dummy dummy)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
