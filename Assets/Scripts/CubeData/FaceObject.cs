@@ -10,7 +10,7 @@ public enum TileFunction
 
 public enum TurnDirection
 {
-    Left, Right, Forward, Back
+    Forward, Right, Back, Left
 }
 
 public enum ReachEvent
@@ -24,7 +24,7 @@ public class FaceObject : MonoBehaviour
     public TileFunction faceType = TileFunction.None;
 
     [Header("Face-specific")]
-    public TurnDirection turnTo = TurnDirection.Left;   //default turn to left if this is a turn-facet
+    public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
     public GameObject turnArrow;
 
     //  Mark the accessable directions starting from this tile object.
@@ -59,9 +59,12 @@ public class FaceObject : MonoBehaviour
             left = true;
             up = false;
             down = false;
-
+            //Turn the face into the right angle (opposite of the tile/face)
+            
+            Vector3 turnArrowAngle = this.transform.eulerAngles + 180f * this.transform.forward + 90f * (int)turnTo * this.transform.up;
+            Quaternion arrowQuarternion = Quaternion.Euler(turnArrowAngle);
             if (turnArrow)
-                Instantiate(turnArrow, this.transform.position, this.transform.rotation, this.transform.parent);
+                Instantiate(turnArrow, this.transform.position, arrowQuarternion, this.transform);
         }
         else if (faceType == TileFunction.Wall)
         {
