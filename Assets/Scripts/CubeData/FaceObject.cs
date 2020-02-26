@@ -5,7 +5,7 @@ using CubeData;
 using UnityEngine;
 public enum TileFunction
 {
-    Water, Turn, Ramp, Exit, Wall, Default, Custom, None
+    Turn, Ramp, Wall, Custom, None
 }
 
 public enum TurnDirection
@@ -42,16 +42,7 @@ public class FaceObject : MonoBehaviour
     private void Awake()
     {
         #region LoadFaceData
-        if (faceType == TileFunction.Default)
-        {
-            forward = true;
-            back = true;
-            right = true;
-            left = true;
-            up = false;
-            down = false;
-        }
-        else if (faceType == TileFunction.Turn)
+        if (faceType == TileFunction.Turn)
         {
             forward = true;
             back = true;
@@ -126,6 +117,11 @@ public class FaceObject : MonoBehaviour
         //throw new NotImplementedException();
     }
 
+    public void OnPlayerEnter(Dummy dummy)
+    {
+        throw new NotImplementedException();
+    }
+
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
     {
         Vector3 moveDir = i_direction.ToVector3();
@@ -137,7 +133,11 @@ public class FaceObject : MonoBehaviour
                 //The condition where the player climbs up a ramp
                 //Debug.Log("Go up ramp - change direction Up");
                 if (i_direction.ToVector3() == this.transform.forward)   //see if the player is climbing the ramp
-                    return (CubeLayerMask.up, false);
+                    return (new CubeLayerMask(-this.transform.up), false);
+                else if (i_direction.ToVector3() == -this.transform.up)
+                {
+                    return (new CubeLayerMask(-this.transform.forward), false);
+                }
                 else
                     return (i_direction, false);
             }

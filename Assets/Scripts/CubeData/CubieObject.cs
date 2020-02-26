@@ -53,12 +53,17 @@ namespace CubeData
             }
             else
             {
-                throw new Exception("Not found next cubie");
+                throw new Exception(pendingDirection + " Not found next cubie");
                 //Dummy.Instance.tendingDirection = -pendingDirection;
                 //return CubeLayerMask.Zero;
             }
             return (pendingDirection, force);
             //return keepDirection ? i_direction : exitDirection;
+        }
+
+        public void OnPlayerEnter(Dummy dummy)
+        {
+            GetPlanimetricTile(CubeLayerMask.down).OnPlayerEnter(dummy);
         }
 
         // Entering a cubie doesn't change the moving direction

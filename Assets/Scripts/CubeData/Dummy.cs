@@ -66,6 +66,7 @@ namespace CubeData{
                     yield return null;
                 }
                 transform.position = m_destination;
+                GetCurrentCubie().OnPlayerEnter(this);
                 Debug.Log("Reach destination");
             }
             StartCoroutine(MoveToCubie(tendingDirection));
