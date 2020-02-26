@@ -26,6 +26,7 @@ public class FaceObject : MonoBehaviour
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
     public GameObject turnArrow;
+    public GameObject wallTile;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -51,11 +52,27 @@ public class FaceObject : MonoBehaviour
             up = false;
             down = false;
             //Turn the face into the right angle (opposite of the tile/face)
-            
-            Vector3 turnArrowAngle = this.transform.eulerAngles + 180f * this.transform.forward + 90f * (int)turnTo * this.transform.up;
-            Quaternion arrowQuarternion = Quaternion.Euler(turnArrowAngle);
+            GameObject arrow_instance;
             if (turnArrow)
-                Instantiate(turnArrow, this.transform.position, arrowQuarternion, this.transform);
+            {
+                arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
+                //arrow_instance.transform.position = this.transform.position;
+                //arrow_instance.transform.rotation = this.transform.rotation;
+
+                float rotation_y = 90f * (int)turnTo;
+                float rotation_z = 180f;
+                arrow_instance.transform.eulerAngles = this.transform.eulerAngles;
+                arrow_instance.transform.eulerAngles += new Vector3(0f, 90f, 180f);
+
+                //Vector3 turnArrowAngle = arrow_instance.transform.eulerAngles;
+                //arrow_instance.transform.eulerAngles = turnArrowAngle;  // = arrowQuarternion;
+                //Quaternion arrowQuarternion = Quaternion.Euler(turnArrowAngle);
+                //arrow_instance.transform.eulerAngles = turnArrowAngle;  // = arrowQuarternion;
+            }
+                
+            GetComponent<MeshRenderer>().enabled = false;
+            
+            
         }
         else if (faceType == TileFunction.Wall)
         {
@@ -65,6 +82,10 @@ public class FaceObject : MonoBehaviour
             left = true;
             up = false;
             down = false;
+            
+
+            //if (wallTile)
+                //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
         }
         else if (faceType == TileFunction.None)
         {
@@ -74,6 +95,7 @@ public class FaceObject : MonoBehaviour
             left = true;
             up = true;
             down = true;
+            GetComponent<MeshRenderer>().enabled = false;
         }
         #endregion
     }
@@ -161,7 +183,8 @@ public class FaceObject : MonoBehaviour
                     return (new CubeLayerMask(this.transform.right), true);
                 }
             }
-            else if (faceType == TileFunction.None && i_direction.ToVector3() != Vector3.up)
+            else if ((faceType == TileFunction.None || faceType == TileFunction.Custom) 
+                && i_direction.ToVector3() != Vector3.up)
             {
                 return (CubeLayerMask.down, false);
             }
@@ -211,12 +234,12 @@ public class FaceObject : MonoBehaviour
                 if (i_dir.y > 0)
                 {
                     //Debug.Log("Player on Up");
-                    return up;
+                    return down;
                 }
                 else
                 {
                     //Debug.Log("Player on Down");
-                    return down;
+                    return up;
                 }
                     
             case 2:
