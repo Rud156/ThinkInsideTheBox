@@ -103,14 +103,15 @@ namespace CubeData{
                 while (Vector3.Distance(m_destination, transform.position) > tolerance)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
-                    //RaycastHit hit;
-                    //if (Physics.Linecast(transform.position, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2,
-                    //    out hit, WalkableLayer))
-                    //{
-                    //    Projection.transform.position = hit.point;
-                    //    Projection.transform.rotation = Quaternion.LookRotation(hit.normal);
-                    //}
-                    //else
+                    RaycastHit hit;
+                    if (Physics.Linecast(transform.position, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2,
+                        out hit, WalkableLayer))
+                    {
+                        Projection.transform.position = hit.point;
+                        Projection.transform.rotation = Quaternion.LookRotation(
+                            Quaternion.AngleAxis(90, Vector3.right) * hit.normal);
+                    }
+                    else
                     {
                         Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2;
                         if (pendingDirection.y == 0)
