@@ -14,7 +14,8 @@
         public const string SideParent = "SideParent";
 
         public const string Collected = "Collected";
-        public const string BoxCollectible = "BoxCollectible";
-        public const string CircleCollectible = "CircleCollectible";
+        public const string AppleCollectible = "AppleCollectible";
+        public const string BananaCollectible = "BananaCollectible";
+        public const string CherryCollectible = "CherryCollectible";
     }
 }
