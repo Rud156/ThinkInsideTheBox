@@ -38,7 +38,11 @@ namespace CubeData{
         public bool IsPlayerMoving() => m_playerState == PlayerState.Moving;
 
         public void PreventPlayerMovement() => m_playerState = PlayerState.Suspending;
-        public void AllowPlayerMovement() => m_playerState = PlayerState.CanMove;
+        public void AllowPlayerMovement()
+        {
+            if (m_playerState == PlayerState.Moving) return;
+            m_playerState = PlayerState.CanMove;
+        }
 
         private void Start()
         {
@@ -88,6 +92,7 @@ namespace CubeData{
             if (pendingDirection.y == 0)
             {
                 transform.LookAt(m_destination);
+                Projection.transform.localRotation = Quaternion.identity;
             }
             //if (pendingDirection == CubeLayerMask.up && !changed)
             //{
