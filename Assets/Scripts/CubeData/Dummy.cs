@@ -7,7 +7,7 @@ namespace CubeData{
     {
         private enum PlayerState
         {
-            Moving, Waiting, Stuck, Ending
+            Moving, CanMove, Suspending, Stuck, Ending
         }
 
         public GameObject Projection;
@@ -37,8 +37,8 @@ namespace CubeData{
 
         public bool IsPlayerMoving() => m_playerState == PlayerState.Moving;
 
-        public void PreventPlayerMovement() => m_playerState = PlayerState.Waiting;
-        public void AllowPlayerMovement() => m_playerState = PlayerState.Moving;
+        public void PreventPlayerMovement() => m_playerState = PlayerState.Suspending;
+        public void AllowPlayerMovement() => m_playerState = PlayerState.CanMove;
 
         private void Start()
         {
@@ -47,7 +47,7 @@ namespace CubeData{
 
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
         {
-            if (m_playerState != PlayerState.Stuck)
+            if (m_playerState == PlayerState.Moving || m_playerState == PlayerState.Ending)
                 yield break;
             CubeLayerMask pendingDirection;
             bool changed;
@@ -93,9 +93,9 @@ namespace CubeData{
                 GetCurrentCubie().OnPlayerEnter(this);
                 Debug.Log("Reach destination");
 
-                m_playerState = PlayerState.Waiting;
+                m_playerState = PlayerState.CanMove;
                 yield return new WaitForSeconds(2);
-                yield return new WaitUntil(() => m_playerState == PlayerState.Moving);
+                yield return new WaitUntil(() => m_playerState == PlayerState.CanMove);
             }
             StartCoroutine(MoveToCubie(tendingDirection));
         }
