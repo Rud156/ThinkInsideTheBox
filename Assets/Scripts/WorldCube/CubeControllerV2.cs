@@ -5,6 +5,7 @@ using Camera;
 using Player;
 using UnityEngine;
 using Utils;
+using CubeData;
 
 namespace WorldCube
 {
@@ -48,9 +49,9 @@ namespace WorldCube
 
         private void Start()
         {
-            m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
-                .GetComponent<PlayerGridController>();
-            m_playerGridController.OnWorldFlip += InitiateWorldFlip;
+            //m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
+            //    .GetComponent<PlayerGridController>();
+            //m_playerGridController.OnWorldFlip += InitiateWorldFlip;
 
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
             {
@@ -63,7 +64,7 @@ namespace WorldCube
 
         private void OnDestroy()
         {
-            m_playerGridController.OnWorldFlip -= InitiateWorldFlip;
+            //m_playerGridController.OnWorldFlip -= InitiateWorldFlip;
         }
 
         private void Update()
@@ -79,12 +80,12 @@ namespace WorldCube
                         {
                             OnWorldClicked?.Invoke();
 
-                            m_playerGridController.ResetPlayerGravityState();
+                            UpdatePlayerMovementState();
+                            //m_playerGridController.ResetPlayerGravityState();
+                            Dummy.Instance.MoveToCubie(Dummy.Instance.tendingDirection);
                             audioController.PlaySound(AudioController.AudioEnum.GearClick);
                         }
                     }
-
-                    UpdatePlayerMovementState();
                 }
                     break;
 
@@ -166,13 +167,21 @@ namespace WorldCube
                 }
             }
 
+            //if (isMovementAllowed)
+            //{
+            //    m_playerGridController.AllowPlayerMovement();
+            //}
+            //else
+            //{
+            //    m_playerGridController.PreventPlayerMovement();
+            //}
             if (isMovementAllowed)
             {
-                m_playerGridController.AllowPlayerMovement();
+                Dummy.Instance.AllowPlayerMovement();
             }
             else
             {
-                m_playerGridController.PreventPlayerMovement();
+                Dummy.Instance.PreventPlayerMovement();
             }
         }
 
@@ -180,10 +189,13 @@ namespace WorldCube
         {
             Debug.Log("Starting Tile Flip");
 
-            m_playerGridController.PreventPlayerMovement();
+            //m_playerGridController.PreventPlayerMovement();
+            Dummy.Instance.PreventPlayerMovement();
 
-            m_playerPreviousParent = m_playerGridController.transform.parent;
-            m_playerGridController.transform.SetParent(parentTransform);
+            //m_playerPreviousParent = m_playerGridController.transform.parent;
+            //m_playerGridController.transform.SetParent(parentTransform);
+            m_playerPreviousParent = Dummy.Instance.transform.parent;
+            m_playerPreviousParent.transform.SetParent(parentTransform);
 
             m_startRotation = parentTransform.rotation.eulerAngles;
             m_targetRotation = parentTransform.rotation.eulerAngles * -1;
@@ -211,8 +223,11 @@ namespace WorldCube
 
             m_isPlayerOutside = !m_isPlayerOutside;
 
-            m_playerGridController.AllowPlayerMovement();
-            m_playerGridController.transform.SetParent(m_playerPreviousParent);
+            //m_playerGridController.AllowPlayerMovement();
+            //m_playerGridController.transform.SetParent(m_playerPreviousParent);
+
+            Dummy.Instance.AllowPlayerMovement();
+            Dummy.Instance.transform.SetParent(m_playerPreviousParent);
 
             if (m_isPlayerOutside)
             {

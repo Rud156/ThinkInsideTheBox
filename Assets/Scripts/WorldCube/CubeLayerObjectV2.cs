@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using CubeData;
 
 namespace WorldCube
 {
@@ -14,7 +15,7 @@ namespace WorldCube
         public LayerMask layerMask;
         public LayerMask displayShaderLayerMask;
 
-        private List<CubeieDataV2> m_childCubies = new List<CubeieDataV2>();
+        private List<CubieObject> m_childCubies = new List<CubieObject>();
 
         private float m_currentSideRotation;
         private float m_startRotation;
@@ -134,9 +135,9 @@ namespace WorldCube
                     Collider[] other = Physics.OverlapSphere(finalPosition, collisionRadius, layerMask);
 
                     // This basically checks and gets all cubes that lie in the position
-                    List<CubeieDataV2> data = GetColliderCube(other);
+                    List<CubieObject> data = GetColliderCube(other);
                     bool isInvalidData = false;
-                    foreach (CubeieDataV2 cubeieDataV2 in data)
+                    foreach (CubieObject cubeieDataV2 in data)
                     {
                         if (cubeieDataV2.HasParent)
                         {
@@ -152,7 +153,7 @@ namespace WorldCube
 
                     // Ideally this count should never be more than 2
                     // Add a check probably
-                    foreach (CubeieDataV2 cubeieDataV2 in data)
+                    foreach (CubieObject cubeieDataV2 in data)
                     {
                         cubeieDataV2.SetParent(cubeLayerMask, transform);
                         m_childCubies.Add(cubeieDataV2);
@@ -181,12 +182,12 @@ namespace WorldCube
 
         private bool HasChildren() => m_childCubies.Count != 0;
 
-        private List<CubeieDataV2> GetColliderCube(Collider[] other)
+        private List<CubieObject> GetColliderCube(Collider[] other)
         {
-            List<CubeieDataV2> cubeData = new List<CubeieDataV2>();
+            List<CubieObject> cubeData = new List<CubieObject>();
             for (int i = 0; i < other.Length; i++)
             {
-                CubeieDataV2 data = other[i].transform.parent.GetComponentInParent<CubeieDataV2>();
+                CubieObject data = other[i].transform.GetComponent<CubieObject>();
                 if (data)
                 {
                     cubeData.Add(data);

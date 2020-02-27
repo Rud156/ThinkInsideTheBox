@@ -3,6 +3,7 @@ using System.IO.Ports;
 using Player;
 using UnityEngine;
 using Utils;
+using CubeData;
 
 namespace WorldCube
 {
@@ -14,7 +15,7 @@ namespace WorldCube
         public string portString = "COM3";
         public bool disableSerialPort;
 
-        private PlayerGridController m_playerGridController;
+        //private PlayerGridController m_playerGridController;
         private CubeControllerV2 m_cubeController;
         private SerialPort m_serialPort;
 
@@ -22,8 +23,8 @@ namespace WorldCube
 
         private void Start()
         {
-            m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
-                .GetComponent<PlayerGridController>();
+            //m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
+            //    .GetComponent<PlayerGridController>();
             m_cubeController = GetComponent<CubeControllerV2>();
 
             string[] ports = SerialPort.GetPortNames();
@@ -80,9 +81,14 @@ namespace WorldCube
 
         private void ReadArduinoInput()
         {
-            if (m_playerGridController.IsPlayerMoving())
+            //if (m_playerGridController.IsPlayerMoving())
+            //{
+            //    // Don't allow the cube to move when the player is moving and vice versa
+            //    return;
+            //}
+
+            if (Dummy.Instance.IsPlayerMoving())
             {
-                // Don't allow the cube to move when the player is moving and vice versa
                 return;
             }
 
@@ -159,9 +165,14 @@ namespace WorldCube
 
         private void HandleKeyboardInput()
         {
-            if (m_playerGridController.IsPlayerMoving())
+            //if (m_playerGridController.IsPlayerMoving())
+            //{
+            //    // Don't allow the cube to move when the player is moving and vice versa
+            //    return;
+            //}
+
+            if (Dummy.Instance.IsPlayerMoving())
             {
-                // Don't allow the cube to move when the player is moving and vice versa
                 return;
             }
 

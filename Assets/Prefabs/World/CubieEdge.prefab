@@ -90,12 +90,22 @@ PrefabInstance:
     - target: {fileID: 6528793301000415199, guid: 797fe0298dbaa4e06b8ee5774c736211,
         type: 3}
       propertyPath: m_Name
-      value: Cubie
+      value: CubieEdge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598332817247051182, guid: 797fe0298dbaa4e06b8ee5774c736211,
+        type: 3}
+      propertyPath: faceType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7314984344779541063, guid: 797fe0298dbaa4e06b8ee5774c736211,
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049808296184509282, guid: 797fe0298dbaa4e06b8ee5774c736211,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797fe0298dbaa4e06b8ee5774c736211, type: 3}

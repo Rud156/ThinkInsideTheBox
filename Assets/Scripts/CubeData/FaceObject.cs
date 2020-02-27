@@ -87,6 +87,10 @@ public class FaceObject : MonoBehaviour
             up = true;
             down = true;
             GetComponent<MeshRenderer>().enabled = false;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
         }
         #endregion
     }

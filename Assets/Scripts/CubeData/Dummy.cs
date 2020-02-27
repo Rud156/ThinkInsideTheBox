@@ -5,6 +5,11 @@ using UnityEngine;
 namespace CubeData{
     public class Dummy : MonoBehaviour
     {
+        private enum PlayerState
+        {
+            Moving, Waiting, Stuck, Ending
+        }
+
         public GameObject Projection;
         public LayerMask WalkableLayer;
         public CubeLayerMask tendingDirection = CubeLayerMask.Zero;
@@ -12,6 +17,7 @@ namespace CubeData{
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
         private Vector3 m_destination;
         private float tolerance = 0.1f;
+        private PlayerState m_playerState = PlayerState.Stuck;
 
         #region Singleton
         public static Dummy Instance = null;
@@ -29,32 +35,31 @@ namespace CubeData{
         }
         #endregion
 
+        public bool IsPlayerMoving() => m_playerState == PlayerState.Moving;
+
+        public void PreventPlayerMovement() => m_playerState = PlayerState.Waiting;
+        public void AllowPlayerMovement() => m_playerState = PlayerState.Moving;
+
         private void Start()
         {
             StartCoroutine(MoveToCubie(tendingDirection));
         }
 
-        private void Update()
-        {
-            
-        }
-
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
         {
+            if (m_playerState != PlayerState.Stuck)
+                yield break;
             CubeLayerMask pendingDirection;
             bool changed;
             (pendingDirection, changed) = GetCurrentCubie().GetMoveDirection(i_direction);
+            m_playerState = PlayerState.Moving;
 
             if (pendingDirection == CubeLayerMask.Zero)
             {
-                if (i_direction == tendingDirection)
+                if (i_direction == tendingDirection || !GetCurrentCubie().CanExit(tendingDirection))
                 {
                     Debug.Log("Stop");
-                    yield break;
-                }
-                if (!GetCurrentCubie().CanExit(tendingDirection))
-                {
-                    Debug.Log("Stop");
+                    m_playerState = PlayerState.Stuck;
                     yield break;
                 }
             }
@@ -87,6 +92,10 @@ namespace CubeData{
                 transform.position = m_destination;
                 GetCurrentCubie().OnPlayerEnter(this);
                 Debug.Log("Reach destination");
+
+                m_playerState = PlayerState.Waiting;
+                yield return new WaitForSeconds(2);
+                yield return new WaitUntil(() => m_playerState == PlayerState.Moving);
             }
             StartCoroutine(MoveToCubie(tendingDirection));
         }

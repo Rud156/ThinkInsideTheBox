@@ -7,7 +7,7 @@ namespace CubeData
 {
     public static class CubeWorld
     {
-        public const float CUBIE_LENGTH = 1;
+        public const float CUBIE_LENGTH = 2;
         public const int CUBIE_LAYER_MASK = 1 << 15;
 
         public static bool TryGetNextCubie(Vector3 i_origin, CubeLayerMask i_direction, out CubieObject o_cubie)
