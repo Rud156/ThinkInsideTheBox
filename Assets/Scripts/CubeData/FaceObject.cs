@@ -17,7 +17,7 @@ public enum ReachEvent
 {
     None, Water, Exit
 }
-
+[ExecuteAlways]
 public class FaceObject : MonoBehaviour
 {
     [Header("Facet Function")]
