@@ -65,7 +65,7 @@ namespace CubeData{
         {
             CubeLayerMask direction = new CubeLayerMask(transform.forward);
             if (direction.y != 0) return;
-            tendingDirection = new CubeLayerMask(transform.forward);
+            tendingDirection = direction;
         }
 
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
@@ -103,17 +103,18 @@ namespace CubeData{
                 while (Vector3.Distance(m_destination, transform.position) > tolerance)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime);
-                    RaycastHit hit;
-                    if (Physics.Linecast(transform.position, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2,
-                        out hit, WalkableLayer))
-                    {
-                        Projection.transform.position = hit.point;
-                        Projection.transform.rotation = Quaternion.LookRotation(hit.normal);
-                    }
-                    else
+                    //RaycastHit hit;
+                    //if (Physics.Linecast(transform.position, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2,
+                    //    out hit, WalkableLayer))
+                    //{
+                    //    Projection.transform.position = hit.point;
+                    //    Projection.transform.rotation = Quaternion.LookRotation(hit.normal);
+                    //}
+                    //else
                     {
                         Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2;
-                        Projection.transform.rotation = Quaternion.identity;
+                        if (pendingDirection.y == 0)
+                            Projection.transform.localRotation = Quaternion.identity;
                     }
                     yield return null;
                 }
