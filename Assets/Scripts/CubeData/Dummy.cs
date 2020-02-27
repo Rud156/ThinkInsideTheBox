@@ -45,6 +45,12 @@ namespace CubeData{
             StartCoroutine(MoveToCubie(tendingDirection));
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (((1 << other.gameObject.layer) & CubeWorld.CUBIE_LAYER_MASK) != 0)
+                transform.SetParent(other.transform);
+        }
+
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
         {
             if (m_playerState == PlayerState.Moving || m_playerState == PlayerState.Ending)
