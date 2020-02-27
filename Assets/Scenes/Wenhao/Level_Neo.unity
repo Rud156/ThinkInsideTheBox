@@ -3321,6 +3321,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 9158772611028592585, guid: ceec69a62189144d9a9f9c62e64cd9c1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9158772611028592587, guid: ceec69a62189144d9a9f9c62e64cd9c1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4700,10 +4705,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUI: {fileID: 1068014586}
-  boxCount: 0
-  maxBoxCount: 0
-  circleCount: 0
-  maxCircleCount: 0
+  appleCount: 0
+  maxAppleCount: 0
+  bananaCount: 0
+  maxBananaCount: 0
+  cherryCount: 0
+  maxCherryCount: 0
 --- !u!1001 &1714683274
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -45,10 +45,23 @@ namespace CubeData{
             StartCoroutine(MoveToCubie(tendingDirection));
         }
 
+        private void FixedUpdate()
+        {
+            Debug.DrawLine(transform.position, transform.position + 
+                tendingDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2, Color.cyan);
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (((1 << other.gameObject.layer) & CubeWorld.CUBIE_LAYER_MASK) != 0)
                 transform.SetParent(other.transform);
+        }
+
+        public void RotateTendingDirection()
+        {
+            CubeLayerMask direction = new CubeLayerMask(transform.forward);
+            if (direction.y != 0) return;
+            tendingDirection = new CubeLayerMask(transform.forward);
         }
 
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
@@ -72,6 +85,10 @@ namespace CubeData{
 
             // Move action
             m_destination = GetNextPosition(pendingDirection);
+            if (pendingDirection.y == 0)
+            {
+                transform.LookAt(m_destination);
+            }
             //if (pendingDirection == CubeLayerMask.up && !changed)
             //{
             //    transform.position = m_destination;
