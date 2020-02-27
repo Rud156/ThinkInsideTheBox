@@ -7344,10 +7344,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUI: {fileID: 1068014586}
-  boxCount: 0
-  maxBoxCount: 0
-  circleCount: 0
-  maxCircleCount: 0
+  appleCount: 0
+  maxAppleCount: 0
+  bananaCount: 0
+  maxBananaCount: 0
+  cherryCount: 0
+  maxCherryCount: 0
 --- !u!4 &1634220629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1121605940591563407, guid: 7439327a3c370f64d8fe243ac585a7b0,
@@ -16313,3 +16315,87 @@ Transform:
   m_Father: {fileID: 1934600958}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &9062537194265062251
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1073392205620896846, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.036000013
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000000051520505
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088755396924282461, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062537195251547482, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: myInventory
+      value: 
+      objectReference: {fileID: 1630840114}
+    - target: {fileID: 9062537195251547483, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: rotator
+      value: 
+      objectReference: {fileID: 2132927994}
+    - target: {fileID: 9062537195251547483, guid: cabb54adefd68f24c88407f977dc7eee,
+        type: 3}
+      propertyPath: cubeControllerV2
+      value: 
+      objectReference: {fileID: 1813484977}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cabb54adefd68f24c88407f977dc7eee, type: 3}
