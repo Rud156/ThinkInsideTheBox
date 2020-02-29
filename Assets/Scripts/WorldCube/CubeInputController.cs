@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
@@ -19,7 +19,7 @@ namespace WorldCube
         // Sockets
         private Socket m_socketClient;
         private string m_testPingRegex = @"Close";
-        private List<PiDataInput> m_PiDataInput;
+        private ConcurrentQueue<PiDataInput> m_PiDataInput;
 
         private CubeControllerV2 m_cubeController;
         private SerialPort m_serialPort;
@@ -29,7 +29,7 @@ namespace WorldCube
         private void Start()
         {
             m_cubeController = GetComponent<CubeControllerV2>();
-            m_PiDataInput = new List<PiDataInput>();
+            m_PiDataInput = new ConcurrentQueue<PiDataInput>();
 
             if (!disableSocket)
             {
@@ -162,7 +162,7 @@ namespace WorldCube
                 return;
             }
 
-            m_PiDataInput.Add(new PiDataInput()
+            m_PiDataInput.Enqueue(new PiDataInput()
             {
                 side = sideInput,
                 direction = direction
@@ -171,7 +171,7 @@ namespace WorldCube
 
         private void HandleSocketControlUpdate()
         {
-            foreach (PiDataInput piDataInput in m_PiDataInput)
+            while (m_PiDataInput.TryDequeue(out PiDataInput piDataInput))
             {
                 string sideInput = piDataInput.side;
                 int direction = piDataInput.direction;
@@ -207,8 +207,6 @@ namespace WorldCube
                         break;
                 }
             }
-
-            m_PiDataInput.Clear();
         }
 
         #endregion
