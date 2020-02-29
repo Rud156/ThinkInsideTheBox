@@ -214,38 +214,23 @@ namespace WorldCube
             switch (m_lastDirection)
             {
                 case "Left":
+                    m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), m_lastInput);
+                    break;
+
                 case "Right":
+                    m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -m_lastInput);
+                    break;
+
                 case "Front":
+                    m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), m_lastInput);
+                    break;
+
                 case "Back":
+                    m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -m_lastInput);
+                    break;
+
                 case "Top":
-                {
-                    switch (m_lastDirection)
-                    {
-                        case "Left":
-                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), m_lastInput);
-                            break;
-
-                        case "Right":
-                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -m_lastInput);
-                            break;
-
-                        case "Front":
-                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), m_lastInput);
-                            break;
-
-                        case "Back":
-                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -m_lastInput);
-                            break;
-
-                        case "Top":
-                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), m_lastInput);
-                            break;
-
-                        default:
-                            Debug.Log("Invalid Input Sent");
-                            break;
-                    }
-                }
+                    m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), m_lastInput);
                     break;
 
                 default:
