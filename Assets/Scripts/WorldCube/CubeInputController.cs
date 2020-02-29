@@ -1,21 +1,32 @@
-﻿using System;
+﻿using CubeData;
+using System;
 using System.IO.Ports;
-using Player;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using UnityEngine;
-using Utils;
-using CubeData;
 
 namespace WorldCube
 {
     [RequireComponent(typeof(CubeControllerV2))]
     public class CubeInputController : MonoBehaviour
     {
+        private const string TestPing = "Close";
+
         [Header("Arduino")] public int readTimeout = 7;
         public bool useForcedPort = false;
         public string portString = "COM3";
         public bool disableSerialPort;
 
-        //private PlayerGridController m_playerGridController;
+        [Header("Web Sockets")] public string ip;
+        public int port;
+        public bool disableSocket;
+
+        private Socket m_client;
+        private string m_lastDirection;
+        private int m_lastInput;
+        private bool m_inputSet;
+
         private CubeControllerV2 m_cubeController;
         private SerialPort m_serialPort;
 
@@ -23,8 +34,6 @@ namespace WorldCube
 
         private void Start()
         {
-            //m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
-            //    .GetComponent<PlayerGridController>();
             m_cubeController = GetComponent<CubeControllerV2>();
 
             string[] ports = SerialPort.GetPortNames();
@@ -57,6 +66,11 @@ namespace WorldCube
 
                 Debug.Log("Port is Closed. Opening");
             }
+
+            if (!disableSocket)
+            {
+                ConnectSocket();
+            }
         }
 
         private void OnApplicationQuit()
@@ -65,27 +79,193 @@ namespace WorldCube
             {
                 m_serialPort.Close();
             }
+
+            if (m_client != null)
+            {
+                m_client.Shutdown(SocketShutdown.Both);
+                m_client.Close();
+            }
         }
 
         private void Update()
         {
             ReadArduinoInput();
             HandleKeyboardInput();
+            HandleSocketControl();
         }
 
         #endregion
 
         #region Utility Functions
 
+        #region Sockets
+
+        private void ConnectSocket()
+        {
+            try
+            {
+                IPAddress[] ipAddress = Dns.GetHostAddresses(ip);
+                IPEndPoint localEndPoint = new IPEndPoint(ipAddress[0], port);
+
+                m_client = new Socket(ipAddress[0].AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                m_client.BeginConnect(localEndPoint, new AsyncCallback(HandleSocketConnect), m_client);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+
+        private void HandleSocketConnect(IAsyncResult i_ar)
+        {
+            try
+            {
+                Socket client = (Socket) i_ar.AsyncState;
+                client.EndConnect(i_ar);
+                Debug.Log($"Connected To: {client.RemoteEndPoint}");
+
+                Receive(m_client);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+
+        private void Receive(Socket i_client)
+        {
+            try
+            {
+                // Create the state object.  
+                StateObject state = new StateObject();
+                state.workSocket = i_client;
+
+                // Begin receiving the data from the remote device.  
+                i_client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private void ReceiveCallback(IAsyncResult ar)
+        {
+            try
+            {
+                // Retrieve the state object and the m_client socket   
+                // from the asynchronous state object.  
+                StateObject state = (StateObject) ar.AsyncState;
+                Socket client = state.workSocket;
+
+                // Read data from the remote device.  
+                int bytesRead = client.EndReceive(ar);
+                state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+
+                // All the data has arrived; put it in response.  
+                if (state.sb.Length > 1)
+                {
+                    string response = state.sb.ToString();
+                    state.sb.Clear();
+
+                    HandleSocketData(response);
+                }
+
+                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private void HandleSocketData(string i_input)
+        {
+            if (!i_input.Contains(":") || i_input.Contains(TestPing))
+            {
+                Debug.Log(TestPing);
+                return;
+            }
+
+            string[] splitInput = i_input.Split(':');
+            string sideInput = splitInput[0];
+            string directionString = splitInput[1];
+
+            Debug.Log(i_input);
+
+            bool parseSuccess = int.TryParse(directionString, out int direction);
+            if (!parseSuccess)
+            {
+                return;
+            }
+
+            m_lastDirection = sideInput;
+            m_lastInput = direction;
+            m_inputSet = true;
+        }
+
+        private void HandleSocketControl()
+        {
+            if (!m_inputSet)
+            {
+                return;
+            }
+
+            switch (m_lastDirection)
+            {
+                case "Left":
+                case "Right":
+                case "Front":
+                case "Back":
+                case "Top":
+                {
+                    switch (m_lastDirection)
+                    {
+                        case "Left":
+                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), m_lastInput);
+                            break;
+
+                        case "Right":
+                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -m_lastInput);
+                            break;
+
+                        case "Front":
+                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), m_lastInput);
+                            break;
+
+                        case "Back":
+                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -m_lastInput);
+                            break;
+
+                        case "Top":
+                            m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), m_lastInput);
+                            break;
+
+                        default:
+                            Debug.Log("Invalid Input Sent");
+                            break;
+                    }
+                }
+                    break;
+
+                default:
+                    // Don't do anything here...
+                    break;
+            }
+
+            m_inputSet = false;
+        }
+
+        #endregion
+
         #region Arduino
 
         private void ReadArduinoInput()
         {
-            //if (m_playerGridController.IsPlayerMoving())
-            //{
-            //    // Don't allow the cube to move when the player is moving and vice versa
-            //    return;
-            //}
+            if (disableSerialPort)
+            {
+                return;
+            }
 
             if (Dummy.Instance.IsPlayerMoving())
             {
@@ -171,10 +351,10 @@ namespace WorldCube
             //    return;
             //}
 
-            if (Dummy.Instance.IsPlayerMoving())
-            {
-                return;
-            }
+            // if (Dummy.Instance.IsPlayerMoving())
+            // {
+            //     return;
+            // }
 
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
@@ -227,6 +407,25 @@ namespace WorldCube
         }
 
         #endregion
+
+        #endregion
+
+        #region Structs
+
+        public class StateObject
+        {
+            // Client socket.  
+            public Socket workSocket = null;
+
+            // Size of receive buffer.  
+            public const int BufferSize = 256;
+
+            // Receive buffer.  
+            public byte[] buffer = new byte[BufferSize];
+
+            // Received data string.  
+            public StringBuilder sb = new StringBuilder();
+        }
 
         #endregion
     }

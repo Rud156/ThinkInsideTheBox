@@ -3386,6 +3386,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1489780414278686066, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1489780414278686069, guid: fc2bd5b1cd086ca4db968f157ad2023c,
         type: 3}
       propertyPath: m_Name
@@ -3401,6 +3406,11 @@ PrefabInstance:
       propertyPath: cubeControllerV2
       value: 
       objectReference: {fileID: 1813484977}
+    - target: {fileID: 3946584165931577285, guid: fc2bd5b1cd086ca4db968f157ad2023c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2bd5b1cd086ca4db968f157ad2023c, type: 3}
 --- !u!1 &813726119
@@ -7592,7 +7602,10 @@ MonoBehaviour:
   readTimeout: 7
   useForcedPort: 1
   portString: COM3
-  disableSerialPort: 0
+  disableSerialPort: 1
+  ip: 192.168.43.146
+  port: 8080
+  disableSocket: 0
 --- !u!1 &1819914723
 GameObject:
   m_ObjectHideFlags: 0
