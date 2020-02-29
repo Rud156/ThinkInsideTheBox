@@ -22,7 +22,6 @@ namespace WorldCube
         private ConcurrentQueue<PiDataInput> m_PiDataInput;
 
         private CubeControllerV2 m_cubeController;
-        private SerialPort m_serialPort;
 
         #region Unity Functions
 
@@ -39,11 +38,6 @@ namespace WorldCube
 
         private void OnApplicationQuit()
         {
-            if (m_serialPort != null)
-            {
-                m_serialPort.Close();
-            }
-
             if (m_socketClient != null)
             {
                 m_socketClient.Shutdown(SocketShutdown.Both);
