@@ -263,7 +263,7 @@ public class FaceObject : MonoBehaviour
             return 1;
         else if (i_dir.z != 0)
             return 2;
-
+        Debug.Log(i_dir);
         Debug.LogError("Condition broken");
         return -1;
     }
