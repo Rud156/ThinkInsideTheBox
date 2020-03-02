@@ -142,7 +142,8 @@ public class FaceObject : MonoBehaviour
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
     {
         Vector3 moveDir = i_direction.ToVector3();
-        Vector3 playerDir = GetPlayerRelativeDir(moveDir); //mark the direction of the player relative to this tile
+        Vector3 playerDir = GetPlayerRelativeDir(new CubeLayerMask(moveDir*-1)); //mark the direction of the player relative to this tile
+
         if (AccessAvailable(playerDir))
         {
             if (faceType == TileFunction.Ramp)
@@ -281,6 +282,25 @@ public class FaceObject : MonoBehaviour
         else if (-i_dir == this.transform.up)
             return new Vector3(0, 1, 0);
         else if (-i_dir == -this.transform.up)
+            return new Vector3(0, -1, 0);
+
+        Debug.LogError("Not valid direction input");
+        return Vector3.zero;
+    }
+
+    private Vector3 GetPlayerRelativeDir(CubeLayerMask i_direction)
+    {
+        if (i_direction == new CubeLayerMask(this.transform.forward))
+            return new Vector3(0, 0, 1);
+        else if (i_direction == new CubeLayerMask(-this.transform.forward))
+            return new Vector3(0, 0, -1);
+        else if (i_direction == new CubeLayerMask(this.transform.right))
+            return new Vector3(1, 0, 0);
+        else if (i_direction == new CubeLayerMask(-this.transform.right))
+            return new Vector3(-1, 0, 0);
+        else if (i_direction == new CubeLayerMask(this.transform.up))
+            return new Vector3(0, 1, 0);
+        else if (i_direction == new CubeLayerMask(-this.transform.up))
             return new Vector3(0, -1, 0);
 
         Debug.LogError("Not valid direction input");
