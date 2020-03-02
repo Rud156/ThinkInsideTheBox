@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using Camera;
 using UnityEngine;
 
 namespace WorldCube
@@ -11,14 +12,26 @@ namespace WorldCube
     [RequireComponent(typeof(CubeControllerV2))]
     public class CubeInputController : MonoBehaviour
     {
+        private const string RotationStr = "Rotation";
+        private const string LeftStr = "Left";
+        private const string RightStr = "Right";
+        private const string TopStr = "Top";
+        private const string BottomStr = "Bottom";
+        private const string FrontStr = "Front";
+        private const string BackStr = "Back";
+
+        [Header("Camera")] public CameraController cameraController;
+
         [Header("Web Sockets")] public string ip;
         public int port;
         public bool disableSocket;
 
         // Sockets
-        private Socket m_socketClient;
         private string m_testPingRegex = @"Close";
-        private ConcurrentQueue<PiDataInput> m_PiDataInput;
+        private Regex m_captureRegex = new Regex(@"\|(.*?)\|", RegexOptions.Compiled);
+        private Socket m_socketClient;
+        private ConcurrentQueue<PiDataSideInput> m_piDataSideInput;
+        private ConcurrentQueue<Vector3> m_piDataRotationInput;
 
         private CubeControllerV2 m_cubeController;
 
@@ -27,7 +40,8 @@ namespace WorldCube
         private void Start()
         {
             m_cubeController = GetComponent<CubeControllerV2>();
-            m_PiDataInput = new ConcurrentQueue<PiDataInput>();
+            m_piDataSideInput = new ConcurrentQueue<PiDataSideInput>();
+            m_piDataRotationInput = new ConcurrentQueue<Vector3>();
 
             if (!disableSocket)
             {
@@ -47,7 +61,8 @@ namespace WorldCube
         private void Update()
         {
             HandleKeyboardInput();
-            HandleSocketControlUpdate();
+            HandleSocketControlSideUpdate();
+            HandleSocketControlRotationUpdate();
         }
 
         #endregion
@@ -143,55 +158,78 @@ namespace WorldCube
                 return;
             }
 
-            string[] splitInput = i_input.Split(':');
-            string sideInput = splitInput[0];
-            string directionString = splitInput[1];
+            MatchCollection matches = m_captureRegex.Matches(normalizedText);
 
-            Debug.Log($"Input: {i_input}");
-
-            bool parseSuccess = int.TryParse(directionString, out int direction);
-            if (!parseSuccess)
+            foreach (Match match in matches)
             {
-                return;
+                string value = match.Groups[1].Value;
+
+                string[] splitInput = value.Split(':');
+                string lhs = splitInput[0];
+                string rhs = splitInput[1];
+
+                switch (lhs)
+                {
+                    case RotationStr:
+                    {
+                        string[] rotations = rhs.Split(',');
+
+                        float xValue = int.Parse(rotations[0]);
+                        float yValue = int.Parse(rotations[1]);
+                        float zValue = int.Parse(rotations[2]);
+                        m_piDataRotationInput.Enqueue(new Vector3(xValue, yValue, zValue));
+                    }
+                        break;
+
+                    default:
+                    {
+                        bool parseSuccess = int.TryParse(rhs, out int direction);
+                        if (!parseSuccess)
+                        {
+                            return;
+                        }
+
+                        m_piDataSideInput.Enqueue(new PiDataSideInput()
+                        {
+                            side = lhs,
+                            direction = direction
+                        });
+                    }
+                        break;
+                }
             }
-
-            m_PiDataInput.Enqueue(new PiDataInput()
-            {
-                side = sideInput,
-                direction = direction
-            });
         }
 
-        private void HandleSocketControlUpdate()
+        private void HandleSocketControlSideUpdate()
         {
-            while (m_PiDataInput.TryDequeue(out PiDataInput piDataInput))
+            while (m_piDataSideInput.TryDequeue(out PiDataSideInput piDataInput))
             {
                 string sideInput = piDataInput.side;
                 int direction = piDataInput.direction;
 
                 switch (sideInput)
                 {
-                    case "Left":
+                    case LeftStr:
                         m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), direction);
                         break;
 
-                    case "Right":
+                    case RightStr:
                         m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -direction);
                         break;
 
-                    case "Front":
+                    case FrontStr:
                         m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
                         break;
 
-                    case "Back":
+                    case BackStr:
                         m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -direction);
                         break;
 
-                    case "Top":
+                    case TopStr:
                         m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
                         break;
 
-                    case "Bottom":
+                    case BottomStr:
                         m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -direction);
                         break;
 
@@ -199,6 +237,14 @@ namespace WorldCube
                         // Don't do anything here...
                         break;
                 }
+            }
+        }
+
+        private void HandleSocketControlRotationUpdate()
+        {
+            while (m_piDataRotationInput.TryDequeue(out Vector3 rotation))
+            {
+                cameraController.UpdateCameraRotation(rotation);
             }
         }
 
@@ -264,7 +310,7 @@ namespace WorldCube
 
         #region Structs
 
-        private struct PiDataInput
+        private struct PiDataSideInput
         {
             public int direction;
             public string side;

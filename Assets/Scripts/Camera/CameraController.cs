@@ -53,6 +53,11 @@ namespace Camera
 
         #region External Functions
 
+        public void UpdateCameraRotation(Vector3 rotation)
+        {
+            // TODO: Complete this function...
+        }
+
         public void SetCameraDefaultPosition()
         {
             m_targetPosition = cameraDefaultTransform.position;
