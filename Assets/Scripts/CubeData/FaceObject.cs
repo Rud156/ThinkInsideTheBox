@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using CubeData;
 using UnityEngine;
 public enum TileFunction
@@ -88,6 +89,21 @@ public class FaceObject : MonoBehaviour
     public void OnPlayerEnter(Dummy dummy)
     {
         //throw new NotImplementedException();
+        if(faceEvent == ReachEvent.Water)
+        {
+            Debug.Log("Player Died. Reloading the scene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else if (faceEvent == ReachEvent.Exit)
+        {
+            Debug.Log("Player Won");
+
+            int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+            if (currentBuildIndex + 1 <= SceneManager.sceneCount)
+                SceneManager.LoadScene(currentBuildIndex + 1);
+            else
+                Debug.Log("This is already the last level");
+        }
     }
 
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
