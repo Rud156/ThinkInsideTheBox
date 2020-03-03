@@ -804,37 +804,37 @@ PrefabInstance:
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
@@ -854,7 +854,7 @@ PrefabInstance:
     - target: {fileID: 6183243473793578335, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 481a842b7b1bd1c4fa5e5f9b300319e8, type: 3}
@@ -2255,6 +2255,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 543389446}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &543389448 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3014059741289377105, guid: ae6cee01c15957d448b30cb419f64902,
+    type: 3}
+  m_PrefabInstance: {fileID: 543389446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &543389449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543389448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8fa30fce3ddc048b6a4e1aa6d114ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileRotationAxis: 0
 --- !u!1001 &563878243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3374,25 +3393,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 760670795}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &761178616 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1807619815}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &761178617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 761178616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b8fa30fce3ddc048b6a4e1aa6d114ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileRotationAxis: 3
 --- !u!1 &813726119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3950,7 +3950,7 @@ PrefabInstance:
     - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_TagString
-      value: WaterHole
+      value: FaceOut
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
@@ -4011,7 +4011,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 73ddf7b94bdc6a24a8923d174706878d, type: 2}
+      objectReference: {fileID: 2100000, guid: 98099517939d4b74d8205f8aeb5e90a4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424368db5fd36b549a461e32a73fd8fc, type: 3}
 --- !u!1001 &974452947
@@ -6133,7 +6133,7 @@ PrefabInstance:
     - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_TagString
-      value: WaterHole
+      value: FaceOut
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
@@ -6194,7 +6194,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 73ddf7b94bdc6a24a8923d174706878d, type: 2}
+      objectReference: {fileID: 2100000, guid: 007f36ddc097d21498658a4a8e565f2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424368db5fd36b549a461e32a73fd8fc, type: 3}
 --- !u!4 &1456024178 stripped
