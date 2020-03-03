@@ -80,7 +80,9 @@ namespace CubeData{
 
             if (pendingDirection == CubeLayerMask.Zero)
             {
-                if (i_direction == tendingDirection || !GetCurrentCubie().CanExit(tendingDirection))
+                if (i_direction == tendingDirection || 
+                    (!GetCurrentCubie().CanMoveToNextCubie(tendingDirection) && 
+                    !GetCurrentCubie().CanMoveToNextCubie(-tendingDirection)))
                 {
                     Debug.Log("Stop");
                     m_playerState = PlayerState.Stuck;

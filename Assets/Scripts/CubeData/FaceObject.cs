@@ -24,12 +24,18 @@ public class FaceObject : MonoBehaviour
     [Header("Facet Function")]
     public TileFunction faceType = TileFunction.None;
     //public bool applyChange = false;
+    
 
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
+    public bool showWallFace = true;
     public GameObject turnArrow;
     public GameObject wallTile;
     public GameObject water;
+    public GameObject exit;
+    private GameObject arrow_instantiated;
+    private GameObject water_instantiated;
+    private GameObject exit_instantiated;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -284,12 +290,8 @@ public class FaceObject : MonoBehaviour
 
     private void LoadFaceData()
     {
-        if (instantiated_arrow)
-        {
-            StartCoroutine(DestroyOldObject(instantiated_arrow));
-            //instantiated_arrow = null;
-        }
-            
+        
+
         //Load face access related prefabs and data
         if (faceType == TileFunction.Turn)
         {
@@ -300,7 +302,7 @@ public class FaceObject : MonoBehaviour
             up = false;
             down = false;
             //Turn the face into the right angle (opposite of the tile/face)
-            GameObject arrow_instance;
+            GameObject arrow_instance = null;
             if (turnArrow)
             {
                 float rotation_y = 90f * (int)turnTo;
@@ -321,9 +323,9 @@ public class FaceObject : MonoBehaviour
                 //}
 
             }
-
-            GetComponent<MeshRenderer>().enabled = false;
-
+            arrow_instantiated = arrow_instance;
+            //GetComponent<MeshRenderer>().enabled = false;
+            SetGroundVisibility(false);
 
         }
         else if (faceType == TileFunction.Wall)
@@ -360,20 +362,24 @@ public class FaceObject : MonoBehaviour
         //Load event-related prefabs
         if(faceEvent==ReachEvent.Water)
         {
-            GameObject water_instance;
+            GameObject water_instance = null;
             if (water)
             {
-                water_instance = Instantiate(turnArrow, this.transform) as GameObject;
-
-                float rotation_y = 90f * (int)turnTo;
-                water_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                water_instance = Instantiate(water, this.transform) as GameObject;
+                SetGroundVisibility(false);
+                //float rotation_y = 90f * (int)turnTo;
+                water_instance.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
             }
+            water_instantiated = water_instance;
         }
+        
     }
 
     private void OnValidate()
     {
-        LoadFaceData();
+        //LoadFaceData();
+        if(this.isActiveAndEnabled)
+            StartCoroutine(ClearAddOns());
         //if (applyChange)
         //{
             
@@ -381,10 +387,28 @@ public class FaceObject : MonoBehaviour
         //}
     }
 
-    IEnumerator DestroyOldObject(GameObject i_object)
+    IEnumerator ClearAddOns()
     {
         yield return new WaitForEndOfFrame();
-        DestroyImmediate(i_object);
-        
+        if (arrow_instantiated)
+        {
+            DestroyImmediate(arrow_instantiated);
+            arrow_instantiated = null;
+        }
+        if(water_instantiated)
+        {
+            DestroyImmediate(water_instantiated);
+            water_instantiated = null;
+        }
+        if(showWallFace)
+            SetGroundVisibility(true);
+        LoadFaceData();
+    }
+
+    private void SetGroundVisibility(bool i_visible)
+    {
+        Transform ground_face = this.transform.Find("Grass Ground Variant");
+        if (ground_face)
+            ground_face.GetComponent<MeshRenderer>().enabled = i_visible;
     }
 }
