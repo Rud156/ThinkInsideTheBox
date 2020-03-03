@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
-using Camera;
+using CustomCamera;
 using UnityEngine;
 
 namespace WorldCube
