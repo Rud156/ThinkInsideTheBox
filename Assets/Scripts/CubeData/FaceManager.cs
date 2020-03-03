@@ -42,12 +42,13 @@ public class FaceManager : MonoBehaviour
 
     private void OnValidate()
     {
-        if(applyChange)
+        
+        if (applyChange)
         {
-            Debug.Log("Exe!");
+            //Debug.Log("Exe!");
             UpdateCubie();
         }
-        
+
     }
 
     private void UpdateCubie()
