@@ -42,7 +42,9 @@ public class FaceObject : MonoBehaviour
 
     [Header("EventAfterReaching")]
     public ReachEvent faceEvent;
-    // Start is called before the first frame update
+
+    private GameObject instantiated_arrow;
+    
     private void Awake()
     {
         LoadFaceData();
@@ -282,6 +284,12 @@ public class FaceObject : MonoBehaviour
 
     private void LoadFaceData()
     {
+        if (instantiated_arrow)
+        {
+            StartCoroutine(DestroyOldObject(instantiated_arrow));
+            //instantiated_arrow = null;
+        }
+            
         //Load face access related prefabs and data
         if (faceType == TileFunction.Turn)
         {
@@ -295,10 +303,23 @@ public class FaceObject : MonoBehaviour
             GameObject arrow_instance;
             if (turnArrow)
             {
+                float rotation_y = 90f * (int)turnTo;
                 arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
 
-                float rotation_y = 90f * (int)turnTo;
                 arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                instantiated_arrow = arrow_instance;
+                //if (!instantiated_arrow)
+                //{
+                //    arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
+
+                //    arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                //    instantiated_arrow = arrow_instance;
+                //} 
+                //else
+                //{
+                //    instantiated_arrow.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                //}
+
             }
 
             GetComponent<MeshRenderer>().enabled = false;
@@ -358,5 +379,12 @@ public class FaceObject : MonoBehaviour
             
         //    applyChange = false;
         //}
+    }
+
+    IEnumerator DestroyOldObject(GameObject i_object)
+    {
+        yield return new WaitForEndOfFrame();
+        DestroyImmediate(i_object);
+        
     }
 }
