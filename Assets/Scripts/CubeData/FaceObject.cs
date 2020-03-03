@@ -24,14 +24,18 @@ public class FaceObject : MonoBehaviour
     [Header("Facet Function")]
     public TileFunction faceType = TileFunction.None;
     //public bool applyChange = false;
+    
 
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
+    public bool showWallFace = true;
     public GameObject turnArrow;
     public GameObject wallTile;
     public GameObject water;
+    public GameObject exit;
     private GameObject arrow_instantiated;
     private GameObject water_instantiated;
+    private GameObject exit_instantiated;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -44,7 +48,9 @@ public class FaceObject : MonoBehaviour
 
     [Header("EventAfterReaching")]
     public ReachEvent faceEvent;
-    // Start is called before the first frame update
+
+    private GameObject instantiated_arrow;
+    
     private void Awake()
     {
         LoadFaceData();
@@ -299,10 +305,23 @@ public class FaceObject : MonoBehaviour
             GameObject arrow_instance = null;
             if (turnArrow)
             {
+                float rotation_y = 90f * (int)turnTo;
                 arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
 
-                float rotation_y = 90f * (int)turnTo;
                 arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                instantiated_arrow = arrow_instance;
+                //if (!instantiated_arrow)
+                //{
+                //    arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
+
+                //    arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                //    instantiated_arrow = arrow_instance;
+                //} 
+                //else
+                //{
+                //    instantiated_arrow.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                //}
+
             }
             arrow_instantiated = arrow_instance;
             //GetComponent<MeshRenderer>().enabled = false;
@@ -353,6 +372,7 @@ public class FaceObject : MonoBehaviour
             }
             water_instantiated = water_instance;
         }
+        
     }
 
     private void OnValidate()
@@ -380,7 +400,12 @@ public class FaceObject : MonoBehaviour
             DestroyImmediate(water_instantiated);
             water_instantiated = null;
         }
-        SetGroundVisibility(true);
+        if(showWallFace)
+        {
+            SetGroundVisibility(true);
+            Debug.Log("Show wall faces");
+        }
+            
         LoadFaceData();
     }
 
