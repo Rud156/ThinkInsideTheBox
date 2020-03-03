@@ -110,6 +110,7 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
+  water: {fileID: 0}
   forward: 1
   back: 1
   right: 1
@@ -227,6 +228,7 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
+  water: {fileID: 0}
   forward: 1
   back: 1
   right: 1
@@ -344,6 +346,7 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
+  water: {fileID: 0}
   forward: 1
   back: 1
   right: 1
@@ -601,6 +604,7 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
+  water: {fileID: 0}
   forward: 1
   back: 1
   right: 1
@@ -719,6 +723,7 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
+  water: {fileID: 0}
   forward: 1
   back: 1
   right: 1
@@ -836,6 +841,7 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
+  water: {fileID: 0}
   forward: 1
   back: 1
   right: 1
@@ -855,7 +861,8 @@ GameObject:
   - component: {fileID: 1881969826624550953}
   - component: {fileID: 8060194014557954911}
   - component: {fileID: 527604132487960711}
-  m_Layer: 0
+  - component: {fileID: 5301826677041405661}
+  m_Layer: 11
   m_Name: Ramp
   m_TagString: FaceOut
   m_Icon: {fileID: 0}
@@ -935,3 +942,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d621375eadafc4bb7bd4d134d6feab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &5301826677041405661
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5000593773884973614}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4068373912626513877, guid: 4cbec4bf295782b4485b49f64f8e0150, type: 3}
