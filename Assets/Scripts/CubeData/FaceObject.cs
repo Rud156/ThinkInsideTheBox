@@ -30,6 +30,8 @@ public class FaceObject : MonoBehaviour
     public GameObject turnArrow;
     public GameObject wallTile;
     public GameObject water;
+    private GameObject arrow_instantiated;
+    private GameObject water_instantiated;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -282,6 +284,8 @@ public class FaceObject : MonoBehaviour
 
     private void LoadFaceData()
     {
+        
+
         //Load face access related prefabs and data
         if (faceType == TileFunction.Turn)
         {
@@ -292,7 +296,7 @@ public class FaceObject : MonoBehaviour
             up = false;
             down = false;
             //Turn the face into the right angle (opposite of the tile/face)
-            GameObject arrow_instance;
+            GameObject arrow_instance = null;
             if (turnArrow)
             {
                 arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
@@ -300,7 +304,7 @@ public class FaceObject : MonoBehaviour
                 float rotation_y = 90f * (int)turnTo;
                 arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
             }
-
+            arrow_instantiated = arrow_instance;
             GetComponent<MeshRenderer>().enabled = false;
 
 
@@ -352,11 +356,29 @@ public class FaceObject : MonoBehaviour
 
     private void OnValidate()
     {
-        LoadFaceData();
+        //LoadFaceData();
+        if(this.isActiveAndEnabled)
+            StartCoroutine(ClearAddOns());
         //if (applyChange)
         //{
             
         //    applyChange = false;
         //}
+    }
+
+    IEnumerator ClearAddOns()
+    {
+        yield return new WaitForEndOfFrame();
+        if (arrow_instantiated)
+        {
+            DestroyImmediate(arrow_instantiated);
+            arrow_instantiated = null;
+        }
+        if(water_instantiated)
+        {
+            DestroyImmediate(water_instantiated);
+            water_instantiated = null;
+        }
+        LoadFaceData();
     }
 }
