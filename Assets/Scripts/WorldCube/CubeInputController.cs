@@ -89,6 +89,7 @@ namespace WorldCube
 
             if (Dummy.Instance.IsPlayerMoving())
             {
+
                 return;
             }
 
