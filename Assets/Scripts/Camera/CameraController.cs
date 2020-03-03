@@ -40,23 +40,23 @@ namespace CustomCamera
 
         private void Update()
         {
-            if (m_followPlayer)
-            {
-                Vector3 playerPosition = playerTransform.position + playerFollowOffset;
-                if (m_targetPosition != playerPosition)
-                {
-                    m_targetPosition = playerPosition;
-                    m_startPosition = transform.position;
-                    m_lerpPositionAmount = 0;
-                }
-            }
-
-            if (m_lerpPositionAmount < 1)
-            {
-                m_lerpPositionAmount += positionLerpSpeed * Time.deltaTime;
-            }
-
-            transform.position = Vector3.Lerp(m_startPosition, m_targetPosition, positionLerpCurve.Evaluate(m_lerpPositionAmount));
+            // if (m_followPlayer)
+            // {
+            //     Vector3 playerPosition = playerTransform.position + playerFollowOffset;
+            //     if (m_targetPosition != playerPosition)
+            //     {
+            //         m_targetPosition = playerPosition;
+            //         m_startPosition = transform.position;
+            //         m_lerpPositionAmount = 0;
+            //     }
+            // }
+            //
+            // if (m_lerpPositionAmount < 1)
+            // {
+            //     m_lerpPositionAmount += positionLerpSpeed * Time.deltaTime;
+            // }
+            //
+            // transform.position = Vector3.Lerp(m_startPosition, m_targetPosition, positionLerpCurve.Evaluate(m_lerpPositionAmount));
 
             UpdateCameraRotation();
             UpdateCameraLookAt();
@@ -69,14 +69,14 @@ namespace CustomCamera
         public void UpdateCameraRotation(Vector3 rotation)
         {
             float xValue = rotation.x;
-            float yValue = rotation.y;
-            float zValue = rotation.z;
+            float yValue = rotation.z;
+            float zValue = rotation.y;
 
             if (Mathf.Abs(m_targetRotation.x - xValue) > rotationOffsetStart ||
                 Mathf.Abs(m_targetRotation.y - yValue) > rotationOffsetStart ||
                 Mathf.Abs(m_targetRotation.z - zValue) > rotationOffsetStart)
             {
-                m_targetRotation = rotation;
+                m_targetRotation = new Vector3(xValue, yValue, zValue);
                 m_startRotation = transform.rotation.eulerAngles;
                 m_lerpRotationAmount = 0;
             }

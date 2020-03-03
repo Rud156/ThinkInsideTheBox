@@ -174,9 +174,9 @@ namespace WorldCube
                     {
                         string[] rotations = rhs.Split(',');
 
-                        float xValue = int.Parse(rotations[0]);
-                        float yValue = int.Parse(rotations[1]);
-                        float zValue = int.Parse(rotations[2]);
+                        float xValue = float.Parse(rotations[0]);
+                        float yValue = float.Parse(rotations[1]);
+                        float zValue = float.Parse(rotations[2]);
                         m_piDataRotationInput.Enqueue(new Vector3(xValue, yValue, zValue));
                     }
                         break;
