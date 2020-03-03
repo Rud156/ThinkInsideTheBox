@@ -32,7 +32,6 @@ public class FaceObject : MonoBehaviour
     public GameObject turnArrow;
     public GameObject wallTile;
     public GameObject water;
-    public GameObject exit;
     private GameObject arrow_instantiated;
     private GameObject water_instantiated;
     private GameObject exit_instantiated;
