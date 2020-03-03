@@ -22,6 +22,7 @@ public class FaceObject : MonoBehaviour
 {
     [Header("Facet Function")]
     public TileFunction faceType = TileFunction.None;
+    public bool applyChange = false;
 
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
@@ -42,57 +43,7 @@ public class FaceObject : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        #region LoadFaceData
-        if (faceType == TileFunction.Turn)
-        {
-            forward = true;
-            back = true;
-            right = true;
-            left = true;
-            up = false;
-            down = false;
-            //Turn the face into the right angle (opposite of the tile/face)
-            GameObject arrow_instance;
-            if (turnArrow)
-            {
-                arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
-
-                float rotation_y = 90f * (int)turnTo;
-                arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
-            }
-                
-            GetComponent<MeshRenderer>().enabled = false;
-            
-            
-        }
-        else if (faceType == TileFunction.Wall)
-        {
-            forward = true;
-            back = true;
-            right = true;
-            left = true;
-            up = false;
-            down = false;
-            
-
-            //if (wallTile)
-                //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
-        }
-        else if (faceType == TileFunction.None)
-        {
-            forward = true;
-            back = true;
-            right = true;
-            left = true;
-            up = true;
-            down = true;
-            GetComponent<MeshRenderer>().enabled = false;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
-        }
-        #endregion
+        LoadFaceData();
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
@@ -310,5 +261,70 @@ public class FaceObject : MonoBehaviour
     public void SetFaceFunction(TileFunction i_function)
     {
         faceType = i_function;
+    }
+
+    private void LoadFaceData()
+    {
+        if (faceType == TileFunction.Turn)
+        {
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = false;
+            down = false;
+            //Turn the face into the right angle (opposite of the tile/face)
+            GameObject arrow_instance;
+            if (turnArrow)
+            {
+                arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
+
+                float rotation_y = 90f * (int)turnTo;
+                arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+            }
+
+            GetComponent<MeshRenderer>().enabled = false;
+
+
+        }
+        else if (faceType == TileFunction.Wall)
+        {
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = false;
+            down = false;
+
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+            //if (wallTile)
+            //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
+        }
+        else if (faceType == TileFunction.None)
+        {
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = true;
+            down = true;
+            GetComponent<MeshRenderer>().enabled = false;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void OnValidate()
+    {
+        if(applyChange)
+        {
+            LoadFaceData();
+            applyChange = false;
+        }
     }
 }
