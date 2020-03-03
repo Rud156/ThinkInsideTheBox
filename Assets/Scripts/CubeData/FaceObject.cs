@@ -22,7 +22,7 @@ public class FaceObject : MonoBehaviour
 {
     [Header("Facet Function")]
     public TileFunction faceType = TileFunction.None;
-    public bool applyChange = false;
+    //public bool applyChange = false;
 
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
@@ -321,10 +321,11 @@ public class FaceObject : MonoBehaviour
 
     private void OnValidate()
     {
-        if(applyChange)
-        {
-            LoadFaceData();
-            applyChange = false;
-        }
+        LoadFaceData();
+        //if (applyChange)
+        //{
+            
+        //    applyChange = false;
+        //}
     }
 }

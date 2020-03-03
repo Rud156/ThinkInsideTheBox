@@ -110,12 +110,12 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
-  up: 0
-  down: 0
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
+  up: 1
+  down: 1
   faceEvent: 0
 --- !u!1 &1728505467817958321
 GameObject:
@@ -364,6 +364,7 @@ GameObject:
   - component: {fileID: 1728505468225728885}
   - component: {fileID: 1728505468225728882}
   - component: {fileID: 1728505468225728883}
+  - component: {fileID: 706468967264602491}
   m_Layer: 15
   m_Name: Ramp
   m_TagString: Untagged
@@ -471,6 +472,25 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
+--- !u!114 &706468967264602491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728505468225728880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc5e6bb161f610468a8bf0cc059d093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubieType: 0
+  applyChange: 0
+  cubiePrefabs:
+  - {fileID: 8858607642002305562, guid: 1abbf2d10491951499d79a761b13e030, type: 3}
+  - {fileID: 9066527260536388335, guid: 948d06dd2abcc994881333a4df6df19b, type: 3}
+  - {fileID: 8662029429377069122, guid: 85c6eb216e2ffcf45a8f2a025b00edf2, type: 3}
+  - {fileID: 1728505468225728880}
 --- !u!1 &1728505468666781374
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,12 +836,12 @@ MonoBehaviour:
   turnTo: 0
   turnArrow: {fileID: 0}
   wallTile: {fileID: 0}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
-  up: 0
-  down: 0
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
+  up: 1
+  down: 1
   faceEvent: 0
 --- !u!1 &5000593773884973614
 GameObject:
