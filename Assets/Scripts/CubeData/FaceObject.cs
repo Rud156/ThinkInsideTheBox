@@ -24,14 +24,18 @@ public class FaceObject : MonoBehaviour
     [Header("Facet Function")]
     public TileFunction faceType = TileFunction.None;
     //public bool applyChange = false;
+    
 
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
+    public bool showWallFace = true;
     public GameObject turnArrow;
     public GameObject wallTile;
     public GameObject water;
+    public GameObject exit;
     private GameObject arrow_instantiated;
     private GameObject water_instantiated;
+    private GameObject exit_instantiated;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -353,6 +357,7 @@ public class FaceObject : MonoBehaviour
             }
             water_instantiated = water_instance;
         }
+        
     }
 
     private void OnValidate()
@@ -380,7 +385,8 @@ public class FaceObject : MonoBehaviour
             DestroyImmediate(water_instantiated);
             water_instantiated = null;
         }
-        SetGroundVisibility(true);
+        if(showWallFace)
+            SetGroundVisibility(true);
         LoadFaceData();
     }
 

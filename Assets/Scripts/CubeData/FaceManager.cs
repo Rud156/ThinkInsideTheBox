@@ -16,7 +16,7 @@ public enum FaceOrder
 
 public enum CubieType
 {
-    Corner, Edge, Face, Ramp
+    Corner, Edge, Face, Ramp, Exit
 }
 
 [ExecuteAlways]
