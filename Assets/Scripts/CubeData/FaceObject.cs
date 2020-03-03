@@ -401,7 +401,11 @@ public class FaceObject : MonoBehaviour
             water_instantiated = null;
         }
         if(showWallFace)
+        {
             SetGroundVisibility(true);
+            Debug.Log("Show wall faces");
+        }
+            
         LoadFaceData();
     }
 
