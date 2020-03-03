@@ -29,6 +29,7 @@ public class FaceObject : MonoBehaviour
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
     public GameObject turnArrow;
     public GameObject wallTile;
+    public GameObject water;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -281,6 +282,7 @@ public class FaceObject : MonoBehaviour
 
     private void LoadFaceData()
     {
+        //Load face access related prefabs and data
         if (faceType == TileFunction.Turn)
         {
             forward = true;
@@ -331,6 +333,19 @@ public class FaceObject : MonoBehaviour
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(false);
+            }
+        }
+
+        //Load event-related prefabs
+        if(faceEvent==ReachEvent.Water)
+        {
+            GameObject water_instance;
+            if (water)
+            {
+                water_instance = Instantiate(turnArrow, this.transform) as GameObject;
+
+                float rotation_y = 90f * (int)turnTo;
+                water_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
             }
         }
     }
