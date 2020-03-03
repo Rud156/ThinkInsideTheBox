@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
+
 public struct FaceInfo
 {
     FaceObject faceObject;
@@ -54,12 +56,19 @@ public class FaceManager : MonoBehaviour
     private void UpdateCubie()
     {
         GameObject updatedObject = (GameObject)PrefabUtility.InstantiatePrefab(cubiePrefabs[(int)cubieType]);
-        updatedObject.transform.position = this.transform.position;
-        updatedObject.transform.rotation = this.transform.rotation;
-        updatedObject.transform.localScale = this.transform.localScale;
+        if(updatedObject)
+        {
+            updatedObject.transform.position = this.transform.position;
+            updatedObject.transform.rotation = this.transform.rotation;
+            updatedObject.transform.localScale = this.transform.localScale;
 
-        updatedObject.transform.parent = this.transform.parent;
-        StartCoroutine(DestroyOldObject());
+            updatedObject.transform.parent = this.transform.parent;
+            StartCoroutine(DestroyOldObject());
+        }
+        else
+        {
+            throw new Exception("Updating cubie failed");
+        }
     }
 
     IEnumerator DestroyOldObject()
