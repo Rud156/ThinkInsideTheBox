@@ -240,7 +240,7 @@ namespace WorldCube
                         break;
 
                     case BottomStr:
-                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -direction);
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), -direction);
                         break;
 
                     default:
