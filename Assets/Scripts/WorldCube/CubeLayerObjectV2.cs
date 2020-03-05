@@ -7,25 +7,19 @@ namespace WorldCube
     public class CubeLayerObjectV2 : MonoBehaviour
     {
         private const int RotationLocker = 90;
-
         public CubeLayerMaskV2 cubeLayerMask;
         public float collisionRadius = 0.5f;
         public float lerpChangeRate = 1;
         public float lerpEndingAmount = 0.97f;
         public LayerMask layerMask;
         public LayerMask displayShaderLayerMask;
-
-        private List<CubeieDataV2> m_childCubies = new List<CubeieDataV2>();
-
+        private List<CubieObject> m_childCubies = new List<CubieObject>();
         private float m_currentSideRotation;
         private float m_startRotation;
         private int m_targetRotation;
         private float m_lerpAmount;
-
         private int m_tileDistance;
-
         #region External Functions
-
         // Returns whether objects clicked into place or not
         public bool UpdateRotations()
         {
@@ -34,10 +28,8 @@ namespace WorldCube
             {
                 return false;
             }
-
             float lerpAmount = m_lerpAmount + lerpChangeRate * Time.deltaTime;
             m_lerpAmount = lerpAmount;
-
             float updatedSideRotation = Mathf.Lerp(
                 m_startRotation,
                 m_targetRotation,
@@ -46,32 +38,25 @@ namespace WorldCube
             m_currentSideRotation = updatedSideRotation;
             Vector3 currentRotation = GetVectorRotation(m_currentSideRotation);
             transform.rotation = Quaternion.Euler(currentRotation);
-
             if (m_lerpAmount >= lerpEndingAmount && m_targetRotation % RotationLocker == 0)
             {
                 m_currentSideRotation = m_targetRotation;
                 m_startRotation = m_targetRotation;
                 m_lerpAmount = 0;
-
                 Vector3 finalRotation = GetVectorRotation(m_currentSideRotation);
                 transform.rotation = Quaternion.Euler(finalRotation);
-
                 ReleaseChildren();
                 return true;
             }
-
             return false;
         }
-
         public bool CheckAndCreateParent(CubeLayerMaskV2 i_cubeLayerMask, int i_rotationDelta)
         {
             if (i_cubeLayerMask != cubeLayerMask)
             {
                 return false;
             }
-
             int updatedTargetRotation = m_targetRotation + i_rotationDelta;
-
             // Only in this case create and add children
             if (m_currentSideRotation % RotationLocker == 0 && updatedTargetRotation % RotationLocker != 0 &&
                 !HasChildren())
@@ -84,27 +69,19 @@ namespace WorldCube
                     return false;
                 }
             }
-
             m_targetRotation = updatedTargetRotation;
             m_startRotation = m_currentSideRotation;
             m_lerpAmount = 0;
-
             return true;
         }
-
         public void SetTileDistance(int distance) => m_tileDistance = distance;
-
         public bool IsRotating => m_currentSideRotation != m_targetRotation ||
                                   m_targetRotation % RotationLocker != 0;
-
         #endregion
-
         #region Utility Functions
-
         private bool GrabAndValidateChildren()
         {
             m_childCubies.Clear();
-
             for (int i = -m_tileDistance; i <= m_tileDistance; i += m_tileDistance)
             {
                 for (int j = -m_tileDistance; j <= m_tileDistance; j += m_tileDistance)
@@ -130,14 +107,12 @@ namespace WorldCube
                         yValue = j;
                         zValue = 0;
                     }
-
                     Vector3 finalPosition = transform.position + new Vector3(xValue, yValue, zValue);
                     Collider[] other = Physics.OverlapSphere(finalPosition, collisionRadius, layerMask);
-
                     // This basically checks and gets all cubes that lie in the position
-                    List<CubeieDataV2> data = GetColliderCube(other);
+                    List<CubieObject> data = GetColliderCube(other);
                     bool isInvalidData = false;
-                    foreach (CubeieDataV2 cubeieDataV2 in data)
+                    foreach (CubieObject cubeieDataV2 in data)
                     {
                         if (cubeieDataV2.HasParent)
                         {
@@ -145,58 +120,48 @@ namespace WorldCube
                             break;
                         }
                     }
-
                     if (isInvalidData || data.Count < 1)
                     {
                         continue;
                     }
-
                     // Ideally this count should never be more than 2
                     // Add a check probably
-                    foreach (CubeieDataV2 cubeieDataV2 in data)
+                    foreach (CubieObject cubeieDataV2 in data)
                     {
                         cubeieDataV2.SetParent(cubeLayerMask, transform);
                         m_childCubies.Add(cubeieDataV2);
                     }
                 }
             }
-
             if (m_childCubies.Count == 0)
             {
                 Debug.LogError("No Cubies Found");
                 return false;
             }
-
             return true;
         }
-
         private void ReleaseChildren()
         {
             for (int i = 0; i < m_childCubies.Count; i++)
             {
                 m_childCubies[i].ReleaseParent(cubeLayerMask);
             }
-
             m_childCubies.Clear();
         }
-
         private bool HasChildren() => m_childCubies.Count != 0;
-
-        private List<CubeieDataV2> GetColliderCube(Collider[] other)
+        private List<CubieObject> GetColliderCube(Collider[] other)
         {
-            List<CubeieDataV2> cubeData = new List<CubeieDataV2>();
+            List<CubieObject> cubeData = new List<CubieObject>();
             for (int i = 0; i < other.Length; i++)
             {
-                CubeieDataV2 data = other[i].transform.parent.GetComponent<CubeieDataV2>();
+                CubieObject data = other[i].transform.GetComponent<CubieObject>();
                 if (data)
                 {
                     cubeData.Add(data);
                 }
             }
-
             return cubeData;
         }
-
         private Vector3 GetVectorRotation(float rotation)
         {
             return new Vector3(
@@ -205,7 +170,6 @@ namespace WorldCube
                 rotation * cubeLayerMask.Z
             );
         }
-
         #endregion
     }
 }

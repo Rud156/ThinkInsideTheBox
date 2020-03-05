@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using CubeData;
 using CustomCamera;
 using UnityEngine;
 
@@ -203,6 +204,11 @@ namespace WorldCube
 
         private void HandleSocketControlSideUpdate()
         {
+            if (Dummy.Instance.IsPlayerMoving())
+            {
+                return;
+            }
+
             while (m_piDataSideInput.TryDequeue(out PiDataSideInput piDataInput))
             {
                 string sideInput = piDataInput.side;
@@ -255,6 +261,11 @@ namespace WorldCube
 
         private void HandleKeyboardInput()
         {
+            if (Dummy.Instance.IsPlayerMoving())
+            {
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), 1);
