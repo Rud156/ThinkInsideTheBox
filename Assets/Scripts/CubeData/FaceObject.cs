@@ -107,7 +107,7 @@ public class FaceObject : MonoBehaviour
             Debug.Log("Player Won");
 
             int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
-            if (currentBuildIndex + 1 <= SceneManager.sceneCount)
+            if (currentBuildIndex + 1 <= SceneManager.sceneCountInBuildSettings)
                 SceneManager.LoadScene(currentBuildIndex + 1);
             else
                 Debug.Log("This is already the last level");
