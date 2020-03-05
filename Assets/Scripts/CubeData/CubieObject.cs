@@ -33,6 +33,17 @@ namespace CubeData
                 force)
                 Dummy.Instance.tendingDirection = pendingDirection;
 
+            // If can't move to next cubie, change pending direction
+            if (!CanMoveToNextCubie(pendingDirection))
+            {
+                if (pendingDirection != CubeLayerMask.down)
+                {
+                    Dummy.Instance.tendingDirection = -pendingDirection;
+                    return (CubeLayerMask.Zero, true);
+                }
+                pendingDirection = i_direction;
+            }
+
             // 2. Can exit current tile in that direction?
             if (!CanExit(pendingDirection))
             {
@@ -64,6 +75,7 @@ namespace CubeData
                 //Dummy.Instance.tendingDirection = -pendingDirection;
                 //return CubeLayerMask.Zero;
             }
+            
             return (pendingDirection, force);
             //return keepDirection ? i_direction : exitDirection;
         }
