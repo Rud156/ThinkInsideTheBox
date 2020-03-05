@@ -222,7 +222,7 @@ namespace WorldCube
                         break;
 
                     case BackStr:
-                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -direction);
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -direction);
                         break;
 
                     case TopStr:

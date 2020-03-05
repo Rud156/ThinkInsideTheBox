@@ -68,7 +68,7 @@ namespace CustomCamera
 
         public void UpdateCameraRotation(Vector3 rotation)
         {
-            float xValue = rotation.x;
+            float xValue = -rotation.x;
             float yValue = rotation.z;
             float zValue = rotation.y;
 
