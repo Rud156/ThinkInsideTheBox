@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System;
 
 public struct FaceInfo
@@ -55,6 +57,7 @@ public class FaceManager : MonoBehaviour
 
     private void UpdateCubie()
     {
+#if UNITY_EDITOR
         GameObject updatedObject = (GameObject)PrefabUtility.InstantiatePrefab(cubiePrefabs[(int)cubieType]);
         if(updatedObject)
         {
@@ -69,6 +72,8 @@ public class FaceManager : MonoBehaviour
         {
             throw new Exception("Updating cubie failed");
         }
+
+#endif
     }
 
     IEnumerator DestroyOldObject()

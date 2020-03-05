@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using CubeData;
 using CustomCamera;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace WorldCube
 {
@@ -48,6 +49,8 @@ namespace WorldCube
             {
                 ConnectSocket();
             }
+
+            SceneManager.sceneUnloaded += HandleSceneUnload;
         }
 
         private void OnApplicationQuit()
@@ -317,6 +320,15 @@ namespace WorldCube
         }
 
         #endregion
+
+        private void HandleSceneUnload(Scene current)
+        {
+            if (m_socketClient != null)
+            {
+                m_socketClient.Shutdown(SocketShutdown.Both);
+                m_socketClient.Close();
+            }
+        }
 
         #endregion
 
