@@ -113,10 +113,11 @@ MonoBehaviour:
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
     type: 3}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
+  water: {fileID: 0}
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
   up: 0
   down: 0
   faceEvent: 0
@@ -233,12 +234,13 @@ MonoBehaviour:
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
     type: 3}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
-  up: 0
-  down: 0
+  water: {fileID: 0}
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
+  up: 1
+  down: 1
   faceEvent: 0
 --- !u!1 &1728505468223642925
 GameObject:
@@ -353,10 +355,11 @@ MonoBehaviour:
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
     type: 3}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
+  water: {fileID: 0}
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
   up: 0
   down: 0
   faceEvent: 0
@@ -593,10 +596,11 @@ MonoBehaviour:
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
     type: 3}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
+  water: {fileID: 0}
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
   up: 0
   down: 0
   faceEvent: 0
@@ -713,10 +717,11 @@ MonoBehaviour:
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
     type: 3}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
+  water: {fileID: 0}
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
   up: 0
   down: 0
   faceEvent: 0
@@ -833,12 +838,13 @@ MonoBehaviour:
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
     type: 3}
-  forward: 0
-  back: 0
-  right: 0
-  left: 0
-  up: 0
-  down: 0
+  water: {fileID: 0}
+  forward: 1
+  back: 1
+  right: 1
+  left: 1
+  up: 1
+  down: 1
   faceEvent: 0
 --- !u!1001 &1131379856323672056
 PrefabInstance:
@@ -942,6 +948,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass Ground Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1031,6 +1042,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grass Ground Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 424368db5fd36b549a461e32a73fd8fc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 424368db5fd36b549a461e32a73fd8fc,
         type: 3}

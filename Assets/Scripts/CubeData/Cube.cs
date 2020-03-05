@@ -321,9 +321,9 @@ namespace CubeData
         {
             if (!CubeLayerMask.IsValid((int)i_dir.x, (int)i_dir.y, (int)i_dir.z))
                 throw new Exception("Invalid CubeLayerMask");
-            this.x = (int)i_dir.x;
-            this.y = (int)i_dir.y;
-            this.z = (int)i_dir.z;
+            this.x = Mathf.RoundToInt(i_dir.x);
+            this.y = Mathf.RoundToInt(i_dir.y);
+            this.z = Mathf.RoundToInt(i_dir.z);
         }
 
         public Vector3 ToVector3()

@@ -6,11 +6,14 @@ public class InventorySystem : MonoBehaviour
 {
     public Canvas GUI;
 
-    [Header("Box Collectible")] public int boxCount;
-    public int maxBoxCount;
+    [Header("Apple Collectible")] public int appleCount;
+    public int maxAppleCount;
 
-    [Header("Circle Collectible")] public int circleCount;
-    public int maxCircleCount;
+    [Header("Banana Collectible")] public int bananaCount;
+    public int maxBananaCount;
+
+    [Header("Cherry Collectible")] public int cherryCount;
+    public int maxCherryCount;
 
     private bool _winnable;
 
@@ -50,15 +53,16 @@ public class InventorySystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        boxCount = 0;
-        maxBoxCount = 3;
+        appleCount = 0;
+        bananaCount = 0;
+        cherryCount = 0;
         _winnable = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (boxCount == maxBoxCount)
+        if (appleCount == maxAppleCount)
             _winnable = true;
     }
 
@@ -80,26 +84,39 @@ public class InventorySystem : MonoBehaviour
 
     public void MarkCollected(GameObject ToCollect)
     {
-        if (ToCollect.gameObject.CompareTag(TagManager.BoxCollectible))
+        if (ToCollect.gameObject.CompareTag(TagManager.AppleCollectible))
         {
             foreach (Transform child in GUI.transform)
             {
-                if (boxCount < maxBoxCount && !child.gameObject.CompareTag(TagManager.Collected))
+                if (appleCount < maxAppleCount && !child.gameObject.CompareTag(TagManager.Collected))
                 {
-                    boxCount++;
+                    appleCount++;
                     child.gameObject.tag = TagManager.Collected;
                     ShowCollected();
                     break;
                 }
             }
         }
-        else
+        else if(ToCollect.gameObject.CompareTag(TagManager.BananaCollectible))
         {
             foreach (Transform child in GUI.transform)
             {
-                if (circleCount < maxCircleCount && !child.gameObject.CompareTag(TagManager.Collected))
+                if (bananaCount < maxBananaCount && !child.gameObject.CompareTag(TagManager.Collected))
                 {
-                    circleCount++;
+                    bananaCount++;
+                    child.gameObject.tag = TagManager.Collected;
+                    ShowCollected();
+                    break;
+                }
+            }
+        }
+        else if (ToCollect.gameObject.CompareTag(TagManager.CherryCollectible))
+        {
+            foreach (Transform child in GUI.transform)
+            {
+                if (cherryCount < maxCherryCount && !child.gameObject.CompareTag(TagManager.Collected))
+                {
+                    cherryCount++;
                     child.gameObject.tag = TagManager.Collected;
                     ShowCollected();
                     break;

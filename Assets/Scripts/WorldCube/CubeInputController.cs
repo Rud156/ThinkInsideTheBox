@@ -155,6 +155,7 @@ namespace WorldCube
             string normalizedText = Regex.Replace(i_input, m_testPingRegex, "");
             if (string.IsNullOrEmpty(normalizedText) || string.IsNullOrWhiteSpace(normalizedText))
             {
+
                 return;
             }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using CubeData;
 using UnityEngine;
 public enum TileFunction
@@ -17,16 +18,23 @@ public enum ReachEvent
 {
     None, Water, Exit
 }
-
+[ExecuteAlways]
 public class FaceObject : MonoBehaviour
 {
     [Header("Facet Function")]
     public TileFunction faceType = TileFunction.None;
+    //public bool applyChange = false;
+    
 
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
+    public bool showWallFace = true;
     public GameObject turnArrow;
     public GameObject wallTile;
+    public GameObject water;
+    private GameObject arrow_instantiated;
+    private GameObject water_instantiated;
+    private GameObject exit_instantiated;
 
     //  Mark the accessable directions starting from this tile object.
     [Header("Custom Access")]
@@ -39,60 +47,12 @@ public class FaceObject : MonoBehaviour
 
     [Header("EventAfterReaching")]
     public ReachEvent faceEvent;
-    // Start is called before the first frame update
+
+    private GameObject instantiated_arrow;
+    
     private void Awake()
     {
-        #region LoadFaceData
-        if (faceType == TileFunction.Turn)
-        {
-            forward = true;
-            back = true;
-            right = true;
-            left = true;
-            up = false;
-            down = false;
-            //Turn the face into the right angle (opposite of the tile/face)
-            GameObject arrow_instance;
-            if (turnArrow)
-            {
-                arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
-
-                float rotation_y = 90f * (int)turnTo;
-                arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
-            }
-                
-            GetComponent<MeshRenderer>().enabled = false;
-            
-            
-        }
-        else if (faceType == TileFunction.Wall)
-        {
-            forward = true;
-            back = true;
-            right = true;
-            left = true;
-            up = false;
-            down = false;
-            
-
-            //if (wallTile)
-                //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
-        }
-        else if (faceType == TileFunction.None)
-        {
-            forward = true;
-            back = true;
-            right = true;
-            left = true;
-            up = true;
-            down = true;
-            GetComponent<MeshRenderer>().enabled = false;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
-        }
-        #endregion
+        LoadFaceData();
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
@@ -137,12 +97,28 @@ public class FaceObject : MonoBehaviour
     public void OnPlayerEnter(Dummy dummy)
     {
         //throw new NotImplementedException();
+        if(faceEvent == ReachEvent.Water)
+        {
+            Debug.Log("Player Died. Reloading the scene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else if (faceEvent == ReachEvent.Exit)
+        {
+            Debug.Log("Player Won");
+
+            int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+            if (currentBuildIndex + 1 <= SceneManager.sceneCount)
+                SceneManager.LoadScene(currentBuildIndex + 1);
+            else
+                Debug.Log("This is already the last level");
+        }
     }
 
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
     {
         Vector3 moveDir = i_direction.ToVector3();
-        Vector3 playerDir = GetPlayerRelativeDir(moveDir); //mark the direction of the player relative to this tile
+        Vector3 playerDir = GetPlayerRelativeDir(new CubeLayerMask(moveDir*-1)); //mark the direction of the player relative to this tile
+
         if (AccessAvailable(playerDir))
         {
             if (faceType == TileFunction.Ramp)
@@ -263,7 +239,7 @@ public class FaceObject : MonoBehaviour
             return 1;
         else if (i_dir.z != 0)
             return 2;
-
+        Debug.Log(i_dir);
         Debug.LogError("Condition broken");
         return -1;
     }
@@ -287,8 +263,156 @@ public class FaceObject : MonoBehaviour
         return Vector3.zero;
     }
 
+    private Vector3 GetPlayerRelativeDir(CubeLayerMask i_direction)
+    {
+        if (i_direction == new CubeLayerMask(this.transform.forward))
+            return new Vector3(0, 0, 1);
+        else if (i_direction == new CubeLayerMask(-this.transform.forward))
+            return new Vector3(0, 0, -1);
+        else if (i_direction == new CubeLayerMask(this.transform.right))
+            return new Vector3(1, 0, 0);
+        else if (i_direction == new CubeLayerMask(-this.transform.right))
+            return new Vector3(-1, 0, 0);
+        else if (i_direction == new CubeLayerMask(this.transform.up))
+            return new Vector3(0, 1, 0);
+        else if (i_direction == new CubeLayerMask(-this.transform.up))
+            return new Vector3(0, -1, 0);
+
+        Debug.LogError("Not valid direction input");
+        return Vector3.zero;
+    }
+
     public void SetFaceFunction(TileFunction i_function)
     {
         faceType = i_function;
+    }
+
+    private void LoadFaceData()
+    {
+        
+
+        //Load face access related prefabs and data
+        if (faceType == TileFunction.Turn)
+        {
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = false;
+            down = false;
+            //Turn the face into the right angle (opposite of the tile/face)
+            GameObject arrow_instance = null;
+            if (turnArrow)
+            {
+                float rotation_y = 90f * (int)turnTo;
+                arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
+
+                arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                instantiated_arrow = arrow_instance;
+                //if (!instantiated_arrow)
+                //{
+                //    arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
+
+                //    arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                //    instantiated_arrow = arrow_instance;
+                //} 
+                //else
+                //{
+                //    instantiated_arrow.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
+                //}
+
+            }
+            arrow_instantiated = arrow_instance;
+            //GetComponent<MeshRenderer>().enabled = false;
+            SetGroundVisibility(false);
+
+        }
+        else if (faceType == TileFunction.Wall)
+        {
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = false;
+            down = false;
+
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+            //if (wallTile)
+            //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
+        }
+        else if (faceType == TileFunction.None)
+        {
+            forward = true;
+            back = true;
+            right = true;
+            left = true;
+            up = true;
+            down = true;
+            GetComponent<MeshRenderer>().enabled = false;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        //Load event-related prefabs
+        if(faceEvent==ReachEvent.Water)
+        {
+            GameObject water_instance = null;
+            if (water)
+            {
+                water_instance = Instantiate(water, this.transform) as GameObject;
+                SetGroundVisibility(false);
+                //float rotation_y = 90f * (int)turnTo;
+                water_instance.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
+            }
+            water_instantiated = water_instance;
+        }
+        
+    }
+
+    private void OnValidate()
+    {
+        //LoadFaceData();
+        if(this.isActiveAndEnabled)
+            StartCoroutine(ClearAddOns());
+        //if (applyChange)
+        //{
+        
+        //    applyChange = false;
+        //}
+    }
+
+    IEnumerator ClearAddOns()
+    {
+        yield return null;//new WaitForEndOfFrame();
+        
+        if (transform.Find("Move_Sign(Clone)"))
+        {
+            DestroyImmediate(arrow_instantiated);
+            arrow_instantiated = null;
+        }
+        if(water_instantiated)
+        {
+            DestroyImmediate(water_instantiated);
+            water_instantiated = null;
+        }
+        if(showWallFace)
+        {
+            SetGroundVisibility(true);
+            Debug.Log("Show wall faces");
+        }
+            
+        LoadFaceData();
+    }
+
+    private void SetGroundVisibility(bool i_visible)
+    {
+        Transform ground_face = this.transform.Find("Grass Ground Variant");
+        if (ground_face)
+            ground_face.GetComponent<MeshRenderer>().enabled = i_visible;
     }
 }

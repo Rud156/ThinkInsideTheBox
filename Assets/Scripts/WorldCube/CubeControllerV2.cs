@@ -79,12 +79,12 @@ namespace WorldCube
                         if (clickedInPlace)
                         {
                             OnWorldClicked?.Invoke();
-
-                            UpdatePlayerMovementState();
-                            //m_playerGridController.ResetPlayerGravityState();
+                                //m_playerGridController.ResetPlayerGravityState();
+                            Dummy.Instance.RotateTendingDirection();
                             Dummy.Instance.MoveToCubie(Dummy.Instance.tendingDirection);
                             audioController.PlaySound(AudioController.AudioEnum.GearClick);
                         }
+                        UpdatePlayerMovementState();
                     }
                 }
                     break;
@@ -166,7 +166,6 @@ namespace WorldCube
                     break;
                 }
             }
-
             //if (isMovementAllowed)
             //{
             //    m_playerGridController.AllowPlayerMovement();

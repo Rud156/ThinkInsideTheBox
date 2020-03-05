@@ -50,12 +50,12 @@ namespace CubeData
             {
                 if (!nextCubie.CanEnter(pendingDirection))
                 {
-                    if (!force)
+                    if (pendingDirection != CubeLayerMask.down)
                     {
                         Dummy.Instance.tendingDirection = -pendingDirection;
                         return (CubeLayerMask.Zero, true);
                     }
-                    return (CubeLayerMask.Zero, !force);
+                    return (i_direction, !force);
                 }
             }
             else
@@ -71,6 +71,11 @@ namespace CubeData
         public void OnPlayerEnter(Dummy dummy)
         {
             GetPlanimetricTile(CubeLayerMask.down).OnPlayerEnter(dummy);
+        }
+
+        public bool CanMoveToNextCubie(CubeLayerMask i_direction)
+        {
+            return CanExit(i_direction) && GetNextCubie(i_direction).CanEnter(i_direction);
         }
 
         // Entering a cubie doesn't change the moving direction
