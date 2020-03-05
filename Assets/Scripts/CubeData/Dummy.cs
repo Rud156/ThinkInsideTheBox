@@ -37,6 +37,7 @@ namespace CubeData{
         #endregion
 
         public bool IsPlayerMoving() => m_playerState == PlayerState.Moving;
+        public bool IsPlayerStuck() => m_playerState == PlayerState.Stuck;
 
         public void PreventPlayerMovement() => m_playerState = PlayerState.Suspending;
         public void AllowPlayerMovement()

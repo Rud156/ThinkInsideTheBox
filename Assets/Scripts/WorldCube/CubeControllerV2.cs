@@ -81,7 +81,8 @@ namespace WorldCube
                             OnWorldClicked?.Invoke();
                                 //m_playerGridController.ResetPlayerGravityState();
                             Dummy.Instance.RotateTendingDirection();
-                            StartCoroutine(Dummy.Instance.MoveToCubie(Dummy.Instance.tendingDirection));
+                            if (Dummy.Instance.IsPlayerStuck())
+                                StartCoroutine(Dummy.Instance.MoveToCubie(Dummy.Instance.tendingDirection));
                             audioController.PlaySound(AudioController.AudioEnum.GearClick);
                         }
                         UpdatePlayerMovementState();
