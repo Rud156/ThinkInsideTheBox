@@ -111,6 +111,7 @@ namespace WorldCube
             }
             catch (Exception e)
             {
+                m_socketClient = null;
                 Debug.LogError(e.Message);
             }
         }
