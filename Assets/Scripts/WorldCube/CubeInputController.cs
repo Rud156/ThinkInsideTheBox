@@ -53,20 +53,28 @@ namespace WorldCube
             SceneManager.sceneUnloaded += HandleSceneUnload;
         }
 
-        private void OnApplicationQuit()
-        {
-            if (m_socketClient != null)
-            {
-                m_socketClient.Shutdown(SocketShutdown.Both);
-                m_socketClient.Close();
-            }
-        }
+        private void OnApplicationQuit() => CloseSocketConnection();
 
         private void Update()
         {
             HandleKeyboardInput();
             HandleSocketControlSideUpdate();
             HandleSocketControlRotationUpdate();
+        }
+
+        #endregion
+
+        #region External Functions
+
+        public void CloseSocketConnection()
+        {
+            if (m_socketClient != null)
+            {
+                m_socketClient.Shutdown(SocketShutdown.Both);
+                m_socketClient.Close();
+
+                m_socketClient = null;
+            }
         }
 
         #endregion
@@ -193,7 +201,7 @@ namespace WorldCube
                             return;
                         }
 
-                            bool parseSuccess = int.TryParse(rhs, out int direction);
+                        bool parseSuccess = int.TryParse(rhs, out int direction);
                         if (!parseSuccess)
                         {
                             return;
@@ -326,12 +334,26 @@ namespace WorldCube
 
         #endregion
 
-        private void HandleSceneUnload(Scene current)
+        private void HandleSceneUnload(Scene current) => CloseSocketConnection();
+
+        #endregion
+
+        #region Singleton
+
+        private static CubeInputController _instance;
+
+        public static CubeInputController Instance => _instance;
+
+        private void Awake()
         {
-            if (m_socketClient != null)
+            if(_instance == null)
             {
-                m_socketClient.Shutdown(SocketShutdown.Both);
-                m_socketClient.Close();
+                _instance = this;
+            }
+
+            if(_instance != this)
+            {
+                Destroy(gameObject);
             }
         }
 

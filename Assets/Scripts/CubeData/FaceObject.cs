@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CubeData;
+using WorldCube;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-using CubeData;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public enum TileFunction
 {
     Turn, Ramp, Wall, Custom, None
@@ -100,6 +100,7 @@ public class FaceObject : MonoBehaviour
         if(faceEvent == ReachEvent.Water)
         {
             Debug.Log("Player Died. Reloading the scene");
+            CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else if (faceEvent == ReachEvent.Exit)
@@ -108,7 +109,10 @@ public class FaceObject : MonoBehaviour
 
             int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
             if (currentBuildIndex + 1 <= SceneManager.sceneCountInBuildSettings)
+            {
+                CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
                 SceneManager.LoadScene(currentBuildIndex + 1);
+            }
             else
                 Debug.Log("This is already the last level");
         }
