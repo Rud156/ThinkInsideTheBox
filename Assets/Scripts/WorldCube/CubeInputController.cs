@@ -188,7 +188,12 @@ namespace WorldCube
 
                     default:
                     {
-                        bool parseSuccess = int.TryParse(rhs, out int direction);
+                        if (Dummy.Instance.IsPlayerMoving())
+                        {
+                            return;
+                        }
+
+                            bool parseSuccess = int.TryParse(rhs, out int direction);
                         if (!parseSuccess)
                         {
                             return;
