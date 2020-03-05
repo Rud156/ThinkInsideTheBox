@@ -18,6 +18,7 @@ namespace CubeData{
         private Vector3 m_destination;
         private float tolerance = 0.1f;
         private PlayerState m_playerState = PlayerState.Stuck;
+        private bool m_stopped = false;
         private float m_MoveSpeed = 1f;
 
         #region Singleton
@@ -37,9 +38,12 @@ namespace CubeData{
         #endregion
 
         public bool IsPlayerMoving() => m_playerState == PlayerState.Moving;
-        public bool IsPlayerStuck() => m_playerState == PlayerState.Stuck;
+        public bool IsPlayerStuck() => m_stopped;
 
-        public void PreventPlayerMovement() => m_playerState = PlayerState.Suspending;
+        public void PreventPlayerMovement()
+        {
+            m_playerState = PlayerState.Suspending;
+        }
         public void AllowPlayerMovement()
         {
             if (m_playerState == PlayerState.Moving) return;
@@ -86,7 +90,8 @@ namespace CubeData{
                     !GetCurrentCubie().CanMoveToNextCubie(-tendingDirection)))
                 {
                     Debug.Log("Stop");
-                    SetProjectionPosition(i_direction);
+                    SetProjectionPosition(pendingDirection);
+                    m_stopped = true;
                     m_playerState = PlayerState.Stuck;
                     yield break;
                 }
@@ -107,6 +112,7 @@ namespace CubeData{
                     yield return null;
                 }
             }
+            m_stopped = false;
             SetPlayerPosition(m_destination, pendingDirection);
             GetCurrentCubie().OnPlayerEnter(this);
             Debug.Log("Reach destination");
@@ -140,7 +146,7 @@ namespace CubeData{
             {
                 Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2;
                 if (i_PendingDir.y == 0)
-                    Projection.transform.localRotation = Quaternion.identity;
+                    Projection.transform.rotation = Quaternion.identity;
             }
         }
 
