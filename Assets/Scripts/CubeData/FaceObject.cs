@@ -381,15 +381,16 @@ public class FaceObject : MonoBehaviour
             StartCoroutine(ClearAddOns());
         //if (applyChange)
         //{
-            
+        
         //    applyChange = false;
         //}
     }
 
     IEnumerator ClearAddOns()
     {
-        yield return new WaitForEndOfFrame();
-        if (arrow_instantiated)
+        yield return null;//new WaitForEndOfFrame();
+        
+        if (transform.Find("Move_Sign(Clone)"))
         {
             DestroyImmediate(arrow_instantiated);
             arrow_instantiated = null;

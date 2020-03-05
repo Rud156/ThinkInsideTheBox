@@ -73,7 +73,7 @@ public class FaceManager : MonoBehaviour
 
     IEnumerator DestroyOldObject()
     {
-        yield return new WaitForEndOfFrame();
+        yield return null;//new WaitForEndOfFrame();
         DestroyImmediate(this.gameObject);
     }
 }
