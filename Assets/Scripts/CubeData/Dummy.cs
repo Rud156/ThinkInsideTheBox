@@ -85,6 +85,7 @@ namespace CubeData{
                     !GetCurrentCubie().CanMoveToNextCubie(-tendingDirection)))
                 {
                     Debug.Log("Stop");
+                    SetProjectionPosition(i_direction);
                     m_playerState = PlayerState.Stuck;
                     yield break;
                 }
@@ -124,9 +125,9 @@ namespace CubeData{
             return GetCurrentCubie().GetPlanimetricTile(gravityDirection).GetMoveDirection(gravityDirection) == gravityDirection;
         }
 
-        private void SetPlayerPosition(Vector3 i_Position, CubeLayerMask i_PendingDir)
+        private void SetProjectionPosition(CubeLayerMask i_PendingDir)
         {
-            transform.position = i_Position; RaycastHit hit;
+            RaycastHit hit;
             if (Physics.Linecast(transform.position - gravityDirection.ToVector3() * 1.1f, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH,
                 out hit, WalkableLayer))
             {
@@ -140,6 +141,12 @@ namespace CubeData{
                 if (i_PendingDir.y == 0)
                     Projection.transform.localRotation = Quaternion.identity;
             }
+        }
+
+        private void SetPlayerPosition(Vector3 i_Position, CubeLayerMask i_PendingDir)
+        {
+            transform.position = i_Position;
+            SetProjectionPosition(i_PendingDir);
         }
 
         public Vector3 GetNextPosition(CubeLayerMask i_direction)
