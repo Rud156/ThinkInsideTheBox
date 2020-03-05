@@ -1,162 +1,251 @@
 ﻿using System;
-using System.IO.Ports;
-using Player;
+using System.Collections.Concurrent;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Text.RegularExpressions;
+using CustomCamera;
 using UnityEngine;
-using Utils;
-using CubeData;
 
 namespace WorldCube
 {
     [RequireComponent(typeof(CubeControllerV2))]
     public class CubeInputController : MonoBehaviour
     {
-        [Header("Arduino")] public int readTimeout = 7;
-        public bool useForcedPort = false;
-        public string portString = "COM3";
-        public bool disableSerialPort;
+        private const string RotationStr = "Rotation";
+        private const string LeftStr = "Left";
+        private const string RightStr = "Right";
+        private const string TopStr = "Top";
+        private const string BottomStr = "Bottom";
+        private const string FrontStr = "Front";
+        private const string BackStr = "Back";
 
-        //private PlayerGridController m_playerGridController;
+        [Header("Camera")] public CameraController cameraController;
+
+        [Header("Web Sockets")] public string ip;
+        public int port;
+        public bool disableSocket;
+
+        // Sockets
+        private string m_testPingRegex = @"Close";
+        private Regex m_captureRegex = new Regex(@"\|(.*?)\|", RegexOptions.Compiled);
+        private Socket m_socketClient;
+        private ConcurrentQueue<PiDataSideInput> m_piDataSideInput;
+        private ConcurrentQueue<Vector3> m_piDataRotationInput;
+
         private CubeControllerV2 m_cubeController;
-        private SerialPort m_serialPort;
 
         #region Unity Functions
 
         private void Start()
         {
-            //m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
-            //    .GetComponent<PlayerGridController>();
             m_cubeController = GetComponent<CubeControllerV2>();
+            m_piDataSideInput = new ConcurrentQueue<PiDataSideInput>();
+            m_piDataRotationInput = new ConcurrentQueue<Vector3>();
 
-            string[] ports = SerialPort.GetPortNames();
-            string portName;
-            if (disableSerialPort)
+            if (!disableSocket)
             {
-                portName = portString;
-            }
-            else
-            {
-                portName = ports[0]; // Will be switching to Arduino
-                // May not be required as PI4 might be used
-            }
-
-            if (useForcedPort)
-            {
-                portName = portString;
-            }
-
-            Debug.Log($"Target Port: {portName}");
-
-            m_serialPort = new SerialPort(portName, 9600);
-            m_serialPort.ReadTimeout = readTimeout;
-            if (!m_serialPort.IsOpen)
-            {
-                if (!disableSerialPort)
-                {
-                    m_serialPort.Open();
-                }
-
-                Debug.Log("Port is Closed. Opening");
+                ConnectSocket();
             }
         }
 
         private void OnApplicationQuit()
         {
-            if (m_serialPort != null)
+            if (m_socketClient != null)
             {
-                m_serialPort.Close();
+                m_socketClient.Shutdown(SocketShutdown.Both);
+                m_socketClient.Close();
             }
         }
 
         private void Update()
         {
-            ReadArduinoInput();
             HandleKeyboardInput();
+            HandleSocketControlSideUpdate();
+            HandleSocketControlRotationUpdate();
         }
 
         #endregion
 
         #region Utility Functions
 
-        #region Arduino
+        #region Sockets
 
-        private void ReadArduinoInput()
+        private void ConnectSocket()
         {
-            //if (m_playerGridController.IsPlayerMoving())
-            //{
-            //    // Don't allow the cube to move when the player is moving and vice versa
-            //    return;
-            //}
+            try
+            {
+                IPAddress[] ipAddress = Dns.GetHostAddresses(ip);
+                IPEndPoint localEndPoint = new IPEndPoint(ipAddress[0], port);
 
-            if (Dummy.Instance.IsPlayerMoving())
+                m_socketClient = new Socket(ipAddress[0].AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                m_socketClient.BeginConnect(localEndPoint, new AsyncCallback(HandleSocketConnect), m_socketClient);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+
+        private void HandleSocketConnect(IAsyncResult i_ar)
+        {
+            try
+            {
+                Socket client = (Socket) i_ar.AsyncState;
+                client.EndConnect(i_ar);
+                Debug.Log($"Connected To: {client.RemoteEndPoint}");
+
+                Receive(m_socketClient);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+
+        private void Receive(Socket i_client)
+        {
+            try
+            {
+                // Create the socketState object.  
+                SocketStateObject socketState = new SocketStateObject();
+                socketState.workSocket = i_client;
+
+                // Begin receiving the data from the remote device.  
+                i_client.BeginReceive(socketState.buffer, 0, SocketStateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), socketState);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private void ReceiveCallback(IAsyncResult ar)
+        {
+            try
+            {
+                // Retrieve the socketState object and the m_socketClient socket   
+                // from the asynchronous socketState object.  
+                SocketStateObject socketState = (SocketStateObject) ar.AsyncState;
+                Socket client = socketState.workSocket;
+
+                // Read data from the remote device.  
+                int bytesRead = client.EndReceive(ar);
+                socketState.sb.Append(Encoding.ASCII.GetString(socketState.buffer, 0, bytesRead));
+
+                // All the data has arrived; put it in response.  
+                if (socketState.sb.Length > 1)
+                {
+                    string response = socketState.sb.ToString();
+                    socketState.sb.Clear();
+
+                    HandleSocketData(response);
+                }
+
+                client.BeginReceive(socketState.buffer, 0, SocketStateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), socketState);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private void HandleSocketData(string i_input)
+        {
+            string normalizedText = Regex.Replace(i_input, m_testPingRegex, "");
+            if (string.IsNullOrEmpty(normalizedText) || string.IsNullOrWhiteSpace(normalizedText))
             {
 
                 return;
             }
 
-            try
+            MatchCollection matches = m_captureRegex.Matches(normalizedText);
+
+            foreach (Match match in matches)
             {
-                string input = m_serialPort.ReadLine();
-                Debug.Log(input);
+                string value = match.Groups[1].Value;
 
-                string[] splitInput = input.Split(':');
-                string sideInput = splitInput[0];
-                string directionString = splitInput[1];
+                string[] splitInput = value.Split(':');
+                string lhs = splitInput[0];
+                string rhs = splitInput[1];
 
-                switch (input)
+                switch (lhs)
                 {
-                    case "Left":
-                    case "Right":
-                    case "Front":
-                    case "Back":
-                    case "Top":
-                        sideInput = input;
+                    case RotationStr:
+                    {
+                        string[] rotations = rhs.Split(',');
+
+                        float xValue = float.Parse(rotations[0]);
+                        float yValue = float.Parse(rotations[1]);
+                        float zValue = float.Parse(rotations[2]);
+                        m_piDataRotationInput.Enqueue(new Vector3(xValue, yValue, zValue));
+                    }
                         break;
 
                     default:
                     {
-                        bool parseSuccess = int.TryParse(directionString, out int direction);
+                        bool parseSuccess = int.TryParse(rhs, out int direction);
                         if (!parseSuccess)
                         {
                             return;
                         }
 
-                        switch (sideInput)
+                        m_piDataSideInput.Enqueue(new PiDataSideInput()
                         {
-                            case "Left":
-                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), direction);
-                                break;
-
-                            case "Right":
-                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -direction);
-                                break;
-
-                            case "Front":
-                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
-                                break;
-
-                            case "Back":
-                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -direction);
-                                break;
-
-                            case "Top":
-                                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
-                                break;
-
-                            default:
-                                Debug.Log("Invalid Input Sent");
-                                break;
-                        }
+                            side = lhs,
+                            direction = direction
+                        });
                     }
                         break;
                 }
             }
-            catch (TimeoutException)
+        }
+
+        private void HandleSocketControlSideUpdate()
+        {
+            while (m_piDataSideInput.TryDequeue(out PiDataSideInput piDataInput))
             {
-                // Don't do anything. This is not required as there is no input
+                string sideInput = piDataInput.side;
+                int direction = piDataInput.direction;
+
+                switch (sideInput)
+                {
+                    case LeftStr:
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), direction);
+                        break;
+
+                    case RightStr:
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -direction);
+                        break;
+
+                    case FrontStr:
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), direction);
+                        break;
+
+                    case BackStr:
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -direction);
+                        break;
+
+                    case TopStr:
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), direction);
+                        break;
+
+                    case BottomStr:
+                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -direction);
+                        break;
+
+                    default:
+                        // Don't do anything here...
+                        break;
+                }
             }
-            catch (InvalidOperationException)
+        }
+
+        private void HandleSocketControlRotationUpdate()
+        {
+            while (m_piDataRotationInput.TryDequeue(out Vector3 rotation))
             {
-                // Don't do anything. This is not required as there is nothing connected
+                cameraController.UpdateCameraRotation(rotation);
             }
         }
 
@@ -166,17 +255,6 @@ namespace WorldCube
 
         private void HandleKeyboardInput()
         {
-            //if (m_playerGridController.IsPlayerMoving())
-            //{
-            //    // Don't allow the cube to move when the player is moving and vice versa
-            //    return;
-            //}
-
-            if (Dummy.Instance.IsPlayerMoving())
-            {
-                return;
-            }
-
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), 1);
@@ -228,6 +306,31 @@ namespace WorldCube
         }
 
         #endregion
+
+        #endregion
+
+        #region Structs
+
+        private struct PiDataSideInput
+        {
+            public int direction;
+            public string side;
+        }
+
+        private class SocketStateObject
+        {
+            // Client socket.  
+            public Socket workSocket = null;
+
+            // Size of receive buffer.  
+            public const int BufferSize = 256;
+
+            // Receive buffer.  
+            public byte[] buffer = new byte[BufferSize];
+
+            // Received data string.  
+            public StringBuilder sb = new StringBuilder();
+        }
 
         #endregion
     }

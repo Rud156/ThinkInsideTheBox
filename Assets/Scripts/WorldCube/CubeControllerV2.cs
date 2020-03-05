@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Audio;
-using Camera;
+using CustomCamera;
 using Player;
 using UnityEngine;
 using Utils;

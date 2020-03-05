@@ -13,7 +13,13 @@ public class ForwardVector : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
-            Debug.Log(transform.forward);
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            float xPos = Mathf.Sin(transform.eulerAngles.y * Mathf.Deg2Rad) * Mathf.Cos(transform.eulerAngles.x * Mathf.Deg2Rad);
+            float yPos = Mathf.Sin(-transform.eulerAngles.x * Mathf.Deg2Rad);
+            float zPos = Mathf.Cos(transform.eulerAngles.x * Mathf.Deg2Rad) * Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad);
+
+            print(xPos + ", " + yPos + ", " + zPos + ", " + transform.forward);
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Camera
+namespace CustomCamera
 {
     public class CameraShakeData : MonoBehaviour
     {
