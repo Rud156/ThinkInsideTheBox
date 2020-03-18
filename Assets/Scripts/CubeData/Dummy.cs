@@ -118,16 +118,20 @@ namespace CubeData{
             Debug.Log("Reach destination");
 
             float waitSecond = 2;
-            if (IsFailling())
+            bool fallingBeforeRotation = IsFalling();
+            if (fallingBeforeRotation)
                 waitSecond = 0.01f;
             m_playerState = PlayerState.CanMove;
             yield return new WaitForSeconds(waitSecond);
             yield return new WaitUntil(() => m_playerState == PlayerState.CanMove);
+            bool fallingAfterRotation = IsFalling();
+            if (!fallingBeforeRotation && fallingAfterRotation)
+                yield return new WaitForSeconds(1f);
             
             StartCoroutine(MoveToCubie(tendingDirection));
         }
 
-        private bool IsFailling()
+        private bool IsFalling()
         {
             return GetCurrentCubie().GetPlanimetricTile(gravityDirection).GetMoveDirection(gravityDirection) == gravityDirection;
         }
