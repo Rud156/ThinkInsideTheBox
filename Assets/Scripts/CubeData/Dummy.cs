@@ -148,13 +148,13 @@ namespace CubeData{
             if (Physics.Linecast(transform.position - gravityDirection.ToVector3() * 1.1f, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH,
                 out hit, WalkableLayer))
             {
-                Projection.transform.position = hit.point;
+                Projection.transform.position = hit.point + Vector3.up * 0.25f;
                 //m_destRot = Quaternion.LookRotation(
                 //    Quaternion.AngleAxis(Vector3.Cross(i_PendingDir.ToVector3(), hit.normal).x > 0 ? -90f : 90f, Vector3.right) * hit.normal);
             }
             else
             {
-                Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2;
+                Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2 + Vector3.up * 0.25f;
                 //if (i_PendingDir.y == 0)
                 //    m_destRot = Quaternion.LookRotation(i_PendingDir.ToVector3());
             }
