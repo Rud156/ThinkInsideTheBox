@@ -14,6 +14,7 @@ namespace CustomCamera
         [Header("Rotation Lerping")] public float rotationLerpSpeed;
         public AnimationCurve rotationLerpCurve;
         public float rotationOffsetStart;
+        public Vector3 rotationOffsetAngle;
 
         [Header("Targetting")] public Transform cameraLookAt;
         public Transform mainCamera;
@@ -68,15 +69,19 @@ namespace CustomCamera
 
         public void UpdateCameraRotation(Vector3 rotation)
         {
-            float xValue = -rotation.x;
-            float yValue = rotation.z;
-            float zValue = rotation.y;
+            float xValue = rotation.x + rotationOffsetAngle.x;
+            float yValue = rotation.y + rotationOffsetAngle.y;
+            float zValue = rotation.z + rotationOffsetAngle.z;
 
             if (Mathf.Abs(m_targetRotation.x - xValue) > rotationOffsetStart ||
                 Mathf.Abs(m_targetRotation.y - yValue) > rotationOffsetStart ||
                 Mathf.Abs(m_targetRotation.z - zValue) > rotationOffsetStart)
             {
-                m_targetRotation = new Vector3(xValue, yValue, zValue);
+                m_targetRotation = new Vector3(
+                    xValue,
+                    yValue,
+                    zValue
+                );
                 m_startRotation = transform.rotation.eulerAngles;
                 m_lerpRotationAmount = 0;
             }
