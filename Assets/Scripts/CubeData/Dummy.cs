@@ -16,6 +16,7 @@ namespace CubeData{
         private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
         private Vector3 m_destination;
+        private Quaternion m_destRot = Quaternion.identity;
         private float tolerance = 0.1f;
         private PlayerState m_playerState = PlayerState.Stuck;
         private bool m_stopped = false;
@@ -101,8 +102,12 @@ namespace CubeData{
             m_destination = GetNextPosition(pendingDirection);
             if (pendingDirection.y == 0)
             {
+                Quaternion q = Projection.transform.rotation;
                 transform.LookAt(m_destination);
+                Projection.transform.rotation = q;
             }
+            m_destRot = Quaternion.LookRotation(pendingDirection.ToVector3());
+            StartCoroutine(RotateTo(m_destRot));
             if (pendingDirection != CubeLayerMask.up)
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
@@ -117,17 +122,22 @@ namespace CubeData{
             GetCurrentCubie().OnPlayerEnter(this);
             Debug.Log("Reach destination");
 
+            StartCoroutine(RotateTo(m_destRot));
             float waitSecond = 2;
-            if (IsFailling())
+            bool fallingBeforeRotation = IsFalling();
+            if (fallingBeforeRotation)
                 waitSecond = 0.01f;
             m_playerState = PlayerState.CanMove;
             yield return new WaitForSeconds(waitSecond);
             yield return new WaitUntil(() => m_playerState == PlayerState.CanMove);
+            bool fallingAfterRotation = IsFalling();
+            if (!fallingBeforeRotation && fallingAfterRotation)
+                yield return new WaitForSeconds(1f);
             
             StartCoroutine(MoveToCubie(tendingDirection));
         }
 
-        private bool IsFailling()
+        private bool IsFalling()
         {
             return GetCurrentCubie().GetPlanimetricTile(gravityDirection).GetMoveDirection(gravityDirection) == gravityDirection;
         }
@@ -138,16 +148,30 @@ namespace CubeData{
             if (Physics.Linecast(transform.position - gravityDirection.ToVector3() * 1.1f, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH,
                 out hit, WalkableLayer))
             {
-                Projection.transform.position = hit.point;
-                Projection.transform.rotation = Quaternion.LookRotation(
-                    Quaternion.AngleAxis(Vector3.Cross(i_PendingDir.ToVector3(), hit.normal).x > 0 ? -90f : 90f, Vector3.right) * hit.normal);
+                Projection.transform.position = hit.point + Vector3.up * 0.25f;
+                //m_destRot = Quaternion.LookRotation(
+                //    Quaternion.AngleAxis(Vector3.Cross(i_PendingDir.ToVector3(), hit.normal).x > 0 ? -90f : 90f, Vector3.right) * hit.normal);
             }
             else
             {
-                Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2;
-                if (i_PendingDir.y == 0)
-                    Projection.transform.rotation = Quaternion.identity;
+                Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2 + Vector3.up * 0.25f;
+                //if (i_PendingDir.y == 0)
+                //    m_destRot = Quaternion.LookRotation(i_PendingDir.ToVector3());
             }
+        }
+
+        public IEnumerator RotateTo(Quaternion i_to)
+        {
+            float time = 0;
+            Quaternion q = Projection.transform.rotation;
+            while(Quaternion.Angle(Projection.transform.rotation, i_to) > 0.5f)
+            {
+                Projection.transform.rotation = Quaternion.Slerp(q, i_to, time);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            Projection.transform.rotation = m_destRot;
+            Debug.Log("Rotation complete");
         }
 
         private void SetPlayerPosition(Vector3 i_Position, CubeLayerMask i_PendingDir)

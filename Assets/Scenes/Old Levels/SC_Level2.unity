@@ -856,6 +856,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
+  displayShaderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &573253194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1068,6 +1071,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
+  displayShaderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &602619162 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1121605940591563407, guid: 7439327a3c370f64d8fe243ac585a7b0,
@@ -1217,6 +1223,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
+  displayShaderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &866095727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1121605940591563407, guid: 7439327a3c370f64d8fe243ac585a7b0,
@@ -1734,6 +1743,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
+  displayShaderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &1472423914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2117,6 +2129,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
+  displayShaderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &1544849997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2411,18 +2426,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99216492c75cd6640a77dab36fe8a7d1, type: 3}
---- !u!114 &1648079606 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1489780414278686066, guid: 99216492c75cd6640a77dab36fe8a7d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1648079605}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7461b6ad0fb11b84198e02c7f3ca7e4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1665665971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2692,11 +2695,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64b9ae1a7d412849a0921e6cf905271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGridController: {fileID: 1648079606}
-  readTimeout: 7
-  useForcedPort: 1
-  portString: COM3
-  disableSerialPort: 1
+  cameraController: {fileID: 0}
+  ip: 
+  port: 0
+  disableSocket: 0
 --- !u!114 &1813484978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2711,7 +2713,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileDistance: 2
   rotationDelta: 9
-  playerGridController: {fileID: 1648079606}
   cubeLayers:
   - {fileID: 534059296}
   - {fileID: 579861780}
@@ -2722,6 +2723,11 @@ MonoBehaviour:
   worldRoot: {fileID: 1934600958}
   lerpSpeed: 3
   lerpEndingAmount: 0.97
+  centerBlocks: []
+  layerPlayerFollower: {fileID: 0}
+  cameraController: {fileID: 0}
+  outsideWorld: {fileID: 0}
+  audioController: {fileID: 0}
 --- !u!4 &1820832932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2527102335341034454, guid: 40ead65d85de6b34db19e0dcd9027e2c,
@@ -3688,6 +3694,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
+  displayShaderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &4755733287825258103
 PrefabInstance:
   m_ObjectHideFlags: 0
