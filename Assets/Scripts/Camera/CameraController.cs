@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using Utils;
 
@@ -19,6 +20,7 @@ namespace CustomCamera
 
         [Header("Rotation Normalization")] public int rotationGroupAmount;
         public float rotationOffsetTolerance;
+        public bool useRotationNormalization;
 
         [Header("Targetting")] public Transform cameraLookAt;
         public Transform mainCamera;
@@ -75,11 +77,53 @@ namespace CustomCamera
 
         #region External Functions
 
-        public void SetTargetCameraRotation(Vector3 rotation)
+        public void SetTargetCameraRotation(Vector3 i_rotation)
         {
-            float zValue = rotation.x + rotationOffsetAngle.x;
-            float yValue = rotation.y + rotationOffsetAngle.y;
-            float xValue = rotation.z + rotationOffsetAngle.z;
+            if (useRotationNormalization)
+            {
+                SetTargetRotationWithNormalization(i_rotation);
+            }
+            else
+            {
+                SetTargetRotationWithoutNormalization(i_rotation);
+            }
+        }
+
+        public void SetCameraDefaultPosition()
+        {
+            m_targetPosition = cameraDefaultTransform.position;
+            m_startPosition = transform.position;
+            m_lerpPositionAmount = 0;
+        }
+
+        public void SetFollowActive() => m_followPlayer = true;
+
+        public void DeactivateFollow() => m_followPlayer = false;
+
+        #endregion
+
+        #region Utility Functions
+
+        private void UpdateCameraRotation()
+        {
+            if (m_lerpRotationAmount < 1)
+            {
+                m_lerpRotationAmount += rotationLerpSpeed * Time.deltaTime;
+            }
+
+            // Not Optimized. But works
+            Quaternion start = Quaternion.Euler(m_startRotation);
+            Quaternion target = Quaternion.Euler(m_targetRotation);
+            transform.rotation = Quaternion.Slerp(start, target, rotationLerpCurve.Evaluate(m_lerpRotationAmount));
+        }
+
+        private void UpdateCameraLookAt() => mainCamera.LookAt(cameraLookAt);
+
+        private void SetTargetRotationWithNormalization(Vector3 i_rotation)
+        {
+            float zValue = i_rotation.x + rotationOffsetAngle.x;
+            float yValue = i_rotation.y + rotationOffsetAngle.y;
+            float xValue = i_rotation.z + rotationOffsetAngle.z;
 
             m_previousRotations.Add(new Vector3(xValue, yValue, zValue));
             if (m_previousRotations.Count > rotationGroupAmount)
@@ -130,35 +174,20 @@ namespace CustomCamera
             }
         }
 
-        public void SetCameraDefaultPosition()
+        private void SetTargetRotationWithoutNormalization(Vector3 i_rotation)
         {
-            m_targetPosition = cameraDefaultTransform.position;
-            m_startPosition = transform.position;
-            m_lerpPositionAmount = 0;
-        }
+            float zValue = i_rotation.x + rotationOffsetAngle.x;
+            float yValue = i_rotation.y + rotationOffsetAngle.y;
+            float xValue = i_rotation.z + rotationOffsetAngle.z;
 
-        public void SetFollowActive() => m_followPlayer = true;
-
-        public void DeactivateFollow() => m_followPlayer = false;
-
-        #endregion
-
-        #region Utility Functions
-
-        private void UpdateCameraRotation()
-        {
-            if (m_lerpRotationAmount < 1)
+            Vector3 newRotation = new Vector3(xValue, yValue, zValue);
+            if (!ExtensionFunctions.IsSimilarVector(m_targetRotation, newRotation))
             {
-                m_lerpRotationAmount += rotationLerpSpeed * Time.deltaTime;
+                m_targetRotation = newRotation;
+                m_startRotation = transform.rotation.eulerAngles;
+                m_lerpRotationAmount = 0;
             }
-
-            // Not Optimized. But works
-            Quaternion start = Quaternion.Euler(m_startRotation);
-            Quaternion target = Quaternion.Euler(m_targetRotation);
-            transform.rotation = Quaternion.Slerp(start, target, rotationLerpCurve.Evaluate(m_lerpRotationAmount));
         }
-
-        private void UpdateCameraLookAt() => mainCamera.LookAt(cameraLookAt);
 
         #endregion
     }
