@@ -52,7 +52,8 @@ public class FaceObject : MonoBehaviour
     
     private void Awake()
     {
-        LoadFaceData();
+        if (this.isActiveAndEnabled)
+            StartCoroutine(ClearAddOns());
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
@@ -308,6 +309,7 @@ public class FaceObject : MonoBehaviour
             GameObject arrow_instance = null;
             if (turnArrow)
             {
+                //showWallFace = true;
                 float rotation_y = 90f * (int)turnTo;
                 arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
 
@@ -393,9 +395,11 @@ public class FaceObject : MonoBehaviour
     IEnumerator ClearAddOns()
     {
         yield return null;//new WaitForEndOfFrame();
-        
-        if (transform.Find("Move_Sign(Clone)"))
+
+        Transform move_sign = transform.Find("Move_Sign(Clone)");
+        if (move_sign)
         {
+            DestroyImmediate(move_sign.gameObject);
             DestroyImmediate(arrow_instantiated);
             arrow_instantiated = null;
         }
@@ -407,7 +411,7 @@ public class FaceObject : MonoBehaviour
         if(showWallFace)
         {
             SetGroundVisibility(true);
-            Debug.Log("Show wall faces");
+            //Debug.Log("Show wall faces");
         }
             
         LoadFaceData();
