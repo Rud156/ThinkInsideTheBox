@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using Utils;
 
 namespace CustomCamera
 {
@@ -13,8 +15,10 @@ namespace CustomCamera
 
         [Header("Rotation Lerping")] public float rotationLerpSpeed;
         public AnimationCurve rotationLerpCurve;
-        public float rotationOffsetStart;
         public Vector3 rotationOffsetAngle;
+
+        [Header("Rotation Normalization")] public int rotationGroupAmount;
+        public float rotationOffsetTolerance;
 
         [Header("Targetting")] public Transform cameraLookAt;
         public Transform mainCamera;
@@ -29,6 +33,8 @@ namespace CustomCamera
         private Vector3 m_targetRotation;
         private float m_lerpRotationAmount;
 
+        private List<Vector3> m_previousRotations;
+
         #region Unity Functions
 
         private void Start()
@@ -37,6 +43,8 @@ namespace CustomCamera
             m_startPosition = cameraDefaultTransform.position;
             m_targetPosition = cameraDefaultTransform.position;
             m_lerpPositionAmount = 1;
+
+            m_previousRotations = new List<Vector3>();
         }
 
         private void Update()
@@ -60,30 +68,65 @@ namespace CustomCamera
             // transform.position = Vector3.Lerp(m_startPosition, m_targetPosition, positionLerpCurve.Evaluate(m_lerpPositionAmount));
 
             UpdateCameraRotation();
-            UpdateCameraLookAt();
+            // UpdateCameraLookAt();
         }
 
         #endregion
 
         #region External Functions
 
-        public void UpdateCameraRotation(Vector3 rotation)
+        public void SetTargetCameraRotation(Vector3 rotation)
         {
-            float xValue = rotation.x + rotationOffsetAngle.x;
+            float zValue = rotation.x + rotationOffsetAngle.x;
             float yValue = rotation.y + rotationOffsetAngle.y;
-            float zValue = rotation.z + rotationOffsetAngle.z;
+            float xValue = rotation.z + rotationOffsetAngle.z;
 
-            if (Mathf.Abs(m_targetRotation.x - xValue) > rotationOffsetStart ||
-                Mathf.Abs(m_targetRotation.y - yValue) > rotationOffsetStart ||
-                Mathf.Abs(m_targetRotation.z - zValue) > rotationOffsetStart)
+            m_previousRotations.Add(new Vector3(xValue, yValue, zValue));
+            if (m_previousRotations.Count > rotationGroupAmount)
             {
-                m_targetRotation = new Vector3(
-                    xValue,
-                    yValue,
-                    zValue
-                );
+                // Pretty sure there is a better way to do this...
+
+                int differentCheckCount = 0;
+                for (int i = 1; i < m_previousRotations.Count; i++)
+                {
+                    // Check for Single Difference
+                    if (!ExtensionFunctions.IsSimilarVector(m_previousRotations[0], m_previousRotations[i], rotationOffsetTolerance))
+                    {
+                        differentCheckCount += 1;
+                    }
+                }
+
+                // Only a single wrong value crept in...
+                if (differentCheckCount == 1)
+                {
+                    m_targetRotation = m_previousRotations[0];
+                }
+                else
+                {
+                    differentCheckCount = 0;
+                    for (int i = 0; i < m_previousRotations.Count; i++)
+                    {
+                        if (!ExtensionFunctions.IsSimilarVector(m_previousRotations[1], m_previousRotations[i], rotationOffsetTolerance))
+                        {
+                            differentCheckCount += 1;
+                        }
+                    }
+
+                    if (differentCheckCount == 1)
+                    {
+                        m_targetRotation = m_previousRotations[1];
+                    }
+                    else
+                    {
+                        m_targetRotation = m_previousRotations[m_previousRotations.Count - 1];
+                    }
+                }
+
+
                 m_startRotation = transform.rotation.eulerAngles;
                 m_lerpRotationAmount = 0;
+
+                m_previousRotations.Clear();
             }
         }
 

@@ -277,10 +277,11 @@ namespace WorldCube
                 if (debugActive)
                 {
                     rotationDebugText.text = $"Rotation: {rotation}";
+                    Debug.Log($"Rotation: {rotation}");
                     debugCube.rotation = Quaternion.Euler(rotation);
                 }
 
-                cameraController.UpdateCameraRotation(rotation);
+                cameraController.SetTargetCameraRotation(rotation);
             }
         }
 
