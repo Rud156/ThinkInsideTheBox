@@ -36,9 +36,9 @@ namespace WorldCube
         public void Rotate(float i_xValue, float i_yValue, float i_zValue)
         {
             int n = m_initialCenterRow.Length; // Always will be 4
-            i_xValue = ExtensionFunctions.To360Angle(i_xValue);
-            i_yValue = ExtensionFunctions.To360Angle(i_yValue);
-            i_zValue = ExtensionFunctions.To360Angle(i_zValue);
+            i_xValue = ExtensionFunctions.GetClosestMultiple(ExtensionFunctions.To360Angle(i_xValue), RotationLocker);
+            i_yValue = ExtensionFunctions.GetClosestMultiple(ExtensionFunctions.To360Angle(i_yValue), RotationLocker);
+            i_zValue = ExtensionFunctions.GetClosestMultiple(ExtensionFunctions.To360Angle(i_zValue), RotationLocker);
 
             #region Rotate The Center Row
 
