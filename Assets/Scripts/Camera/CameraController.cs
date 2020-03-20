@@ -2,6 +2,7 @@
 using System.Xml;
 using UnityEngine;
 using Utils;
+using WorldCube;
 
 namespace CustomCamera
 {
@@ -22,8 +23,10 @@ namespace CustomCamera
         public float rotationOffsetTolerance;
         public bool useRotationNormalization;
 
-        [Header("Targetting")] public Transform cameraLookAt;
+        [Header("Targeting")] public Transform cameraLookAt;
         public Transform mainCamera;
+
+        [Header("Controllers")] public CubeRotationHandler cubeRotationHandler;
 
         private bool m_followPlayer;
 
@@ -115,6 +118,8 @@ namespace CustomCamera
             Quaternion start = Quaternion.Euler(m_startRotation);
             Quaternion target = Quaternion.Euler(m_targetRotation);
             transform.rotation = Quaternion.Slerp(start, target, rotationLerpCurve.Evaluate(m_lerpRotationAmount));
+
+            cubeRotationHandler.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
         }
 
         private void UpdateCameraLookAt() => mainCamera.LookAt(cameraLookAt);
