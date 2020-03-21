@@ -13,6 +13,7 @@ namespace CubeData{
         public GameObject Projection;
         public LayerMask WalkableLayer;
         public CubeLayerMask tendingDirection = CubeLayerMask.Zero;
+        public bool AutoMovement = true;
         private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
         private Vector3 m_destination;
@@ -53,7 +54,8 @@ namespace CubeData{
 
         private void Start()
         {
-            StartCoroutine(MoveToCubie(tendingDirection));
+            if (AutoMovement)
+                StartCoroutine(MoveToCubie(tendingDirection));
         }
 
         private void FixedUpdate()
@@ -98,6 +100,7 @@ namespace CubeData{
                 }
             }
 
+
             // Move action
             m_destination = GetNextPosition(pendingDirection);
             if (pendingDirection.y == 0)
@@ -108,6 +111,15 @@ namespace CubeData{
             }
             m_destRot = Quaternion.LookRotation(pendingDirection.ToVector3());
             StartCoroutine(RotateTo(m_destRot));
+            if (!AutoMovement && pendingDirection.y == 0)
+            {
+                Debug.Log("Stop");
+                Debug.Log("Stop");
+                SetProjectionPosition(pendingDirection);
+                m_stopped = true;
+                m_playerState = PlayerState.Stuck;
+                yield break;
+            }
             if (pendingDirection != CubeLayerMask.up)
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
@@ -133,7 +145,7 @@ namespace CubeData{
             bool fallingAfterRotation = IsFalling();
             if (!fallingBeforeRotation && fallingAfterRotation)
                 yield return new WaitForSeconds(1f);
-            
+
             StartCoroutine(MoveToCubie(tendingDirection));
         }
 
