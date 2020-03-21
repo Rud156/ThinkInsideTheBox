@@ -16,6 +16,7 @@ namespace WorldCube
     public class CubeInputController : MonoBehaviour
     {
         private const string RotationStr = "Rotation";
+        private const string PressedStr = "Pressed";
         private const string LeftStr = "Left";
         private const string RightStr = "Right";
         private const string TopStr = "Top";
@@ -39,6 +40,7 @@ namespace WorldCube
         private Socket m_socketClient;
         private ConcurrentQueue<PiDataSideInput> m_piDataSideInput;
         private ConcurrentQueue<Vector3> m_piDataRotationInput;
+        private ConcurrentQueue<string> m_piPressedInput;
 
         private CubeControllerV2 m_cubeController;
 
@@ -47,8 +49,10 @@ namespace WorldCube
         private void Start()
         {
             m_cubeController = GetComponent<CubeControllerV2>();
+
             m_piDataSideInput = new ConcurrentQueue<PiDataSideInput>();
             m_piDataRotationInput = new ConcurrentQueue<Vector3>();
+            m_piPressedInput = new ConcurrentQueue<string>();
 
             if (!disableSocket)
             {
@@ -63,8 +67,10 @@ namespace WorldCube
         private void Update()
         {
             HandleKeyboardInput();
+            
             HandleSocketControlSideUpdate();
             HandleSocketControlRotationUpdate();
+            HandleSocketPressedInputUpdate();
         }
 
         #endregion
@@ -194,10 +200,16 @@ namespace WorldCube
                     {
                         string[] rotations = rhs.Split(',');
 
-                        float xValue = float.Parse(rotations[0]);
-                        float yValue = float.Parse(rotations[1]);
-                        float zValue = float.Parse(rotations[2]);
+                        float xValue = float.Parse(rotations[1]);
+                        float yValue = float.Parse(rotations[2]);
+                        float zValue = float.Parse(rotations[0]);
                         m_piDataRotationInput.Enqueue(new Vector3(xValue, zValue, yValue));
+                    }
+                        break;
+
+                    case PressedStr:
+                    {
+                        m_piPressedInput.Enqueue(rhs);
                     }
                         break;
 
@@ -281,6 +293,14 @@ namespace WorldCube
                 }
 
                 cameraController.SetTargetCameraRotation(rotation);
+            }
+        }
+
+        private void HandleSocketPressedInputUpdate()
+        {
+            while (m_piPressedInput.TryDequeue(out string input))
+            {
+                Debug.Log($"Pressed: {input}");
             }
         }
 
