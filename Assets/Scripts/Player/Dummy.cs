@@ -57,6 +57,20 @@ namespace Player{
         {
             if (AutoMovement)
                 StartCoroutine(MoveToCubie(tendingDirection));
+            else
+                m_stopped = true;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                ManuallyMoveTo(CubeLayerMask.forward);
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+                ManuallyMoveTo(CubeLayerMask.back);
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                ManuallyMoveTo(CubeLayerMask.left);
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+                ManuallyMoveTo(CubeLayerMask.right);
         }
 
         private void FixedUpdate()
@@ -76,6 +90,12 @@ namespace Player{
             CubeLayerMask direction = new CubeLayerMask(transform.forward);
             if (direction.y != 0) return;
             tendingDirection = direction;
+        }
+
+        public void ManuallyMoveTo(CubeLayerMask i_direction)
+        {
+            tendingDirection = i_direction;
+            StartCoroutine(MoveToCubie(i_direction));
         }
 
         public IEnumerator MoveToCubie(CubeLayerMask i_direction)
@@ -101,7 +121,6 @@ namespace Player{
                 }
             }
 
-
             // Move action
             m_destination = GetNextPosition(pendingDirection);
             if (pendingDirection.y == 0)
@@ -112,14 +131,6 @@ namespace Player{
             }
             m_destRot = Quaternion.LookRotation(pendingDirection.ToVector3());
             StartCoroutine(RotateTo(m_destRot));
-            if (!AutoMovement && pendingDirection.y == 0)
-            {
-                Debug.Log("Stop");
-                SetProjectionPosition(pendingDirection);
-                m_stopped = true;
-                m_playerState = PlayerState.Stuck;
-                yield break;
-            }
             if (pendingDirection != CubeLayerMask.up)
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
@@ -146,7 +157,16 @@ namespace Player{
             if (!fallingBeforeRotation && fallingAfterRotation)
                 yield return new WaitForSeconds(1f);
 
-            StartCoroutine(MoveToCubie(tendingDirection));
+            if (AutoMovement || IsFalling() || pendingDirection == CubeLayerMask.up)
+                StartCoroutine(MoveToCubie(tendingDirection));
+            else
+            {
+                Debug.Log("Stop");
+                SetProjectionPosition(pendingDirection);
+                m_stopped = true;
+                m_playerState = PlayerState.Stuck;
+                yield break;
+            }
         }
 
         private bool IsFalling()

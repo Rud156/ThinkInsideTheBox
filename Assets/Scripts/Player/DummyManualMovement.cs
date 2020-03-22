@@ -56,7 +56,7 @@ namespace Player
             }
 
 
-            StartCoroutine(playerController.MoveToCubie(m_playerMovementDirection));
+            playerController.ManuallyMoveTo(m_playerMovementDirection);
         }
 
         #endregion
