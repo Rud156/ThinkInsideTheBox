@@ -8,6 +8,7 @@ using CubeData;
 using CustomCamera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace WorldCube
 {
@@ -15,6 +16,7 @@ namespace WorldCube
     public class CubeInputController : MonoBehaviour
     {
         private const string RotationStr = "Rotation";
+        private const string PressedStr = "Pressed";
         private const string LeftStr = "Left";
         private const string RightStr = "Right";
         private const string TopStr = "Top";
@@ -28,12 +30,17 @@ namespace WorldCube
         public int port;
         public bool disableSocket;
 
+        [Header("Debug")] public Text rotationDebugText;
+        public Transform debugCube;
+        public bool debugActive;
+
         // Sockets
         private string m_testPingRegex = @"Close";
         private Regex m_captureRegex = new Regex(@"\|(.*?)\|", RegexOptions.Compiled);
         private Socket m_socketClient;
         private ConcurrentQueue<PiDataSideInput> m_piDataSideInput;
         private ConcurrentQueue<Vector3> m_piDataRotationInput;
+        private ConcurrentQueue<string> m_piPressedInput;
 
         private CubeControllerV2 m_cubeController;
 
@@ -42,8 +49,10 @@ namespace WorldCube
         private void Start()
         {
             m_cubeController = GetComponent<CubeControllerV2>();
+
             m_piDataSideInput = new ConcurrentQueue<PiDataSideInput>();
             m_piDataRotationInput = new ConcurrentQueue<Vector3>();
+            m_piPressedInput = new ConcurrentQueue<string>();
 
             if (!disableSocket)
             {
@@ -58,8 +67,10 @@ namespace WorldCube
         private void Update()
         {
             HandleKeyboardInput();
+            
             HandleSocketControlSideUpdate();
             HandleSocketControlRotationUpdate();
+            HandleSocketPressedInputUpdate();
         }
 
         #endregion
@@ -121,8 +132,10 @@ namespace WorldCube
             try
             {
                 // Create the socketState object.  
-                SocketStateObject socketState = new SocketStateObject();
-                socketState.workSocket = i_client;
+                SocketStateObject socketState = new SocketStateObject
+                {
+                    workSocket = i_client
+                };
 
                 // Begin receiving the data from the remote device.  
                 i_client.BeginReceive(socketState.buffer, 0, SocketStateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), socketState);
@@ -168,7 +181,6 @@ namespace WorldCube
             string normalizedText = Regex.Replace(i_input, m_testPingRegex, "");
             if (string.IsNullOrEmpty(normalizedText) || string.IsNullOrWhiteSpace(normalizedText))
             {
-
                 return;
             }
 
@@ -188,10 +200,16 @@ namespace WorldCube
                     {
                         string[] rotations = rhs.Split(',');
 
-                        float xValue = float.Parse(rotations[0]);
-                        float yValue = float.Parse(rotations[1]);
-                        float zValue = float.Parse(rotations[2]);
-                        m_piDataRotationInput.Enqueue(new Vector3(xValue, yValue, zValue));
+                        float xValue = float.Parse(rotations[1]);
+                        float yValue = float.Parse(rotations[2]);
+                        float zValue = float.Parse(rotations[0]);
+                        m_piDataRotationInput.Enqueue(new Vector3(xValue, zValue, yValue));
+                    }
+                        break;
+
+                    case PressedStr:
+                    {
+                        m_piPressedInput.Enqueue(rhs);
                     }
                         break;
 
@@ -268,7 +286,21 @@ namespace WorldCube
         {
             while (m_piDataRotationInput.TryDequeue(out Vector3 rotation))
             {
-                cameraController.UpdateCameraRotation(rotation);
+                if (debugActive)
+                {
+                    rotationDebugText.text = $"Rotation: {rotation}";
+                    debugCube.rotation = Quaternion.Euler(rotation);
+                }
+
+                cameraController.SetTargetCameraRotation(rotation);
+            }
+        }
+
+        private void HandleSocketPressedInputUpdate()
+        {
+            while (m_piPressedInput.TryDequeue(out string input))
+            {
+                Debug.Log($"Pressed: {input}");
             }
         }
 
@@ -347,12 +379,12 @@ namespace WorldCube
 
         private void Awake()
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = this;
             }
 
-            if(_instance != this)
+            if (_instance != this)
             {
                 Destroy(gameObject);
             }

@@ -47,5 +47,12 @@ namespace Utils
 
             return to;
         }
+
+        public static bool IsSimilarVector(Vector3 vector1, Vector3 vector2, float tolerance = 3)
+        {
+            return Mathf.Abs(vector1.x - vector2.x) <= tolerance &&
+                   Mathf.Abs(vector1.y - vector2.y) <= tolerance &&
+                   Mathf.Abs(vector1.z - vector2.z) <= tolerance;
+        }
     }
 }
