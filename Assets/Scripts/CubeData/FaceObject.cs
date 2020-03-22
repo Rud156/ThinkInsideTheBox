@@ -1,6 +1,7 @@
 ﻿using CubeData;
 using WorldCube;
 using System.Collections;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

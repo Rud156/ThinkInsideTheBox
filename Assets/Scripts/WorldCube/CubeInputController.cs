@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using CubeData;
 using CustomCamera;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,7 +25,8 @@ namespace WorldCube
         private const string FrontStr = "Front";
         private const string BackStr = "Back";
 
-        [Header("Camera")] public CameraController cameraController;
+        [Header("Components")] public CameraController cameraController;
+        public DummyManualMovement playerManualMovement;
 
         [Header("Web Sockets")] public string ip;
         public int port;
@@ -67,7 +69,7 @@ namespace WorldCube
         private void Update()
         {
             HandleKeyboardInput();
-            
+
             HandleSocketControlSideUpdate();
             HandleSocketControlRotationUpdate();
             HandleSocketPressedInputUpdate();
@@ -298,9 +300,9 @@ namespace WorldCube
 
         private void HandleSocketPressedInputUpdate()
         {
-            while (m_piPressedInput.TryDequeue(out string input))
+            while (m_piPressedInput.TryDequeue(out string o_input))
             {
-                Debug.Log($"Pressed: {input}");
+                playerManualMovement.UpdateMovementDirection(o_input);
             }
         }
 
