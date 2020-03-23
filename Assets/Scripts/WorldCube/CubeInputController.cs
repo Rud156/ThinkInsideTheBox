@@ -30,6 +30,8 @@ namespace WorldCube
 
         [Header("Web Sockets")] public string ip;
         public int port;
+        public float socketPollCheckTime;
+        public float socketPollCheckInitialTime;
         public bool disableSocket;
 
         [Header("Debug")] public Text rotationDebugText;
@@ -37,6 +39,7 @@ namespace WorldCube
         public bool debugActive;
 
         // Sockets
+        private float m_currentSocketPollCheckTime;
         private string m_testPingRegex = @"Close";
         private Regex m_captureRegex = new Regex(@"\|(.*?)\|", RegexOptions.Compiled);
         private Socket m_socketClient;
@@ -56,6 +59,8 @@ namespace WorldCube
             m_piDataRotationInput = new ConcurrentQueue<Vector3>();
             m_piPressedInput = new ConcurrentQueue<string>();
 
+            m_currentSocketPollCheckTime = socketPollCheckInitialTime;
+
             if (!disableSocket)
             {
                 ConnectSocket();
@@ -73,6 +78,8 @@ namespace WorldCube
             HandleSocketControlSideUpdate();
             HandleSocketControlRotationUpdate();
             HandleSocketPressedInputUpdate();
+
+            UpdateSocketPollCheckTime();
         }
 
         #endregion
@@ -306,6 +313,41 @@ namespace WorldCube
             }
         }
 
+        private bool IsSocketConnected()
+        {
+            if (m_socketClient == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                return !(m_socketClient.Poll(1, SelectMode.SelectRead) && m_socketClient.Available == 0);
+            }
+            catch (SocketException)
+            {
+                return false;
+            }
+        }
+
+        private void UpdateSocketPollCheckTime()
+        {
+            if (m_currentSocketPollCheckTime > 0)
+            {
+                m_currentSocketPollCheckTime -= Time.deltaTime;
+                if (m_currentSocketPollCheckTime <= 0)
+                {
+                    m_currentSocketPollCheckTime = socketPollCheckTime;
+
+                    if (!disableSocket && !IsSocketConnected())
+                    {
+                        Debug.LogError("Socket Disconnected. Re-connecting");
+                        ConnectSocket();
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Keyboard
@@ -411,10 +453,10 @@ namespace WorldCube
             public const int BufferSize = 256;
 
             // Receive buffer.  
-            public byte[] buffer = new byte[BufferSize];
+            public readonly byte[] buffer = new byte[BufferSize];
 
             // Received data string.  
-            public StringBuilder sb = new StringBuilder();
+            public readonly StringBuilder sb = new StringBuilder();
         }
 
         #endregion
