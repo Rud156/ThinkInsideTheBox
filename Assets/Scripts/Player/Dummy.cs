@@ -3,12 +3,17 @@ using System.Collections;
 using CubeData;
 using UnityEngine;
 
-namespace Player{
+namespace Player
+{
     public class Dummy : MonoBehaviour
     {
         private enum PlayerState
         {
-            Moving, CanMove, Suspending, Stuck, Ending
+            Moving,
+            CanMove,
+            Suspending,
+            Stuck,
+            Ending
         }
 
         public GameObject Projection;
@@ -25,6 +30,7 @@ namespace Player{
         private float m_MoveSpeed = 1f;
 
         #region Singleton
+
         public static Dummy Instance = null;
 
         private void Awake()
@@ -38,6 +44,7 @@ namespace Player{
                 Destroy(gameObject);
             }
         }
+
         #endregion
 
         public bool IsPlayerMoving() => m_playerState == PlayerState.Moving;
@@ -47,6 +54,7 @@ namespace Player{
         {
             m_playerState = PlayerState.Suspending;
         }
+
         public void AllowPlayerMovement()
         {
             if (m_playerState == PlayerState.Moving) return;
@@ -61,22 +69,10 @@ namespace Player{
                 m_stopped = true;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-                ManuallyMoveTo(CubeLayerMask.forward);
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-                ManuallyMoveTo(CubeLayerMask.back);
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-                ManuallyMoveTo(CubeLayerMask.left);
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-                ManuallyMoveTo(CubeLayerMask.right);
-        }
-
         private void FixedUpdate()
         {
-            Debug.DrawLine(transform.position, transform.position + 
-                tendingDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2, Color.cyan);
+            Debug.DrawLine(transform.position, transform.position +
+                                               tendingDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2, Color.cyan);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -109,9 +105,9 @@ namespace Player{
 
             if (pendingDirection == CubeLayerMask.Zero)
             {
-                if (i_direction == tendingDirection || 
-                    (!GetCurrentCubie().CanMoveToNextCubie(tendingDirection) && 
-                    !GetCurrentCubie().CanMoveToNextCubie(-tendingDirection)))
+                if (i_direction == tendingDirection ||
+                    (!GetCurrentCubie().CanMoveToNextCubie(tendingDirection) &&
+                     !GetCurrentCubie().CanMoveToNextCubie(-tendingDirection)))
                 {
                     Debug.Log("Stop");
                     SetProjectionPosition(pendingDirection);
@@ -129,6 +125,7 @@ namespace Player{
                 transform.LookAt(m_destination);
                 Projection.transform.rotation = q;
             }
+
             m_destRot = Quaternion.LookRotation(pendingDirection.ToVector3());
             StartCoroutine(RotateTo(m_destRot));
             if (pendingDirection != CubeLayerMask.up)
@@ -140,6 +137,7 @@ namespace Player{
                     yield return null;
                 }
             }
+
             m_stopped = false;
             SetPlayerPosition(m_destination, pendingDirection);
             GetCurrentCubie().OnPlayerEnter(this);
@@ -177,7 +175,8 @@ namespace Player{
         private void SetProjectionPosition(CubeLayerMask i_PendingDir)
         {
             RaycastHit hit;
-            if (Physics.Linecast(transform.position - gravityDirection.ToVector3() * 1.1f, transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH,
+            if (Physics.Linecast(transform.position - gravityDirection.ToVector3() * 1.1f,
+                transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH,
                 out hit, WalkableLayer))
             {
                 Projection.transform.position = hit.point + Vector3.up * 0.25f;
@@ -196,12 +195,13 @@ namespace Player{
         {
             float time = 0;
             Quaternion q = Projection.transform.rotation;
-            while(Quaternion.Angle(Projection.transform.rotation, i_to) > 0.5f)
+            while (Quaternion.Angle(Projection.transform.rotation, i_to) > 0.5f)
             {
                 Projection.transform.rotation = Quaternion.Slerp(q, i_to, time);
                 time += Time.deltaTime;
                 yield return null;
             }
+
             Projection.transform.rotation = m_destRot;
             Debug.Log("Rotation complete");
         }
@@ -227,6 +227,7 @@ namespace Player{
             {
                 return hit.transform.GetComponent<CubieObject>();
             }
+
             throw new Exception("Player is not inside any TileObject");
         }
     }

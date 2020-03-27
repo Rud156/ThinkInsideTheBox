@@ -1,5 +1,8 @@
-﻿using CubeData;
+﻿using System;
+using CubeData;
 using UnityEngine;
+using Utils;
+using WorldCube;
 
 namespace Player
 {
@@ -12,6 +15,7 @@ namespace Player
         private const string FrontStr = "Front";
         private const string BackStr = "Back";
 
+        public CubeRotationHandler cubeRotationHandler;
         public Dummy playerController;
 
         private CubeLayerMask m_playerMovementDirection;
@@ -19,6 +23,30 @@ namespace Player
         #region Unity Functions
 
         private void Start() => m_playerMovementDirection = new CubeLayerMask(0, 0, 0);
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(ControlConstants.Left) || Input.GetKeyDown(ControlConstants.AltLeft))
+            {
+                m_playerMovementDirection = cubeRotationHandler.GetCubeLayerMask(cubeRotationHandler.Left);
+                playerController.ManuallyMoveTo(m_playerMovementDirection);
+            }
+            else if (Input.GetKeyDown(ControlConstants.Right) || Input.GetKeyDown(ControlConstants.AltRight))
+            {
+                m_playerMovementDirection = cubeRotationHandler.GetCubeLayerMask(cubeRotationHandler.Right);
+                playerController.ManuallyMoveTo(m_playerMovementDirection);
+            }
+            else if (Input.GetKeyDown(ControlConstants.Forward) || Input.GetKeyDown(ControlConstants.AltForward))
+            {
+                m_playerMovementDirection = cubeRotationHandler.GetCubeLayerMask(cubeRotationHandler.Forward);
+                playerController.ManuallyMoveTo(m_playerMovementDirection);
+            }
+            else if (Input.GetKeyDown(ControlConstants.Back) || Input.GetKeyDown(ControlConstants.AltBack))
+            {
+                m_playerMovementDirection = cubeRotationHandler.GetCubeLayerMask(cubeRotationHandler.Back);
+                playerController.ManuallyMoveTo(m_playerMovementDirection);
+            }
+        }
 
         #endregion
 

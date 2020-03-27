@@ -34,10 +34,6 @@ namespace WorldCube
         public float socketPollCheckInitialTime;
         public bool disableSocket;
 
-        [Header("Debug")] public Text rotationDebugText;
-        public Transform debugCube;
-        public bool debugActive;
-
         // Sockets
         private float m_currentSocketPollCheckTime;
         private string m_testPingRegex = @"Close";
@@ -295,12 +291,6 @@ namespace WorldCube
         {
             while (m_piDataRotationInput.TryDequeue(out Vector3 rotation))
             {
-                if (debugActive)
-                {
-                    rotationDebugText.text = $"Rotation: {rotation}";
-                    debugCube.rotation = Quaternion.Euler(rotation);
-                }
-
                 cameraController.SetTargetCameraRotation(rotation);
             }
         }
