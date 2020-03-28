@@ -15,6 +15,18 @@ namespace WorldCube
 
         public static CubeLayerMaskV2 Zero => new CubeLayerMaskV2();
 
+        public static CubeLayerMaskV2 Right => new CubeLayerMaskV2(1, 0, 0);
+
+        public static CubeLayerMaskV2 Left => new CubeLayerMaskV2(-1, 0, 0);
+
+        public static CubeLayerMaskV2 Up => new CubeLayerMaskV2(0, 1, 0);
+
+        public static CubeLayerMaskV2 Down => new CubeLayerMaskV2(0, -1, 0);
+
+        public static CubeLayerMaskV2 Forward => new CubeLayerMaskV2(0, 0, 1);
+
+        public static CubeLayerMaskV2 Back => new CubeLayerMaskV2(0, 0, -1);
+
         public CubeLayerMaskV2()
         {
             x = 0;

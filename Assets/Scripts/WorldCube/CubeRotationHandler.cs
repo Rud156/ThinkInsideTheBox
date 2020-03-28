@@ -84,6 +84,33 @@ namespace WorldCube
             }
         }
 
+        public CubeLayerMaskV2 GetCubeLayerMaskV2(FaceDirection i_faceDirection)
+        {
+            switch (i_faceDirection)
+            {
+                case FaceDirection.Top:
+                    return CubeLayerMaskV2.Up;
+
+                case FaceDirection.Left:
+                    return CubeLayerMaskV2.Left;
+
+                case FaceDirection.Back:
+                    return CubeLayerMaskV2.Back;
+
+                case FaceDirection.Right:
+                    return CubeLayerMaskV2.Right;
+
+                case FaceDirection.Front:
+                    return CubeLayerMaskV2.Forward;
+
+                case FaceDirection.Bottom:
+                    return CubeLayerMaskV2.Down;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(i_faceDirection), i_faceDirection, null);
+            }
+        }
+
         #endregion
 
         #region Enums

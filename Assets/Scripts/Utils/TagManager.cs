@@ -17,5 +17,10 @@
         public const string AppleCollectible = "AppleCollectible";
         public const string BananaCollectible = "BananaCollectible";
         public const string CherryCollectible = "CherryCollectible";
+
+        public const string BottomTouchTag = "BottomTouch";
+        public const string TopTouchTag = "TopTouch";
+        public const string LeftTouchTag = "LeftTouch";
+        public const string RightTouchTag = "RightTouch";
     }
 }

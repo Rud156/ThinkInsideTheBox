@@ -69,8 +69,6 @@ namespace WorldCube
 
         private void Update()
         {
-            HandleKeyboardInput();
-
             HandleSocketControlSideUpdate();
             HandleSocketControlRotationUpdate();
             HandleSocketPressedInputUpdate();
@@ -335,67 +333,6 @@ namespace WorldCube
                         ConnectSocket();
                     }
                 }
-            }
-        }
-
-        #endregion
-
-        #region Keyboard
-
-        private void HandleKeyboardInput()
-        {
-            if (Dummy.Instance.IsPlayerMoving())
-            {
-                return;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.T))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Y))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.U))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha8))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.I))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha9))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.O))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), -1);
             }
         }
 
