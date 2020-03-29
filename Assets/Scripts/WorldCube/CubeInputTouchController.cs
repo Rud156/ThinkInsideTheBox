@@ -130,7 +130,7 @@ namespace WorldCube
                 {
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
-                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Top), i_direction);
                     }
                 }
                     break;
@@ -139,7 +139,7 @@ namespace WorldCube
                 {
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
-                        m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), -i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Bottom), -i_direction);
                     }
                 }
                     break;
@@ -157,6 +157,144 @@ namespace WorldCube
                 {
                     if (m_movementDirection == MovementDirection.Vertical)
                     {
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.Front:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.Back:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.TopLeft:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Top);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Top), i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Left);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.TopRight:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Top);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Top), i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Right);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.BottomLeft:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Bottom);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Bottom), -i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Left);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.BottomRight:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Bottom);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Bottom), -i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Right);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.FrontLeft:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Front);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Left);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.FrontRight:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Front);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Right);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.BackLeft:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Back);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Left);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
+                    }
+                }
+                    break;
+
+                case SideTouched.BackRight:
+                {
+                    if (m_movementDirection == MovementDirection.Horizontal)
+                    {
+                        SetSideTouched(SideTouched.Back);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
+                    }
+                    else if (m_movementDirection == MovementDirection.Vertical)
+                    {
+                        SetSideTouched(SideTouched.Right);
                         m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
                     }
                 }
@@ -185,6 +323,46 @@ namespace WorldCube
 
                 case TagManager.RightTouchTag:
                     SetSideTouched(SideTouched.Right);
+                    break;
+
+                case TagManager.FrontTouchTag:
+                    SetSideTouched(SideTouched.Front);
+                    break;
+
+                case TagManager.BackTouchTag:
+                    SetSideTouched(SideTouched.Back);
+                    break;
+
+                case TagManager.TopLeftTouchTag:
+                    SetSideTouched(SideTouched.TopLeft);
+                    break;
+
+                case TagManager.TopRightTouchTag:
+                    SetSideTouched(SideTouched.TopRight);
+                    break;
+
+                case TagManager.BottomLeftTouchTag:
+                    SetSideTouched(SideTouched.BottomLeft);
+                    break;
+
+                case TagManager.BottomRightTouchTag:
+                    SetSideTouched(SideTouched.BottomRight);
+                    break;
+
+                case TagManager.FrontLeftTouchTag:
+                    SetSideTouched(SideTouched.FrontLeft);
+                    break;
+
+                case TagManager.FrontRightTouchTag:
+                    SetSideTouched(SideTouched.FrontRight);
+                    break;
+
+                case TagManager.BackLeftTouchTag:
+                    SetSideTouched(SideTouched.BackLeft);
+                    break;
+
+                case TagManager.BackRightTouchTag:
+                    SetSideTouched(SideTouched.BackRight);
                     break;
 
                 default:
@@ -219,7 +397,17 @@ namespace WorldCube
             Top,
             Bottom,
             Left,
-            Right
+            Right,
+            Front,
+            Back,
+            TopLeft,
+            TopRight,
+            BottomLeft,
+            BottomRight,
+            FrontLeft,
+            FrontRight,
+            BackLeft,
+            BackRight
         }
 
         private enum MovementDirection
