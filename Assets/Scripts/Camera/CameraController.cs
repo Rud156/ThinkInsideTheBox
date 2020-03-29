@@ -94,6 +94,13 @@ namespace CustomCamera
             }
         }
 
+        public void IncrementManualCameraRotation(float i_amount)
+        {
+            m_targetRotation.y += i_amount * Time.deltaTime;
+            m_startRotation = transform.rotation.eulerAngles;
+            m_lerpRotationAmount = 0;
+        }
+
         public void SetCameraDefaultPosition()
         {
             m_targetPosition = cameraDefaultTransform.position;

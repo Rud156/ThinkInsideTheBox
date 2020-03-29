@@ -1,4 +1,5 @@
 ﻿using System;
+using CustomCamera;
 using UnityEngine;
 using Utils;
 
@@ -6,10 +7,16 @@ namespace WorldCube
 {
     public class CubeInputTouchController : MonoBehaviour
     {
+        // Note: The Front and Back are flipped to make it same as that of the Player
+
         [Header("RayCast")] public Camera mainCamera;
+        public float maxRayCastDistance = 100.0f;
         public LayerMask layerMask;
 
-        [Header("Direction Distance")] public float minDistanceBeforeChecking;
+        [Header("Direction Distance")] public float minDistanceBeforeResponse;
+
+        [Header("Camera")] public CameraController cameraController;
+        public float cameraRotationMultiplier;
 
         private CubeControllerV2 m_cubeController;
         private CubeRotationHandler m_cubeRotationHandler;
@@ -36,14 +43,14 @@ namespace WorldCube
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+                if (Physics.Raycast(ray, out RaycastHit hit, maxRayCastDistance, layerMask))
                 {
                     m_lastMousePosition = Input.mousePosition;
                     HandleSideTouched(hit.transform.tag);
                 }
                 else
                 {
-                    Debug.LogError("Nothing was hit");
+                    SetSideTouched(SideTouched.NoneOnlyClicked);
                 }
             }
             else if (Input.GetMouseButtonUp(0))
@@ -70,16 +77,21 @@ namespace WorldCube
                 float xDiff = Mathf.Abs(currentMousePosition.x - m_lastMousePosition.x);
                 float yDiff = Mathf.Abs(currentMousePosition.y - m_lastMousePosition.y);
 
-                if (xDiff > minDistanceBeforeChecking)
+                if (xDiff > minDistanceBeforeResponse)
                 {
                     m_lastMousePosition = currentMousePosition;
                     SetMovementDirection(MovementDirection.Horizontal);
                 }
-                else if (yDiff > minDistanceBeforeChecking)
+                else if (yDiff > minDistanceBeforeResponse)
                 {
                     m_lastMousePosition = currentMousePosition;
                     SetMovementDirection(MovementDirection.Vertical);
                 }
+            }
+
+            if (m_currentSideTouched == SideTouched.NoneOnlyClicked)
+            {
+                UpdateCameraDrag();
             }
             else
             {
@@ -90,7 +102,7 @@ namespace WorldCube
                 {
                     case MovementDirection.Horizontal:
                     {
-                        if (xDiff > minDistanceBeforeChecking)
+                        if (xDiff > minDistanceBeforeResponse)
                         {
                             int direction = (int) Mathf.Sign(m_lastMousePosition.x - currentMousePosition.x);
                             m_lastMousePosition = currentMousePosition;
@@ -102,7 +114,7 @@ namespace WorldCube
 
                     case MovementDirection.Vertical:
                     {
-                        if (yDiff > minDistanceBeforeChecking)
+                        if (yDiff > minDistanceBeforeResponse)
                         {
                             int direction = (int) Mathf.Sign(m_lastMousePosition.y - currentMousePosition.y);
                             m_lastMousePosition = currentMousePosition;
@@ -113,6 +125,9 @@ namespace WorldCube
                         break;
 
                     case MovementDirection.None:
+                        // Don't do anything here...
+                        break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -166,7 +181,7 @@ namespace WorldCube
                 {
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
                     }
                 }
                     break;
@@ -175,7 +190,7 @@ namespace WorldCube
                 {
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
                     }
                 }
                     break;
@@ -245,7 +260,7 @@ namespace WorldCube
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
                         SetSideTouched(SideTouched.Front);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
                     }
                     else if (m_movementDirection == MovementDirection.Vertical)
                     {
@@ -260,7 +275,7 @@ namespace WorldCube
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
                         SetSideTouched(SideTouched.Front);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
                     }
                     else if (m_movementDirection == MovementDirection.Vertical)
                     {
@@ -275,7 +290,7 @@ namespace WorldCube
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
                         SetSideTouched(SideTouched.Back);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
                     }
                     else if (m_movementDirection == MovementDirection.Vertical)
                     {
@@ -290,7 +305,7 @@ namespace WorldCube
                     if (m_movementDirection == MovementDirection.Horizontal)
                     {
                         SetSideTouched(SideTouched.Back);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
+                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
                     }
                     else if (m_movementDirection == MovementDirection.Vertical)
                     {
@@ -302,6 +317,25 @@ namespace WorldCube
 
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void UpdateCameraDrag()
+        {
+            if (m_movementDirection != MovementDirection.Horizontal)
+            {
+                return;
+            }
+
+            Vector2 currentMousePosition = Input.mousePosition;
+            float xDiff = Mathf.Abs(currentMousePosition.x - m_lastMousePosition.x);
+
+            if (xDiff > minDistanceBeforeResponse)
+            {
+                xDiff *= Mathf.Sign(m_lastMousePosition.x - currentMousePosition.x);
+                m_lastMousePosition = currentMousePosition;
+
+                cameraController.IncrementManualCameraRotation(xDiff * cameraRotationMultiplier);
             }
         }
 
@@ -407,7 +441,9 @@ namespace WorldCube
             FrontLeft,
             FrontRight,
             BackLeft,
-            BackRight
+            BackRight,
+
+            NoneOnlyClicked, // Probably a very bad name
         }
 
         private enum MovementDirection
