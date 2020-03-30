@@ -26,6 +26,8 @@ namespace WorldCube
 
         private Vector2 m_lastMousePosition;
 
+        private CubeSideTransparencyControl m_cubeSideTransparencyControl;
+
         #region Unity Functions
 
         private void Start()
@@ -38,12 +40,14 @@ namespace WorldCube
         {
             UpdateSideDrag();
 
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            bool didRayCastHit = Physics.Raycast(ray, out RaycastHit hit, maxRayCastDistance, layerMask);
+            CheckAndUpdateSideTransparency(hit, didRayCastHit);
+
             // Only perform the RayCast when the mouse button is down
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out RaycastHit hit, maxRayCastDistance, layerMask))
+                if (didRayCastHit)
                 {
                     m_lastMousePosition = Input.mousePosition;
                     HandleSideTouched(hit.transform.tag);
@@ -62,6 +66,38 @@ namespace WorldCube
         #endregion
 
         #region Utility Functions
+
+        private void CheckAndUpdateSideTransparency(RaycastHit i_hit, bool i_success)
+        {
+            if (!i_success)
+            {
+                if (m_cubeSideTransparencyControl != null)
+                {
+                    m_cubeSideTransparencyControl.MakeSideTransparent();
+                }
+
+                m_cubeSideTransparencyControl = null;
+                return;
+            }
+
+            // This can be assumed as the RayCast is only going to hit the TouchDetector Layer
+            // This is still super inefficient. A better way will be to pre cache the components and get them from a list...
+            CubeSideTransparencyControl cubeSideTransparencyControl = i_hit.transform.GetComponent<CubeSideTransparencyControl>();
+            if (cubeSideTransparencyControl != m_cubeSideTransparencyControl)
+            {
+                if (m_cubeSideTransparencyControl != null)
+                {
+                    m_cubeSideTransparencyControl.MakeSideTransparent();
+                }
+
+                m_cubeSideTransparencyControl = cubeSideTransparencyControl;
+
+                if (m_cubeSideTransparencyControl != null)
+                {
+                    m_cubeSideTransparencyControl.MakeSideVisible();
+                }
+            }
+        }
 
         private void UpdateSideDrag()
         {
