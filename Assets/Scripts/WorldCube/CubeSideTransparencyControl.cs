@@ -10,7 +10,7 @@ namespace WorldCube
 
         public float transparencyChangeRate = 7;
 
-        public List<MaterialTransparency> m_materialTransparency;
+        private List<MaterialTransparency> m_materialTransparency;
 
         #region Unity Functions
 
@@ -101,8 +101,7 @@ namespace WorldCube
 
         #region Structs
 
-        [System.Serializable]
-        public struct MaterialTransparency
+        private struct MaterialTransparency
         {
             public Transform transform;
             public Material material;
