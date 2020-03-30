@@ -12,6 +12,7 @@ namespace WorldCube
         [Header("RayCast")] public Camera mainCamera;
         public float maxRayCastDistance = 100.0f;
         public LayerMask layerMask;
+        public LayerMask materialLayerMask;
 
         [Header("Direction Distance")] public float minDistanceBeforeResponse;
 
@@ -20,13 +21,13 @@ namespace WorldCube
 
         private CubeControllerV2 m_cubeController;
         private CubeRotationHandler m_cubeRotationHandler;
+        private CubeSideTransparencyControl m_cubeSideTransparencyControl;
 
         private SideTouched m_currentSideTouched;
         private MovementDirection m_movementDirection;
 
         private Vector2 m_lastMousePosition;
-
-        private CubeSideTransparencyControl m_cubeSideTransparencyControl;
+        private Transform m_lastHoveredSide;
 
         #region Unity Functions
 
@@ -34,6 +35,7 @@ namespace WorldCube
         {
             m_cubeController = GetComponent<CubeControllerV2>();
             m_cubeRotationHandler = GetComponent<CubeRotationHandler>();
+            m_cubeSideTransparencyControl = GetComponent<CubeSideTransparencyControl>();
         }
 
         private void Update()
@@ -41,13 +43,13 @@ namespace WorldCube
             UpdateSideDrag();
 
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            bool didRayCastHit = Physics.Raycast(ray, out RaycastHit hit, maxRayCastDistance, layerMask);
-            CheckAndUpdateSideTransparency(hit, didRayCastHit);
+            bool didRayCastHit = Physics.Raycast(ray, out RaycastHit hitMaterial, maxRayCastDistance, materialLayerMask);
+            CheckAndUpdateSideTransparency(hitMaterial, didRayCastHit);
 
             // Only perform the RayCast when the mouse button is down
             if (Input.GetMouseButtonDown(0))
             {
-                if (didRayCastHit)
+                if (Physics.Raycast(ray, out RaycastHit hit, maxRayCastDistance, layerMask))
                 {
                     m_lastMousePosition = Input.mousePosition;
                     HandleSideTouched(hit.transform.tag);
@@ -67,35 +69,34 @@ namespace WorldCube
 
         #region Utility Functions
 
-        private void CheckAndUpdateSideTransparency(RaycastHit i_hit, bool i_success)
+        private void CheckAndUpdateSideTransparency(RaycastHit i_hit, bool i_didRayCastHit)
         {
-            if (!i_success)
+            if (i_didRayCastHit)
             {
-                if (m_cubeSideTransparencyControl != null)
+                Transform target = i_hit.transform;
+                if (target != m_lastHoveredSide)
                 {
-                    m_cubeSideTransparencyControl.MakeSideTransparent();
-                }
+                    if (m_lastHoveredSide != null)
+                    {
+                        m_cubeSideTransparencyControl.MakeSideTransparent(m_lastHoveredSide);
+                    }
 
-                m_cubeSideTransparencyControl = null;
-                return;
+                    m_lastHoveredSide = target;
+
+                    if (m_lastHoveredSide != null)
+                    {
+                        m_cubeSideTransparencyControl.MakeSideVisible(m_lastHoveredSide);
+                    }
+                }
             }
-
-            // This can be assumed as the RayCast is only going to hit the TouchDetector Layer
-            // This is still super inefficient. A better way will be to pre cache the components and get them from a list...
-            CubeSideTransparencyControl cubeSideTransparencyControl = i_hit.transform.GetComponent<CubeSideTransparencyControl>();
-            if (cubeSideTransparencyControl != m_cubeSideTransparencyControl)
+            else
             {
-                if (m_cubeSideTransparencyControl != null)
+                if (m_lastHoveredSide != null)
                 {
-                    m_cubeSideTransparencyControl.MakeSideTransparent();
+                    m_cubeSideTransparencyControl.MakeSideTransparent(m_lastHoveredSide);
                 }
 
-                m_cubeSideTransparencyControl = cubeSideTransparencyControl;
-
-                if (m_cubeSideTransparencyControl != null)
-                {
-                    m_cubeSideTransparencyControl.MakeSideVisible();
-                }
+                m_lastHoveredSide = null;
             }
         }
 

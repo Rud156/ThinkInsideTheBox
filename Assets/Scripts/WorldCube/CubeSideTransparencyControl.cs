@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
@@ -8,40 +8,27 @@ namespace WorldCube
     {
         private const string Alpha = "_Alpha";
 
-        [Header("Change Rates")] public float transparencyChangeRate;
-        public float minTransparency = 0;
-        public float maxTransparency = 1;
+        public float transparencyChangeRate = 7;
 
-        [Header("Collider Detection")] public float sphereRadius = 1;
-        public LayerMask layerMask;
-
-        private Material m_materialInstance;
-
-        private float m_startTransparency;
-        private float m_targetTransparency;
-        private float m_lerpAmount;
-
-        private bool m_lerpActive;
+        public List<MaterialTransparency> m_materialTransparency;
 
         #region Unity Functions
 
+        private void Start() => m_materialTransparency = new List<MaterialTransparency>();
+
         private void Update()
         {
-            GrabSideMaterials();
-
-            if (!m_lerpActive)
+            for (int i = m_materialTransparency.Count - 1; i >= 0; i--)
             {
-                return;
-            }
+                MaterialTransparency materialTransparency = m_materialTransparency[i];
+                materialTransparency.UpdateMaterial(transparencyChangeRate);
 
-            m_lerpAmount += transparencyChangeRate * Time.deltaTime;
-            float currentValue = Mathf.Lerp(m_startTransparency, m_targetTransparency, m_lerpAmount);
-            m_materialInstance.SetFloat(Alpha, currentValue);
+                m_materialTransparency[i] = materialTransparency;
 
-            if (m_lerpAmount > 0.97f)
-            {
-                m_materialInstance.SetFloat(Alpha, m_targetTransparency);
-                m_lerpActive = false;
+                if (materialTransparency.targetTransparency == 1 && materialTransparency.lerpAmount == 1)
+                {
+                    m_materialTransparency.RemoveAt(i);
+                }
             }
         }
 
@@ -49,50 +36,111 @@ namespace WorldCube
 
         #region External Functions
 
-        public void MakeSideVisible()
+        public void MakeSideVisible(Transform i_targetSide)
         {
-            float currentAlpha = m_materialInstance.GetFloat(Alpha);
-
-            m_startTransparency = currentAlpha;
-            m_targetTransparency = minTransparency;
-            m_lerpAmount = 0;
-            m_lerpActive = true;
+            bool didFindMaterial = GrabSideMaterials(i_targetSide, out MaterialTransparency materialTransparency, out int index);
+            if (didFindMaterial)
+            {
+                materialTransparency.MakeVisible();
+                m_materialTransparency[index] = materialTransparency;
+            }
         }
 
-        public void MakeSideTransparent()
+        public void MakeSideTransparent(Transform i_targetSide)
         {
-            float currentAlpha = m_materialInstance.GetFloat(Alpha);
-
-            m_startTransparency = currentAlpha;
-            m_targetTransparency = maxTransparency;
-            m_lerpAmount = 0;
-            m_lerpActive = true;
+            bool didFindMaterial = GrabSideMaterials(i_targetSide, out MaterialTransparency materialTransparency, out int index);
+            if (didFindMaterial)
+            {
+                materialTransparency.MakeTransparent();
+                m_materialTransparency[index] = materialTransparency;
+            }
         }
 
         #endregion
 
         #region Utility Functions
 
-        private void GrabSideMaterials()
+        private bool GrabSideMaterials(Transform i_transform, out MaterialTransparency o_materialTransparency, out int o_index)
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, sphereRadius, layerMask);
-            foreach (Collider other in colliders)
+            for (var i = 0; i < m_materialTransparency.Count; i++)
             {
-                if (other.CompareTag(TagManager.FaceOut) || other.CompareTag(TagManager.WaterHole))
+                MaterialTransparency transparency = m_materialTransparency[i];
+                if (transparency.transform == i_transform)
                 {
-                    Material[] materials = other.GetComponent<Renderer>().materials;
-                    if (materials.Length < 2)
-                    {
-                        continue;
-                    }
+                    o_materialTransparency = transparency;
+                    o_index = i;
+                    return true;
+                }
+            }
 
-                    if (m_materialInstance != null && materials[1] != m_materialInstance)
-                    {
-                        m_materialInstance.SetFloat(Alpha, 1);
-                    }
+            if (i_transform.CompareTag(TagManager.FaceOut) || i_transform.CompareTag(TagManager.WaterHole))
+            {
+                Material material = i_transform.GetComponent<Renderer>().materials[1];
+                MaterialTransparency transparency = new MaterialTransparency()
+                {
+                    transform = i_transform,
+                    material = material,
 
-                    m_materialInstance = materials[1];
-                    break;
+                    lerpAmount = 2,
+                    startTransparency = material.GetFloat(Alpha),
+                    targetTransparency = 1
+                };
+
+                o_materialTransparency = transparency;
+                o_index = m_materialTransparency.Count;
+                m_materialTransparency.Add(transparency); // Add to list and then return
+                return true;
+            }
+
+            o_materialTransparency = new MaterialTransparency();
+            o_index = -1;
+            return false;
+        }
+
+        #endregion
+
+        #region Structs
+
+        [System.Serializable]
+        public struct MaterialTransparency
+        {
+            public Transform transform;
+            public Material material;
+
+            public float startTransparency;
+            public float targetTransparency;
+            public float lerpAmount;
+
+            public void MakeTransparent()
+            {
+                lerpAmount = 0;
+                startTransparency = material.GetFloat(Alpha);
+                targetTransparency = 1;
+            }
+
+            public void MakeVisible()
+            {
+                lerpAmount = 0;
+                startTransparency = material.GetFloat(Alpha);
+                targetTransparency = 0;
+            }
+
+            public void UpdateMaterial(float i_alphaChangeRate)
+            {
+                if (lerpAmount >= 1)
+                {
+                    return;
+                }
+
+                lerpAmount += i_alphaChangeRate * Time.deltaTime;
+                if (lerpAmount >= 0.97f)
+                {
+                    material.SetFloat(Alpha, targetTransparency);
+                    lerpAmount = 1;
+                }
+                else
+                {
+                    material.SetFloat(Alpha, Mathf.Lerp(startTransparency, targetTransparency, lerpAmount));
                 }
             }
         }
