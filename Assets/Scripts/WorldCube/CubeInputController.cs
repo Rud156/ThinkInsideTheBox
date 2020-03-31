@@ -82,12 +82,19 @@ namespace WorldCube
 
         public void CloseSocketConnection()
         {
-            if (m_socketClient != null)
+            if (m_socketClient != null && !disableSocket)
             {
-                m_socketClient.Shutdown(SocketShutdown.Both);
-                m_socketClient.Close();
+                try
+                {
+                    m_socketClient.Shutdown(SocketShutdown.Both);
+                    m_socketClient.Close();
 
-                m_socketClient = null;
+                    m_socketClient = null;
+                }
+                catch (Exception e)
+                {
+                    Debug.Log($"Socket Close Connection Error: {e.Message}");
+                }
             }
         }
 
@@ -109,6 +116,7 @@ namespace WorldCube
             }
             catch (Exception e)
             {
+                m_socketClient = null;
                 Debug.LogError(e.Message);
             }
         }

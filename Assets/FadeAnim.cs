@@ -35,7 +35,7 @@ public class FadeAnim : MonoBehaviour
 
     void FadeOut()
     {
-        Debug.Log("??????????");
+        //Debug.Log("??????????");
         transition.SetTrigger("Start");
     }
 

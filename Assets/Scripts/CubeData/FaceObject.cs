@@ -2,6 +2,7 @@
 using WorldCube;
 using System.Collections;
 using Player;
+using Scenes.Main;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -106,21 +107,17 @@ public class FaceObject : MonoBehaviour
         if(faceEvent == ReachEvent.Water)
         {
             Debug.Log("Player Died. Reloading the scene");
-            //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
             StartCoroutine(SwitchLevel(SceneManager.GetActiveScene().buildIndex));
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else if (faceEvent == ReachEvent.Exit)
         {
             Debug.Log("Player Won");
 
             int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+            int sceneNum = SceneManager.sceneCountInBuildSettings;
             if (currentBuildIndex + 1 <= SceneManager.sceneCountInBuildSettings)
             {
-                //Something wrong here when loading next level so I commented it out
-                //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
                 StartCoroutine(SwitchLevel(currentBuildIndex + 1));
-                //SceneManager.LoadScene(currentBuildIndex + 1);
             }
             else
                 Debug.Log("This is already the last level");
@@ -129,11 +126,8 @@ public class FaceObject : MonoBehaviour
 
     IEnumerator SwitchLevel(int i_index)
     {
-        if (OnLoaded != null)
-        {
-
-            OnLoaded();
-        }
+        OnLoaded?.Invoke();
+        MainSceneController.Instance.CheckAndDisconnectSocket();
 
         yield return new WaitForSeconds(1f);
 
