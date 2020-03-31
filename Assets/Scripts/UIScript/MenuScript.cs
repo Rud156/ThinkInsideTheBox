@@ -7,6 +7,8 @@ public class MenuScript : MonoBehaviour
 {
 
 
+    #region External Functions
+
     public void NewGame()
     {
         SceneManager.LoadScene(1);
@@ -22,4 +24,6 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    #endregion
 }
