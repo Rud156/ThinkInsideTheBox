@@ -347,6 +347,7 @@ public class FaceObject : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }
+            SetGroundVisibility(true);
             //if (wallTile)
             //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
         }
@@ -420,7 +421,7 @@ public class FaceObject : MonoBehaviour
 
     private void SetGroundVisibility(bool i_visible)
     {
-        Transform ground_face = this.transform.Find("Grass Ground");
+        Transform ground_face = this.transform.Find("Grass Ground Variant");
         if (ground_face)
             ground_face.GetComponent<MeshRenderer>().enabled = i_visible;
     }
