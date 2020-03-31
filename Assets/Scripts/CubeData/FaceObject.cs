@@ -114,6 +114,7 @@ public class FaceObject : MonoBehaviour
             Debug.Log("Player Won");
 
             int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+            int sceneNum = SceneManager.sceneCountInBuildSettings;
             if (currentBuildIndex + 1 <= SceneManager.sceneCountInBuildSettings)
             {
                 StartCoroutine(SwitchLevel(currentBuildIndex + 1));
