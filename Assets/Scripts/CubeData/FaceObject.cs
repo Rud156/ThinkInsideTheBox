@@ -107,11 +107,8 @@ public class FaceObject : MonoBehaviour
         {
             Debug.Log("Player Died. Reloading the scene");
             //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
-            if(OnLoaded!=null)
-            {
-                OnLoaded();
-            }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            StartCoroutine(SwitchLevel(SceneManager.GetActiveScene().buildIndex));
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else if (faceEvent == ReachEvent.Exit)
         {
@@ -122,15 +119,25 @@ public class FaceObject : MonoBehaviour
             {
                 //Something wrong here when loading next level so I commented it out
                 //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
-                if (OnLoaded != null)
-                {
-                    OnLoaded();
-                }
-                SceneManager.LoadScene(currentBuildIndex + 1);
+                StartCoroutine(SwitchLevel(currentBuildIndex + 1));
+                //SceneManager.LoadScene(currentBuildIndex + 1);
             }
             else
                 Debug.Log("This is already the last level");
         }
+    }
+
+    IEnumerator SwitchLevel(int i_index)
+    {
+        if (OnLoaded != null)
+        {
+
+            OnLoaded();
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene(i_index);
     }
 
     public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
