@@ -391,6 +391,7 @@ public class FaceObject : MonoBehaviour
                 //float rotation_y = 90f * (int)turnTo;
                 water_instance.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
             }
+            SetGroundVisibility(false);
             water_instantiated = water_instance;
         }
         
@@ -413,15 +414,16 @@ public class FaceObject : MonoBehaviour
         yield return null;//new WaitForEndOfFrame();
 
         Transform move_sign = transform.Find("Move_Sign(Clone)");
+        Transform water_instance = transform.Find("Water Ground Variant(Clone)");
         if (move_sign)
         {
             DestroyImmediate(move_sign.gameObject);
             DestroyImmediate(arrow_instantiated);
             arrow_instantiated = null;
         }
-        if(water_instantiated)
+        if(water_instance)
         {
-            DestroyImmediate(water_instantiated);
+            DestroyImmediate(water_instance.gameObject);
             water_instantiated = null;
         }
         if(showWallFace)
@@ -435,7 +437,7 @@ public class FaceObject : MonoBehaviour
 
     private void SetGroundVisibility(bool i_visible)
     {
-        Transform ground_face = this.transform.Find("Grass Ground Variant");
+        Transform ground_face = this.transform.Find("Grass Ground");
         if (ground_face)
             ground_face.GetComponent<MeshRenderer>().enabled = i_visible;
     }
