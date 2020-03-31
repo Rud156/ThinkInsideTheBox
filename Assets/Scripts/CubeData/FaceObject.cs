@@ -112,7 +112,8 @@ public class FaceObject : MonoBehaviour
             int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
             if (currentBuildIndex + 1 <= SceneManager.sceneCountInBuildSettings)
             {
-                CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
+                //Something wrong here when loading next level so I commented it out
+                //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
                 SceneManager.LoadScene(currentBuildIndex + 1);
             }
             else
@@ -347,6 +348,7 @@ public class FaceObject : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }
+            SetGroundVisibility(true);
             //if (wallTile)
             //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
         }

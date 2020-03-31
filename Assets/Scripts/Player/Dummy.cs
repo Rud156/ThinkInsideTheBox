@@ -20,9 +20,10 @@ namespace Player
         public LayerMask WalkableLayer;
         public CubeLayerMask tendingDirection = CubeLayerMask.Zero;
         public bool AutoMovement = true;
+        public CubeLayerMask pendingDirection;
         private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
-        private Vector3 m_destination;
+        public GameObject m_movingTarget;
         private Quaternion m_destRot = Quaternion.identity;
         private float tolerance = 0.1f;
         private PlayerState m_playerState = PlayerState.Stuck;
@@ -85,7 +86,7 @@ namespace Player
         {
             CubeLayerMask direction = new CubeLayerMask(transform.forward);
             if (direction.y != 0) return;
-            tendingDirection = direction;
+            tendingDirection = AutoMovement ? direction : CubeLayerMask.down;
         }
 
         public void ManuallyMoveTo(CubeLayerMask i_direction)
@@ -98,7 +99,6 @@ namespace Player
         {
             if (m_playerState == PlayerState.Moving || m_playerState == PlayerState.Ending)
                 yield break;
-            CubeLayerMask pendingDirection;
             bool changed;
             (pendingDirection, changed) = GetCurrentCubie().GetMoveDirection(i_direction);
             m_playerState = PlayerState.Moving;
@@ -118,11 +118,11 @@ namespace Player
             }
 
             // Move action
-            m_destination = GetNextPosition(pendingDirection);
+            m_movingTarget = GetNextTarget(pendingDirection);
             if (pendingDirection.y == 0)
             {
                 Quaternion q = Projection.transform.rotation;
-                transform.LookAt(m_destination);
+                transform.LookAt(m_movingTarget.transform.position);
                 Projection.transform.rotation = q;
             }
 
@@ -131,15 +131,15 @@ namespace Player
             if (pendingDirection != CubeLayerMask.up)
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
-                while (Vector3.Distance(m_destination, transform.position) > tolerance)
+                while (Vector3.Distance(m_movingTarget.transform.position, transform.position) > tolerance)
                 {
-                    SetPlayerPosition(Vector3.MoveTowards(transform.position, m_destination, Time.deltaTime * m_MoveSpeed), pendingDirection);
+                    SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingTarget.transform.position, Time.deltaTime * m_MoveSpeed), pendingDirection);
                     yield return null;
                 }
             }
 
             m_stopped = false;
-            SetPlayerPosition(m_destination, pendingDirection);
+            SetPlayerPosition(m_movingTarget.transform.position, pendingDirection);
             GetCurrentCubie().OnPlayerEnter(this);
             Debug.Log("Reach destination");
 
@@ -212,15 +212,15 @@ namespace Player
             SetProjectionPosition(i_PendingDir);
         }
 
-        public Vector3 GetNextPosition(CubeLayerMask i_direction)
+        public GameObject GetNextTarget(CubeLayerMask i_direction)
         {
             CubieObject cubie;
             if (CubeWorld.TryGetNextCubie(transform.position, i_direction, out cubie))
-                return cubie.transform.position;
-            return GetCurrentCubie().transform.position + i_direction.ToVector3() * CubeWorld.CUBIE_LENGTH;
+                return cubie.gameObject;
+            return GetCurrentCubie().gameObject;
         }
 
-        private CubieObject GetCurrentCubie()
+        public CubieObject GetCurrentCubie()
         {
             RaycastHit hit;
             if (Physics.Linecast(transform.position + Vector3.forward * CubeWorld.CUBIE_LENGTH / 2, transform.position, out hit, CubeWorld.CUBIE_LAYER_MASK))
