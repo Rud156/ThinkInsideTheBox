@@ -112,7 +112,8 @@ public class FaceObject : MonoBehaviour
             int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
             if (currentBuildIndex + 1 <= SceneManager.sceneCountInBuildSettings)
             {
-                CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
+                //Something wrong here when loading next level so I commented it out
+                //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
                 SceneManager.LoadScene(currentBuildIndex + 1);
             }
             else
