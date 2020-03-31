@@ -31,7 +31,7 @@ namespace Testing
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag.Equals("FaceOut") || other.gameObject.tag.Equals("CenterBlock"))
+            if (other.CompareTag(TagManager.FaceOut) || other.CompareTag(TagManager.WaterHole))
             {
                 _mat = other.gameObject.GetComponent<Renderer>().materials;
                 if (_mat.Length < 2)

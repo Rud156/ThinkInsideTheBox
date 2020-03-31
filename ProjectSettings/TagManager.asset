@@ -15,6 +15,20 @@ TagManager:
   - CircleCollectible
   - SideParent
   - GridMarker
+  - BottomTouch
+  - TopTouch
+  - LeftTouch
+  - RightTouch
+  - BottomLeftTouch
+  - BottomRightTouch
+  - TopLeftTouch
+  - TopRightTouch
+  - FrontTouch
+  - BackTouch
+  - FrontLeftTouch
+  - FrontRightTouch
+  - BackLeftTouch
+  - BackRightTouch
   layers:
   - Default
   - TransparentFX
@@ -33,7 +47,7 @@ TagManager:
   - WorldCubeMarker
   - Cubie
   - Plane
-  - 
+  - TouchDetector
   - 
   - 
   - 

@@ -22,6 +22,9 @@ namespace CustomCamera
         [Header("Rotation Normalization")] public int rotationGroupAmount;
         public float rotationOffsetTolerance;
         public bool useRotationNormalization;
+        public CubeRotationHandler cubeRotationHandler;
+
+        [Header("Manual Camera Control")] public float manualCameraRotationSpeed;
 
         [Header("Targeting")] public Transform cameraLookAt;
         public Transform mainCamera;
@@ -70,6 +73,7 @@ namespace CustomCamera
             //
             // transform.position = Vector3.Lerp(m_startPosition, m_targetPosition, positionLerpCurve.Evaluate(m_lerpPositionAmount));
 
+            UpdateManualCameraMovement();
             UpdateCameraRotation();
             // UpdateCameraLookAt();
         }
@@ -90,6 +94,13 @@ namespace CustomCamera
             }
         }
 
+        public void IncrementManualCameraRotation(float i_amount)
+        {
+            m_targetRotation.y += i_amount * Time.deltaTime;
+            m_startRotation = transform.rotation.eulerAngles;
+            m_lerpRotationAmount = 0;
+        }
+
         public void SetCameraDefaultPosition()
         {
             m_targetPosition = cameraDefaultTransform.position;
@@ -105,6 +116,22 @@ namespace CustomCamera
 
         #region Utility Functions
 
+        private void UpdateManualCameraMovement()
+        {
+            if (Input.GetKey(ControlConstants.CameraLeft))
+            {
+                m_targetRotation.y -= manualCameraRotationSpeed * Time.deltaTime;
+                m_startRotation = transform.rotation.eulerAngles;
+                m_lerpRotationAmount = 0;
+            }
+            else if (Input.GetKey(ControlConstants.CameraRight))
+            {
+                m_targetRotation.y += manualCameraRotationSpeed * Time.deltaTime;
+                m_startRotation = transform.rotation.eulerAngles;
+                m_lerpRotationAmount = 0;
+            }
+        }
+
         private void UpdateCameraRotation()
         {
             if (m_lerpRotationAmount < 1)
@@ -116,6 +143,8 @@ namespace CustomCamera
             Quaternion start = Quaternion.Euler(m_startRotation);
             Quaternion target = Quaternion.Euler(m_targetRotation);
             transform.rotation = Quaternion.Slerp(start, target, rotationLerpCurve.Evaluate(m_lerpRotationAmount));
+
+            cubeRotationHandler.RotateCenter(transform.rotation.eulerAngles.y);
         }
 
         private void UpdateCameraLookAt() => mainCamera.LookAt(cameraLookAt);

@@ -30,13 +30,12 @@ namespace WorldCube
 
         [Header("Web Sockets")] public string ip;
         public int port;
+        public float socketPollCheckTime;
+        public float socketPollCheckInitialTime;
         public bool disableSocket;
 
-        [Header("Debug")] public Text rotationDebugText;
-        public Transform debugCube;
-        public bool debugActive;
-
         // Sockets
+        private float m_currentSocketPollCheckTime;
         private string m_testPingRegex = @"Close";
         private Regex m_captureRegex = new Regex(@"\|(.*?)\|", RegexOptions.Compiled);
         private Socket m_socketClient;
@@ -56,6 +55,8 @@ namespace WorldCube
             m_piDataRotationInput = new ConcurrentQueue<Vector3>();
             m_piPressedInput = new ConcurrentQueue<string>();
 
+            m_currentSocketPollCheckTime = socketPollCheckInitialTime;
+
             if (!disableSocket)
             {
                 ConnectSocket();
@@ -68,11 +69,11 @@ namespace WorldCube
 
         private void Update()
         {
-            HandleKeyboardInput();
-
             HandleSocketControlSideUpdate();
             HandleSocketControlRotationUpdate();
             HandleSocketPressedInputUpdate();
+
+            UpdateSocketPollCheckTime();
         }
 
         #endregion
@@ -288,12 +289,6 @@ namespace WorldCube
         {
             while (m_piDataRotationInput.TryDequeue(out Vector3 rotation))
             {
-                if (debugActive)
-                {
-                    rotationDebugText.text = $"Rotation: {rotation}";
-                    debugCube.rotation = Quaternion.Euler(rotation);
-                }
-
                 cameraController.SetTargetCameraRotation(rotation);
             }
         }
@@ -306,64 +301,38 @@ namespace WorldCube
             }
         }
 
-        #endregion
-
-        #region Keyboard
-
-        private void HandleKeyboardInput()
+        private bool IsSocketConnected()
         {
-            if (Dummy.Instance.IsPlayerMoving())
+            if (m_socketClient == null)
             {
-                return;
+                return false;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            try
             {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), 1);
+                return !(m_socketClient.Poll(1, SelectMode.SelectRead) && m_socketClient.Available == 0);
             }
-            else if (Input.GetKeyDown(KeyCode.R))
+            catch (SocketException)
             {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(-1, 0, 0), -1);
+                return false;
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
+        }
+
+        private void UpdateSocketPollCheckTime()
+        {
+            if (m_currentSocketPollCheckTime > 0)
             {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.T))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(1, 0, 0), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Y))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, 1), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.U))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 0, -1), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha8))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.I))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, 1, 0), -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha9))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.O))
-            {
-                m_cubeController.CheckAndUpdateRotation(new CubeLayerMaskV2(0, -1, 0), -1);
+                m_currentSocketPollCheckTime -= Time.deltaTime;
+                if (m_currentSocketPollCheckTime <= 0)
+                {
+                    m_currentSocketPollCheckTime = socketPollCheckTime;
+
+                    if (!disableSocket && !IsSocketConnected())
+                    {
+                        Debug.LogError("Socket Disconnected. Re-connecting");
+                        ConnectSocket();
+                    }
+                }
             }
         }
 
@@ -411,10 +380,10 @@ namespace WorldCube
             public const int BufferSize = 256;
 
             // Receive buffer.  
-            public byte[] buffer = new byte[BufferSize];
+            public readonly byte[] buffer = new byte[BufferSize];
 
             // Received data string.  
-            public StringBuilder sb = new StringBuilder();
+            public readonly StringBuilder sb = new StringBuilder();
         }
 
         #endregion
