@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2840,6 +2840,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Menus
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306935322582019469, guid: 77279dbd1c626ee43a5300c5b7ae326e,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306935322582019469, guid: 77279dbd1c626ee43a5300c5b7ae326e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306935322582019469, guid: 77279dbd1c626ee43a5300c5b7ae326e,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77279dbd1c626ee43a5300c5b7ae326e, type: 3}
@@ -6590,32 +6605,32 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1230491322}
-  - {fileID: 1359367937}
-  - {fileID: 891469657}
+  - {fileID: 407329625}
+  - {fileID: 545776650}
+  - {fileID: 814030595}
+  - {fileID: 1377788132}
+  - {fileID: 1459156280}
   - {fileID: 1517486994}
-  - {fileID: 1960638881}
-  - {fileID: 802966903}
   - {fileID: 1683791999}
-  - {fileID: 240910666}
+  - {fileID: 1700780515}
+  - {fileID: 1727281384}
   - {fileID: 1787429269}
+  - {fileID: 1849166026}
+  - {fileID: 1960638881}
+  - {fileID: 2043616801}
+  - {fileID: 1359367937}
+  - {fileID: 2122612765}
+  - {fileID: 891469657}
+  - {fileID: 1487244899}
+  - {fileID: 144711304}
+  - {fileID: 802966903}
+  - {fileID: 1320331057}
+  - {fileID: 240910666}
+  - {fileID: 307614913}
   - {fileID: 35059603}
   - {fileID: 793601434}
   - {fileID: 1369863831}
   - {fileID: 49672709}
-  - {fileID: 2122612765}
-  - {fileID: 1487244899}
-  - {fileID: 545776650}
-  - {fileID: 1700780515}
-  - {fileID: 1459156280}
-  - {fileID: 2043616801}
-  - {fileID: 307614913}
-  - {fileID: 814030595}
-  - {fileID: 1849166026}
-  - {fileID: 144711304}
-  - {fileID: 1377788132}
-  - {fileID: 1320331057}
-  - {fileID: 1727281384}
-  - {fileID: 407329625}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
