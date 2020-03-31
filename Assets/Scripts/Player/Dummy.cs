@@ -85,7 +85,7 @@ namespace Player
         {
             CubeLayerMask direction = new CubeLayerMask(transform.forward);
             if (direction.y != 0) return;
-            tendingDirection = direction;
+            tendingDirection = AutoMovement ? direction : CubeLayerMask.down;
         }
 
         public void ManuallyMoveTo(CubeLayerMask i_direction)
