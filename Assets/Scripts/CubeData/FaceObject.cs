@@ -102,7 +102,7 @@ public class FaceObject : MonoBehaviour
         if(faceEvent == ReachEvent.Water)
         {
             Debug.Log("Player Died. Reloading the scene");
-            CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
+            //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else if (faceEvent == ReachEvent.Exit)
