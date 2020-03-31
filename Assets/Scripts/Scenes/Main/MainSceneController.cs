@@ -1,61 +1,15 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Utils;
+﻿using UnityEngine;
+using WorldCube;
 
 namespace Scenes.Main
 {
     public class MainSceneController : MonoBehaviour
     {
-        public float waitBeforeLevelLoading = 1;
-
-        #region Unity Functions
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(ControlConstants.Restart))
-            {
-                ReloadCurrentLevel(true);
-            }
-            else if (Input.GetKeyDown(ControlConstants.Quit))
-            {
-                Application.Quit();
-            }
-        }
-
-        #endregion
+        public CubeInputController cubeInputController;
 
         #region External Functions
 
-        #region Level Loading
-
-        public void ReloadCurrentLevel(bool instantReload = false)
-        {
-            int buildIndex = SceneManager.GetActiveScene().buildIndex;
-            StartCoroutine(LoadLevel(buildIndex, instantReload));
-        }
-
-        public void LoadNextLevel(int index) => StartCoroutine(LoadLevel(index));
-
-        #endregion
-
-        #endregion
-
-        #region Utility Functions
-
-        private IEnumerator LoadLevel(int index, bool instantLoad = false)
-        {
-            if (instantLoad)
-            {
-                yield return new WaitForEndOfFrame();
-            }
-            else
-            {
-                yield return new WaitForSeconds(waitBeforeLevelLoading);
-            }
-
-            SceneManager.LoadScene(index);
-        }
+        public void CheckAndDisconnectSocket() => cubeInputController.CloseSocketConnection();
 
         #endregion
 
