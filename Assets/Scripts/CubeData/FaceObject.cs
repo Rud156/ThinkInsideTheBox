@@ -3,6 +3,7 @@ using WorldCube;
 using System.Collections;
 using Player;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum TileFunction
@@ -48,6 +49,9 @@ public class FaceObject : MonoBehaviour
 
     [Header("EventAfterReaching")]
     public ReachEvent faceEvent;
+
+    public delegate void LoadLevel();
+    public static event LoadLevel OnLoaded;
 
     private GameObject instantiated_arrow;
     
@@ -103,6 +107,10 @@ public class FaceObject : MonoBehaviour
         {
             Debug.Log("Player Died. Reloading the scene");
             //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
+            if(OnLoaded!=null)
+            {
+                OnLoaded();
+            }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else if (faceEvent == ReachEvent.Exit)
@@ -114,6 +122,10 @@ public class FaceObject : MonoBehaviour
             {
                 //Something wrong here when loading next level so I commented it out
                 //CubeInputController.Instance.CloseSocketConnection(); // Very Hacky. But a temp fix
+                if (OnLoaded != null)
+                {
+                    OnLoaded();
+                }
                 SceneManager.LoadScene(currentBuildIndex + 1);
             }
             else
