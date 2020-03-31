@@ -140,7 +140,19 @@ namespace WorldCube
             {
                 return;
             }
-
+            if (Dummy.Instance.IsPlayerMoving() &&
+                CubeLayerMaskV2.IsCombinedNotZero(new CubeLayerMaskV2(Dummy.Instance.pendingDirection), i_cubeLayerMask))
+            {
+                foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
+                {
+                    if (cubeLayerObjectV2.cubeLayerMask == i_cubeLayerMask)
+                    {
+                        if (cubeLayerObjectV2.IsInside(Dummy.Instance.GetCurrentCubie().gameObject)) return;
+                        if (cubeLayerObjectV2.IsInside(Dummy.Instance.m_movingTarget)) return;
+                        break;
+                    }
+                }
+            }
             m_lastLayerMask = i_cubeLayerMask;
 
             int finalRotationDelta = rotationDelta * i_direction;

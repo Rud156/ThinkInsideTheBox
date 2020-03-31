@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using CubeData;
 namespace WorldCube
 {
     [System.Serializable]
@@ -39,6 +39,13 @@ namespace WorldCube
             x = i_x;
             y = i_y;
             z = i_z;
+        }
+
+        public CubeLayerMaskV2(CubeLayerMask i_other)
+        {
+            x = i_other.x;
+            y = i_other.y;
+            z = i_other.z;
         }
 
         public bool IsValid()

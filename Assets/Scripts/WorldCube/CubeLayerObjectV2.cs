@@ -170,6 +170,10 @@ namespace WorldCube
                 rotation * cubeLayerMask.Z
             );
         }
+        public bool IsInside(GameObject i_other)
+        {
+            return GetComponent<Collider>().bounds.Contains(i_other.transform.position);
+        }
         #endregion
     }
 }

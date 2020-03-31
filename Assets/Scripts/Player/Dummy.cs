@@ -20,9 +20,10 @@ namespace Player
         public LayerMask WalkableLayer;
         public CubeLayerMask tendingDirection = CubeLayerMask.Zero;
         public bool AutoMovement = true;
+        public CubeLayerMask pendingDirection;
         private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
-        private GameObject m_movingTarget;
+        public GameObject m_movingTarget;
         private Quaternion m_destRot = Quaternion.identity;
         private float tolerance = 0.1f;
         private PlayerState m_playerState = PlayerState.Stuck;
@@ -98,7 +99,6 @@ namespace Player
         {
             if (m_playerState == PlayerState.Moving || m_playerState == PlayerState.Ending)
                 yield break;
-            CubeLayerMask pendingDirection;
             bool changed;
             (pendingDirection, changed) = GetCurrentCubie().GetMoveDirection(i_direction);
             m_playerState = PlayerState.Moving;
@@ -220,7 +220,7 @@ namespace Player
             return GetCurrentCubie().gameObject;
         }
 
-        private CubieObject GetCurrentCubie()
+        public CubieObject GetCurrentCubie()
         {
             RaycastHit hit;
             if (Physics.Linecast(transform.position + Vector3.forward * CubeWorld.CUBIE_LENGTH / 2, transform.position, out hit, CubeWorld.CUBIE_LAYER_MASK))
