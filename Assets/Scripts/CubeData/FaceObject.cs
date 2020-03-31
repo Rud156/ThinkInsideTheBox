@@ -420,7 +420,7 @@ public class FaceObject : MonoBehaviour
 
     private void SetGroundVisibility(bool i_visible)
     {
-        Transform ground_face = this.transform.Find("Grass Ground Variant");
+        Transform ground_face = this.transform.Find("Grass Ground");
         if (ground_face)
             ground_face.GetComponent<MeshRenderer>().enabled = i_visible;
     }
