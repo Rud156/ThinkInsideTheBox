@@ -309,7 +309,8 @@ public class FaceObject : MonoBehaviour
 
     private void LoadFaceData()
     {
-        
+        if (showWallFace)
+            SetGroundVisibility(true);
 
         //Load face access related prefabs and data
         if (faceType == TileFunction.Turn)
