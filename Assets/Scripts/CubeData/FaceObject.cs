@@ -309,8 +309,6 @@ public class FaceObject : MonoBehaviour
 
     private void LoadFaceData()
     {
-        if (showWallFace)
-            SetGroundVisibility(true);
 
         //Load face access related prefabs and data
         if (faceType == TileFunction.Turn)
@@ -362,7 +360,10 @@ public class FaceObject : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }
-            SetGroundVisibility(true);
+            if (showWallFace)
+                SetGroundVisibility(true);
+            else
+                SetGroundVisibility(false);
             //if (wallTile)
             //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
         }
