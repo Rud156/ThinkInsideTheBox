@@ -47,7 +47,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2186888008191649119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -137,7 +137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 52dd78b5a4d602640b4a76361da86d2c, type: 2}
+  - {fileID: 2100000, guid: 2a320a3d68471ff4983b7ba20f42e02e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -412,7 +412,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -466,6 +466,12 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 1
+  AutoMovement: 1
+  pendingDirection:
+    x: 0
+    y: 0
+    z: 0
+  m_movingTarget: {fileID: 0}
 --- !u!54 &3267980953741708006
 Rigidbody:
   m_ObjectHideFlags: 0

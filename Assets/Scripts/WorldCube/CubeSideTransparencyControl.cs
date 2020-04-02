@@ -75,7 +75,16 @@ namespace WorldCube
 
             if (i_transform.CompareTag(TagManager.FaceOut) || i_transform.CompareTag(TagManager.WaterHole))
             {
-                Material material = i_transform.GetComponent<Renderer>().materials[1];
+                Material material;
+
+                if (i_transform.CompareTag(TagManager.FaceOut))
+                {
+                     material = i_transform.GetComponent<Renderer>().materials[0];
+                }
+                else {
+                     material = i_transform.GetComponent<Renderer>().materials[1];
+                }
+                
                 MaterialTransparency transparency = new MaterialTransparency()
                 {
                     transform = i_transform,
