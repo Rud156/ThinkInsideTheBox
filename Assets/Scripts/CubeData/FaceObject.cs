@@ -309,6 +309,14 @@ public class FaceObject : MonoBehaviour
 
     private void LoadFaceData()
     {
+        if (showWallFace)
+        {
+            SetGroundVisibility(true);
+        }
+        else
+        {
+            SetGroundVisibility(false);
+        }
 
         //Load face access related prefabs and data
         if (faceType == TileFunction.Turn)
@@ -360,10 +368,10 @@ public class FaceObject : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }
-            if (showWallFace)
-                SetGroundVisibility(true);
-            else
-                SetGroundVisibility(false);
+            //if (showWallFace)
+            //    SetGroundVisibility(true);
+            //else
+            //    SetGroundVisibility(false);
             //if (wallTile)
             //Instantiate(wallTile, this.transform.position, this.transform.rotation, this.transform);
         }
@@ -389,14 +397,14 @@ public class FaceObject : MonoBehaviour
             if (water)
             {
                 water_instance = Instantiate(water, this.transform) as GameObject;
-                SetGroundVisibility(false);
+                //SetGroundVisibility(false);
                 //float rotation_y = 90f * (int)turnTo;
                 water_instance.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
             }
             SetGroundVisibility(false);
             water_instantiated = water_instance;
         }
-        
+
     }
 
     private void OnValidate()
