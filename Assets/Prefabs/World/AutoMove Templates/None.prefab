@@ -119,8 +119,8 @@ MonoBehaviour:
   back: 1
   right: 1
   left: 1
-  up: 0
-  down: 0
+  up: 1
+  down: 1
   faceEvent: 0
 --- !u!1 &8662029427936452492
 GameObject:
@@ -627,7 +627,7 @@ GameObject:
   m_Layer: 15
   m_Name: None
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -974,6 +974,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grass Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 041930fb95c099b48a3d26d9e385f183,
         type: 3}
