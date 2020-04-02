@@ -23,10 +23,10 @@ Material:
   m_Name: M_Slime
   m_Shader: {fileID: -6465566751694194690, guid: 7cd9bd2f6dc1e0a46a0c0da0dea4472e,
     type: 3}
-  m_ShaderKeywords: _DOUBLESIDED_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap:
     MotionVector: User
@@ -193,12 +193,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_7C7FC786: 2.41
-    - Vector1_A2B7323B: 0.67
+    - Vector1_A2B7323B: 1
     - Vector1_C644F5B: 0.5
-    - Vector1_D9C2E19B: 0.8
-    - Vector1_DC3CC228: 0.11
-    - Vector1_E2009805: 0.3
-    - Vector1_E65B63F2: 0.19
+    - Vector1_D9C2E19B: 0.7
+    - Vector1_DC3CC228: 1
+    - Vector1_E2009805: 0.2
+    - Vector1_E65B63F2: 0.8
     - Vector1_F14748E5: 10
     - _AORemapMax: 1
     - _AORemapMin: 0
@@ -219,8 +219,8 @@ Material:
     - _BumpScale: 1
     - _CoatMask: 0
     - _Cull: 2
-    - _CullMode: 0
-    - _CullModeForward: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
     - _Cutoff: 0.5
     - _DepthOffsetEnable: 0
     - _DetailAlbedoScale: 1
@@ -245,7 +245,7 @@ Material:
     - _DistortionSrcBlend: 1
     - _DistortionVectorBias: -1
     - _DistortionVectorScale: 2
-    - _DoubleSidedEnable: 1
+    - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
     - _EmissiveColorMode: 1
@@ -337,16 +337,16 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_68CF3025: {r: 5.0578933, g: 5.590303, b: 6.033978, a: 0}
-    - Color_99F38000: {r: 0, g: 0.037616458, b: 0.49056602, a: 0}
-    - Color_DEDCFDD5: {r: 0.23309009, g: 0.42897248, b: 0.509434, a: 0}
+    - Color_68CF3025: {r: 0.5832998, g: 1.6754357, b: 2.6310546, a: 0}
+    - Color_99F38000: {r: 0, g: 0.10690847, b: 0.7075472, a: 0}
+    - Color_DEDCFDD5: {r: 0.07573871, g: 0.5117211, b: 0.6981132, a: 0}
     - Vector2_1D0D2670: {r: 3, g: 1, b: 0, a: 0}
     - Vector2_21576DEA: {r: 2, g: 2, b: 0, a: 0}
     - Vector2_47E8BC2: {r: 0, g: 0.06, b: 0, a: 0}
     - Vector2_611D35AF: {r: 0.01, g: 0.01, b: 0, a: 0}
     - Vector2_B56E332: {r: -0.01, g: 0.01, b: 0, a: 0}
     - Vector2_D41411EA: {r: 0, g: 0.01, b: 0, a: 0}
-    - Vector2_F63264CF: {r: 4, g: 2, b: 0, a: 0}
+    - Vector2_F63264CF: {r: 4, g: 3, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

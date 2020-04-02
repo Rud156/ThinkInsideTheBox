@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Grass
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
-  m_ShaderKeywords: _BENTNORMALMAP _DISABLE_DECALS _DISABLE_SSR _MASKMAP _METALLICSPECGLOSSMAP
+  m_ShaderKeywords: _BENTNORMALMAP _DISABLE_DECALS _MASKMAP _METALLICSPECGLOSSMAP
     _NORMALMAP _NORMALMAP_TANGENT_SPACE _NORMALMAP_TANGENT_SPACE0 _NORMALMAP_TANGENT_SPACE1
     _NORMALMAP_TANGENT_SPACE2 _NORMALMAP_TANGENT_SPACE3 _OCCLUSIONMAP _TESSELLATION_PHONG
   m_LightmapFlags: 4
@@ -316,12 +316,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AORemapMax: 0.97804606
+    - _AORemapMax: 0.5462863
     - _AORemapMax0: 1
     - _AORemapMax1: 1
     - _AORemapMax2: 1
     - _AORemapMax3: 1
-    - _AORemapMin: 0.43175995
+    - _AORemapMin: 0.15733637
     - _AORemapMin0: 0
     - _AORemapMin1: 0
     - _AORemapMin2: 0
@@ -485,7 +485,7 @@ Material:
     - _NormalMapSpace1: 0
     - _NormalMapSpace2: 0
     - _NormalMapSpace3: 0
-    - _NormalScale: 0.45
+    - _NormalScale: 0.5
     - _NormalScale0: 1
     - _NormalScale1: 1
     - _NormalScale2: 1
@@ -503,7 +503,7 @@ Material:
     - _PPDPrimitiveWidth: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ReceivesSSR: 0
+    - _ReceivesSSR: 1
     - _RefractionModel: 0
     - _SSRefractionProjectionModel: 0
     - _Smoothness: 0.201
@@ -511,12 +511,12 @@ Material:
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
-    - _SmoothnessRemapMax: 0.5243324
+    - _SmoothnessRemapMax: 0.50603735
     - _SmoothnessRemapMax0: 1
     - _SmoothnessRemapMax1: 1
     - _SmoothnessRemapMax2: 1
     - _SmoothnessRemapMax3: 1
-    - _SmoothnessRemapMin: 0.051225737
+    - _SmoothnessRemapMin: 0.17929024
     - _SmoothnessRemapMin0: 0
     - _SmoothnessRemapMin1: 0
     - _SmoothnessRemapMin2: 0
@@ -528,10 +528,10 @@ Material:
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
     - _StencilRef: 2
-    - _StencilRefDepth: 32
+    - _StencilRefDepth: 0
     - _StencilRefDistortionVec: 64
-    - _StencilRefGBuffer: 34
-    - _StencilRefMV: 160
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 128
     - _StencilWriteMask: 3
     - _StencilWriteMaskDepth: 48
     - _StencilWriteMaskDistortionVec: 64
