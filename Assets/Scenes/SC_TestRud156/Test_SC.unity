@@ -192,7 +192,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 797872481}
   - {fileID: 1520501474}
   - {fileID: 1121764103}
   m_Father: {fileID: 663586120}
@@ -1002,7 +1001,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1589163422}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!65 &206465732
 BoxCollider:
@@ -1082,6 +1081,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &227167032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1195,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &246730262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,6 +1309,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &286265334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1503,6 +1508,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &307508983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,7 +1564,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307508983}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1609,12 +1616,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side1: 0
-  side2: 0
-  touchMovementDirection1: 0
-  touchMovementDirection2: 0
-  movementDirectionMultiplier1: 0
-  movementDirectionMultiplier2: 0
+  side1: 6
+  side2: 4
+  touchMovementDirection1: 1
+  touchMovementDirection2: 2
+  movementDirectionMultiplier1: 1
+  movementDirectionMultiplier2: -1
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &316086718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1636,7 @@ GameObject:
   - component: {fileID: 316086722}
   - component: {fileID: 316086721}
   - component: {fileID: 316086720}
+  - component: {fileID: 316086723}
   m_Layer: 17
   m_Name: Front Control
   m_TagString: FrontTouch
@@ -1645,8 +1655,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: -2.1}
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 1589163422}
-  m_RootOrder: 0
+  m_Father: {fileID: 981534052}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!65 &316086720
 BoxCollider:
@@ -1668,7 +1678,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316086718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1708,6 +1718,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316086718}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &316086723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316086718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side1: 5
+  side2: 0
+  touchMovementDirection1: 1
+  touchMovementDirection2: 2
+  movementDirectionMultiplier1: -1
+  movementDirectionMultiplier2: 0
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &320648175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,6 +2134,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &430546434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2307,6 +2339,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &487908227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2424,7 +2458,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 785592939}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &513159848
 BoxCollider:
@@ -2504,6 +2538,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &518291636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2790,6 +2826,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &552405790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3194,7 +3232,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575859682}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3246,12 +3284,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side1: 0
-  side2: 0
-  touchMovementDirection1: 0
-  touchMovementDirection2: 0
-  movementDirectionMultiplier1: 0
-  movementDirectionMultiplier2: 0
+  side1: 5
+  side2: 3
+  touchMovementDirection1: 1
+  touchMovementDirection2: 2
+  movementDirectionMultiplier1: -1
+  movementDirectionMultiplier2: 1
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!4 &586041574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8858607642002305565, guid: 1abbf2d10491951499d79a761b13e030,
@@ -3386,6 +3426,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &663586119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,7 +3618,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1589163422}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!65 &697478895
 BoxCollider:
@@ -3656,6 +3698,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &719962111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3858,6 +3902,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &757983133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4041,7 +4087,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1038120600}
   - {fileID: 513159847}
   - {fileID: 1272169715}
   m_Father: {fileID: 663586120}
@@ -4059,6 +4104,7 @@ GameObject:
   - component: {fileID: 797872484}
   - component: {fileID: 797872483}
   - component: {fileID: 797872482}
+  - component: {fileID: 797872485}
   m_Layer: 17
   m_Name: Back Control
   m_TagString: BackTouch
@@ -4077,8 +4123,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 1.9000001}
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 38421716}
-  m_RootOrder: 0
+  m_Father: {fileID: 981534052}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!65 &797872482
 BoxCollider:
@@ -4100,7 +4146,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797872480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4140,6 +4186,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797872480}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &797872485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797872480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side1: 6
+  side2: 0
+  touchMovementDirection1: 1
+  touchMovementDirection2: 2
+  movementDirectionMultiplier1: 1
+  movementDirectionMultiplier2: 0
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &803154147
 GameObject:
   m_ObjectHideFlags: 0
@@ -4252,6 +4318,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &815725515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4449,6 +4517,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &837785118
 GameObject:
   m_ObjectHideFlags: 0
@@ -4561,6 +4631,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &842872093
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,6 +4745,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &850792293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4785,6 +4859,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &852515854
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,7 +5010,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 959228684}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &853835131
 BoxCollider:
@@ -5014,6 +5090,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &877113741
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,6 +5204,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &919866388
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,6 +5318,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &959228683
 GameObject:
   m_ObjectHideFlags: 0
@@ -5265,7 +5347,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2014816514}
   - {fileID: 853835130}
   - {fileID: 1234782958}
   m_Father: {fileID: 663586120}
@@ -5445,7 +5526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 981534052}
   m_Layer: 0
-  m_Name: Temp Controls
+  m_Name: Top Face Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5466,6 +5547,10 @@ Transform:
   - {fileID: 1034067628}
   - {fileID: 307508984}
   - {fileID: 1636379530}
+  - {fileID: 2014816514}
+  - {fileID: 1038120600}
+  - {fileID: 316086719}
+  - {fileID: 797872481}
   m_Father: {fileID: 663586120}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5795,6 +5880,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &1034067627
 GameObject:
   m_ObjectHideFlags: 0
@@ -5849,7 +5936,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034067627}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5901,12 +5988,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side1: 0
-  side2: 0
-  touchMovementDirection1: 0
-  touchMovementDirection2: 0
-  movementDirectionMultiplier1: 0
-  movementDirectionMultiplier2: 0
+  side1: 5
+  side2: 4
+  touchMovementDirection1: 1
+  touchMovementDirection2: 2
+  movementDirectionMultiplier1: -1
+  movementDirectionMultiplier2: -1
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &1037983363
 GameObject:
   m_ObjectHideFlags: 0
@@ -5975,6 +6064,7 @@ GameObject:
   - component: {fileID: 1038120603}
   - component: {fileID: 1038120602}
   - component: {fileID: 1038120601}
+  - component: {fileID: 1038120604}
   m_Layer: 17
   m_Name: Left Control
   m_TagString: LeftTouch
@@ -5993,8 +6083,8 @@ Transform:
   m_LocalPosition: {x: -2, y: 3, z: -0.099999905}
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 785592939}
-  m_RootOrder: 0
+  m_Father: {fileID: 981534052}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!65 &1038120601
 BoxCollider:
@@ -6016,7 +6106,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038120599}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6056,6 +6146,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038120599}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1038120604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038120599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side1: 3
+  side2: 0
+  touchMovementDirection1: 2
+  touchMovementDirection2: 1
+  movementDirectionMultiplier1: 1
+  movementDirectionMultiplier2: 0
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!4 &1044062183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8858607642002305565, guid: 1abbf2d10491951499d79a761b13e030,
@@ -6307,6 +6417,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &1121764102
 GameObject:
   m_ObjectHideFlags: 0
@@ -6339,7 +6451,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 38421716}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!65 &1121764104
 BoxCollider:
@@ -6419,6 +6531,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &1129741276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6795,6 +6909,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &1169276248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7151,7 +7267,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 959228684}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1234782959
 BoxCollider:
@@ -7231,6 +7347,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &1259943497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7465,7 +7583,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 785592939}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1272169716
 BoxCollider:
@@ -7545,6 +7663,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &1281147922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8084,6 +8204,107 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 550890883}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1510630958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 334
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 1.2
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: f76ac4b8ddfb5b240b136d78800b7556, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1001 &1512550381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8286,6 +8507,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &1520501473
 GameObject:
   m_ObjectHideFlags: 0
@@ -8318,7 +8541,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 38421716}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!65 &1520501475
 BoxCollider:
@@ -8398,6 +8621,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &1521558563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8594,6 +8819,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &1546312839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8737,7 +8964,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 316086719}
   - {fileID: 697478894}
   - {fileID: 206465731}
   m_Father: {fileID: 663586120}
@@ -8859,7 +9085,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636379529}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8911,12 +9137,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side1: 0
-  side2: 0
-  touchMovementDirection1: 0
-  touchMovementDirection2: 0
-  movementDirectionMultiplier1: 0
-  movementDirectionMultiplier2: 0
+  side1: 6
+  side2: 3
+  touchMovementDirection1: 1
+  touchMovementDirection2: 2
+  movementDirectionMultiplier1: 1
+  movementDirectionMultiplier2: 1
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &1669867975
 GameObject:
   m_ObjectHideFlags: 1
@@ -8948,7 +9176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: f2d114566e5a23c4e9a676e85aa09dab, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 2085901374}
+  m_SkySettings: {fileID: 1510630958}
   m_SkySettingsFromProfile: {fileID: 700410959457277946, guid: f2d114566e5a23c4e9a676e85aa09dab,
     type: 2}
 --- !u!4 &1669867977
@@ -9517,6 +9745,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &1809128069
 GameObject:
   m_ObjectHideFlags: 0
@@ -9885,6 +10115,8 @@ MonoBehaviour:
   touchMovementDirection2: 0
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &1843320207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10486,6 +10718,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1 &1980387309
 GameObject:
   m_ObjectHideFlags: 0
@@ -10766,6 +11000,7 @@ GameObject:
   - component: {fileID: 2014816517}
   - component: {fileID: 2014816516}
   - component: {fileID: 2014816515}
+  - component: {fileID: 2014816518}
   m_Layer: 17
   m_Name: Right Control
   m_TagString: RightTouch
@@ -10784,8 +11019,8 @@ Transform:
   m_LocalPosition: {x: 2, y: 3, z: -0.099999905}
   m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 959228684}
-  m_RootOrder: 0
+  m_Father: {fileID: 981534052}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!65 &2014816515
 BoxCollider:
@@ -10807,7 +11042,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014816513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10847,6 +11082,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014816513}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2014816518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014816513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71f64920f6140142ae810ed1c640581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side1: 4
+  side2: 0
+  touchMovementDirection1: 2
+  touchMovementDirection2: 1
+  movementDirectionMultiplier1: -1
+  movementDirectionMultiplier2: 0
+  useRotationMultiplier: 1
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &2068255863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11049,6 +11304,8 @@ MonoBehaviour:
   touchMovementDirection2: 2
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
+  useRotationMultiplier: 0
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!1001 &2080960653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11144,107 +11401,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2080960653}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2085901374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 0
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1 &2098485754
 GameObject:
   m_ObjectHideFlags: 0
