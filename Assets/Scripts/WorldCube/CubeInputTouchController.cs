@@ -1,6 +1,7 @@
 ﻿using System;
 using CustomCamera;
 using UnityEngine;
+using UnityScript.Macros;
 using Utils;
 
 namespace WorldCube
@@ -23,8 +24,9 @@ namespace WorldCube
         private CubeRotationHandler m_cubeRotationHandler;
         private CubeSideTransparencyControl m_cubeSideTransparencyControl;
 
-        private SideTouched m_currentSideTouched;
+        private Side m_CurrentSide;
         private MovementDirection m_movementDirection;
+        private CubeSideTouchIndicator m_currentCubeSideTouchIndicator;
 
         private Vector2 m_lastMousePosition;
         private Transform m_lastHoveredSide;
@@ -52,11 +54,11 @@ namespace WorldCube
                 if (Physics.Raycast(ray, out RaycastHit hit, maxRayCastDistance, layerMask))
                 {
                     m_lastMousePosition = Input.mousePosition;
-                    HandleSideTouched(hit.transform.tag);
+                    HandleSideTouched(hit.transform.gameObject);
                 }
                 else
                 {
-                    SetSideTouched(SideTouched.NoneOnlyClicked);
+                    SetSideTouched(Side.NoneOnlyClicked);
                 }
             }
             else if (Input.GetMouseButtonUp(0))
@@ -102,7 +104,7 @@ namespace WorldCube
 
         private void UpdateSideDrag()
         {
-            if (m_currentSideTouched == SideTouched.None)
+            if (m_CurrentSide == Side.None)
             {
                 return;
             }
@@ -126,7 +128,7 @@ namespace WorldCube
                 }
             }
 
-            if (m_currentSideTouched == SideTouched.NoneOnlyClicked)
+            if (m_CurrentSide == Side.NoneOnlyClicked)
             {
                 UpdateCameraDrag();
             }
@@ -144,7 +146,7 @@ namespace WorldCube
                             int direction = (int) Mathf.Sign(m_lastMousePosition.x - currentMousePosition.x);
                             m_lastMousePosition = currentMousePosition;
 
-                            UpdateCubeRotation(direction);
+                            UpdateCubeRotation(direction, m_movementDirection);
                         }
                     }
                         break;
@@ -156,7 +158,7 @@ namespace WorldCube
                             int direction = (int) Mathf.Sign(m_lastMousePosition.y - currentMousePosition.y);
                             m_lastMousePosition = currentMousePosition;
 
-                            UpdateCubeRotation(direction);
+                            UpdateCubeRotation(direction, m_movementDirection);
                         }
                     }
                         break;
@@ -171,189 +173,66 @@ namespace WorldCube
             }
         }
 
-        private void UpdateCubeRotation(int i_direction)
+        private void UpdateCubeRotation(int i_direction, MovementDirection i_movementDirection)
         {
-            switch (m_currentSideTouched)
+            if (m_currentCubeSideTouchIndicator == null)
             {
-                case SideTouched.None:
+                Debug.LogError("Invalid Controller");
+                return;
+            }
+
+            switch (i_movementDirection)
+            {
+                case MovementDirection.None:
+                    // Don't do anything here...
                     break;
 
-                case SideTouched.Top:
+                case MovementDirection.Horizontal:
+                case MovementDirection.Vertical:
                 {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Top), i_direction);
-                    }
-                }
-                    break;
+                    Side side = m_currentCubeSideTouchIndicator.GetSideForMovement(i_movementDirection);
+                    int directionMultiplier = m_currentCubeSideTouchIndicator.GetDirectionMultiplierForMovement(i_movementDirection);
 
-                case SideTouched.Bottom:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
+                    switch (side)
                     {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Bottom), -i_direction);
-                    }
-                }
-                    break;
+                        case Side.None:
+                        case Side.SideSelected:
+                        case Side.NoneOnlyClicked:
+                            // Don't do anything here...
+                            break;
 
-                case SideTouched.Left:
-                {
-                    if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
-                    }
-                }
-                    break;
+                        case Side.Top:
+                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Up, i_direction * directionMultiplier);
+                            break;
 
-                case SideTouched.Right:
-                {
-                    if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
-                    }
-                }
-                    break;
+                        case Side.Bottom:
+                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Down, i_direction * directionMultiplier);
+                            break;
 
-                case SideTouched.Front:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
-                    }
-                }
-                    break;
+                        case Side.Left:
+                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Left, i_direction * directionMultiplier);
+                            break;
 
-                case SideTouched.Back:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
-                    }
-                }
-                    break;
+                        case Side.Right:
+                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Right, i_direction * directionMultiplier);
+                            break;
 
-                case SideTouched.TopLeft:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Top);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Top), i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Left);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
-                    }
-                }
-                    break;
+                        case Side.Front:
+                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Back, i_direction * directionMultiplier);
+                            break;
 
-                case SideTouched.TopRight:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Top);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Top), i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Right);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
-                    }
-                }
-                    break;
+                        case Side.Back:
+                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Forward, i_direction * directionMultiplier);
+                            break;
 
-                case SideTouched.BottomLeft:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Bottom);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Bottom), -i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Left);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
-                    }
-                }
-                    break;
-
-                case SideTouched.BottomRight:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Bottom);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(CubeRotationHandler.FaceDirection.Bottom), -i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Right);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
-                    }
-                }
-                    break;
-
-                case SideTouched.FrontLeft:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Front);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Left);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
-                    }
-                }
-                    break;
-
-                case SideTouched.FrontRight:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Front);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Back), -i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Right);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
-                    }
-                }
-                    break;
-
-                case SideTouched.BackLeft:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Back);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Left);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Left), i_direction);
-                    }
-                }
-                    break;
-
-                case SideTouched.BackRight:
-                {
-                    if (m_movementDirection == MovementDirection.Horizontal)
-                    {
-                        SetSideTouched(SideTouched.Back);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Forward), i_direction);
-                    }
-                    else if (m_movementDirection == MovementDirection.Vertical)
-                    {
-                        SetSideTouched(SideTouched.Right);
-                        m_cubeController.CheckAndUpdateRotation(m_cubeRotationHandler.GetCubeLayerMaskV2(m_cubeRotationHandler.Right), -i_direction);
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
                 }
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(i_movementDirection), i_movementDirection, null);
             }
         }
 
@@ -376,85 +255,32 @@ namespace WorldCube
             }
         }
 
-        private void HandleSideTouched(string i_touchedSide)
+        private void HandleSideTouched(GameObject side)
         {
-            switch (i_touchedSide)
-            {
-                case TagManager.TopTouchTag:
-                    SetSideTouched(SideTouched.Top);
-                    break;
-
-                case TagManager.BottomTouchTag:
-                    SetSideTouched(SideTouched.Bottom);
-                    break;
-
-                case TagManager.LeftTouchTag:
-                    SetSideTouched(SideTouched.Left);
-                    break;
-
-                case TagManager.RightTouchTag:
-                    SetSideTouched(SideTouched.Right);
-                    break;
-
-                case TagManager.FrontTouchTag:
-                    SetSideTouched(SideTouched.Front);
-                    break;
-
-                case TagManager.BackTouchTag:
-                    SetSideTouched(SideTouched.Back);
-                    break;
-
-                case TagManager.TopLeftTouchTag:
-                    SetSideTouched(SideTouched.TopLeft);
-                    break;
-
-                case TagManager.TopRightTouchTag:
-                    SetSideTouched(SideTouched.TopRight);
-                    break;
-
-                case TagManager.BottomLeftTouchTag:
-                    SetSideTouched(SideTouched.BottomLeft);
-                    break;
-
-                case TagManager.BottomRightTouchTag:
-                    SetSideTouched(SideTouched.BottomRight);
-                    break;
-
-                case TagManager.FrontLeftTouchTag:
-                    SetSideTouched(SideTouched.FrontLeft);
-                    break;
-
-                case TagManager.FrontRightTouchTag:
-                    SetSideTouched(SideTouched.FrontRight);
-                    break;
-
-                case TagManager.BackLeftTouchTag:
-                    SetSideTouched(SideTouched.BackLeft);
-                    break;
-
-                case TagManager.BackRightTouchTag:
-                    SetSideTouched(SideTouched.BackRight);
-                    break;
-
-                default:
-                    // Do nothing here...
-                    break;
-            }
-        }
-
-        private void HandleSideUnTouched()
-        {
-            if (m_currentSideTouched == SideTouched.None)
+            CubeSideTouchIndicator cubeSideTouchIndicator = side.GetComponent<CubeSideTouchIndicator>();
+            if (!cubeSideTouchIndicator)
             {
                 return;
             }
 
-            // Also do other things...
-            SetSideTouched(SideTouched.None);
+            m_currentCubeSideTouchIndicator = cubeSideTouchIndicator;
+            SetSideTouched(Side.SideSelected);
+        }
+
+        private void HandleSideUnTouched()
+        {
+            if (m_CurrentSide == Side.None)
+            {
+                return;
+            }
+
+            m_currentCubeSideTouchIndicator = null;
+
+            SetSideTouched(Side.None);
             SetMovementDirection(MovementDirection.None);
         }
 
-        private void SetSideTouched(SideTouched i_sideTouched) => m_currentSideTouched = i_sideTouched;
+        private void SetSideTouched(Side i_Side) => m_CurrentSide = i_Side;
 
         private void SetMovementDirection(MovementDirection i_movementDirection) => m_movementDirection = i_movementDirection;
 
@@ -462,7 +288,7 @@ namespace WorldCube
 
         #region Enums
 
-        private enum SideTouched
+        public enum Side
         {
             None,
             Top,
@@ -471,19 +297,12 @@ namespace WorldCube
             Right,
             Front,
             Back,
-            TopLeft,
-            TopRight,
-            BottomLeft,
-            BottomRight,
-            FrontLeft,
-            FrontRight,
-            BackLeft,
-            BackRight,
 
+            SideSelected,
             NoneOnlyClicked, // Probably a very bad name
         }
 
-        private enum MovementDirection
+        public enum MovementDirection
         {
             None,
             Horizontal,

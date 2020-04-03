@@ -32,5 +32,9 @@
         public const string FrontRightTouchTag = "FrontRightTouch";
         public const string BackLeftTouchTag = "BackLeftTouch";
         public const string BackRightTouchTag = "BackRightTouch";
+        public const string BottomFrontTouchTag = "BottomFrontTouch";
+        public const string BottomBackTouchTag = "BottomBackTouch";
+        public const string TopFrontTouchTag = "TopFrontTouch";
+        public const string TopBackTouchTag = "TopBackTouch";
     }
 }
