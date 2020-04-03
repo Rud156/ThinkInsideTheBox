@@ -64,7 +64,6 @@ public class FaceManager : MonoBehaviour
             updatedObject.transform.position = this.transform.position;
             updatedObject.transform.rotation = this.transform.rotation;
             updatedObject.transform.localScale = this.transform.localScale;
-
             updatedObject.transform.parent = this.transform.parent;
             StartCoroutine(DestroyOldObject());
         }
