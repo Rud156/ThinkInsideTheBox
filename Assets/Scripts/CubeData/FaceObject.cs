@@ -21,6 +21,11 @@ public enum ReachEvent
 {
     None, Water, Exit
 }
+
+public enum MaterialType
+{
+    Grass
+}
 [ExecuteAlways]
 public class FaceObject : MonoBehaviour
 {
@@ -32,6 +37,8 @@ public class FaceObject : MonoBehaviour
     [Header("Face-specific")]
     public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
     public bool showWallFace = true;
+    public MaterialType materialType;
+    
     public GameObject turnArrow;
     public GameObject wallTile;
     public GameObject water;
@@ -55,11 +62,16 @@ public class FaceObject : MonoBehaviour
     public static event LoadLevel OnLoaded;
 
     private GameObject instantiated_arrow;
-    
+    private MaterialManager matManager;
     private void Awake()
     {
         if (this.isActiveAndEnabled)
             StartCoroutine(ClearAddOns());
+    }
+
+    private void Start()
+    {
+        matManager = GameObject.FindGameObjectWithTag("MaterialManager").GetComponent<MaterialManager>();
     }
 
     public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
@@ -407,16 +419,17 @@ public class FaceObject : MonoBehaviour
 
     }
 
+    private void LoadMaterialInstance()
+    {
+        Material mat = matManager.GetMaterial((int)materialType);
+        
+        this.transform.GetChild(0).GetComponentInChildren<Renderer>().material = mat;
+    }
+
     private void OnValidate()
     {
-        //LoadFaceData();
         if(this.isActiveAndEnabled)
             StartCoroutine(ClearAddOns());
-        //if (applyChange)
-        //{
-        
-        //    applyChange = false;
-        //}
     }
 
     IEnumerator ClearAddOns()
@@ -443,6 +456,7 @@ public class FaceObject : MonoBehaviour
         }
             
         LoadFaceData();
+        LoadMaterialInstance();
     }
 
     private void SetGroundVisibility(bool i_visible)
