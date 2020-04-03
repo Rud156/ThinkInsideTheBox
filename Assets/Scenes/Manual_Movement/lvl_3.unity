@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 73205786}
   m_Layer: 17
   m_Name: Top Front Control
-  m_TagString: TopFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 183337912}
   m_Layer: 17
   m_Name: Bottom Left Control
-  m_TagString: BottomLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 202872766}
   m_Layer: 17
   m_Name: Back Left Control
-  m_TagString: BackLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1142,7 +1142,7 @@ GameObject:
   - component: {fileID: 237544908}
   m_Layer: 17
   m_Name: Bottom Back Control
-  m_TagString: BottomBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1241,107 +1241,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237544906}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &238604177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 334
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 1.2
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: f76ac4b8ddfb5b240b136d78800b7556, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1001 &240910665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1906,7 +1805,7 @@ GameObject:
   - component: {fileID: 375842388}
   m_Layer: 17
   m_Name: Top Back Control
-  m_TagString: TopBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2110,7 +2009,7 @@ GameObject:
   - component: {fileID: 428265509}
   m_Layer: 17
   m_Name: Right Control
-  m_TagString: RightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2309,7 +2208,7 @@ GameObject:
   - component: {fileID: 469905898}
   m_Layer: 17
   m_Name: Bottom Left Control
-  m_TagString: BottomLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2508,7 +2407,7 @@ GameObject:
   - component: {fileID: 503951600}
   m_Layer: 17
   m_Name: Bottom Control
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2622,7 +2521,7 @@ GameObject:
   - component: {fileID: 528300044}
   m_Layer: 17
   m_Name: Front Control
-  m_TagString: FrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2826,7 +2725,7 @@ GameObject:
   - component: {fileID: 548540622}
   m_Layer: 17
   m_Name: Top Right Control
-  m_TagString: TopRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3188,7 +3087,7 @@ GameObject:
   - component: {fileID: 718082296}
   m_Layer: 17
   m_Name: Right Control
-  m_TagString: RightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3358,7 +3257,7 @@ GameObject:
   - component: {fileID: 769468431}
   m_Layer: 17
   m_Name: Bottom Control
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4144,7 +4043,7 @@ GameObject:
   - component: {fileID: 863595544}
   m_Layer: 17
   m_Name: Front Control
-  m_TagString: FrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4513,7 +4412,7 @@ GameObject:
   - component: {fileID: 920580599}
   m_Layer: 17
   m_Name: Bottom Front Control
-  m_TagString: BottomFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4722,7 +4621,7 @@ GameObject:
   - component: {fileID: 946828411}
   m_Layer: 17
   m_Name: Bottom Right Control
-  m_TagString: BottomRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4836,7 +4735,7 @@ GameObject:
   - component: {fileID: 972464732}
   m_Layer: 17
   m_Name: Bottom Front Control
-  m_TagString: BottomFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4950,7 +4849,7 @@ GameObject:
   - component: {fileID: 978673773}
   m_Layer: 17
   m_Name: Front Control
-  m_TagString: FrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5070,7 +4969,7 @@ GameObject:
   - component: {fileID: 1014324948}
   m_Layer: 17
   m_Name: Front Left Control
-  m_TagString: FrontLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5256,7 +5155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: f2d114566e5a23c4e9a676e85aa09dab, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 238604177}
+  m_SkySettings: {fileID: 1861804652}
   m_SkySettingsFromProfile: {fileID: 700410959457277946, guid: f2d114566e5a23c4e9a676e85aa09dab,
     type: 2}
 --- !u!4 &1041542936
@@ -5288,7 +5187,7 @@ GameObject:
   - component: {fileID: 1050508678}
   m_Layer: 17
   m_Name: Top Back Control
-  m_TagString: TopBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5445,7 +5344,7 @@ GameObject:
   - component: {fileID: 1118187867}
   m_Layer: 17
   m_Name: Bottom Right Control
-  m_TagString: BottomRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5559,7 +5458,7 @@ GameObject:
   - component: {fileID: 1126159175}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5758,7 +5657,7 @@ GameObject:
   - component: {fileID: 1229260641}
   m_Layer: 17
   m_Name: Back Control
-  m_TagString: BackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6164,7 +6063,7 @@ GameObject:
   - component: {fileID: 1307405039}
   m_Layer: 17
   m_Name: Top Left Control
-  m_TagString: TopLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6598,7 +6497,7 @@ GameObject:
   - component: {fileID: 1334842114}
   m_Layer: 17
   m_Name: Bottom Control
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7134,7 +7033,7 @@ GameObject:
   - component: {fileID: 1427149917}
   m_Layer: 17
   m_Name: 'Bottom Control '
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7248,7 +7147,7 @@ GameObject:
   - component: {fileID: 1428073545}
   m_Layer: 17
   m_Name: Front Right Control
-  m_TagString: FrontRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7564,7 +7463,7 @@ GameObject:
   - component: {fileID: 1451748240}
   m_Layer: 17
   m_Name: Top Right Control
-  m_TagString: TopRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7768,7 +7667,7 @@ GameObject:
   - component: {fileID: 1478290459}
   m_Layer: 17
   m_Name: Back Control
-  m_TagString: BackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7972,7 +7871,7 @@ GameObject:
   - component: {fileID: 1503285557}
   m_Layer: 17
   m_Name: Left Control
-  m_TagString: LeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8370,7 +8269,7 @@ GameObject:
   - component: {fileID: 1559890571}
   m_Layer: 17
   m_Name: Top Front Control
-  m_TagString: TopFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8874,7 +8773,7 @@ GameObject:
   - component: {fileID: 1729480194}
   m_Layer: 17
   m_Name: Top Left Control
-  m_TagString: TopLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9073,7 +8972,7 @@ GameObject:
   - component: {fileID: 1769655243}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9344,7 +9243,7 @@ GameObject:
   - component: {fileID: 1810819401}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9893,7 +9792,7 @@ GameObject:
   - component: {fileID: 1859027714}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9992,6 +9891,107 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859027712}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1861804652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 334
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 1.2
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: f76ac4b8ddfb5b240b136d78800b7556, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1 &1907720433
 GameObject:
   m_ObjectHideFlags: 0
@@ -10528,7 +10528,7 @@ GameObject:
   - component: {fileID: 2021613823}
   m_Layer: 17
   m_Name: Bottom Back Control
-  m_TagString: BottomBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10732,7 +10732,7 @@ GameObject:
   - component: {fileID: 2052049823}
   m_Layer: 17
   m_Name: Back Right Control
-  m_TagString: BackRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10935,7 +10935,7 @@ GameObject:
   - component: {fileID: 2054197926}
   m_Layer: 17
   m_Name: Right Control
-  m_TagString: RightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11049,7 +11049,7 @@ GameObject:
   - component: {fileID: 2110024889}
   m_Layer: 17
   m_Name: Left Control
-  m_TagString: LeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11163,7 +11163,7 @@ GameObject:
   - component: {fileID: 2112868943}
   m_Layer: 17
   m_Name: Back Control
-  m_TagString: BackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11367,7 +11367,7 @@ GameObject:
   - component: {fileID: 2126905187}
   m_Layer: 17
   m_Name: Left Control
-  m_TagString: LeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

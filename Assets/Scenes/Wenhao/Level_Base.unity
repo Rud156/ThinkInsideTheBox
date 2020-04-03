@@ -545,6 +545,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -1100,7 +1101,7 @@ GameObject:
   - component: {fileID: 38191724}
   m_Layer: 17
   m_Name: Bottom Front Control
-  m_TagString: BottomFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1925,7 +1926,7 @@ GameObject:
   - component: {fileID: 65897974}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2074,6 +2075,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -2196,6 +2198,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -2414,6 +2417,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -2752,7 +2756,7 @@ Transform:
   m_Children:
   - {fileID: 1122817484}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &110382878
 GameObject:
@@ -3061,7 +3065,7 @@ GameObject:
   - component: {fileID: 112642037}
   m_Layer: 17
   m_Name: 'Bottom Control '
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3399,6 +3403,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -3713,6 +3718,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -4024,6 +4030,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -4146,6 +4153,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -4268,6 +4276,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -4780,7 +4789,7 @@ GameObject:
   - component: {fileID: 175353027}
   m_Layer: 17
   m_Name: Top Front Control
-  m_TagString: TopFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5130,6 +5139,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -5544,7 +5554,7 @@ Transform:
   m_Children:
   - {fileID: 1009440851}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &212239604
 GameObject:
@@ -5689,6 +5699,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -5904,6 +5915,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -6167,6 +6179,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -6254,7 +6267,7 @@ GameObject:
   - component: {fileID: 232270345}
   m_Layer: 17
   m_Name: Back Control
-  m_TagString: BackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6403,6 +6416,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -7105,7 +7119,7 @@ GameObject:
   - component: {fileID: 256772329}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7254,6 +7268,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -7661,6 +7676,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -7783,6 +7799,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -8278,6 +8295,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -8599,7 +8617,7 @@ GameObject:
   - component: {fileID: 300036086}
   m_Layer: 17
   m_Name: Front Left Control
-  m_TagString: FrontLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8713,7 +8731,7 @@ GameObject:
   - component: {fileID: 302654880}
   m_Layer: 17
   m_Name: Front Right Control
-  m_TagString: FrontRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8862,6 +8880,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -9266,6 +9285,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -9477,7 +9497,7 @@ GameObject:
   - component: {fileID: 329704650}
   m_Layer: 17
   m_Name: Bottom Control
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10175,6 +10195,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -10625,37 +10646,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 365788761}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &365927156
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 365927157}
-  m_Layer: 0
-  m_Name: Move_sign
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &365927157
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365927156}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1393240241}
-  m_Father: {fileID: 1764700396}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &366201427
 GameObject:
   m_ObjectHideFlags: 0
@@ -10767,7 +10757,7 @@ GameObject:
   - component: {fileID: 370688548}
   m_Layer: 17
   m_Name: Bottom Left Control
-  m_TagString: BottomLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11163,7 +11153,7 @@ GameObject:
   - component: {fileID: 392195827}
   m_Layer: 17
   m_Name: Bottom Control
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11408,6 +11398,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -11530,6 +11521,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -11840,7 +11832,7 @@ GameObject:
   - component: {fileID: 410160116}
   m_Layer: 17
   m_Name: Back Right Control
-  m_TagString: BackRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11954,7 +11946,7 @@ GameObject:
   - component: {fileID: 410301113}
   m_Layer: 17
   m_Name: Bottom Control
-  m_TagString: BottomTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12103,6 +12095,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -12592,6 +12585,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -12948,6 +12942,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -13581,6 +13576,86 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462162835}
   m_Mesh: {fileID: -5008381810204397873, guid: 00472ab5082bf1848a794cc3d55e2dad, type: 3}
+--- !u!1 &464387210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 464387211}
+  - component: {fileID: 464387213}
+  - component: {fileID: 464387212}
+  m_Layer: 0
+  m_Name: pCube1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &464387211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464387210}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 883111757}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!23 &464387212
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464387210}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e97ba18ba5832c144806cb473af5dd0e, type: 2}
+  - {fileID: 2100000, guid: 542b78a25eef5d14db15e36cef533e09, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &464387213
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464387210}
+  m_Mesh: {fileID: 4068373912626513877, guid: 36a980abd33bd3c4584a7fd962942bdf, type: 3}
 --- !u!1 &466037861
 GameObject:
   m_ObjectHideFlags: 0
@@ -13596,7 +13671,7 @@ GameObject:
   - component: {fileID: 466037863}
   m_Layer: 17
   m_Name: Left Control
-  m_TagString: LeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14027,6 +14102,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -14114,7 +14190,7 @@ GameObject:
   - component: {fileID: 487893392}
   m_Layer: 17
   m_Name: Back Left Control
-  m_TagString: BackLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14609,7 +14685,7 @@ Transform:
   m_Children:
   - {fileID: 204570779}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &504179523
 GameObject:
@@ -14802,6 +14878,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -15378,6 +15455,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -15593,6 +15671,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -15715,6 +15794,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -16308,6 +16388,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -16430,6 +16511,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -16885,6 +16967,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -17172,6 +17255,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -17294,6 +17378,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -17509,6 +17594,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -17857,6 +17943,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -18258,7 +18345,7 @@ GameObject:
   - component: {fileID: 593523034}
   m_Layer: 17
   m_Name: Front Control
-  m_TagString: FrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18407,6 +18494,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -18625,6 +18713,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -18916,6 +19005,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -19147,6 +19237,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -19362,6 +19453,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -19763,6 +19855,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -20228,7 +20321,7 @@ GameObject:
   - component: {fileID: 672137881}
   m_Layer: 17
   m_Name: Top Left Control
-  m_TagString: TopLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20356,6 +20449,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1795870030}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &679452304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 679452305}
+  m_Layer: 0
+  m_Name: Move_Sign(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &679452305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679452304}
+  m_LocalRotation: {x: 0.7071068, y: -0.000000030908623, z: 0.7071068, w: -0.000000030908623}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 883111757}
+  m_Father: {fileID: 2028752129}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &684770800
 GameObject:
@@ -20654,7 +20778,7 @@ GameObject:
   - component: {fileID: 699142933}
   m_Layer: 17
   m_Name: Left Control
-  m_TagString: LeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20899,6 +21023,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -21021,6 +21146,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -21423,6 +21549,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -21734,6 +21861,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -21856,6 +21984,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -22071,6 +22200,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -22350,7 +22480,7 @@ GameObject:
   - component: {fileID: 740537089}
   m_Layer: 17
   m_Name: Bottom Left Control
-  m_TagString: BottomLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22595,6 +22725,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -22810,6 +22941,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -22988,6 +23120,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -23382,6 +23515,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -23600,6 +23734,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -23902,6 +24037,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -24213,6 +24349,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -24335,6 +24472,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -24763,6 +24901,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -24978,6 +25117,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -25622,7 +25762,7 @@ Transform:
   m_Children:
   - {fileID: 1263492660}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859038996
 GameObject:
@@ -25794,7 +25934,7 @@ Transform:
   m_Children:
   - {fileID: 1186006398}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &866289520
 GameObject:
@@ -26174,6 +26314,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877264886}
   m_Mesh: {fileID: -5008381810204397873, guid: 00472ab5082bf1848a794cc3d55e2dad, type: 3}
+--- !u!1 &883111756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 883111757}
+  m_Layer: 0
+  m_Name: Move_sign
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &883111757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883111756}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 464387211}
+  m_Father: {fileID: 679452305}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &898383167
 GameObject:
   m_ObjectHideFlags: 0
@@ -26544,6 +26715,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -26666,6 +26838,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -27251,7 +27424,7 @@ Transform:
   m_Children:
   - {fileID: 1899570183}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &936543329
 GameObject:
@@ -27444,6 +27617,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -27659,6 +27833,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -28110,7 +28285,7 @@ GameObject:
   - component: {fileID: 990947921}
   m_Layer: 17
   m_Name: Top Back Control
-  m_TagString: TopBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28724,6 +28899,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -28846,6 +29022,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -29565,6 +29742,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -30057,6 +30235,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -30179,6 +30358,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -30440,6 +30620,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -30779,6 +30960,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -30901,6 +31083,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -31250,6 +31433,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -31589,6 +31773,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -32137,6 +32322,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -32259,6 +32445,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -32381,6 +32568,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -32503,6 +32691,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -32675,7 +32864,7 @@ GameObject:
   - component: {fileID: 1148017488}
   m_Layer: 17
   m_Name: Top Right Control
-  m_TagString: TopRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33298,6 +33487,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -33547,6 +33737,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -33634,7 +33825,7 @@ GameObject:
   - component: {fileID: 1194627215}
   m_Layer: 17
   m_Name: Bottom Back Control
-  m_TagString: BottomBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33762,7 +33953,7 @@ Transform:
   m_Children:
   - {fileID: 968156057}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1196283943
 GameObject:
@@ -34195,6 +34386,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -34317,6 +34509,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -34770,7 +34963,7 @@ GameObject:
   - component: {fileID: 1232815289}
   m_Layer: 17
   m_Name: Bottom Front Control
-  m_TagString: BottomFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34919,6 +35112,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -35020,7 +35214,7 @@ Transform:
   m_Children:
   - {fileID: 509865619}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1259943497
 PrefabInstance:
@@ -35474,6 +35668,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -35596,6 +35791,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -35811,6 +36007,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -36121,6 +36318,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -37595,7 +37793,7 @@ GameObject:
   - component: {fileID: 1372021305}
   m_Layer: 17
   m_Name: Right Control
-  m_TagString: RightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37883,86 +38081,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377285806}
   m_Mesh: {fileID: -5008381810204397873, guid: 00472ab5082bf1848a794cc3d55e2dad, type: 3}
---- !u!1 &1393240240
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1393240241}
-  - component: {fileID: 1393240243}
-  - component: {fileID: 1393240242}
-  m_Layer: 0
-  m_Name: pCube1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1393240241
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393240240}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
-  m_Children: []
-  m_Father: {fileID: 365927157}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!23 &1393240242
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393240240}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e97ba18ba5832c144806cb473af5dd0e, type: 2}
-  - {fileID: 2100000, guid: 542b78a25eef5d14db15e36cef533e09, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1393240243
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393240240}
-  m_Mesh: {fileID: 4068373912626513877, guid: 36a980abd33bd3c4584a7fd962942bdf, type: 3}
 --- !u!1001 &1407867807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38098,6 +38216,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -38502,6 +38621,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -38869,6 +38989,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -39422,6 +39543,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -40008,7 +40130,7 @@ GameObject:
   - component: {fileID: 1478327234}
   m_Layer: 17
   m_Name: Top Back Control
-  m_TagString: TopBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40136,7 +40258,7 @@ Transform:
   m_Children:
   - {fileID: 1099320245}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1488107067
 GameObject:
@@ -40664,7 +40786,7 @@ GameObject:
   - component: {fileID: 1504837590}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40909,6 +41031,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -41028,7 +41151,7 @@ GameObject:
   - component: {fileID: 1506851248}
   m_Layer: 17
   m_Name: Top Front Control
-  m_TagString: TopFrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41521,7 +41644,7 @@ Transform:
   m_Children:
   - {fileID: 325893605}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1527184370
 GameObject:
@@ -41669,6 +41792,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -41980,6 +42104,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -42133,6 +42258,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -42220,7 +42346,7 @@ GameObject:
   - component: {fileID: 1564508747}
   m_Layer: 17
   m_Name: Front Control
-  m_TagString: FrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42555,6 +42681,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -42677,6 +42804,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -42940,6 +43068,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -43062,6 +43191,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -43184,6 +43314,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -43591,6 +43722,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -43678,7 +43810,7 @@ GameObject:
   - component: {fileID: 1615793848}
   m_Layer: 17
   m_Name: Front Control
-  m_TagString: FrontTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44065,7 +44197,7 @@ GameObject:
   - component: {fileID: 1638768714}
   m_Layer: 17
   m_Name: Back Control
-  m_TagString: BackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44784,6 +44916,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -44999,6 +45132,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -45355,6 +45489,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -45477,6 +45612,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -45599,6 +45735,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -45721,6 +45858,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -46231,7 +46369,7 @@ Transform:
   m_Children:
   - {fileID: 1619860008}
   m_Father: {fileID: 2028752129}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1719607255
 GameObject:
@@ -46906,7 +47044,7 @@ GameObject:
   - component: {fileID: 1758964021}
   m_Layer: 17
   m_Name: Bottom Right Control
-  m_TagString: BottomRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47085,37 +47223,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760430167}
   m_Mesh: {fileID: 4068373912626513877, guid: 36a980abd33bd3c4584a7fd962942bdf, type: 3}
---- !u!1 &1764700395
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1764700396}
-  m_Layer: 0
-  m_Name: Move_Sign(Clone)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1764700396
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764700395}
-  m_LocalRotation: {x: 0.7071068, y: -0.000000030908623, z: 0.7071068, w: -0.000000030908623}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 365927157}
-  m_Father: {fileID: 2028752129}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1765755468
 GameObject:
   m_ObjectHideFlags: 0
@@ -47355,6 +47462,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -47804,6 +47912,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -47926,6 +48035,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -48459,6 +48569,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -48757,6 +48868,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -49017,6 +49129,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -49523,6 +49636,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -49645,6 +49759,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -49973,6 +50088,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -50744,6 +50860,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -50831,7 +50948,7 @@ GameObject:
   - component: {fileID: 1877634278}
   m_Layer: 17
   m_Name: Right Control
-  m_TagString: RightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51073,6 +51190,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -51195,6 +51313,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -51410,6 +51529,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -51656,6 +51776,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -51778,6 +51899,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -51900,6 +52022,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -52066,6 +52189,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -52188,6 +52312,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -52502,6 +52627,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -52712,7 +52838,7 @@ GameObject:
   - component: {fileID: 1931551016}
   m_Layer: 17
   m_Name: Bottom Back Control
-  m_TagString: BottomBackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52861,6 +52987,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -52983,6 +53110,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -53473,6 +53601,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -53688,6 +53817,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -53810,6 +53940,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -54198,6 +54329,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -54567,7 +54699,7 @@ GameObject:
   - component: {fileID: 1976742869}
   m_Layer: 17
   m_Name: Right Control
-  m_TagString: RightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54681,7 +54813,7 @@ GameObject:
   - component: {fileID: 1979982385}
   m_Layer: 17
   m_Name: Bottom Right Control
-  m_TagString: BottomRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54944,7 +55076,7 @@ GameObject:
   - component: {fileID: 1984623052}
   m_Layer: 17
   m_Name: Left Control
-  m_TagString: LeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55058,7 +55190,7 @@ GameObject:
   - component: {fileID: 1992199823}
   m_Layer: 17
   m_Name: Back Control
-  m_TagString: BackTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55207,6 +55339,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -55549,6 +55682,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -56113,7 +56247,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1709792236}
-  - {fileID: 1764700396}
   - {fileID: 1247633577}
   - {fileID: 1194766865}
   - {fileID: 212046795}
@@ -56125,6 +56258,7 @@ Transform:
   - {fileID: 1484867538}
   - {fileID: 503732969}
   - {fileID: 1717811939}
+  - {fileID: 679452305}
   m_Father: {fileID: 986211815}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 180, y: -0.000015258789, z: -0.000015258789}
@@ -56143,6 +56277,7 @@ MonoBehaviour:
   faceType: 0
   turnTo: 1
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -56265,6 +56400,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -56387,6 +56523,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -56509,6 +56646,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -56724,6 +56862,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -56846,6 +56985,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -56968,6 +57108,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -58024,6 +58165,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -58146,6 +58288,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -58361,6 +58504,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -58576,6 +58720,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -58698,6 +58843,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -59262,7 +59408,7 @@ GameObject:
   - component: {fileID: 2097810018}
   m_Layer: 17
   m_Name: Top Control
-  m_TagString: TopTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59411,6 +59557,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -59725,6 +59872,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -59812,7 +59960,7 @@ GameObject:
   - component: {fileID: 2112700369}
   m_Layer: 17
   m_Name: Top Right Control
-  m_TagString: TopRightTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60483,6 +60631,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -60605,6 +60754,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -60785,7 +60935,7 @@ GameObject:
   - component: {fileID: 2142801982}
   m_Layer: 17
   m_Name: Top Left Control
-  m_TagString: TopLeftTouch
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
