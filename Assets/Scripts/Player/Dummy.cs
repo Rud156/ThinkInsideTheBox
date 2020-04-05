@@ -30,6 +30,11 @@ namespace Player
         private bool m_stopped = false;
         private float m_MoveSpeed = 1f;
 
+        public delegate void PlayerMovementActivated();
+        public delegate void PlayerMovementStopped();
+        public PlayerMovementActivated OnPlayerMovementActivated;
+        public PlayerMovementStopped OnPlayerMovementStopped;
+
         #region Singleton
 
         public static Dummy Instance = null;
@@ -109,6 +114,8 @@ namespace Player
                     (!GetCurrentCubie().CanMoveToNextCubie(tendingDirection) &&
                      !GetCurrentCubie().CanMoveToNextCubie(-tendingDirection)))
                 {
+                    OnPlayerMovementStopped?.Invoke();
+                    
                     Debug.Log("Stop");
                     SetProjectionPosition(pendingDirection);
                     m_stopped = true;
@@ -117,6 +124,8 @@ namespace Player
                 }
             }
 
+            OnPlayerMovementActivated?.Invoke();
+            
             // Move action
             m_movingTarget = GetNextTarget(pendingDirection);
             if (pendingDirection.y == 0)
@@ -159,6 +168,8 @@ namespace Player
                 StartCoroutine(MoveToCubie(tendingDirection));
             else
             {
+                OnPlayerMovementStopped?.Invoke();
+                
                 Debug.Log("Stop");
                 SetProjectionPosition(pendingDirection);
                 m_stopped = true;
