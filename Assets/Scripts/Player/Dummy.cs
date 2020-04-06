@@ -212,7 +212,7 @@ namespace Player
             }
         }
 
-        private bool IsFalling()
+        public bool IsFalling()
         {
 #if !OUTSIDE
             return GetCurrentCubie().GetPlanimetricTile(gravityDirection).GetMoveDirection(gravityDirection) == gravityDirection;
@@ -277,6 +277,10 @@ namespace Player
         {
             RaycastHit hit;
             if (Physics.Linecast(transform.position + Vector3.forward * CubeWorld.CUBIE_LENGTH / 2, transform.position, out hit, CubeWorld.CUBIE_LAYER_MASK))
+            {
+                return hit.transform.GetComponent<CubieObject>();
+            }
+            if (Physics.Linecast(transform.position, transform.position + Vector3.down * CubeWorld.CUBIE_LENGTH, out hit, CubeWorld.CUBIE_LAYER_MASK))
             {
                 return hit.transform.GetComponent<CubieObject>();
             }

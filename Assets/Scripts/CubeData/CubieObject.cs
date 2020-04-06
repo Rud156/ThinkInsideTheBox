@@ -68,14 +68,11 @@ namespace CubeData
             }
             else
             {
-                throw new Exception(pendingDirection + " Not found next cubie");
-                //Dummy.Instance.tendingDirection = -pendingDirection;
-                //return CubeLayerMask.Zero;
+                return i_direction;
             }
 #endif
             
             return (pendingDirection);
-            //return keepDirection ? i_direction : exitDirection;
         }
 
         public void OnPlayerEnter(Dummy dummy)
@@ -86,7 +83,8 @@ namespace CubeData
         public bool CanMoveToNextCubie(CubeLayerMask i_direction)
         {
 #if !OUTSIDE
-            return CanExit(i_direction) && GetNextCubie(i_direction).CanEnter(i_direction);
+            if (!IsInside(Dummy.Instance.gameObject)) return true;
+            return CanExit(i_direction) && (GetNextCubie(i_direction) == null || GetNextCubie(i_direction).CanEnter(i_direction));
 #else
             return true;
 #endif
@@ -130,10 +128,14 @@ namespace CubeData
             }
 
 #if !OUTSIDE
-            CubieObject belowCubie;
-            if (CubeWorld.TryGetNextCubie(transform.position, CubeLayerMask.down, out belowCubie))
-                if (belowCubie.GetGroundDirection(i_direction) == CubeLayerMask.up && pendingDirection == CubeLayerMask.down)
-                    return (i_direction);
+            //CubieObject belowCubie;
+            //if (CubeWorld.TryGetNextCubie(transform.position, CubeLayerMask.down, out belowCubie))
+            //    if (belowCubie.GetGroundDirection(i_direction) == CubeLayerMask.up && pendingDirection == CubeLayerMask.down)
+            //        return (i_direction);
+            if (!IsInside(Dummy.Instance.gameObject) &&
+                pendingDirection == CubeLayerMask.down &&
+                GetPlanimetricTile(CubeLayerMask.down).TryChangeDirection(i_direction) == CubeLayerMask.up)
+                return i_direction;
 #else
             if (!IsInside(Dummy.Instance.gameObject) &&
                 pendingDirection == CubeLayerMask.down &&
