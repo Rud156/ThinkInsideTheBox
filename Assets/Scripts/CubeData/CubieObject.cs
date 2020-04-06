@@ -1,5 +1,4 @@
-﻿//#define OUTSIDE
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
@@ -53,8 +52,7 @@ namespace CubeData
 
             // 3. Can enter next tile in that direction?
             CubieObject nextCubie;
-#if !OUTSIDE
-            if (CubeWorld.TryGetNextCubie(transform.position, pendingDirection, out nextCubie))
+            if (CubeWorld.TryGetNextCubie(Dummy.Instance.gameObject.transform.position, pendingDirection, out nextCubie))
             {
                 if (!nextCubie.CanEnter(pendingDirection))
                 {
@@ -64,13 +62,12 @@ namespace CubeData
                         return (CubeLayerMask.Zero);
                     }
                     return (i_direction);
-        }
+                }
             }
             else
             {
-                return i_direction;
+                return pendingDirection;
             }
-#endif
             
             return (pendingDirection);
         }
@@ -82,12 +79,8 @@ namespace CubeData
 
         public bool CanMoveToNextCubie(CubeLayerMask i_direction)
         {
-#if !OUTSIDE
             if (!IsInside(Dummy.Instance.gameObject)) return true;
             return CanExit(i_direction) && (GetNextCubie(i_direction) == null || GetNextCubie(i_direction).CanEnter(i_direction));
-#else
-            return true;
-#endif
         }
 
         // Entering a cubie doesn't change the moving direction
@@ -126,8 +119,6 @@ namespace CubeData
             {
                 (pendingDirection) = overlappingTile.TryChangeDirection(i_direction);
             }
-
-#if !OUTSIDE
             //CubieObject belowCubie;
             //if (CubeWorld.TryGetNextCubie(transform.position, CubeLayerMask.down, out belowCubie))
             //    if (belowCubie.GetGroundDirection(i_direction) == CubeLayerMask.up && pendingDirection == CubeLayerMask.down)
@@ -136,12 +127,6 @@ namespace CubeData
                 pendingDirection == CubeLayerMask.down &&
                 GetPlanimetricTile(CubeLayerMask.down).TryChangeDirection(i_direction) == CubeLayerMask.up)
                 return i_direction;
-#else
-            if (!IsInside(Dummy.Instance.gameObject) &&
-                pendingDirection == CubeLayerMask.down &&
-                GetPlanimetricTile(CubeLayerMask.down).TryChangeDirection(i_direction) == CubeLayerMask.up)
-                return i_direction;
-#endif
 
             return (pendingDirection);
         }

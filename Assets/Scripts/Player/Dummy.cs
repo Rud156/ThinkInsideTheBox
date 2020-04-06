@@ -107,9 +107,6 @@ namespace Player
         {
             if (m_playerState == PlayerState.Moving || m_playerState == PlayerState.Ending)
                 yield break;
-#if !OUTSIDE
-            (pendingDirection) = GetCurrentCubie().GetMoveDirection(i_direction);
-#else
             if (GetCurrentCubie())
             {
                 pendingDirection = GetCurrentCubie().GetMoveDirection(i_direction);
@@ -118,8 +115,6 @@ namespace Player
             {
                 pendingDirection = gravityDirection;
             }
-
-#endif
             m_playerState = PlayerState.Moving;
 
             if (pendingDirection == CubeLayerMask.Zero)
@@ -141,19 +136,15 @@ namespace Player
             OnPlayerMovementActivated?.Invoke();
 
             // Move action
-#if !OUTSIDE
             m_movingTarget = GetNextTarget(pendingDirection);
-#else
             m_movingPos = GetNextPos(pendingDirection);
-#endif
             if (pendingDirection.y == 0)
             {
                 Quaternion q = Projection.transform.rotation;
-#if !OUTSIDE
-                transform.LookAt(m_movingTarget.transform.position);
-#else
-                transform.LookAt(m_movingPos);
-#endif
+                if (m_movingTarget)
+                    transform.LookAt(m_movingTarget.transform.position);
+                else
+                    transform.LookAt(m_movingPos);
                 Projection.transform.rotation = q;
             }
 
@@ -162,28 +153,27 @@ namespace Player
             if (pendingDirection != CubeLayerMask.up)
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
-#if !OUTSIDE
-                while (Vector3.Distance(m_movingTarget.transform.position, transform.position) > tolerance)
-                {
-                    SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingTarget.transform.position, Time.deltaTime * m_MoveSpeed), pendingDirection);
-                    yield return null;
-                }
-#else
-                while (Vector3.Distance(m_movingPos, transform.position) > tolerance)
-                {
-                    SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingPos, Time.deltaTime * m_MoveSpeed), pendingDirection);
-                    yield return null;
-                }
-#endif
+                if (m_movingTarget)
+                    while (Vector3.Distance(m_movingTarget.transform.position, transform.position) > tolerance)
+                    {
+                        SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingTarget.transform.position, Time.deltaTime * m_MoveSpeed), pendingDirection);
+                        yield return null;
+                    }
+                else
+                    while (Vector3.Distance(m_movingPos, transform.position) > tolerance)
+                    {
+                        SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingPos, Time.deltaTime * m_MoveSpeed), pendingDirection);
+                        yield return null;
+                    }
 
             }
 
             m_stopped = false;
-#if !OUTSIDE
-            SetPlayerPosition(m_movingTarget.transform.position, pendingDirection);
-#else
-            SetPlayerPosition(m_movingPos, pendingDirection);
-#endif
+            if (m_movingTarget)
+                SetPlayerPosition(m_movingTarget.transform.position, pendingDirection);
+            else
+                SetPlayerPosition(m_movingPos, pendingDirection);
+            m_movingTarget = null;
             GetCurrentCubie()?.OnPlayerEnter(this);
             OnPlayerMovementStopped?.Invoke();
             Debug.Log("Reach destination");
@@ -214,11 +204,8 @@ namespace Player
 
         public bool IsFalling()
         {
-#if !OUTSIDE
-            return GetCurrentCubie().GetPlanimetricTile(gravityDirection).GetMoveDirection(gravityDirection) == gravityDirection;
-#else
             return GetCurrentCubie() == null || GetCurrentCubie().GetGroundFace().GetMoveDirection(gravityDirection) == gravityDirection;
-#endif
+            //return GetCurrentCubie().GetPlanimetricTile(gravityDirection).GetMoveDirection(gravityDirection) == gravityDirection;
         }
 
         private void SetProjectionPosition(CubeLayerMask i_PendingDir)
@@ -262,7 +249,7 @@ namespace Player
             CubieObject cubie;
             if (CubeWorld.TryGetNextCubie(transform.position, i_direction, out cubie))
                 return cubie.gameObject;
-            return GetCurrentCubie().gameObject;
+            return null;
         }
 
         public Vector3 GetNextPos(CubeLayerMask i_direction)
@@ -284,12 +271,6 @@ namespace Player
             {
                 return hit.transform.GetComponent<CubieObject>();
             }
-#if OUTSIDE
-            if (Physics.Linecast(transform.position, transform.position + Vector3.down * CubeWorld.CUBIE_LENGTH, out hit, CubeWorld.CUBIE_LAYER_MASK))
-            {
-                return hit.transform.GetComponent<CubieObject>();
-            }
-#endif
             return null;
         }
     }
