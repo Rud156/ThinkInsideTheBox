@@ -67,10 +67,10 @@ public class FaceManager : MonoBehaviour
             updatedObject.transform.parent = this.transform.parent;
             StartCoroutine(DestroyOldObject());
         }
-        else
-        {
-            throw new Exception("Updating cubie failed");
-        }
+        //else
+        //{
+        //    throw new Exception("Updating cubie failed");
+        //}
 
 #endif
     }
