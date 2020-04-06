@@ -150,6 +150,7 @@ namespace Player
             m_stopped = false;
             SetPlayerPosition(m_movingTarget.transform.position, pendingDirection);
             GetCurrentCubie().OnPlayerEnter(this);
+            OnPlayerMovementStopped?.Invoke();
             Debug.Log("Reach destination");
 
             StartCoroutine(RotateTo(m_destRot));
@@ -168,8 +169,6 @@ namespace Player
                 StartCoroutine(MoveToCubie(tendingDirection));
             else
             {
-                OnPlayerMovementStopped?.Invoke();
-                
                 Debug.Log("Stop");
                 SetProjectionPosition(pendingDirection);
                 m_stopped = true;
