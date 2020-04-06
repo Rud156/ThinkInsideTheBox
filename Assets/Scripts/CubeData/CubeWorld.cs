@@ -14,7 +14,7 @@ namespace CubeData
         {
             RaycastHit hit;
             o_cubie = null;
-            if (Physics.Raycast(i_origin, i_direction.ToVector3(), out hit, Mathf.Infinity, CubeWorld.CUBIE_LAYER_MASK))
+            if (Physics.Raycast(i_origin, i_direction.ToVector3(), out hit, CUBIE_LENGTH, CubeWorld.CUBIE_LAYER_MASK))
             {
                 Debug.DrawRay(i_origin, i_direction.ToVector3() * CUBIE_LENGTH, Color.red, 3f, false);
                 o_cubie = hit.transform.GetComponent<CubieObject>();

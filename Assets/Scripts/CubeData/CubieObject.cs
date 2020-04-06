@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define OUTSIDE
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
@@ -20,18 +21,16 @@ namespace CubeData
         public bool keepDirection;
         public CubeLayerMask exitDirection = CubeLayerMask.Zero;
 
-        public (CubeLayerMask, bool) GetMoveDirection(CubeLayerMask i_direction)
+        public CubeLayerMask GetMoveDirection(CubeLayerMask i_direction)
         {
             // 1. Ground tile change direction
             CubeLayerMask pendingDirection;
-            bool force;
-            (pendingDirection, force) = GetGroundDirection(i_direction);
+            (pendingDirection) = GetGroundDirection(i_direction);
             if (pendingDirection == CubeLayerMask.Zero)
-                return (CubeLayerMask.Zero, false);
+                return (CubeLayerMask.Zero);
             Assert.AreNotEqual(pendingDirection, CubeLayerMask.Zero);
             if (pendingDirection != CubeLayerMask.up &&
-                pendingDirection != CubeLayerMask.down &&
-                force)
+                pendingDirection != CubeLayerMask.down)
                 Dummy.Instance.tendingDirection = pendingDirection;
 
             // If can't move to next cubie, change pending direction
@@ -40,7 +39,7 @@ namespace CubeData
                 if (pendingDirection != CubeLayerMask.down)
                 {
                     Dummy.Instance.tendingDirection = -pendingDirection;
-                    return (CubeLayerMask.Zero, true);
+                    return (CubeLayerMask.Zero);
                 }
                 pendingDirection = i_direction;
             }
@@ -48,16 +47,13 @@ namespace CubeData
             // 2. Can exit current tile in that direction?
             if (!CanExit(pendingDirection))
             {
-                if (!force)
-                {
-                    Dummy.Instance.tendingDirection = -pendingDirection;
-                    return (CubeLayerMask.Zero, true);
-                }
-                return (CubeLayerMask.Zero, false);
+                Dummy.Instance.tendingDirection = -pendingDirection;
+                return (CubeLayerMask.Zero);
             }
 
             // 3. Can enter next tile in that direction?
             CubieObject nextCubie;
+#if !OUTSIDE
             if (CubeWorld.TryGetNextCubie(transform.position, pendingDirection, out nextCubie))
             {
                 if (!nextCubie.CanEnter(pendingDirection))
@@ -65,10 +61,10 @@ namespace CubeData
                     if (pendingDirection != CubeLayerMask.down)
                     {
                         Dummy.Instance.tendingDirection = -pendingDirection;
-                        return (CubeLayerMask.Zero, true);
+                        return (CubeLayerMask.Zero);
                     }
-                    return (i_direction, !force);
-                }
+                    return (i_direction);
+        }
             }
             else
             {
@@ -76,8 +72,9 @@ namespace CubeData
                 //Dummy.Instance.tendingDirection = -pendingDirection;
                 //return CubeLayerMask.Zero;
             }
+#endif
             
-            return (pendingDirection, force);
+            return (pendingDirection);
             //return keepDirection ? i_direction : exitDirection;
         }
 
@@ -88,7 +85,11 @@ namespace CubeData
 
         public bool CanMoveToNextCubie(CubeLayerMask i_direction)
         {
+#if !OUTSIDE
             return CanExit(i_direction) && GetNextCubie(i_direction).CanEnter(i_direction);
+#else
+            return true;
+#endif
         }
 
         // Entering a cubie doesn't change the moving direction
@@ -103,6 +104,7 @@ namespace CubeData
 
         public bool CanExit(CubeLayerMask i_direction)
         {
+            if (!IsInside(Dummy.Instance.gameObject)) return true;
             // Plane check
             FaceObject overlappingTile = GetPlanimetricTile(i_direction);
             if (overlappingTile)
@@ -110,24 +112,44 @@ namespace CubeData
             return true;
         }
 
-        public (CubeLayerMask, bool) GetGroundDirection(CubeLayerMask i_direction)
+        public bool IsInside(GameObject i_gameObject)
         {
+            return Vector3.Distance(i_gameObject.transform.position, transform.position) < CubeWorld.CUBIE_LENGTH/2;
+        }
+
+        public CubeLayerMask GetGroundDirection(CubeLayerMask i_direction)
+        {
+            FaceObject overlappingTile = GetGroundFace();
             // Plane check
-            FaceObject overlappingTile = GetPlanimetricTile(CubeLayerMask.down);
+            
             CubeLayerMask pendingDirection = CubeLayerMask.down;
-            bool dirctionChanged = false;
 
             if (overlappingTile)
             {
-                (pendingDirection, dirctionChanged) = overlappingTile.TryChangeDirection(i_direction);
+                (pendingDirection) = overlappingTile.TryChangeDirection(i_direction);
             }
 
+#if !OUTSIDE
             CubieObject belowCubie;
             if (CubeWorld.TryGetNextCubie(transform.position, CubeLayerMask.down, out belowCubie))
-                if (belowCubie.GetGroundDirection(i_direction).Item1 == CubeLayerMask.up && pendingDirection == CubeLayerMask.down)
-                    return (i_direction, false);
+                if (belowCubie.GetGroundDirection(i_direction) == CubeLayerMask.up && pendingDirection == CubeLayerMask.down)
+                    return (i_direction);
+#else
+            if (!IsInside(Dummy.Instance.gameObject) &&
+                pendingDirection == CubeLayerMask.down &&
+                GetPlanimetricTile(CubeLayerMask.down).TryChangeDirection(i_direction) == CubeLayerMask.up)
+                return i_direction;
+#endif
 
-            return (pendingDirection, dirctionChanged); //(CubeLayerMask.down, true);
+            return (pendingDirection);
+        }
+
+        public FaceObject GetGroundFace()
+        {
+            if (IsInside(Dummy.Instance.gameObject))
+                return GetPlanimetricTile(CubeLayerMask.down);
+            else
+                return GetPlanimetricTile(CubeLayerMask.up);
         }
 
         public FaceObject GetPlanimetricTile(CubeLayerMask i_direction)

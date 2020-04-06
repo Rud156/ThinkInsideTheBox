@@ -146,7 +146,7 @@ public class FaceObject : MonoBehaviour
         SceneManager.LoadScene(i_index);
     }
 
-    public (CubeLayerMask, bool) TryChangeDirection(CubeLayerMask i_direction)
+    public CubeLayerMask TryChangeDirection(CubeLayerMask i_direction)
     {
         Vector3 moveDir = i_direction.ToVector3();
         Vector3 playerDir = GetPlayerRelativeDir(new CubeLayerMask(moveDir*-1)); //mark the direction of the player relative to this tile
@@ -158,44 +158,44 @@ public class FaceObject : MonoBehaviour
                 //The condition where the player climbs up a ramp
                 //Debug.Log("Go up ramp - change direction Up");
                 if (i_direction.ToVector3() == this.transform.forward)   //see if the player is climbing the ramp
-                    return (new CubeLayerMask(-this.transform.up), false);
+                    return (new CubeLayerMask(-this.transform.up));
                 else if (i_direction.ToVector3() == -this.transform.up)
                 {
-                    return (new CubeLayerMask(-this.transform.forward), false);
+                    return (new CubeLayerMask(-this.transform.forward));
                 }
                 else
-                    return (i_direction, false);
+                    return (i_direction);
             }
             else if (faceType == TileFunction.Turn)
             {
                 //The condition where the player meets a turning face
                 if (turnTo == TurnDirection.Forward)
                 {
-                    return (new CubeLayerMask(this.transform.forward), true);
+                    return (new CubeLayerMask(this.transform.forward));
                 }
                 else if (turnTo == TurnDirection.Back)
                 {
-                    return (new CubeLayerMask(-this.transform.forward), true);
+                    return (new CubeLayerMask(-this.transform.forward));
                 }
                 else if(turnTo == TurnDirection.Left)
                 {
-                    return (new CubeLayerMask(-this.transform.right), true);
+                    return (new CubeLayerMask(-this.transform.right));
                 }
                 else
                 {
-                    return (new CubeLayerMask(this.transform.right), true);
+                    return (new CubeLayerMask(this.transform.right));
                 }
             }
             else if ((faceType == TileFunction.None || faceType == TileFunction.Custom) 
                 && i_direction.ToVector3() != Vector3.up)
             {
-                return (CubeLayerMask.down, false);
+                return (CubeLayerMask.down);
             }
             else
             {
                 //The condition where the player can get through the face
                 //Debug.Log("Don't change dir");
-                return (i_direction, false);
+                return (i_direction);
             }
 
         }
@@ -204,7 +204,7 @@ public class FaceObject : MonoBehaviour
             //The condition where the player gets blocked
             //Debug.Log(this.transform.name);
             //Debug.Log(gameObject.transform.parent.name + "Blocked");
-            return (CubeLayerMask.Zero, true);
+            return (CubeLayerMask.Zero);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define OUTSIDE
+using System;
 using System.Collections;
 using CubeData;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Player
         private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
         public GameObject m_movingTarget;
+        private Vector3 m_movingPos;
         private Quaternion m_destRot = Quaternion.identity;
         private float tolerance = 0.1f;
         private PlayerState m_playerState = PlayerState.Stuck;
@@ -73,6 +75,7 @@ namespace Player
                 StartCoroutine(MoveToCubie(tendingDirection));
             else
                 m_stopped = true;
+            SetProjectionPosition(tendingDirection);
         }
 
         private void FixedUpdate()
@@ -104,8 +107,19 @@ namespace Player
         {
             if (m_playerState == PlayerState.Moving || m_playerState == PlayerState.Ending)
                 yield break;
-            bool changed;
-            (pendingDirection, changed) = GetCurrentCubie().GetMoveDirection(i_direction);
+#if !OUTSIDE
+            (pendingDirection) = GetCurrentCubie().GetMoveDirection(i_direction);
+#else
+            if (GetCurrentCubie())
+            {
+                pendingDirection = GetCurrentCubie().GetMoveDirection(i_direction);
+            }
+            else
+            {
+                pendingDirection = gravityDirection;
+            }
+
+#endif
             m_playerState = PlayerState.Moving;
 
             if (pendingDirection == CubeLayerMask.Zero)
@@ -125,13 +139,21 @@ namespace Player
             }
 
             OnPlayerMovementActivated?.Invoke();
-            
+
             // Move action
+#if !OUTSIDE
             m_movingTarget = GetNextTarget(pendingDirection);
+#else
+            m_movingPos = GetNextPos(pendingDirection);
+#endif
             if (pendingDirection.y == 0)
             {
                 Quaternion q = Projection.transform.rotation;
+#if !OUTSIDE
                 transform.LookAt(m_movingTarget.transform.position);
+#else
+                transform.LookAt(m_movingPos);
+#endif
                 Projection.transform.rotation = q;
             }
 
@@ -140,16 +162,29 @@ namespace Player
             if (pendingDirection != CubeLayerMask.up)
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
+#if !OUTSIDE
                 while (Vector3.Distance(m_movingTarget.transform.position, transform.position) > tolerance)
                 {
                     SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingTarget.transform.position, Time.deltaTime * m_MoveSpeed), pendingDirection);
                     yield return null;
                 }
+#else
+                while (Vector3.Distance(m_movingPos, transform.position) > tolerance)
+                {
+                    SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingPos, Time.deltaTime * m_MoveSpeed), pendingDirection);
+                    yield return null;
+                }
+#endif
+
             }
 
             m_stopped = false;
+#if !OUTSIDE
             SetPlayerPosition(m_movingTarget.transform.position, pendingDirection);
-            GetCurrentCubie().OnPlayerEnter(this);
+#else
+            SetPlayerPosition(m_movingPos, pendingDirection);
+#endif
+            GetCurrentCubie()?.OnPlayerEnter(this);
             OnPlayerMovementStopped?.Invoke();
             Debug.Log("Reach destination");
 
@@ -179,7 +214,11 @@ namespace Player
 
         private bool IsFalling()
         {
+#if !OUTSIDE
             return GetCurrentCubie().GetPlanimetricTile(gravityDirection).GetMoveDirection(gravityDirection) == gravityDirection;
+#else
+            return GetCurrentCubie() == null || GetCurrentCubie().GetGroundFace().GetMoveDirection(gravityDirection) == gravityDirection;
+#endif
         }
 
         private void SetProjectionPosition(CubeLayerMask i_PendingDir)
@@ -189,15 +228,11 @@ namespace Player
                 transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH,
                 out hit, WalkableLayer))
             {
-                Projection.transform.position = hit.point + Vector3.up * 0.25f;
-                //m_destRot = Quaternion.LookRotation(
-                //    Quaternion.AngleAxis(Vector3.Cross(i_PendingDir.ToVector3(), hit.normal).x > 0 ? -90f : 90f, Vector3.right) * hit.normal);
+                Projection.transform.position = hit.point;
             }
             else
             {
                 Projection.transform.position = transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2 + Vector3.up * 0.25f;
-                //if (i_PendingDir.y == 0)
-                //    m_destRot = Quaternion.LookRotation(i_PendingDir.ToVector3());
             }
         }
 
@@ -230,6 +265,14 @@ namespace Player
             return GetCurrentCubie().gameObject;
         }
 
+        public Vector3 GetNextPos(CubeLayerMask i_direction)
+        {
+            CubieObject cubie;
+            if (CubeWorld.TryGetNextCubie(transform.position, i_direction, out cubie))
+                return cubie.gameObject.transform.position;
+            return transform.position + i_direction.ToVector3() * CubeWorld.CUBIE_LENGTH;
+        }
+
         public CubieObject GetCurrentCubie()
         {
             RaycastHit hit;
@@ -237,8 +280,13 @@ namespace Player
             {
                 return hit.transform.GetComponent<CubieObject>();
             }
-
-            throw new Exception("Player is not inside any TileObject");
+#if OUTSIDE
+            if (Physics.Linecast(transform.position, transform.position + Vector3.down * CubeWorld.CUBIE_LENGTH, out hit, CubeWorld.CUBIE_LAYER_MASK))
+            {
+                return hit.transform.GetComponent<CubieObject>();
+            }
+#endif
+            return null;
         }
     }
 }
