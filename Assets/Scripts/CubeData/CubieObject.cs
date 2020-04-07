@@ -33,12 +33,11 @@ namespace CubeData
                 Dummy.Instance.tendingDirection = pendingDirection;
 
             // If can't move to next cubie, change pending direction
-            if (!CanMoveToNextCubie(pendingDirection))
+            if (Dummy.Instance.AutoMovement && !CanMoveToNextCubie(pendingDirection))
             {
                 if (pendingDirection != CubeLayerMask.down)
                 {
                     Dummy.Instance.tendingDirection = -pendingDirection;
-                    return (CubeLayerMask.Zero);
                 }
                 pendingDirection = i_direction;
             }
@@ -56,12 +55,19 @@ namespace CubeData
             {
                 if (!nextCubie.CanEnter(pendingDirection))
                 {
-                    if (pendingDirection != CubeLayerMask.down)
+                    if (Dummy.Instance.AutoMovement)
                     {
-                        Dummy.Instance.tendingDirection = -pendingDirection;
-                        return (CubeLayerMask.Zero);
+                        if (pendingDirection != CubeLayerMask.down)
+                        {
+                            Dummy.Instance.tendingDirection = -pendingDirection;
+                            return (CubeLayerMask.Zero);
+                        }
+                        return (i_direction);
                     }
-                    return (i_direction);
+                    else
+                    {
+                        return CubeLayerMask.Zero;
+                    }
                 }
             }
             else
