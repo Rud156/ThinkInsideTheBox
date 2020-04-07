@@ -186,11 +186,11 @@ public class FaceObject : MonoBehaviour
                     return (new CubeLayerMask(this.transform.right));
                 }
             }
-            else if ((faceType == TileFunction.None || faceType == TileFunction.Custom) 
-                && i_direction.ToVector3() != Vector3.up)
-            {
-                return (CubeLayerMask.down);
-            }
+            //else if ((faceType == TileFunction.None || faceType == TileFunction.Custom) 
+            //    && i_direction.ToVector3() != Vector3.up)
+            //{
+            //    return (CubeLayerMask.down);
+            //}
             else
             {
                 //The condition where the player can get through the face
@@ -422,7 +422,6 @@ public class FaceObject : MonoBehaviour
     private void LoadMaterialInstance()
     {
         Material mat = matManager.GetMaterial((int)materialType);
-        
         this.transform.GetChild(0).GetComponentInChildren<Renderer>().material = mat;
     }
 
