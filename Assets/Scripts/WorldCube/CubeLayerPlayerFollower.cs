@@ -8,6 +8,7 @@ namespace WorldCube
         [Header("Positions")] public Transform layerDefaultTransform;
 
         [Header("Player")] public PlayerGridPositionMarker playerGridPositionMarker;
+        public bool followPlayer;
 
         [Header("Lerping")] public float lerpSpeed;
         public AnimationCurve lerpCurve;
@@ -22,7 +23,7 @@ namespace WorldCube
 
         private void Start()
         {
-            m_followPlayer = true;
+            m_followPlayer = followPlayer;
             m_startPosition = layerDefaultTransform.position;
             m_targetPosition = layerDefaultTransform.position;
             m_lerpAmount = 1;
