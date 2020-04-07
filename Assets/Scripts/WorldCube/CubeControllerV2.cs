@@ -22,14 +22,16 @@ namespace WorldCube
 
         [Header("Markers")] public List<GameObject> centerBlocks;
         public CubeLayerPlayerFollower layerPlayerFollower;
-        public CameraController cameraController;
 
-        [Header("World Data")]
-        public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
+        public CameraController cameraController;
+        //
+        // [Header("World Data")]
+        // public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
 
         [Header("Audio")] public AudioController audioController;
 
         public delegate void WorldClicked();
+
         public WorldClicked OnWorldClicked;
 
         private PlayerGridController m_playerGridController;
@@ -43,6 +45,7 @@ namespace WorldCube
         private float m_lerpAmount;
         private bool m_isPlayerOutside;
 
+        private bool m_isMovementAllowed;
         private WorldState m_worldState;
 
         #region Unity Functions
@@ -79,14 +82,16 @@ namespace WorldCube
                         if (clickedInPlace)
                         {
                             OnWorldClicked?.Invoke();
-                                //m_playerGridController.ResetPlayerGravityState();
+                            //m_playerGridController.ResetPlayerGravityState();
                             Dummy.Instance.RotateTendingDirection();
                             if (Dummy.Instance.IsPlayerStuck())
                             {
                                 StartCoroutine(Dummy.Instance.MoveToCubie(Dummy.Instance.tendingDirection));
                             }
+
                             audioController.PlaySound(AudioController.AudioEnum.GearClick);
                         }
+
                         UpdatePlayerMovementState();
                     }
                 }
@@ -140,6 +145,7 @@ namespace WorldCube
             {
                 return;
             }
+
             if (Dummy.Instance.IsPlayerMoving() &&
                 CubeLayerMaskV2.IsCombinedNotZero(new CubeLayerMaskV2(Dummy.Instance.pendingDirection), i_cubeLayerMask))
             {
@@ -153,6 +159,7 @@ namespace WorldCube
                     }
                 }
             }
+
             m_lastLayerMask = i_cubeLayerMask;
 
             int finalRotationDelta = rotationDelta * i_direction;
@@ -165,6 +172,8 @@ namespace WorldCube
                 }
             }
         }
+
+        public bool IsMovementAllowed => m_isMovementAllowed;
 
         #endregion
 
@@ -181,14 +190,9 @@ namespace WorldCube
                     break;
                 }
             }
-            //if (isMovementAllowed)
-            //{
-            //    m_playerGridController.AllowPlayerMovement();
-            //}
-            //else
-            //{
-            //    m_playerGridController.PreventPlayerMovement();
-            //}
+
+            m_isMovementAllowed = isMovementAllowed;
+
             if (isMovementAllowed)
             {
                 Dummy.Instance.AllowPlayerMovement();
@@ -246,21 +250,19 @@ namespace WorldCube
             if (m_isPlayerOutside)
             {
                 layerPlayerFollower.SetFollowActive();
-                cameraController.SetFollowActive();
 
                 foreach (GameObject centerBlock in centerBlocks)
                 {
                     centerBlock.SetActive(true);
                 }
 
-                outsideWorld.SetActive(true);
+                // outsideWorld.SetActive(true);
             }
             else
             {
                 layerPlayerFollower.DeactivateFollow();
                 layerPlayerFollower.SetLayerDefaultPosition();
 
-                cameraController.DeactivateFollow();
                 cameraController.SetCameraDefaultPosition();
 
                 foreach (GameObject centerBlock in centerBlocks)
@@ -268,7 +270,7 @@ namespace WorldCube
                     centerBlock.SetActive(false);
                 }
 
-                outsideWorld.SetActive(false);
+                // outsideWorld.SetActive(false);
             }
 
             SetWorldState(WorldState.ControllerControlled);
@@ -283,7 +285,7 @@ namespace WorldCube
                 centerBlock.SetActive(false);
             }
 
-            outsideWorld.SetActive(false);
+            // outsideWorld.SetActive(false);
         }
 
         #endregion

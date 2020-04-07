@@ -4,7 +4,7 @@ namespace Utils
 {
     public static class ExtensionFunctions
     {
-        public static int GetClosestMultiple(float number, int multiple = 2)
+        public static int GetClosestMultiple(float number, int multiple)
         {
             int a = (int) (number / multiple) * multiple;
             int b;
