@@ -20,9 +20,9 @@ namespace Player
         {
             Vector3 playerPosition = m_playerTransform.position;
 
-            float xValue = ExtensionFunctions.GetClosestMultiple(playerPosition.x);
-            float yValue = ExtensionFunctions.GetClosestMultiple(playerPosition.y);
-            float zValue = ExtensionFunctions.GetClosestMultiple(playerPosition.z);
+            float xValue = ExtensionFunctions.GetClosestMultiple(playerPosition.x, 2);
+            float yValue = ExtensionFunctions.GetClosestMultiple(playerPosition.y, 2);
+            float zValue = ExtensionFunctions.GetClosestMultiple(playerPosition.z, 2);
 
             m_currentGridCenter.Set(xValue, yValue, zValue);
             m_currentGridCenter -= gridStartTransform;
