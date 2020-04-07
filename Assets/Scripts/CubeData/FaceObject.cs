@@ -24,7 +24,7 @@ public enum ReachEvent
 
 public enum MaterialType
 {
-    Grass
+    Dirt, Stone, Wall_Bottom, Wall_Mid, Wall_Top, Wood, Grass
 }
 [ExecuteAlways]
 public class FaceObject : MonoBehaviour
