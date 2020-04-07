@@ -250,7 +250,6 @@ namespace WorldCube
             if (m_isPlayerOutside)
             {
                 layerPlayerFollower.SetFollowActive();
-                cameraController.SetFollowActive();
 
                 foreach (GameObject centerBlock in centerBlocks)
                 {
@@ -264,7 +263,6 @@ namespace WorldCube
                 layerPlayerFollower.DeactivateFollow();
                 layerPlayerFollower.SetLayerDefaultPosition();
 
-                cameraController.DeactivateFollow();
                 cameraController.SetCameraDefaultPosition();
 
                 foreach (GameObject centerBlock in centerBlocks)
