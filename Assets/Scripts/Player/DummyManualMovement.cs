@@ -1,5 +1,4 @@
-﻿using System;
-using CubeData;
+﻿using CubeData;
 using UnityEngine;
 using Utils;
 using WorldCube;
@@ -15,6 +14,7 @@ namespace Player
         private const string FrontStr = "Front";
         private const string BackStr = "Back";
 
+        public CubeControllerV2 cubeControllerV2;
         public CubeRotationHandler cubeRotationHandler;
         public Dummy playerController;
 
@@ -26,6 +26,11 @@ namespace Player
 
         private void Update()
         {
+            if (!cubeControllerV2.IsMovementAllowed)
+            {
+                return;
+            }
+
             if (Input.GetKeyDown(ControlConstants.Left) || Input.GetKeyDown(ControlConstants.AltLeft))
             {
                 m_playerMovementDirection = cubeRotationHandler.GetCubeLayerMask(cubeRotationHandler.Left);

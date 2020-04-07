@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 using Utils;
 using WorldCube;
@@ -8,9 +7,7 @@ namespace CustomCamera
 {
     public class CameraController : MonoBehaviour
     {
-        [Header("Positions")] public Transform cameraDefaultTransform;
-        public Vector3 playerFollowOffset;
-        public Transform playerTransform;
+        [Header("Positions")] public Transform cubeLayerCenter;
 
         [Header("Position Lerping")] public float positionLerpSpeed;
         public AnimationCurve positionLerpCurve;
@@ -26,11 +23,6 @@ namespace CustomCamera
 
         [Header("Manual Camera Control")] public float manualCameraRotationSpeed;
 
-        [Header("Targeting")] public Transform cameraLookAt;
-        public Transform mainCamera;
-
-        private bool m_followPlayer;
-
         private Vector3 m_startPosition;
         private Vector3 m_targetPosition;
         private float m_lerpPositionAmount;
@@ -45,9 +37,8 @@ namespace CustomCamera
 
         private void Start()
         {
-            m_followPlayer = false;
-            m_startPosition = cameraDefaultTransform.position;
-            m_targetPosition = cameraDefaultTransform.position;
+            m_startPosition = cubeLayerCenter.position;
+            m_targetPosition = cubeLayerCenter.position;
             m_lerpPositionAmount = 1;
 
             m_previousRotations = new List<Vector3>();
@@ -55,27 +46,9 @@ namespace CustomCamera
 
         private void Update()
         {
-            // if (m_followPlayer)
-            // {
-            //     Vector3 playerPosition = playerTransform.position + playerFollowOffset;
-            //     if (m_targetPosition != playerPosition)
-            //     {
-            //         m_targetPosition = playerPosition;
-            //         m_startPosition = transform.position;
-            //         m_lerpPositionAmount = 0;
-            //     }
-            // }
-            //
-            // if (m_lerpPositionAmount < 1)
-            // {
-            //     m_lerpPositionAmount += positionLerpSpeed * Time.deltaTime;
-            // }
-            //
-            // transform.position = Vector3.Lerp(m_startPosition, m_targetPosition, positionLerpCurve.Evaluate(m_lerpPositionAmount));
-
-            UpdateManualCameraMovement();
+            UpdateKeyboardCameraInput();
             UpdateCameraRotation();
-            // UpdateCameraLookAt();
+            UpdateCameraFollowPosition();
         }
 
         #endregion
@@ -103,20 +76,18 @@ namespace CustomCamera
 
         public void SetCameraDefaultPosition()
         {
-            m_targetPosition = cameraDefaultTransform.position;
+            m_targetPosition = cubeLayerCenter.position;
             m_startPosition = transform.position;
             m_lerpPositionAmount = 0;
         }
-
-        public void SetFollowActive() => m_followPlayer = true;
-
-        public void DeactivateFollow() => m_followPlayer = false;
 
         #endregion
 
         #region Utility Functions
 
-        private void UpdateManualCameraMovement()
+        #region Rotations
+
+        private void UpdateKeyboardCameraInput()
         {
             if (Input.GetKey(ControlConstants.CameraLeft))
             {
@@ -139,15 +110,13 @@ namespace CustomCamera
                 m_lerpRotationAmount += rotationLerpSpeed * Time.deltaTime;
             }
 
-            // Not Optimized. But works
+            // Not Optimized. But works. Lol
             Quaternion start = Quaternion.Euler(m_startRotation);
             Quaternion target = Quaternion.Euler(m_targetRotation);
             transform.rotation = Quaternion.Slerp(start, target, rotationLerpCurve.Evaluate(m_lerpRotationAmount));
 
             cubeRotationHandler.RotateCenter(transform.rotation.eulerAngles.y);
         }
-
-        private void UpdateCameraLookAt() => mainCamera.LookAt(cameraLookAt);
 
         private void SetTargetRotationWithNormalization(Vector3 i_rotation)
         {
@@ -218,6 +187,30 @@ namespace CustomCamera
                 m_lerpRotationAmount = 0;
             }
         }
+
+        #endregion
+
+        #region Positions
+
+        private void UpdateCameraFollowPosition()
+        {
+            Vector3 targetPosition = cubeLayerCenter.position;
+            if (targetPosition != m_targetPosition)
+            {
+                m_targetPosition = targetPosition;
+                m_startPosition = transform.position;
+                m_lerpPositionAmount = 1;
+            }
+
+            if (m_lerpPositionAmount < 1)
+            {
+                m_lerpPositionAmount += positionLerpSpeed * Time.deltaTime;
+            }
+
+            transform.position = Vector3.Lerp(m_startPosition, m_targetPosition, positionLerpCurve.Evaluate(m_lerpPositionAmount));
+        }
+
+        #endregion
 
         #endregion
     }

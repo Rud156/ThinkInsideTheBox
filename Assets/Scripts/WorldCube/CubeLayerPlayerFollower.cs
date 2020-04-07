@@ -5,9 +5,10 @@ namespace WorldCube
 {
     public class CubeLayerPlayerFollower : MonoBehaviour
     {
-        [Header("Positions")] public Transform layerDefultTransform;
+        [Header("Positions")] public Transform layerDefaultTransform;
 
         [Header("Player")] public PlayerGridPositionMarker playerGridPositionMarker;
+        public bool followPlayer;
 
         [Header("Lerping")] public float lerpSpeed;
         public AnimationCurve lerpCurve;
@@ -22,9 +23,9 @@ namespace WorldCube
 
         private void Start()
         {
-            m_followPlayer = false;
-            m_startPosition = layerDefultTransform.position;
-            m_targetPosition = layerDefultTransform.position;
+            m_followPlayer = followPlayer;
+            m_startPosition = layerDefaultTransform.position;
+            m_targetPosition = layerDefaultTransform.position;
             m_lerpAmount = 1;
         }
 
@@ -55,7 +56,7 @@ namespace WorldCube
 
         public void SetLayerDefaultPosition()
         {
-            m_targetPosition = layerDefultTransform.position;
+            m_targetPosition = layerDefaultTransform.position;
             m_startPosition = transform.position;
             m_lerpAmount = 0;
         }

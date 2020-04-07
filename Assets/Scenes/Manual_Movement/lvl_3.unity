@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.29432747, g: 0.29607022, b: 0.34348655, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -150,7 +150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1054426759}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &19231701
 MonoBehaviour:
@@ -444,7 +444,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &73205787
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -534,9 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7783447dd4684a94e8a122ab4ffca9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraDefaultTransform: {fileID: 320648176}
-  playerFollowOffset: {x: -7, y: 5, z: -5}
-  playerTransform: {fileID: 1259943498}
+  cubeLayerCenter: {fileID: 348372996}
   positionLerpSpeed: 1
   positionLerpCurve:
     serializedVersion: 2
@@ -593,8 +591,6 @@ MonoBehaviour:
   useRotationNormalization: 0
   cubeRotationHandler: {fileID: 1813484980}
   manualCameraRotationSpeed: 75
-  cameraLookAt: {fileID: 0}
-  mainCamera: {fileID: 320648176}
 --- !u!4 &98314147
 Transform:
   m_ObjectHideFlags: 0
@@ -952,7 +948,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &183337913
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1180,7 +1176,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &237544909
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1331,107 +1327,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 240910665}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &283707415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 334
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 1.2
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: f76ac4b8ddfb5b240b136d78800b7556, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1001 &286265334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1813,7 +1708,86 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
---- !u!43 &346737757
+--- !u!1 &348372995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 348372996}
+  - component: {fileID: 348372997}
+  m_Layer: 0
+  m_Name: Cube Layers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &348372996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348372995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 759338307}
+  - {fileID: 1448618776}
+  - {fileID: 1037983364}
+  - {fileID: 1428985383}
+  - {fileID: 1980387310}
+  - {fileID: 2132927994}
+  - {fileID: 1330783214}
+  - {fileID: 1670934012}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &348372997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348372995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1156e5604f016f143bf04819cbc83251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerDefaultTransform: {fileID: 1928540395}
+  playerGridPositionMarker: {fileID: 852515858}
+  followPlayer: 0
+  lerpSpeed: 1
+  lerpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!43 &370416835
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1976,84 +1950,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &348372995
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 348372996}
-  - component: {fileID: 348372997}
-  m_Layer: 0
-  m_Name: Cube Layers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &348372996
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348372995}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 759338307}
-  - {fileID: 1448618776}
-  - {fileID: 1037983364}
-  - {fileID: 1428985383}
-  - {fileID: 1980387310}
-  - {fileID: 2132927994}
-  - {fileID: 1330783214}
-  - {fileID: 1670934012}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &348372997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348372995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1156e5604f016f143bf04819cbc83251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerDefultTransform: {fileID: 1928540395}
-  playerGridPositionMarker: {fileID: 1819914725}
-  lerpSpeed: 1
-  lerpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &375842386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,7 +2003,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &375842389
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2510,7 +2406,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &469905899
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2709,7 +2605,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &503951601
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2823,7 +2719,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &528300045
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3027,7 +2923,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &548540623
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3389,7 +3285,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &718082297
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3559,7 +3455,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &769468432
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4175,6 +4071,107 @@ Transform:
   m_Father: {fileID: 1670934012}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &840434017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 334
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 1.2
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: f76ac4b8ddfb5b240b136d78800b7556, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1 &852515854
 GameObject:
   m_ObjectHideFlags: 0
@@ -4186,6 +4183,7 @@ GameObject:
   - component: {fileID: 852515856}
   - component: {fileID: 852515855}
   - component: {fileID: 852515857}
+  - component: {fileID: 852515858}
   m_Layer: 0
   m_Name: Player Controllers
   m_TagString: Untagged
@@ -4205,6 +4203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cbbef17ec4fa2948a24246b7db7a440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeControllerV2: {fileID: 1813484977}
   cubeRotationHandler: {fileID: 1813484980}
   playerController: {fileID: 1259943499}
 --- !u!4 &852515856
@@ -4219,7 +4218,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1054426759}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &852515857
 MonoBehaviour:
@@ -4237,6 +4236,20 @@ MonoBehaviour:
   jumpAsset: {fileID: 11400000, guid: b1b15c7fd64336947aa0226f921b5a24, type: 2}
   idleAsset: {fileID: 11400000, guid: a6bd412176258ff43b82a58b7b830458, type: 2}
   playerTimelineDirector: {fileID: 1259943500}
+--- !u!114 &852515858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852515854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20000483c1205af449612dd083309fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridStartTransform: {x: 0, y: 0, z: 0}
+  sideSize: 2
 --- !u!1 &852565041
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,7 +4279,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1054426759}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &852565043
 MonoBehaviour:
@@ -4731,7 +4744,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &920580600
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4845,7 +4858,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &946828412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4959,7 +4972,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &972464733
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5073,7 +5086,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &978673774
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5341,7 +5354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: f2d114566e5a23c4e9a676e85aa09dab, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 283707415}
+  m_SkySettings: {fileID: 840434017}
   m_SkySettingsFromProfile: {fileID: 700410959457277946, guid: f2d114566e5a23c4e9a676e85aa09dab,
     type: 2}
 --- !u!4 &1041542936
@@ -5411,7 +5424,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1050508679
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5499,7 +5512,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1819914724}
   - {fileID: 852515856}
   - {fileID: 1813484976}
   - {fileID: 19231700}
@@ -5568,7 +5580,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1118187868
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5682,7 +5694,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1126159176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5953,7 +5965,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 346737757}
+      objectReference: {fileID: 370416835}
     - target: {fileID: 9158772611028590646, guid: ceec69a62189144d9a9f9c62e64cd9c1,
         type: 3}
       propertyPath: m_IsTrigger
@@ -6046,12 +6058,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceec69a62189144d9a9f9c62e64cd9c1, type: 3}
---- !u!4 &1259943498 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9158772611028592587, guid: ceec69a62189144d9a9f9c62e64cd9c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1259943497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1259943499 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9158772611028592586, guid: ceec69a62189144d9a9f9c62e64cd9c1,
@@ -6303,7 +6309,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1307405040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6737,7 +6743,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1334842115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7273,7 +7279,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1427149918
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7703,7 +7709,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1451748241
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7907,7 +7913,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1478290460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8111,7 +8117,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1503285558
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8509,7 +8515,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1559890572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8631,7 +8637,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1054426759}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1630840114
 MonoBehaviour:
@@ -9013,7 +9019,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: -1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1729480195
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9212,7 +9218,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1769655244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9483,7 +9489,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1810819402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9577,7 +9583,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1054426759}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1813484977
 MonoBehaviour:
@@ -9606,7 +9612,6 @@ MonoBehaviour:
   centerBlocks: []
   layerPlayerFollower: {fileID: 348372997}
   cameraController: {fileID: 98314146}
-  outsideWorld: {fileID: 1907720433}
   audioController: {fileID: 852565043}
 --- !u!114 &1813484978
 MonoBehaviour:
@@ -9759,51 +9764,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1abbf2d10491951499d79a761b13e030, type: 3}
---- !u!1 &1819914723
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1819914724}
-  - component: {fileID: 1819914725}
-  m_Layer: 0
-  m_Name: Player Grid Position Marker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1819914724
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819914723}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1054426759}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1819914725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819914723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20000483c1205af449612dd083309fb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridStartTransform: {x: 0, y: 0, z: 0}
-  sideSize: 2
 --- !u!1001 &1849166025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10032,7 +9992,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &1859027715
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10430,7 +10390,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1054426759}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2001244091
 AudioSource:
@@ -10666,7 +10626,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 1
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &2021613824
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11073,7 +11033,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: 1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &2054197927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11187,7 +11147,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &2110024890
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11301,7 +11261,7 @@ MonoBehaviour:
   movementDirectionMultiplier1: -1
   movementDirectionMultiplier2: 0
   useRotationMultiplier: 0
-  mainCameraHolderTransform: {fileID: 0}
+  mainCameraHolderTransform: {fileID: 98314147}
 --- !u!65 &2112868944
 BoxCollider:
   m_ObjectHideFlags: 0
