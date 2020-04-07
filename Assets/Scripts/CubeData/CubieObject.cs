@@ -28,9 +28,13 @@ namespace CubeData
             if (pendingDirection == CubeLayerMask.Zero)
                 return (CubeLayerMask.Zero);
             Assert.AreNotEqual(pendingDirection, CubeLayerMask.Zero);
-            if (pendingDirection != CubeLayerMask.up &&
+            if(Dummy.Instance.AutoMovement)
+            {
+                if (pendingDirection != CubeLayerMask.up &&
                 pendingDirection != CubeLayerMask.down)
-                Dummy.Instance.tendingDirection = pendingDirection;
+                    Dummy.Instance.tendingDirection = pendingDirection;
+            }
+            
 
             // If can't move to next cubie, change pending direction
             if (Dummy.Instance.AutoMovement && !CanMoveToNextCubie(pendingDirection))
@@ -45,7 +49,11 @@ namespace CubeData
             // 2. Can exit current tile in that direction?
             if (!CanExit(pendingDirection))
             {
-                Dummy.Instance.tendingDirection = -pendingDirection;
+                if(Dummy.Instance.AutoMovement)
+                {
+                    Dummy.Instance.tendingDirection = -pendingDirection;
+                   
+                }
                 return (CubeLayerMask.Zero);
             }
 

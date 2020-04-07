@@ -190,6 +190,8 @@ namespace Player
             if (!fallingBeforeRotation && fallingAfterRotation)
                 yield return new WaitForSeconds(1f);
 
+            if (IsFalling() && pendingDirection != CubeLayerMask.up)
+                tendingDirection = gravityDirection;
             if (AutoMovement || IsFalling() || pendingDirection == CubeLayerMask.up)
                 StartCoroutine(MoveToCubie(tendingDirection));
             else
