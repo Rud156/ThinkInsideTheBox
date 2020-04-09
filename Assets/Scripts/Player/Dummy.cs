@@ -86,7 +86,7 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & CubeWorld.CUBIE_LAYER_MASK) != 0)
+            if (((1 << other.gameObject.layer) & CubeWorld.CUBIE_LAYER_MASK) != 0 && !other.tag.Contains("Collectible"))
                 transform.SetParent(other.transform);
         }
 
