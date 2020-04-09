@@ -9,8 +9,8 @@ public class Collect : MonoBehaviour
     {
         if (i_other.gameObject.CompareTag(TagManager.Player))
         {
-            // InventorySystem.Instance.MarkCollected(this.gameObject);
-            // Destroy(this.gameObject);
+            InventorySystem.Instance.MarkCollected(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 

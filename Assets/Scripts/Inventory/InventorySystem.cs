@@ -75,9 +75,10 @@ public class InventorySystem : MonoBehaviour
         Debug.Log("hitting");
         foreach (Transform child in GUI.transform)
         {
+            Debug.Log("Ran");
             if (child.gameObject.CompareTag(TagManager.Collected))
             {
-                child.gameObject.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
+                child.gameObject.GetComponent<Image>().color = new Color(255.0f, 255.0f, 255.0f);
             }
         }
     }
