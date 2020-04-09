@@ -421,8 +421,17 @@ public class FaceObject : MonoBehaviour
 
     private void LoadMaterialInstance()
     {
-        Material mat = matManager.GetMaterial((int)materialType);
-        this.transform.GetChild(0).GetComponentInChildren<Renderer>().material = mat;
+        if(matManager==null)
+        {
+            matManager = GameObject.FindGameObjectWithTag("MaterialManager").GetComponent<MaterialManager>();
+        }
+
+        if(matManager)
+        {
+            Material mat = matManager.GetMaterial((int)materialType);
+            this.transform.GetChild(0).GetComponentInChildren<Renderer>().material = mat;
+        }
+        
     }
 
     private void OnValidate()
