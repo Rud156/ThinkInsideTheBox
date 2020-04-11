@@ -19,14 +19,19 @@ namespace Player
         public Dummy playerController;
 
         private CubeLayerMask m_playerMovementDirection;
+        private bool m_isMovementEnabled;
 
         #region Unity Functions
 
-        private void Start() => m_playerMovementDirection = new CubeLayerMask(0, 0, 0);
+        private void Start()
+        {
+            m_isMovementEnabled = false;
+            m_playerMovementDirection = new CubeLayerMask(0, 0, 0);
+        }
 
         private void Update()
         {
-            if (!cubeControllerV2.IsMovementAllowed)
+            if (!cubeControllerV2.IsMovementAllowed || !m_isMovementEnabled)
             {
                 return;
             }
@@ -91,6 +96,10 @@ namespace Player
 
             playerController.ManuallyMoveTo(m_playerMovementDirection);
         }
+
+        public void EnableMovement() => m_isMovementEnabled = true;
+
+        public void DisableMovement() => m_isMovementEnabled = false;
 
         #endregion
     }
