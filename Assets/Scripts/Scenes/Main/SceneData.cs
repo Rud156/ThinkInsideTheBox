@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Scenes.Main
+﻿namespace Scenes.Main
 {
     public static class SceneData
     {

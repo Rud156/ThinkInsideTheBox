@@ -15,7 +15,7 @@ namespace Scenes.Main
         public DummyManualMovement playerManualMovement;
 
         [Header("Scene Switching")] public List<PlayerSpawn> playerSpawnData;
-        public bool useFirstSpawnPoint = true;
+        public bool isInsideWorld = true;
         public int worldNumber = -1;
         public float sceneTransitionEndDelay = 1f;
 
@@ -46,7 +46,7 @@ namespace Scenes.Main
         private IEnumerator StartPlayerSpawn()
         {
             playerManualMovement.DisableMovement();
-            PlayerSpawn playerSpawn = useFirstSpawnPoint ? playerSpawnData[0] : playerSpawnData.Find(_ => _.worldNumber == SceneData.LastWorldNumber);
+            PlayerSpawn playerSpawn = isInsideWorld ? playerSpawnData[0] : playerSpawnData.Find(_ => _.worldNumber == SceneData.LastWorldNumber);
             m_playerTransform.position = playerSpawn.initialSpawnPosition.position;
 
             yield return new WaitForSeconds(sceneTransitionEndDelay);
