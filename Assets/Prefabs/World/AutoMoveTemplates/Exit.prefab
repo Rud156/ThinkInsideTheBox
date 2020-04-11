@@ -229,6 +229,7 @@ MonoBehaviour:
   up: 0
   down: 0
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1 &8858607642002305562
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +494,7 @@ MonoBehaviour:
   up: 0
   down: 0
   faceEvent: 2
+  faceExitWorldIndex: 6
 --- !u!1 &8858607642141890779
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +618,7 @@ MonoBehaviour:
   up: 1
   down: 1
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1 &8858607642499980756
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +742,7 @@ MonoBehaviour:
   up: 0
   down: 0
   faceEvent: 2
+  faceExitWorldIndex: 6
 --- !u!1 &8858607642579021710
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +867,7 @@ MonoBehaviour:
   up: 0
   down: 0
   faceEvent: 2
+  faceExitWorldIndex: 6
 --- !u!1 &8858607643420716620
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +991,7 @@ MonoBehaviour:
   up: 0
   down: 0
   faceEvent: 2
+  faceExitWorldIndex: 6
 --- !u!1001 &156182914490906532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1415,6 +1421,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 562832358552140885, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f87372881024294c8e56ef3e94c4035, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 041930fb95c099b48a3d26d9e385f183, type: 3}
 --- !u!4 &4708320995703168179 stripped

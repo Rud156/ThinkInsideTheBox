@@ -32,6 +32,14 @@ namespace Player
 
         #endregion
 
+        #region External Functions
+
+        public void PlayJumpAnim() => HandlePlayerMovementActivated();
+
+        public void PlayIdleAnim() => HandlePlayerMovementStopped();
+
+        #endregion
+
         #region Utility Functions
 
         private void HandlePlayerMovementActivated()

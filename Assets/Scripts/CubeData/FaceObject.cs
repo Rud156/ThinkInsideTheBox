@@ -9,36 +9,48 @@ using UnityEngine.SceneManagement;
 
 public enum TileFunction
 {
-    Turn, Ramp, Wall, Custom, None
+    Turn,
+    Ramp,
+    Wall,
+    Custom,
+    None
 }
 
 public enum TurnDirection
 {
-    Forward, Right, Back, Left
+    Forward,
+    Right,
+    Back,
+    Left
 }
 
 public enum ReachEvent
 {
-    None, Water, Exit
+    None,
+    Water,
+    Exit
 }
 
 public enum MaterialType
 {
-    Dirt, Stone, Wall_Bottom, Wall_Mid, Wall_Top, Wood, Grass
+    Dirt,
+    Stone,
+    Wall_Bottom,
+    Wall_Mid,
+    Wall_Top,
+    Wood,
+    Grass
 }
+
 [ExecuteAlways]
 public class FaceObject : MonoBehaviour
 {
-    [Header("Facet Function")]
-    public TileFunction faceType = TileFunction.None;
+    [Header("Facet Function")] public TileFunction faceType = TileFunction.None;
     //public bool applyChange = false;
-    
 
-    [Header("Face-specific")]
-    public TurnDirection turnTo = TurnDirection.Forward;   //default turn to left if this is a turn-facet
+    [Header("Face-specific")] public TurnDirection turnTo = TurnDirection.Forward; //default turn to left if this is a turn-facet
     public bool showWallFace = true;
     public MaterialType materialType;
-    
     public GameObject turnArrow;
     public GameObject wallTile;
     public GameObject water;
@@ -47,22 +59,23 @@ public class FaceObject : MonoBehaviour
     private GameObject exit_instantiated;
 
     //  Mark the accessable directions starting from this tile object.
-    [Header("Custom Access")]
-    public bool forward;
+    [Header("Custom Access")] public bool forward;
     public bool back;
     public bool right;
     public bool left;
     public bool up;
     public bool down;
 
-    [Header("EventAfterReaching")]
-    public ReachEvent faceEvent;
+    [Header("EventAfterReaching")] public ReachEvent faceEvent;
+    public int faceExitWorldIndex;
 
     public delegate void LoadLevel();
+
     public static event LoadLevel OnLoaded;
 
     private GameObject instantiated_arrow;
     private MaterialManager matManager;
+
     private void Awake()
     {
         if (this.isActiveAndEnabled)
@@ -100,7 +113,6 @@ public class FaceObject : MonoBehaviour
                 //Debug.Log("Don't change dir");
                 return i_direction;
             }
-                
         }
         else
         {
@@ -108,7 +120,7 @@ public class FaceObject : MonoBehaviour
             //Debug.Log(gameObject.transform.parent.name + "Blocked");
             return CubeLayerMask.Zero;
         }
-            
+
 
         //throw new NotImplementedException();
     }
@@ -116,7 +128,7 @@ public class FaceObject : MonoBehaviour
     public void OnPlayerEnter(Dummy dummy)
     {
         //throw new NotImplementedException();
-        if(faceEvent == ReachEvent.Water)
+        if (faceEvent == ReachEvent.Water)
         {
             Debug.Log("Player Died. Reloading the scene");
             StartCoroutine(SwitchLevel(SceneManager.GetActiveScene().buildIndex));
@@ -124,15 +136,7 @@ public class FaceObject : MonoBehaviour
         else if (faceEvent == ReachEvent.Exit)
         {
             Debug.Log("Player Won");
-
-            int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
-            int sceneNum = SceneManager.sceneCountInBuildSettings;
-            if (currentBuildIndex + 1 <= SceneManager.sceneCountInBuildSettings)
-            {
-                StartCoroutine(SwitchLevel(currentBuildIndex + 1));
-            }
-            else
-                Debug.Log("This is already the last level");
+            StartCoroutine(SwitchLevel(faceExitWorldIndex));
         }
     }
 
@@ -149,7 +153,7 @@ public class FaceObject : MonoBehaviour
     public CubeLayerMask TryChangeDirection(CubeLayerMask i_direction)
     {
         Vector3 moveDir = i_direction.ToVector3();
-        Vector3 playerDir = GetPlayerRelativeDir(new CubeLayerMask(moveDir*-1)); //mark the direction of the player relative to this tile
+        Vector3 playerDir = GetPlayerRelativeDir(new CubeLayerMask(moveDir * -1)); //mark the direction of the player relative to this tile
 
         if (AccessAvailable(playerDir))
         {
@@ -157,7 +161,7 @@ public class FaceObject : MonoBehaviour
             {
                 //The condition where the player climbs up a ramp
                 //Debug.Log("Go up ramp - change direction Up");
-                if (i_direction.ToVector3() == this.transform.forward)   //see if the player is climbing the ramp
+                if (i_direction.ToVector3() == this.transform.forward) //see if the player is climbing the ramp
                     return (new CubeLayerMask(-this.transform.up));
                 else if (i_direction.ToVector3() == -this.transform.up)
                 {
@@ -177,7 +181,7 @@ public class FaceObject : MonoBehaviour
                 {
                     return (new CubeLayerMask(-this.transform.forward));
                 }
-                else if(turnTo == TurnDirection.Left)
+                else if (turnTo == TurnDirection.Left)
                 {
                     return (new CubeLayerMask(-this.transform.right));
                 }
@@ -187,7 +191,7 @@ public class FaceObject : MonoBehaviour
                 }
             }
             else if ((faceType == TileFunction.None || faceType == TileFunction.Custom)
-                && i_direction.ToVector3() != Vector3.up)
+                     && i_direction.ToVector3() != Vector3.up)
             {
                 return (i_direction);
             }
@@ -197,7 +201,6 @@ public class FaceObject : MonoBehaviour
                 //Debug.Log("Don't change dir");
                 return (i_direction);
             }
-
         }
         else
         {
@@ -206,7 +209,6 @@ public class FaceObject : MonoBehaviour
             //Debug.Log(gameObject.transform.parent.name + "Blocked");
             return (CubeLayerMask.Zero);
         }
-
     }
 
     private bool AccessAvailable(Vector3 i_dir)
@@ -232,7 +234,7 @@ public class FaceObject : MonoBehaviour
                     //Debug.Log("Player on Left");
                     return left;
                 }
-                    
+
             case 1:
                 if (i_dir.y > 0)
                 {
@@ -244,7 +246,7 @@ public class FaceObject : MonoBehaviour
                     //Debug.Log("Player on Down");
                     return up;
                 }
-                    
+
             case 2:
                 if (i_dir.z > 0)
                 {
@@ -256,7 +258,6 @@ public class FaceObject : MonoBehaviour
                     //Debug.Log("Player on Back");
                     return back;
                 }
-                    
         }
 
         Debug.LogError("Out of conditions error!");
@@ -344,7 +345,7 @@ public class FaceObject : MonoBehaviour
             if (turnArrow)
             {
                 //showWallFace = true;
-                float rotation_y = 90f * (int)turnTo;
+                float rotation_y = 90f * (int) turnTo;
                 arrow_instance = Instantiate(turnArrow, this.transform) as GameObject;
 
                 arrow_instance.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
@@ -360,12 +361,11 @@ public class FaceObject : MonoBehaviour
                 //{
                 //    instantiated_arrow.transform.localEulerAngles = new Vector3(0f, rotation_y, 180f);
                 //}
-
             }
+
             arrow_instantiated = arrow_instance;
             //GetComponent<MeshRenderer>().enabled = false;
             SetGroundVisibility(false);
-
         }
         else if (faceType == TileFunction.Wall)
         {
@@ -380,6 +380,7 @@ public class FaceObject : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }
+
             //if (showWallFace)
             //    SetGroundVisibility(true);
             //else
@@ -403,7 +404,7 @@ public class FaceObject : MonoBehaviour
         }
 
         //Load event-related prefabs
-        if(faceEvent==ReachEvent.Water)
+        if (faceEvent == ReachEvent.Water)
         {
             GameObject water_instance = null;
             if (water)
@@ -413,36 +414,35 @@ public class FaceObject : MonoBehaviour
                 //float rotation_y = 90f * (int)turnTo;
                 water_instance.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
             }
+
             SetGroundVisibility(false);
             water_instantiated = water_instance;
         }
-
     }
 
     private void LoadMaterialInstance()
     {
-        if(matManager==null)
+        if (matManager == null)
         {
             matManager = GameObject.FindGameObjectWithTag("MaterialManager").GetComponent<MaterialManager>();
         }
 
-        if(matManager)
+        if (matManager)
         {
-            Material mat = matManager.GetMaterial((int)materialType);
+            Material mat = matManager.GetMaterial((int) materialType);
             this.transform.GetChild(0).GetComponentInChildren<Renderer>().material = mat;
         }
-        
     }
 
     private void OnValidate()
     {
-        if(this.isActiveAndEnabled)
+        if (this.isActiveAndEnabled)
             StartCoroutine(ClearAddOns());
     }
 
     IEnumerator ClearAddOns()
     {
-        yield return null;//new WaitForEndOfFrame();
+        yield return null; //new WaitForEndOfFrame();
 
         Transform move_sign = transform.Find("Move_Sign(Clone)");
         Transform water_instance = transform.Find("Water Ground Variant(Clone)");
@@ -452,17 +452,19 @@ public class FaceObject : MonoBehaviour
             DestroyImmediate(arrow_instantiated);
             arrow_instantiated = null;
         }
-        if(water_instance)
+
+        if (water_instance)
         {
             DestroyImmediate(water_instance.gameObject);
             water_instantiated = null;
         }
-        if(showWallFace)
+
+        if (showWallFace)
         {
             SetGroundVisibility(true);
             //Debug.Log("Show wall faces");
         }
-            
+
         LoadFaceData();
         LoadMaterialInstance();
     }
@@ -474,13 +476,13 @@ public class FaceObject : MonoBehaviour
         if (ground_face)
         {
             MeshRenderer[] renderers = ground_face.GetComponentsInChildren<MeshRenderer>();
-            foreach(MeshRenderer var in renderers)
+            foreach (MeshRenderer var in renderers)
             {
                 var.enabled = i_visible;
             }
+
             //ground_face.GetComponent<MeshRenderer>().enabled = i_visible;
             //Debug.Log(ground_face.GetComponentInChildren<MeshRenderer>().name);
         }
-            
     }
 }
