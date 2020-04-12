@@ -68,9 +68,9 @@ public class FaceObject : MonoBehaviour
 
     [Header("EventAfterReaching")] public ReachEvent faceEvent;
     public int faceExitWorldIndex;
+    public float sceneReloadDelay = 1.2f;
 
     public delegate void LoadLevel();
-
     public static event LoadLevel OnLoaded;
 
     private GameObject instantiated_arrow;
@@ -131,17 +131,22 @@ public class FaceObject : MonoBehaviour
         if (faceEvent == ReachEvent.Water)
         {
             Debug.Log("Player Died. Reloading the scene");
-            StartCoroutine(SwitchLevel(SceneManager.GetActiveScene().buildIndex));
+            StartCoroutine(SwitchLevel(SceneManager.GetActiveScene().buildIndex, true));
         }
         else if (faceEvent == ReachEvent.Exit)
         {
             Debug.Log("Player Won");
-            StartCoroutine(SwitchLevel(faceExitWorldIndex));
+            StartCoroutine(SwitchLevel(faceExitWorldIndex, false));
         }
     }
 
-    IEnumerator SwitchLevel(int i_index)
+    IEnumerator SwitchLevel(int i_index, bool i_isReload)
     {
+        if (i_isReload)
+        {
+            yield return new WaitForSeconds(sceneReloadDelay);
+        }
+
         OnLoaded?.Invoke();
         MainSceneController.Instance.CheckAndDisconnectSocket();
 

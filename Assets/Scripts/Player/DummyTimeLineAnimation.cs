@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -8,10 +11,11 @@ namespace Player
     {
         public Dummy playerController;
         public TimelineAsset jumpAsset;
-        public TimelineAsset idleAsset;
+        public List<IdleAnimAsset> idleAssets;
         public PlayableDirector playerTimelineDirector;
 
         private PlayerAnimState m_playerAnimState;
+        private float m_currentTimer;
 
         #region Unity Functions
 
@@ -28,6 +32,31 @@ namespace Player
         {
             playerController.OnPlayerMovementActivated -= HandlePlayerMovementActivated;
             playerController.OnPlayerMovementStopped -= HandlePlayerMovementStopped;
+        }
+
+        private void Update()
+        {
+            switch (m_playerAnimState)
+            {
+                case PlayerAnimState.None:
+                    break;
+
+                case PlayerAnimState.Jumping:
+                    break;
+
+                case PlayerAnimState.Idle:
+                {
+                    m_currentTimer -= Time.deltaTime;
+                    if (m_currentTimer <= 0)
+                    {
+                        PlayRandomIdleAnimResetTimer();
+                    }
+                }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         #endregion
@@ -51,7 +80,6 @@ namespace Player
 
             playerTimelineDirector.Stop();
             playerTimelineDirector.Play(jumpAsset);
-            playerTimelineDirector.extrapolationMode = DirectorWrapMode.None;
             SetPlayerAnimState(PlayerAnimState.Jumping);
         }
 
@@ -62,13 +90,32 @@ namespace Player
                 return;
             }
 
-            playerTimelineDirector.Stop();
-            playerTimelineDirector.Play(idleAsset);
-            playerTimelineDirector.extrapolationMode = DirectorWrapMode.Loop;
+            PlayRandomIdleAnimResetTimer();
             SetPlayerAnimState(PlayerAnimState.Idle);
         }
 
+        private void PlayRandomIdleAnimResetTimer()
+        {
+            int randomIndex = Random.Range(0, 1000) % idleAssets.Count;
+            IdleAnimAsset idleAnimAsset = idleAssets[randomIndex];
+
+            m_currentTimer = idleAnimAsset.idleRuntime;
+            playerTimelineDirector.Stop();
+            playerTimelineDirector.Play(idleAnimAsset.idleTimelineAsset);
+        }
+
         private void SetPlayerAnimState(PlayerAnimState i_playerAnimState) => m_playerAnimState = i_playerAnimState;
+
+        #endregion
+
+        #region Structs
+
+        [System.Serializable]
+        public struct IdleAnimAsset
+        {
+            public float idleRuntime;
+            public TimelineAsset idleTimelineAsset;
+        }
 
         #endregion
 
