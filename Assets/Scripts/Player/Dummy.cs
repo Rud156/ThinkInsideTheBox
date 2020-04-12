@@ -86,7 +86,7 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & CubeWorld.CUBIE_LAYER_MASK) != 0)
+            if (((1 << other.gameObject.layer) & CubeWorld.CUBIE_LAYER_MASK) != 0 && !other.tag.Contains("Collectible"))
                 transform.SetParent(other.transform);
         }
 
@@ -147,9 +147,12 @@ namespace Player
                     transform.LookAt(m_movingPos);
                 Projection.transform.rotation = q;
             }
-
-            m_destRot = Quaternion.LookRotation(pendingDirection.ToVector3());
-            StartCoroutine(RotateTo(m_destRot));
+            if (pendingDirection.y == 0)
+            {
+                m_destRot = Quaternion.LookRotation(pendingDirection.ToVector3());
+                StartCoroutine(RotateTo(m_destRot));
+            }
+            
             if (pendingDirection != CubeLayerMask.up)
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
@@ -213,7 +216,7 @@ namespace Player
         private void SetProjectionPosition(CubeLayerMask i_PendingDir)
         {
             RaycastHit hit;
-            if (Physics.Linecast(transform.position - gravityDirection.ToVector3() * 1.1f,
+            if (Physics.Linecast(transform.position - gravityDirection.ToVector3() * 0.6f,
                 transform.position + gravityDirection.ToVector3() * CubeWorld.CUBIE_LENGTH,
                 out hit, WalkableLayer))
             {

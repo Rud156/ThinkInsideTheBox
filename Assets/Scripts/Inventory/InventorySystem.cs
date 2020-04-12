@@ -16,6 +16,7 @@ public class InventorySystem : MonoBehaviour
     public int maxCherryCount;
 
     private bool _winnable;
+    private int _totalCount;
 
     public bool Winnable
     {
@@ -56,6 +57,7 @@ public class InventorySystem : MonoBehaviour
         appleCount = 0;
         bananaCount = 0;
         cherryCount = 0;
+        _totalCount = 0;
         _winnable = false;
     }
 
@@ -64,6 +66,8 @@ public class InventorySystem : MonoBehaviour
     {
         if (appleCount == maxAppleCount)
             _winnable = true;
+        _totalCount = appleCount + bananaCount + cherryCount;
+
     }
 
     #endregion
@@ -72,12 +76,13 @@ public class InventorySystem : MonoBehaviour
 
     public void ShowCollected()
     {
-        Debug.Log("hitting");
         foreach (Transform child in GUI.transform)
         {
             if (child.gameObject.CompareTag(TagManager.Collected))
             {
-                child.gameObject.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
+
+                
+               child.GetChild(_totalCount).gameObject.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
             }
         }
     }

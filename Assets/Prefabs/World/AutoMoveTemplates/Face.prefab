@@ -110,6 +110,7 @@ MonoBehaviour:
   faceType: 2
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 6646898010425555172, guid: f1270bbd70ced6f43abe42bfd3dc167d,
@@ -122,6 +123,7 @@ MonoBehaviour:
   up: 0
   down: 0
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1 &8662029427936452492
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +234,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -244,6 +247,7 @@ MonoBehaviour:
   up: 1
   down: 1
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1 &8662029428626467860
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +358,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 2117381405487482533, guid: 779ba2e869369d44c904d995fef5f435,
@@ -366,6 +371,7 @@ MonoBehaviour:
   up: 1
   down: 1
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1 &8662029428804033347
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +482,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 4620778741702684336, guid: 93c37c375385a0b4bbabc092bc8b0652,
@@ -488,6 +495,7 @@ MonoBehaviour:
   up: 1
   down: 1
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1 &8662029429374950431
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +606,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 5565378006120636336, guid: 1aee3306b95bae040b6cde516596f1a4,
@@ -610,6 +619,7 @@ MonoBehaviour:
   up: 1
   down: 1
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1 &8662029429377069122
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,6 +871,7 @@ MonoBehaviour:
   faceType: 4
   turnTo: 0
   showWallFace: 1
+  materialType: 0
   turnArrow: {fileID: 6183243473793578320, guid: 481a842b7b1bd1c4fa5e5f9b300319e8,
     type: 3}
   wallTile: {fileID: 7302641750036981536, guid: 5b517978c2fcc204cbca1b9b9a3c4fa6,
@@ -873,6 +884,7 @@ MonoBehaviour:
   up: 1
   down: 1
   faceEvent: 0
+  faceExitWorldIndex: 0
 --- !u!1001 &1421650973334193604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -889,6 +901,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 041930fb95c099b48a3d26d9e385f183,
         type: 3}
@@ -974,6 +991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grass Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 041930fb95c099b48a3d26d9e385f183,
         type: 3}
@@ -1070,6 +1092,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 041930fb95c099b48a3d26d9e385f183,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1159,6 +1186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 041930fb95c099b48a3d26d9e385f183,
         type: 3}
@@ -1250,6 +1282,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 041930fb95c099b48a3d26d9e385f183,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1339,6 +1376,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3014059741289377105, guid: 041930fb95c099b48a3d26d9e385f183,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -2880157827688752618, guid: 041930fb95c099b48a3d26d9e385f183,
         type: 3}
