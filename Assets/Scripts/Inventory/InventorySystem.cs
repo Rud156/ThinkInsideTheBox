@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using UnityEngine.SceneManagement;
 
 public class InventorySystem : MonoBehaviour
 {
-    public Canvas GUI;
-
-    [Header("Apple Collectible")] public int appleCount;
+    /*[Header("Apple Collectible")] public int appleCount;
     public int maxAppleCount;
 
     [Header("Banana Collectible")] public int bananaCount;
     public int maxBananaCount;
 
     [Header("Cherry Collectible")] public int cherryCount;
-    public int maxCherryCount;
+    public int maxCherryCount;*/
 
-    private bool _winnable;
-    private int _totalCount;
+    private bool _winnable = false;
+    private int _currentCount = 0;
+    private int _totalCount = 0;
+
+    public GameObject currentUI;
+    public GameObject totalUI;
 
     public bool Winnable
     {
@@ -29,12 +32,11 @@ public class InventorySystem : MonoBehaviour
         get => true;
     }
 
-    #region Unity Functions
+    private bool[] collectList;
 
     #region Singleton
 
     public static InventorySystem Instance = null;
-
     private void Awake()
     {
         if (Instance == null)
@@ -47,6 +49,12 @@ public class InventorySystem : MonoBehaviour
         }
 
         DontDestroyOnLoad(this);
+
+        _totalCount = SceneManager.sceneCountInBuildSettings - 2;
+        totalUI.GetComponent<Text>().text = _totalCount.ToString();
+        collectList = new bool[_totalCount];
+        for (int i = 0; i < _totalCount; i++)
+            collectList[i] = false;
     }
 
     #endregion
@@ -54,27 +62,22 @@ public class InventorySystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        appleCount = 0;
-        bananaCount = 0;
-        cherryCount = 0;
-        _totalCount = 0;
-        _winnable = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (appleCount == maxAppleCount)
-            _winnable = true;
-        _totalCount = appleCount + bananaCount + cherryCount;
-
-    }
-
-    #endregion
 
     #region External Functions
 
-    public void ShowCollected()
+    public bool CheckStat(int levelId)
+    {
+        return collectList[levelId];
+    }
+
+    public void Initialize()
+    {
+        for (int i = 0; i < _totalCount; i++)
+            collectList[i] = false;
+    }
+
+    /*public void ShowCollected()
     {
         foreach (Transform child in GUI.transform)
         {
@@ -85,19 +88,29 @@ public class InventorySystem : MonoBehaviour
                child.GetChild(_totalCount).gameObject.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
             }
         }
-    }
+    } */
 
-    public void MarkCollected(GameObject ToCollect)
+    public void MarkCollected(int currentlevel)
     {
-        if (ToCollect.gameObject.CompareTag(TagManager.AppleCollectible))
+        if (collectList[currentlevel] == false)
         {
+            _currentCount++;
+            currentUI.GetComponent<Text>().text = _currentCount.ToString();
+            collectList[currentlevel] = true;
+            if (_currentCount == _totalCount)
+                _winnable = true;
+        } 
+
+        /*if (ToCollect.gameObject.CompareTag(TagManager.AppleCollectible))
+        {
+            appleCount++;
+            _totalCount++;
+            //ShowCollected();
             foreach (Transform child in GUI.transform)
             {
                 if (appleCount < maxAppleCount && !child.gameObject.CompareTag(TagManager.Collected))
                 {
-                    appleCount++;
-                    child.gameObject.tag = TagManager.Collected;
-                    ShowCollected();
+
                     break;
                 }
             }
@@ -110,7 +123,7 @@ public class InventorySystem : MonoBehaviour
                 {
                     bananaCount++;
                     child.gameObject.tag = TagManager.Collected;
-                    ShowCollected();
+                    //ShowCollected();
                     break;
                 }
             }
@@ -123,11 +136,12 @@ public class InventorySystem : MonoBehaviour
                 {
                     cherryCount++;
                     child.gameObject.tag = TagManager.Collected;
-                    ShowCollected();
+                    //ShowCollected();
                     break;
                 }
             }
         }
+        */
     }
 
     #endregion

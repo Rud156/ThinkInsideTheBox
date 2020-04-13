@@ -12,6 +12,7 @@ public class MenuScript : MonoBehaviour
     public void NewGame()
     {
         SceneManager.LoadScene(1);
+        InventorySystem.Instance.Initialize();
     }
     
 
