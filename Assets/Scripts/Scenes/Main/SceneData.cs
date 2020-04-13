@@ -2,6 +2,6 @@
 {
     public static class SceneData
     {
-        public static int LastWorldNumber = 5;
+        public static int LastWorldNumber = 1;
     }
 }
