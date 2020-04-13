@@ -27,7 +27,7 @@ public enum TurnDirection
 public enum ReachEvent
 {
     None,
-    Water,
+    Window,
     Exit
 }
 
@@ -52,7 +52,6 @@ public class FaceObject : MonoBehaviour
     public bool showWallFace = true;
     public MaterialType materialType;
     public GameObject turnArrow;
-    public GameObject wallTile;
     public GameObject water;
     private GameObject arrow_instantiated;
     private GameObject water_instantiated;
@@ -128,7 +127,7 @@ public class FaceObject : MonoBehaviour
     public void OnPlayerEnter(Dummy dummy)
     {
         //throw new NotImplementedException();
-        if (faceEvent == ReachEvent.Water)
+        if (faceEvent == ReachEvent.Window)
         {
             Debug.Log("Player Died. Reloading the scene");
             StartCoroutine(SwitchLevel(SceneManager.GetActiveScene().buildIndex, true));
@@ -409,7 +408,7 @@ public class FaceObject : MonoBehaviour
         }
 
         //Load event-related prefabs
-        if (faceEvent == ReachEvent.Water)
+        if (faceEvent == ReachEvent.Window)
         {
             GameObject water_instance = null;
             if (water)
@@ -417,7 +416,8 @@ public class FaceObject : MonoBehaviour
                 water_instance = Instantiate(water, this.transform) as GameObject;
                 //SetGroundVisibility(false);
                 //float rotation_y = 90f * (int)turnTo;
-                water_instance.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
+                water_instance.transform.localEulerAngles = new Vector3(180f, 0f, 0f);
+                //Debug.Log(water_instance.tag);
             }
 
             SetGroundVisibility(false);
@@ -450,7 +450,15 @@ public class FaceObject : MonoBehaviour
         yield return null; //new WaitForEndOfFrame();
 
         Transform move_sign = transform.Find("Move_Sign(Clone)");
-        Transform water_instance = transform.Find("Water Ground Variant(Clone)");
+        
+        foreach(Transform child in transform)
+        {
+            if(child.CompareTag("WaterHole"))
+            {
+                DestroyImmediate(child.gameObject);
+            }
+        }
+
         if (move_sign)
         {
             DestroyImmediate(move_sign.gameObject);
@@ -458,11 +466,6 @@ public class FaceObject : MonoBehaviour
             arrow_instantiated = null;
         }
 
-        if (water_instance)
-        {
-            DestroyImmediate(water_instance.gameObject);
-            water_instantiated = null;
-        }
 
         if (showWallFace)
         {

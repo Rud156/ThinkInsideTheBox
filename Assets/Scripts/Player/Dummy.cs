@@ -19,6 +19,7 @@ namespace Player
 
         public GameObject Projection;
         public LayerMask WalkableLayer;
+        public float WalkSpeed = 1f;
         public CubeLayerMask tendingDirection = CubeLayerMask.Zero;
         public bool AutoMovement = true;
         public CubeLayerMask pendingDirection;
@@ -155,7 +156,7 @@ namespace Player
             
             if (pendingDirection != CubeLayerMask.up)
             {
-                m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5f : 1f;
+                m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5 * WalkSpeed : WalkSpeed;
                 if (m_movingTarget)
                     while (Vector3.Distance(m_movingTarget.transform.position, transform.position) > tolerance)
                     {
