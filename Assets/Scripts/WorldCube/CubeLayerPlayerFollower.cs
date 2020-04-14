@@ -61,6 +61,8 @@ namespace WorldCube
             m_lerpAmount = 0;
         }
 
+        public bool ReachedPosition() => m_lerpAmount >= 1;
+
         public void SetFollowActive() => m_followPlayer = true;
 
         public void DeactivateFollow() => m_followPlayer = false;

@@ -13,6 +13,7 @@ namespace WorldCube
     {
         [Header("Position Data")] public int tileDistance;
         public int rotationDelta;
+        public bool isOutsideWorld;
 
         [Header("Layers")] public List<CubeLayerObjectV2> cubeLayers;
 
@@ -144,6 +145,14 @@ namespace WorldCube
             if (isRotating && !CubeLayerMaskV2.IsCombinedNotZero(m_lastLayerMask, i_cubeLayerMask))
             {
                 return;
+            }
+
+            if (isOutsideWorld)
+            {
+                if (Dummy.Instance.IsPlayerMoving() || !layerPlayerFollower.ReachedPosition())
+                {
+                    return;
+                }
             }
 
             if (Dummy.Instance.IsPlayerMoving() &&
