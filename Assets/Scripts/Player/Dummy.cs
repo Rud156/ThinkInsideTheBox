@@ -26,6 +26,8 @@ namespace Player
         private bool directionChanged = false;
         private CubeLayerMask gravityDirection = CubeLayerMask.down;
         public GameObject m_movingTarget;
+        private GameObject m_lastStableFloor;
+        private Vector3 m_lastStablePos;
         private Vector3 m_movingPos;
         private Quaternion m_destRot = Quaternion.identity;
         private float tolerance = 0.1f;
@@ -152,13 +154,13 @@ namespace Player
             {
                 m_MoveSpeed = pendingDirection == CubeLayerMask.down ? 5 * WalkSpeed : WalkSpeed;
                 if (m_movingTarget)
-                    while (Vector3.Distance(m_movingTarget.transform.position, transform.position) > tolerance)
+                    while (Vector3.Distance(m_movingTarget.transform.position, transform.position) > tolerance && m_playerState == PlayerState.Moving)
                     {
                         SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingTarget.transform.position, Time.deltaTime * m_MoveSpeed), pendingDirection);
                         yield return null;
                     }
                 else
-                    while (Vector3.Distance(m_movingPos, transform.position) > tolerance)
+                    while (Vector3.Distance(m_movingPos, transform.position) > tolerance && m_playerState == PlayerState.Moving)
                     {
                         SetPlayerPosition(Vector3.MoveTowards(transform.position, m_movingPos, Time.deltaTime * m_MoveSpeed), pendingDirection);
                         yield return null;
@@ -174,6 +176,16 @@ namespace Player
             m_movingTarget = null;
             GetCurrentCubie()?.OnPlayerEnter(this);
             transform.SetParent(GetCurrentCubie()?.transform);
+            if (GetCurrentCubie())
+            {
+                if (GetCurrentCubie().IsInside(gameObject))
+                    m_lastStableFloor = GetCurrentCubie().gameObject;
+                else
+                {
+                    m_lastStableFloor = null;
+                    m_lastStablePos = m_movingPos;
+                }
+            }
             OnPlayerMovementStopped?.Invoke();
             Debug.Log("Reach destination");
 
@@ -273,6 +285,19 @@ namespace Player
                 return hit.transform.GetComponent<CubieObject>();
             }
             return null;
+        }
+
+        public void ResetToLastFloor()
+        {
+            gameObject.transform.position = m_lastStableFloor ? m_lastStableFloor.transform.position : m_lastStablePos;
+            if (!AutoMovement)
+            {
+                tendingDirection = CubeLayerMask.Zero;
+
+                m_stopped = true;
+                m_playerState = PlayerState.Stuck;
+            }
+                
         }
     }
 }
