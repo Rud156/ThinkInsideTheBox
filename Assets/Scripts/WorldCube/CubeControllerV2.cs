@@ -32,7 +32,6 @@ namespace WorldCube
         [Header("Audio")] public AudioController audioController;
 
         public delegate void WorldClicked();
-
         public WorldClicked OnWorldClicked;
 
         private PlayerGridController m_playerGridController;
