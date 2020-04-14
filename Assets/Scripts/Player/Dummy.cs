@@ -85,12 +85,6 @@ namespace Player
                                                tendingDirection.ToVector3() * CubeWorld.CUBIE_LENGTH / 2, Color.cyan);
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (((1 << other.gameObject.layer) & CubeWorld.CUBIE_LAYER_MASK) != 0 && !other.tag.Contains("Collectible"))
-                transform.SetParent(other.transform);
-        }
-
         public void RotateTendingDirection()
         {
             CubeLayerMask direction = new CubeLayerMask(transform.forward);
@@ -179,6 +173,7 @@ namespace Player
                 SetPlayerPosition(m_movingPos, pendingDirection);
             m_movingTarget = null;
             GetCurrentCubie()?.OnPlayerEnter(this);
+            transform.SetParent(GetCurrentCubie()?.transform);
             OnPlayerMovementStopped?.Invoke();
             Debug.Log("Reach destination");
 
