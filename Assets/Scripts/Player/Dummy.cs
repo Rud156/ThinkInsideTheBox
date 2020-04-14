@@ -172,7 +172,11 @@ namespace Player
             else
                 SetPlayerPosition(m_movingPos, pendingDirection);
             m_movingTarget = null;
-            GetCurrentCubie()?.OnPlayerEnter(this);
+            if(GetCurrentCubie() && GetCurrentCubie().IsInside(gameObject))
+            {
+                GetCurrentCubie()?.OnPlayerEnter(this);
+            }
+
             transform.SetParent(GetCurrentCubie()?.transform);
             OnPlayerMovementStopped?.Invoke();
             Debug.Log("Reach destination");
