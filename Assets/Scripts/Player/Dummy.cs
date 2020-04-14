@@ -33,6 +33,7 @@ namespace Player
         private float tolerance = 0.1f;
         private PlayerState m_playerState = PlayerState.Stuck;
         private bool m_stopped = false;
+        private bool m_resetting = false;
         private float m_MoveSpeed = 1f;
 
         public delegate void PlayerMovementActivated();
@@ -167,6 +168,10 @@ namespace Player
                     }
 
             }
+            if(m_playerState == PlayerState.Stuck)
+            {
+                yield break;
+            }
 
             m_stopped = false;
             if (m_movingTarget)
@@ -294,8 +299,9 @@ namespace Player
             {
                 tendingDirection = CubeLayerMask.Zero;
 
-                m_stopped = true;
                 m_playerState = PlayerState.Stuck;
+                m_movingTarget = m_lastStableFloor?.gameObject;
+                m_movingPos = m_lastStablePos;
             }
                 
         }
