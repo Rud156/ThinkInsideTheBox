@@ -11,20 +11,28 @@ public class MenuScript : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene(1);
-        InventorySystem.Instance.Initialize();
+        if (InventorySystem.Instance != null)
+            InventorySystem.Instance.Initialize();
     }
     
 
     public void SelectLevel(int i_Index)
     {
         SceneManager.LoadScene(i_Index);
+        if (InGameUI.Instance != null)
+            InGameUI.Instance.transform.Find("UI").gameObject.SetActive(true);
     }
 
-    public void ResetLevel()
+    public void ToMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
     }
 
+    public void ToGym()
+    {
+        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 2);
+        if (InGameUI.Instance != null)
+            InGameUI.Instance.transform.Find("UI").gameObject.SetActive(true);
+    }
     #endregion
 }

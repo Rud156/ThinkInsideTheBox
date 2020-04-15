@@ -127,6 +127,7 @@ public class FaceObject : MonoBehaviour
     public void OnPlayerEnter(Dummy dummy)
     {
         //throw new NotImplementedException();
+        string cubie_name = transform.parent.name;
         if (faceEvent == ReachEvent.Window)
         {
             Debug.Log("Player Died. Reloading the scene");

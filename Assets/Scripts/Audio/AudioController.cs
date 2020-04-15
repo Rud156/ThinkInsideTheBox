@@ -16,7 +16,7 @@ namespace Audio
 
         public void PlaySound(AudioEnum audioEnum)
         {
-            GameObject singleShotAudioInstance = Instantiate(singleShotAudio);
+            GameObject singleShotAudioInstance = Instantiate(singleShotAudio, transform, true);
             AudioSource audioSource = singleShotAudioInstance.GetComponent<AudioSource>();
 
             switch (audioEnum)
@@ -62,6 +62,28 @@ namespace Audio
             Background,
             GearClick,
             GearTurning
+        }
+
+        #endregion
+
+        #region Singleton
+
+        private static AudioController _instance;
+        public static AudioController Instance => _instance;
+
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+
+            if (_instance != this)
+            {
+                Destroy(gameObject);
+            }
+
+            DontDestroyOnLoad(gameObject);
         }
 
         #endregion

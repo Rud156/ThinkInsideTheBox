@@ -1,40 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 using Utils;
 using UnityEngine.SceneManagement;
 
 public class InventorySystem : MonoBehaviour
 {
-    /*[Header("Apple Collectible")] public int appleCount;
-    public int maxAppleCount;
 
-    [Header("Banana Collectible")] public int bananaCount;
-    public int maxBananaCount;
-
-    [Header("Cherry Collectible")] public int cherryCount;
-    public int maxCherryCount;*/
-
-    private bool _winnable = false;
     private int _currentCount = 0;
     private int _totalCount = 0;
 
     public GameObject currentUI;
     public GameObject totalUI;
-
-    public bool Winnable
-    {
-        // get
-        // {
-        //     return this._winnable;
-        // }
-
-        // TODO: Put the actual value after levels are made
-        get => true;
-    }
+    public GameObject UI;
+    public GameObject FadeOut;
 
     private bool[] collectList;
-
-    #region Singleton
 
     public static InventorySystem Instance = null;
     private void Awake()
@@ -50,14 +32,12 @@ public class InventorySystem : MonoBehaviour
 
         DontDestroyOnLoad(this);
 
-        _totalCount = SceneManager.sceneCountInBuildSettings - 2;
+        _totalCount = SceneManager.sceneCountInBuildSettings - 3;
         totalUI.GetComponent<Text>().text = _totalCount.ToString();
         collectList = new bool[_totalCount];
         for (int i = 0; i < _totalCount; i++)
             collectList[i] = false;
     }
-
-    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -77,71 +57,27 @@ public class InventorySystem : MonoBehaviour
             collectList[i] = false;
     }
 
-    /*public void ShowCollected()
+    IEnumerator winGame()
     {
-        foreach (Transform child in GUI.transform)
-        {
-            if (child.gameObject.CompareTag(TagManager.Collected))
-            {
-
-                
-               child.GetChild(_totalCount).gameObject.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
-            }
-        }
-    } */
+        FadeOut.GetComponent<Animator>().SetBool("fade", true);
+        yield return new WaitForSeconds(1.2f);
+        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
+        UI.SetActive(false);
+        yield return new WaitForSeconds(.8f);
+        FadeOut.GetComponent<Animator>().SetBool("fade", false);
+    }
 
     public void MarkCollected(int currentlevel)
     {
         if (collectList[currentlevel] == false)
         {
-            _currentCount++;
-            currentUI.GetComponent<Text>().text = _currentCount.ToString();
-            collectList[currentlevel] = true;
-            if (_currentCount == _totalCount)
-                _winnable = true;
-        } 
 
-        /*if (ToCollect.gameObject.CompareTag(TagManager.AppleCollectible))
-        {
-            appleCount++;
-            _totalCount++;
-            //ShowCollected();
-            foreach (Transform child in GUI.transform)
-            {
-                if (appleCount < maxAppleCount && !child.gameObject.CompareTag(TagManager.Collected))
-                {
-
-                    break;
-                }
-            }
         }
-        else if(ToCollect.gameObject.CompareTag(TagManager.BananaCollectible))
-        {
-            foreach (Transform child in GUI.transform)
-            {
-                if (bananaCount < maxBananaCount && !child.gameObject.CompareTag(TagManager.Collected))
-                {
-                    bananaCount++;
-                    child.gameObject.tag = TagManager.Collected;
-                    //ShowCollected();
-                    break;
-                }
-            }
-        }
-        else if (ToCollect.gameObject.CompareTag(TagManager.CherryCollectible))
-        {
-            foreach (Transform child in GUI.transform)
-            {
-                if (cherryCount < maxCherryCount && !child.gameObject.CompareTag(TagManager.Collected))
-                {
-                    cherryCount++;
-                    child.gameObject.tag = TagManager.Collected;
-                    //ShowCollected();
-                    break;
-                }
-            }
-        }
-        */
+        _currentCount++;
+        currentUI.GetComponent<Text>().text = _currentCount.ToString();
+        collectList[currentlevel] = true;
+        if (_currentCount == _totalCount)
+            StartCoroutine(winGame());
     }
 
     #endregion
