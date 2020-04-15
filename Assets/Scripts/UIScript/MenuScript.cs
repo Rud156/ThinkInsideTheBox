@@ -27,5 +27,12 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void ToGym()
+    {
+        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 2);
+        if (InGameUI.Instance != null)
+            InGameUI.Instance.transform.Find("UI").gameObject.SetActive(true);
+    }
     #endregion
 }

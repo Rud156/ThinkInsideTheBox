@@ -18,8 +18,6 @@ public class InventorySystem : MonoBehaviour
 
     private bool[] collectList;
 
-    #region Singleton
-
     public static InventorySystem Instance = null;
     private void Awake()
     {
@@ -34,14 +32,12 @@ public class InventorySystem : MonoBehaviour
 
         DontDestroyOnLoad(this);
 
-        _totalCount = SceneManager.sceneCountInBuildSettings - 2;
+        _totalCount = SceneManager.sceneCountInBuildSettings - 3;
         totalUI.GetComponent<Text>().text = _totalCount.ToString();
         collectList = new bool[_totalCount];
         for (int i = 0; i < _totalCount; i++)
             collectList[i] = false;
     }
-
-    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +61,7 @@ public class InventorySystem : MonoBehaviour
     {
         FadeOut.GetComponent<Animator>().SetBool("fade", true);
         yield return new WaitForSeconds(1.2f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
         UI.SetActive(false);
         yield return new WaitForSeconds(.8f);
         FadeOut.GetComponent<Animator>().SetBool("fade", false);
@@ -75,12 +71,13 @@ public class InventorySystem : MonoBehaviour
     {
         if (collectList[currentlevel] == false)
         {
-            _currentCount++;
-            currentUI.GetComponent<Text>().text = _currentCount.ToString();
-            collectList[currentlevel] = true;
-            if (_currentCount == _totalCount)
-                StartCoroutine(winGame());
-        } 
+
+        }
+        _currentCount++;
+        currentUI.GetComponent<Text>().text = _currentCount.ToString();
+        collectList[currentlevel] = true;
+        if (_currentCount == _totalCount)
+            StartCoroutine(winGame());
     }
 
     #endregion
