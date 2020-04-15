@@ -3,7 +3,22 @@ guid: e782c1afe45972b49aed2822f74c7aa7
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Portal1_PortalMainMat
+    second: {fileID: 2100000, guid: 7553b7bcfb76a074aa64245a73396fe1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Portal1_PortalStrokeBackMat
+    second: {fileID: 2100000, guid: 1964cc05ce583df4395d511a5bb7f70c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Portal1_PortalStrokeFrontMat
+    second: {fileID: 2100000, guid: 1964cc05ce583df4395d511a5bb7f70c, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
