@@ -993,6 +993,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8981126017219829703}
     m_Modifications:
+    - target: {fileID: -6798619836376962542, guid: e782c1afe45972b49aed2822f74c7aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1964cc05ce583df4395d511a5bb7f70c, type: 2}
     - target: {fileID: -4216859302048453862, guid: e782c1afe45972b49aed2822f74c7aa7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1063,11 +1068,27 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: -1071822353792996142, guid: e782c1afe45972b49aed2822f74c7aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1832038254254646420, guid: e782c1afe45972b49aed2822f74c7aa7,
+        type: 3}
     - target: {fileID: -927199367670048503, guid: e782c1afe45972b49aed2822f74c7aa7,
         type: 3}
       propertyPath: m_Name
       value: Portal2
       objectReference: {fileID: 0}
+    - target: {fileID: 1517172964721443216, guid: e782c1afe45972b49aed2822f74c7aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1964cc05ce583df4395d511a5bb7f70c, type: 2}
+    - target: {fileID: 6159776941431058374, guid: e782c1afe45972b49aed2822f74c7aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7553b7bcfb76a074aa64245a73396fe1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e782c1afe45972b49aed2822f74c7aa7, type: 3}
 --- !u!4 &7693356268304029573 stripped
