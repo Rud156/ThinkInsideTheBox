@@ -84,7 +84,7 @@ namespace WorldCube
                 else {
                      material = i_transform.GetComponent<Renderer>().materials[0];
                 }
-                
+
                 MaterialTransparency transparency = new MaterialTransparency()
                 {
                     transform = i_transform,
