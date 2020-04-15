@@ -19,7 +19,9 @@ namespace WorldCube
         private int m_targetRotation;
         private float m_lerpAmount;
         private int m_tileDistance;
+
         #region External Functions
+
         // Returns whether objects clicked into place or not
         public bool UpdateRotations()
         {
@@ -28,6 +30,7 @@ namespace WorldCube
             {
                 return false;
             }
+
             float lerpAmount = m_lerpAmount + lerpChangeRate * Time.deltaTime;
             m_lerpAmount = lerpAmount;
             float updatedSideRotation = Mathf.Lerp(
@@ -48,14 +51,17 @@ namespace WorldCube
                 ReleaseChildren();
                 return true;
             }
+
             return false;
         }
+
         public bool CheckAndCreateParent(CubeLayerMaskV2 i_cubeLayerMask, int i_rotationDelta)
         {
             if (i_cubeLayerMask != cubeLayerMask)
             {
                 return false;
             }
+
             int updatedTargetRotation = m_targetRotation + i_rotationDelta;
             // Only in this case create and add children
             if (m_currentSideRotation % RotationLocker == 0 && updatedTargetRotation % RotationLocker != 0 &&
@@ -69,16 +75,22 @@ namespace WorldCube
                     return false;
                 }
             }
+
             m_targetRotation = updatedTargetRotation;
             m_startRotation = m_currentSideRotation;
             m_lerpAmount = 0;
             return true;
         }
+
         public void SetTileDistance(int distance) => m_tileDistance = distance;
+
         public bool IsRotating => m_currentSideRotation != m_targetRotation ||
                                   m_targetRotation % RotationLocker != 0;
+
         #endregion
+
         #region Utility Functions
+
         private bool GrabAndValidateChildren()
         {
             m_childCubies.Clear();
@@ -107,6 +119,7 @@ namespace WorldCube
                         yValue = j;
                         zValue = 0;
                     }
+
                     Vector3 finalPosition = transform.position + new Vector3(xValue, yValue, zValue);
                     Collider[] other = Physics.OverlapSphere(finalPosition, collisionRadius, layerMask);
                     // This basically checks and gets all cubes that lie in the position
@@ -120,10 +133,12 @@ namespace WorldCube
                             break;
                         }
                     }
+
                     if (isInvalidData || data.Count < 1)
                     {
                         continue;
                     }
+
                     // Ideally this count should never be more than 2
                     // Add a check probably
                     foreach (CubieObject cubeieDataV2 in data)
@@ -133,22 +148,28 @@ namespace WorldCube
                     }
                 }
             }
+
             if (m_childCubies.Count == 0)
             {
                 Debug.LogError("No Cubies Found");
                 return false;
             }
+
             return true;
         }
+
         private void ReleaseChildren()
         {
             for (int i = 0; i < m_childCubies.Count; i++)
             {
                 m_childCubies[i].ReleaseParent(cubeLayerMask);
             }
+
             m_childCubies.Clear();
         }
+
         private bool HasChildren() => m_childCubies.Count != 0;
+
         private List<CubieObject> GetColliderCube(Collider[] other)
         {
             List<CubieObject> cubeData = new List<CubieObject>();
@@ -160,8 +181,10 @@ namespace WorldCube
                     cubeData.Add(data);
                 }
             }
+
             return cubeData;
         }
+
         private Vector3 GetVectorRotation(float rotation)
         {
             return new Vector3(
@@ -170,10 +193,12 @@ namespace WorldCube
                 rotation * cubeLayerMask.Z
             );
         }
+
         public bool IsInside(GameObject i_other)
         {
             return GetComponent<Collider>().bounds.Contains(i_other.transform.position);
         }
+
         #endregion
     }
 }
