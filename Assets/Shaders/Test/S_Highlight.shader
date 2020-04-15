@@ -13,7 +13,7 @@
 	{
 		Tags
 		{
-			"RenderPipeline" = "UniversalPipeline"
+			"RenderPipeline" = "HDRenderPipeline"
 			"RenderType" = "Transparent"
 			"Queue" = "Transparent+0"
 		}
@@ -68,10 +68,10 @@
 		#define SHADERPASS_UNLIT
 
 		// Includes
-		#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
-		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
+		#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/Color.hlsl"
+		#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/Core.hlsl"
+		#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/Lighting.hlsl"
+		#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
 		// --------------------------------------------------
 		// Graph
