@@ -7,6 +7,8 @@ namespace WorldCube
     public class CubeSideTransparencyControl : MonoBehaviour
     {
         private const string Alpha = "_Alpha";
+        private const float TransparentAlpha = 1f;
+        private const float OpaqueAlpha = 0.3f;
 
         public float transparencyChangeRate = 7;
 
@@ -25,7 +27,7 @@ namespace WorldCube
 
                 m_materialTransparency[i] = materialTransparency;
 
-                if (materialTransparency.targetTransparency == 1 && materialTransparency.lerpAmount == 1)
+                if (materialTransparency.lerpAmount == 1 && materialTransparency.isLerpTowardsTransparent)
                 {
                     m_materialTransparency.RemoveAt(i);
                 }
@@ -79,10 +81,11 @@ namespace WorldCube
 
                 if (i_transform.CompareTag(TagManager.FaceOut))
                 {
-                     material = i_transform.GetComponent<Renderer>().materials[0];
+                    material = i_transform.GetComponent<Renderer>().materials[0];
                 }
-                else {
-                     material = i_transform.GetComponent<Renderer>().materials[0];
+                else
+                {
+                    material = i_transform.GetComponent<Renderer>().materials[0];
                 }
 
                 MaterialTransparency transparency = new MaterialTransparency()
@@ -92,7 +95,7 @@ namespace WorldCube
 
                     lerpAmount = 2,
                     startTransparency = material.GetFloat(Alpha),
-                    targetTransparency = 1
+                    targetTransparency = CubeSideTransparencyControl.TransparentAlpha
                 };
 
                 o_materialTransparency = transparency;
@@ -119,18 +122,22 @@ namespace WorldCube
             public float targetTransparency;
             public float lerpAmount;
 
+            public bool isLerpTowardsTransparent;
+
             public void MakeTransparent()
             {
                 lerpAmount = 0;
                 startTransparency = material.GetFloat(Alpha);
-                targetTransparency = 1;
+                targetTransparency = CubeSideTransparencyControl.TransparentAlpha;
+                isLerpTowardsTransparent = true;
             }
 
             public void MakeVisible()
             {
                 lerpAmount = 0;
                 startTransparency = material.GetFloat(Alpha);
-                targetTransparency = 0;
+                targetTransparency = CubeSideTransparencyControl.OpaqueAlpha;
+                isLerpTowardsTransparent = false;
             }
 
             public void UpdateMaterial(float i_alphaChangeRate)
