@@ -143,8 +143,12 @@ namespace WorldCube
                     // Add a check probably
                     foreach (CubieObject cubeieDataV2 in data)
                     {
-                        cubeieDataV2.SetParent(cubeLayerMask, transform);
-                        m_childCubies.Add(cubeieDataV2);
+                        if(!cubeieDataV2.CompareTag("Exit"))
+                        {
+                            cubeieDataV2.SetParent(cubeLayerMask, transform);
+                            m_childCubies.Add(cubeieDataV2);
+                        }
+                        
                     }
                 }
             }
