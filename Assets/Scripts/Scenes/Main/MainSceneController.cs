@@ -37,8 +37,10 @@ namespace Scenes.Main
 
         private void Start()
         {
-            m_playerTransform = GameObject.FindGameObjectWithTag(TagManager.Player).transform;
             FaceObject.OnLoaded += UpdateSceneDataOnSwitch;
+
+            GameObject player = GameObject.FindGameObjectWithTag(TagManager.Player);
+            m_playerTransform = player.transform;
 
             StartCoroutine(StartPlayerSpawn());
         }
