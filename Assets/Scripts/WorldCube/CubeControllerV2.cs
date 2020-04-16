@@ -29,9 +29,8 @@ namespace WorldCube
         // [Header("World Data")]
         // public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
 
-        [Header("Audio")] public AudioController audioController;
-
         public delegate void WorldClicked();
+
         public WorldClicked OnWorldClicked;
 
         private PlayerGridController m_playerGridController;
@@ -89,7 +88,7 @@ namespace WorldCube
                                 StartCoroutine(Dummy.Instance.MoveToCubie(Dummy.Instance.tendingDirection));
                             }
 
-                            audioController.PlaySound(AudioController.AudioEnum.GearClick);
+                            AudioController.Instance.PlaySound(AudioController.AudioEnum.GearClick);
                         }
 
                         UpdatePlayerMovementState();
@@ -176,7 +175,7 @@ namespace WorldCube
                 bool wasParentCreated = cubeLayerObjectV2.CheckAndCreateParent(i_cubeLayerMask, finalRotationDelta);
                 if (wasParentCreated)
                 {
-                    audioController.PlaySound(AudioController.AudioEnum.GearTurning);
+                    AudioController.Instance.PlaySound(AudioController.AudioEnum.GearTurning);
                 }
             }
         }
