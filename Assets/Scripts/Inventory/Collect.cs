@@ -18,7 +18,7 @@ public class Collect : MonoBehaviour
         if (i_other.gameObject.CompareTag(TagManager.Player))
         {
             InventorySystem.Instance.MarkCollected(currentlevel);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

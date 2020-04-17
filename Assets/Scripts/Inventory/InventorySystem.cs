@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class InventorySystem : MonoBehaviour
 {
-
     private int _currentCount = 0;
     private int _totalCount = 0;
 
@@ -18,7 +17,8 @@ public class InventorySystem : MonoBehaviour
 
     private bool[] collectList;
 
-    public static InventorySystem Instance = null;
+    public static InventorySystem Instance;
+
     private void Awake()
     {
         if (Instance == null)
@@ -32,24 +32,16 @@ public class InventorySystem : MonoBehaviour
 
         DontDestroyOnLoad(this);
 
-        _totalCount = SceneManager.sceneCountInBuildSettings - 3;
+        _totalCount = SceneManager.sceneCountInBuildSettings - 3; // TODO: Maybe set it directly...
         totalUI.GetComponent<Text>().text = _totalCount.ToString();
         collectList = new bool[_totalCount];
         for (int i = 0; i < _totalCount; i++)
             collectList[i] = false;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     #region External Functions
 
-    public bool CheckStat(int levelId)
-    {
-        return collectList[levelId];
-    }
+    public bool CheckStat(int levelId) => collectList[levelId];
 
     public void Initialize()
     {
@@ -57,13 +49,15 @@ public class InventorySystem : MonoBehaviour
             collectList[i] = false;
     }
 
-    IEnumerator winGame()
+    IEnumerator WinGame()
     {
         FadeOut.GetComponent<Animator>().SetBool("fade", true);
         yield return new WaitForSeconds(1.2f);
+
         SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
         UI.SetActive(false);
         yield return new WaitForSeconds(.8f);
+
         FadeOut.GetComponent<Animator>().SetBool("fade", false);
     }
 
@@ -71,14 +65,16 @@ public class InventorySystem : MonoBehaviour
     {
         if (collectList[currentlevel] == false)
         {
-
         }
+
         _currentCount++;
         currentUI.GetComponent<Text>().text = _currentCount.ToString();
         collectList[currentlevel] = true;
         if (_currentCount == _totalCount)
-            StartCoroutine(winGame());
+            StartCoroutine(WinGame());
     }
+
+    public bool[] GetCollectionList() => collectList;
 
     #endregion
 }
