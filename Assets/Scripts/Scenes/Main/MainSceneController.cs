@@ -11,6 +11,7 @@ namespace Scenes.Main
     public class MainSceneController : MonoBehaviour
     {
         [Header("Components")] public CubeInputController cubeInputController;
+        public CubeInputTouchController touchController;
         public Dummy playerController;
         public DummyManualMovement playerManualMovement;
 
@@ -67,8 +68,12 @@ namespace Scenes.Main
                 if (m_currentPositionIndex >= playerMovementPositions.Count)
                 {
                     m_isLerpActive = false;
+
                     playerController.ManuallyMoveTo(finalMovementDirection);
                     playerManualMovement.EnableMovement();
+                    playerController.transform.SetParent(playerController.GetCurrentCubie()?.transform);
+                    
+                    touchController.ForceStartController();
                     Debug.Log("Player Movement Complete");
                 }
                 else
@@ -104,6 +109,7 @@ namespace Scenes.Main
 
             if (useCustomPlayerMovement)
             {
+                touchController.ForceStopController();
                 m_currentPositionIndex = 0;
 
                 m_startPosition = m_playerTransform.position;

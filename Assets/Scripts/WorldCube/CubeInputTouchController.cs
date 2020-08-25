@@ -3,6 +3,7 @@ using CustomCamera;
 using UnityEngine;
 using UnityScript.Macros;
 using Utils;
+using Player;
 
 namespace WorldCube
 {
@@ -20,6 +21,8 @@ namespace WorldCube
         [Header("Camera")] public CameraController cameraController;
         public float cameraRotationMultiplier;
 
+        [Header("Player")] public Dummy m_playerController;
+
         private CubeControllerV2 m_cubeController;
         private CubeRotationHandler m_cubeRotationHandler;
         private CubeSideTransparencyControl m_cubeSideTransparencyControl;
@@ -30,6 +33,8 @@ namespace WorldCube
 
         private Vector2 m_lastMousePosition;
         private Transform m_lastHoveredSide;
+
+        private bool m_controllerActive = true;
 
         #region Unity Functions
 
@@ -42,6 +47,11 @@ namespace WorldCube
 
         private void Update()
         {
+            if (m_playerController.IsPlayerMoving() || !m_controllerActive)
+            {
+                return;
+            }
+
             UpdateSideDrag();
 
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -65,6 +75,20 @@ namespace WorldCube
             {
                 HandleSideUnTouched();
             }
+        }
+
+        #endregion
+
+        #region External Functions
+
+        public void ForceStopController()
+        {
+            m_controllerActive = false;
+        }
+
+        public void ForceStartController()
+        {
+            m_controllerActive = true;
         }
 
         #endregion
@@ -140,27 +164,27 @@ namespace WorldCube
                 switch (m_movementDirection)
                 {
                     case MovementDirection.Horizontal:
-                    {
-                        if (xDiff > minDistanceBeforeResponse)
                         {
-                            int direction = (int) Mathf.Sign(m_lastMousePosition.x - currentMousePosition.x);
-                            m_lastMousePosition = currentMousePosition;
+                            if (xDiff > minDistanceBeforeResponse)
+                            {
+                                int direction = (int)Mathf.Sign(m_lastMousePosition.x - currentMousePosition.x);
+                                m_lastMousePosition = currentMousePosition;
 
-                            UpdateCubeRotation(direction, m_movementDirection);
+                                UpdateCubeRotation(direction, m_movementDirection);
+                            }
                         }
-                    }
                         break;
 
                     case MovementDirection.Vertical:
-                    {
-                        if (yDiff > minDistanceBeforeResponse)
                         {
-                            int direction = (int) Mathf.Sign(m_lastMousePosition.y - currentMousePosition.y);
-                            m_lastMousePosition = currentMousePosition;
+                            if (yDiff > minDistanceBeforeResponse)
+                            {
+                                int direction = (int)Mathf.Sign(m_lastMousePosition.y - currentMousePosition.y);
+                                m_lastMousePosition = currentMousePosition;
 
-                            UpdateCubeRotation(direction, m_movementDirection);
+                                UpdateCubeRotation(direction, m_movementDirection);
+                            }
                         }
-                    }
                         break;
 
                     case MovementDirection.None:
@@ -189,46 +213,46 @@ namespace WorldCube
 
                 case MovementDirection.Horizontal:
                 case MovementDirection.Vertical:
-                {
-                    Side side = m_currentCubeSideTouchIndicator.GetSideForMovement(i_movementDirection);
-                    int directionMultiplier = m_currentCubeSideTouchIndicator.GetDirectionMultiplierForMovement(i_movementDirection);
-
-                    switch (side)
                     {
-                        case Side.None:
-                        case Side.SideSelected:
-                        case Side.NoneOnlyClicked:
-                            // Don't do anything here...
-                            break;
+                        Side side = m_currentCubeSideTouchIndicator.GetSideForMovement(i_movementDirection);
+                        int directionMultiplier = m_currentCubeSideTouchIndicator.GetDirectionMultiplierForMovement(i_movementDirection);
 
-                        case Side.Top:
-                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Up, i_direction * directionMultiplier);
-                            break;
+                        switch (side)
+                        {
+                            case Side.None:
+                            case Side.SideSelected:
+                            case Side.NoneOnlyClicked:
+                                // Don't do anything here...
+                                break;
 
-                        case Side.Bottom:
-                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Down, i_direction * directionMultiplier);
-                            break;
+                            case Side.Top:
+                                m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Up, i_direction * directionMultiplier);
+                                break;
 
-                        case Side.Left:
-                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Left, i_direction * directionMultiplier);
-                            break;
+                            case Side.Bottom:
+                                m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Down, i_direction * directionMultiplier);
+                                break;
 
-                        case Side.Right:
-                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Right, i_direction * directionMultiplier);
-                            break;
+                            case Side.Left:
+                                m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Left, i_direction * directionMultiplier);
+                                break;
 
-                        case Side.Front:
-                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Back, i_direction * directionMultiplier);
-                            break;
+                            case Side.Right:
+                                m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Right, i_direction * directionMultiplier);
+                                break;
 
-                        case Side.Back:
-                            m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Forward, i_direction * directionMultiplier);
-                            break;
+                            case Side.Front:
+                                m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Back, i_direction * directionMultiplier);
+                                break;
 
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                            case Side.Back:
+                                m_cubeController.CheckAndUpdateRotation(CubeLayerMaskV2.Forward, i_direction * directionMultiplier);
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
                     }
-                }
                     break;
 
                 default:
