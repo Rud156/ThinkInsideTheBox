@@ -25,9 +25,6 @@ namespace WorldCube
         public CubeLayerPlayerFollower layerPlayerFollower;
 
         public CameraController cameraController;
-        //
-        // [Header("World Data")]
-        // public GameObject outsideWorld; // TODO: Check how narrative works with this. What other changes are required?
 
         public delegate void WorldClicked();
 
@@ -51,10 +48,6 @@ namespace WorldCube
 
         private void Start()
         {
-            //m_playerGridController = GameObject.FindGameObjectWithTag(TagManager.Player)
-            //    .GetComponent<PlayerGridController>();
-            //m_playerGridController.OnWorldFlip += InitiateWorldFlip;
-
             foreach (CubeLayerObjectV2 cubeLayerObjectV2 in cubeLayers)
             {
                 cubeLayerObjectV2.SetTileDistance(tileDistance);
@@ -262,8 +255,6 @@ namespace WorldCube
                 {
                     centerBlock.SetActive(true);
                 }
-
-                // outsideWorld.SetActive(true);
             }
             else
             {
@@ -276,8 +267,6 @@ namespace WorldCube
                 {
                     centerBlock.SetActive(false);
                 }
-
-                // outsideWorld.SetActive(false);
             }
 
             SetWorldState(WorldState.ControllerControlled);
@@ -291,8 +280,6 @@ namespace WorldCube
             {
                 centerBlock.SetActive(false);
             }
-
-            // outsideWorld.SetActive(false);
         }
 
         #endregion

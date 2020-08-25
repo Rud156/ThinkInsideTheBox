@@ -46,7 +46,12 @@ public class InventorySystem : MonoBehaviour
     public void Initialize()
     {
         for (int i = 0; i < _totalCount; i++)
+        {
             collectList[i] = false;
+        }
+
+        _currentCount = 0;
+        currentUI.GetComponent<Text>().text = _currentCount.ToString();
     }
 
     IEnumerator WinGame()
