@@ -5,7 +5,11 @@ using System;
 
 public class MaterialManager : MonoBehaviour
 {
-    public enum material{ mat1, mat2};
+    public enum material
+    {
+        mat1,
+        mat2
+    };
 
     public List<Material> materialList;
 
@@ -16,7 +20,8 @@ public class MaterialManager : MonoBehaviour
             return materialList[i_index];
         }
         else
+        {
             throw new Exception("Material index out of range");
+        }
     }
-
 }
